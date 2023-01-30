@@ -161,9 +161,9 @@ class ChainBot {
             this.animations[1][0].drawFrame(this.game.clockTick, ctx, 20 + 120 , 20, 1.5);
             this.animations[2][0].drawFrame(this.game.clockTick, ctx, 20 + 240 , 20, 1.5);
             this.animations[3][0].drawFrame(this.game.clockTick, ctx, 20 + 360, 20, 1.5);
-            this.animations[4][0].drawFrame(this.game.clockTick, ctx, 20 + 480 , 20, 1.5);
-            this.animations[5][0].drawFrame(this.game.clockTick, ctx, 20 , 20 + 72, 1.5);
-            this.animations[6][0].drawFrame(this.game.clockTick, ctx, 20 + 120 , 20 + 72, 1.5);
+            // this.animations[4][0].drawFrame(this.game.clockTick, ctx, 20 + 480 , 20, 1.5);
+            // this.animations[5][0].drawFrame(this.game.clockTick, ctx, 20 , 20 + 72, 1.5);
+            // this.animations[6][0].drawFrame(this.game.clockTick, ctx, 20 + 120 , 20 + 72, 1.5);
                        
     }; // End draw method
 
