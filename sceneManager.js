@@ -1,4 +1,4 @@
-class sceneManager {
+class SceneManager {
     constructor(game) {
         this.game = game;
         this.game.camera = this;
