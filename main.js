@@ -18,7 +18,7 @@ PARAMS.CANVAS_WIDTH = canvas.width;
 PARAMS.CANVAS_HEIGHT = canvas.height;
 
 gameEngine.init(ctx);
-gameEngine.addEntity(new SceneManager(gameEngine));
+gameEngine.addEntity(new sceneManager(gameEngine));
 gameEngine.start();
 
 });
