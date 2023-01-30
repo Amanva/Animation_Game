@@ -20,7 +20,9 @@ assetMangager.queueDownload("./sprites/enemies/chain_bot_death.png");
 assetMangager.queueDownload("./sprites/layer-5.png");
 
 assetMangager.queueDownload("./sprites/monster.png");
-
+assetMangager.queueDownload("./sprites/demon-idle.png");
+assetMangager.queueDownload("./sprites/monsterLeft.png");
+assetMangager.queueDownload("./sprites/demon-idleLeft.png");
 assetMangager.downloadAll(() => {
 var canvas = document.getElementById('gameWorld');
 var ctx = canvas.getContext('2d');

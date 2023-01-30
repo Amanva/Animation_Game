@@ -86,7 +86,6 @@ class Mage {
     updateBB() {
         this.lastBB = this.BB;
         this.BB = new BoundingBox(this.x, this.y+110, PARAMS.PLAYERWIDTH, PARAMS.PLAYERHEIGHT);
-        this.BB = new BoundingBox(this.x, this.y+110, PARAMS.BLOCKWIDTH, PARAMS.BLOCKHEIGHT);
         
     };
     
@@ -140,15 +139,6 @@ class Mage {
                 this.state = 0;
 
                 }
-                // if (this.game.right && !this.game.left) {
-                //     this.velocity.x = RUN;
-                // } 
-                // else if (this.game.left && !this.game.right) {
-                //     this.velocity.x -= RUN;
-                // } 
-                // else {
-                //     // do nothing
-                // }
                 
                  
             }
@@ -164,10 +154,11 @@ class Mage {
             this.updateBB();
 
             var that = this;
+            // console.log(this.game.entities);
             this.game.entities.forEach(function (entity) {
                 if (entity.BB && that.BB.collide(entity.BB)) {
-                    if (that.velocity.y > 0) { // falling
-                        if ((entity instanceof Ground) && (that.lastBB.bottom) <= entity.BB.top) {
+                    if (that.velocity.y > 0) { 
+                        if ((entity instanceof Ground)) {
                             that.playerJump = true;
                             that.y = entity.BB.top - PARAMS.PLAYERHEIGHT - 110;
                             that.velocity.y === 0;
@@ -195,9 +186,6 @@ class Mage {
             if(this.y <= 0){
                 this.y = 0;
             }
-            if(this.y >= 500){
-                this.y = 500;
-            }
             // update direction
             if (this.velocity.x < 0) this.facing = 1;
             if (this.velocity.x > 0) this.facing = 0;
@@ -219,8 +207,8 @@ class Mage {
 
             // this.animations[2][0].drawFrame(this.game.clockTick, ctx, this.x + 200 , this.y, PARAMS.SCALE);
         // }
-            ctx.strokeStyle = 'Red';
-            ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
+            // ctx.strokeStyle = 'Red';
+            // ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
     };
 
 
