@@ -2,6 +2,7 @@ class Projectile{
     constructor(game, x, y) {
         Object.assign(this, { game, x, y});
 
+        
         this.spritesheet = assetMangager.getAsset("./sprites/blackFireball.png");
         this.speed = 200;
         this.animations = [];
@@ -44,3 +45,5 @@ class Projectile{
         ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
     };
 };
+
+

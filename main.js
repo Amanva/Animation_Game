@@ -19,6 +19,10 @@ assetMangager.queueDownload("./sprites/enemies/chain_bot_hit.png");
 assetMangager.queueDownload("./sprites/enemies/chain_bot_death.png");
 assetMangager.queueDownload("./sprites/Lava16.png");
 
+assetMangager.queueDownload("./sprites/monster.png");
+assetMangager.queueDownload("./sprites/demon-idle.png");
+assetMangager.queueDownload("./sprites/monsterLeft.png");
+assetMangager.queueDownload("./sprites/demon-idleLeft.png");
 assetMangager.downloadAll(() => {
 var canvas = document.getElementById('gameWorld');
 var ctx = canvas.getContext('2d');
@@ -28,7 +32,6 @@ PARAMS.PLAYERWIDTH = (PARAMS.BITWIDTH * PARAMS.SCALE);
 PARAMS.PLAYERHEIGHT = (PARAMS.BITHEIGHT * PARAMS.SCALE);
 PARAMS.CANVAS_WIDTH = canvas.width;
 PARAMS.CANVAS_HEIGHT = canvas.height;
-// gameEngine.addEntity(new MegaMan(gameEngine, 50, 100));
 
 gameEngine.init(ctx);
 gameEngine.addEntity(new SceneManager(gameEngine));
