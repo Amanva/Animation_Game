@@ -95,11 +95,11 @@ class Mage {
             if(this.state != this.states.jump){
             
                 if (this.game.left) {
-                    this.state = 1;
+                    this.state = this.states.run;
                     this.velocity.x -= RUN;
                 }
                 if (this.game.right) {
-                    this.state = 1;
+                    this.state = this.states.run;
                     this.velocity.x += RUN;
                 }  
                 if(!this.game.left && !this.game.right){
@@ -113,7 +113,7 @@ class Mage {
                     this.state = this.states.normAttack;
                     // console.log(this.animations[this.states.normAttack][this.facing].isAlmostDone(TICK));
                     // if(this.animations[this.states.normAttack][this.facing].isAlmostDone(TICK)){
-                        if(this.animations[this.states.normAttack][this.facing].isDone()){
+                        if(this.animations[this.states.normAttack][this.facing].isAlmostDone(TICK)){
                         this.game.addEntity(new Projectile(this.game, this.x+100, this.y+140));
                         // this.animations[this.state][this.facing].elapsedTime = 0;
                      // this.animations[this.state][this.facing].done = true;
