@@ -16,8 +16,7 @@
     updateBB() {
        // this.lastBB = this.BB;
         //this.BB = new BoundingBox(this.x, this.y, 120, 120);
-      
-        
+
     };
     update(){
         
