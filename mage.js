@@ -186,6 +186,9 @@ class Mage {
             if(this.y <= 0){
                 this.y = 0;
             }
+            if(this.y >= 500){
+                this.y = 500;
+            }
             // update direction
             if (this.velocity.x < 0) this.facing = 1;
             if (this.velocity.x > 0) this.facing = 0;

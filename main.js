@@ -17,7 +17,7 @@ assetMangager.queueDownload("./sprites/enemies/chain_bot_attack_right.png");
 assetMangager.queueDownload("./sprites/enemies/chain_bot_attack_left.png");
 assetMangager.queueDownload("./sprites/enemies/chain_bot_hit.png");
 assetMangager.queueDownload("./sprites/enemies/chain_bot_death.png");
-assetMangager.queueDownload("./sprites/Lava16.png");
+assetMangager.queueDownload("./sprites/Lava64.png");
 
 assetMangager.queueDownload("./sprites/monster.png");
 assetMangager.queueDownload("./sprites/demon-idle.png");

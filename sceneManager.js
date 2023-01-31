@@ -9,7 +9,6 @@ class SceneManager {
         // this.game.addEntity(new Projectile(this.game, 100, 100));
         this.game.addEntity(this.mage);
         this.loadLevel(levelOne);
-        this.game.addEntity(new Ground(this.game, 0, 700, 47, 47));
         this.game.addEntity(new Monster(this.game, 600, 600))
         this.game.addEntity(this.mage);
        this.enemy = new ChainBot(this.game, 170, 170); 
