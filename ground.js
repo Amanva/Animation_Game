@@ -6,19 +6,23 @@ class Ground {
         this.spritesheet = assetMangager.getAsset("./sprites/Lava64.png");
         // this.animations = [];
         // this.animations.push(new Animator(this.spritesheet, 0, 0, 48, 48, 1, 0.1, 0,0,false, true, false));
-        this.BB = new BoundingBox(this.x, this.y, this.w, this.h);
+        this.updateBB();
     };
-
+    updateBB() {
+        this.lastBB = this.BB;
+        this.BB = new BoundingBox(this.x, this.y, this.w*3, (64*GSCALE));
+        
+    };
     update() {
     };
     draw(ctx) {
         // this.animations[0].drawFrame(this.game.clockTick, ctx, this.x , this.y, PARAMS.SCALE);
         let brickCount = this.w / (63*GSCALE);
         for (var i = 0; i < brickCount; i++) {
-        ctx.drawImage(this.spritesheet, 0, 255, 256, 64, this.x + i * 256*GSCALE, this.y, (256*GSCALE), (64*GSCALE));
+        ctx.drawImage(this.spritesheet, 0, 255, 256, 64, this.x + i * 256*GSCALE-this.game.camera.x, this.y, (256*GSCALE), (64*GSCALE));
         }
         ctx.strokeStyle = 'Red';
-        ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
+        ctx.strokeRect(this.BB.x-this.game.camera.x, this.BB.y, this.BB.width, this.BB.height);
     };
 };
 
