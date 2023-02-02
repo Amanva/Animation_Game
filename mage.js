@@ -89,7 +89,7 @@ class Mage {
     update() {
         this.timetoShoot += this.game.clockTick;
         const TICK = this.game.clockTick;
-        const RUN = 300;
+        const RUN = 150;
         const MAXFALL = 200;
 
         this.velocity.y += this.fallAcc * TICK;
@@ -169,9 +169,7 @@ class Mage {
                             }
                             
                         }
-                    if(entity instanceof fireBoss){
-                        that.entity.removeFromWorld = true;
-                    }
+                    
                     }
                 });
             if(this.state != this.states.jump){

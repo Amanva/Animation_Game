@@ -2,6 +2,7 @@ class fireBoss{
 
     constructor(game){
         this.game = game;
+        this.velocity = { x: 0, y: 0 };
         this.spritesheet = assetMangager.getAsset("./demonFire.png");
         this.spritesheetLeft = assetMangager.getAsset("./demonFireLeft.png");
         this.spritesheetSpecialAndSlime = assetMangager.getAsset("./slime_demonboss_specialmoves.png");
@@ -13,7 +14,7 @@ class fireBoss{
         this.y = 300;
         this.speed = 100;
         this.facing = 0; //0=left, 1 = right
-        this.state = 7; // 0 = idle, 1 = walking , 2 = attacking, 3 = hit, 4 = death, 5 = spawn, 6 = jump, 7 = fire attack, 8 = magic attack
+        this.state = 8; // 0 = idle, 1 = walking , 2 = attacking, 3 = hit, 4 = death, 5 = spawn, 6 = jump, 7 = fire attack, 8 = magic attack
         this.dead = false;
         this.health = 300;
         //animations
@@ -59,7 +60,7 @@ class fireBoss{
         this.animations[7][0] = new Animator(this.spritesheetSpecialAndSlime,0, 1060, 288, 160, 21, 0.1, 0, 0, false,true, false)
 
         // magic attack
-        this.animations[8][0] = new Animator(this.spritesheetSpecialAndSlime,0, 2880, 288, 160, 18, 0.1, 0, 0, false,true, false)
+        this.animations[8][0] = new Animator(this.spritesheetSpecialAndSlime,0, 1220, 285, 160, 18, 0.1, 3, 0, false,true, false)
 
 
         //right
@@ -92,10 +93,28 @@ class fireBoss{
     }
 
     update() {
-        // this.x += this.speed * this.game.clockTick;
-        // if(this.x > 1200){
-        //     this.x = 0;
-        // }
+        
+        // this.velocity.y += 200 * this.game.clockTick;
+
+        // this.y += this.velocity.y * this.game.clockTick * PARAMS.SCALE;
+
+        //collision
+        // var that = this;
+        //     this.game.entities.forEach(function (entity) {
+        //         if (entity.BB && that.BB.collide(entity.BB)) {
+        //             if (that.velocity.y > 0) { 
+        //                 if ((entity instanceof Ground) && (that.lastBB.bottom <= entity.BB.top) ){
+        //                     that.playerJump = true;
+        //                     that.y = entity.BB.top - 225*PARAMS.SCALE;
+        //                     that.velocity.y = 0;
+        //                     if(that.state == that.states.jump) that.state = that.states.idle;
+        //                     that.updateBB();
+        //                     }
+                            
+        //                 }
+                    
+        //             }
+        //         });
 
     };
     updateBB() {
@@ -136,22 +155,14 @@ class fireBoss{
         }
         else if(this.state === 7){
             this.BB = new BoundingBox(this.x+50, this.y+170, 500, 225);
-            this.AttackBB = new BoundingBox(this.x+160, this.y+345, 380, 50);
-            const val = 10;
-            for(var i = 0; i < 21; i++){
-                if(i % 2 != 0){
-                    this.AttackBB = new BoundingBox(this.x+160, this.y+345, 380, 50);
-                    console.log("TESTER");
-                }
-                else{
-                    this.AttackBB = new BoundingBox(this.x+200, this.y+245, 380, 50);
-                    console.log("TESTER2");
-                }
-            }
+            this.AttackBB = new BoundingBox(this.x+50, this.y+100, 220, 295);
+            
 
         }
         else if(this.state === 8){
-            this.BB = new BoundingBox(this.x, this.y+100, 250, 225);
+            this.BB = new BoundingBox(this.x+240, this.y+170, 250, 225);
+            this.AttackBB = new BoundingBox(this.x, this.y+100, 150, 305);
+
         }
         else if(this.state === 1){
             this.BB = new BoundingBox(this.x, this.y+100, 250, 225);
@@ -176,7 +187,7 @@ class fireBoss{
             ctx.strokeStyle = 'Red';
             ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y, this.BB.width, this.BB.height);
             ctx.strokeStyle = 'Green';
-            ctx.strokeRect(this.AttackBB.x, this.AttackBB.y, this.AttackBB.width, this.AttackBB.height);
+            ctx.strokeRect(this.AttackBB.x- this.game.camera.x, this.AttackBB.y, this.AttackBB.width, this.AttackBB.height);
 
     };
 
