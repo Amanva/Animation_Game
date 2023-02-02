@@ -1,3 +1,4 @@
+
 class SceneManager {
     constructor(game) {
         this.game = game;
@@ -5,14 +6,15 @@ class SceneManager {
         this.x = 0;
         this.elapsedTime = 0;
         this.level = null;
-        this.mage = new Mage(this.game, 100, 600); 
-        this.fireBoss = new fireBoss(this.game, 300, 300); 
-        this.game.addEntity(this.fireBoss);
+        this.mage = new Mage(this.game, 100, 500); 
         // this.game.addEntity(new Projectile(this.game, 100, 100));
         this.game.addEntity(this.mage);
         this.loadLevel(levelOne);
-        // this.game.addEntity(new Monster(this.game, 600, 600))S
+        this.fireBoss = new fireBoss(this.game, 300, 300); 
+        this.game.addEntity(this.fireBoss);
+
         this.game.addEntity(new BackGround(this.game, 0, 0, 1800, 800));
+        // this.game.addEntity(new Monster(this.game, 600, 600))S
     //    this.enemy = new ChainBot(this.game, 170, 170); 
       // this.enemy = new ChainBot(this.game, 120, 120); 
         // this.game.addEntity(this.enemy);
@@ -36,26 +38,34 @@ class SceneManager {
         this.game.entites = [];
         this.level = level;
         this.x = 0;
-
-        let ground = level.ground[0];
-
         if(level.ground){
             for (var i = 0; i < level.ground.length; i++) {
                 let ground = level.ground[i];
                 this.game.addEntity(new Ground(this.game, ground.x, ground.y, ground.width, ground.height));
             }
         }
-        this.game.addEntity(new BackGround(this.game, 0, 0, 1800, 800));
-
+        if(level.wall){
+            for (var i = 0; i < level.ground.length; i++) {
+                let wall = level.wall[i];
+                this.game.addEntity(new Wall(this.game, wall.x, wall.y, wall.width, wall.height));
+            }
+        }
+        if(level.platforms){
+            for (var i = 0; i < level.platforms.length; i++) {
+                let wall = level.platforms[i];
+                this.game.addEntity(new platforms(this.game, wall.x, wall.y, wall.width, wall.height));
+            }
+        }
+        
+        
     }
     update() {
         let midpoint = PARAMS.CANVAS_WIDTH/2 - PARAMS.PLAYERWIDTH / 2;
         // console.log(this.x,this.mage.x - midpoint);
       
             // this.x = this.mage.x - midpoint;
-         if(this.x < this.mage.x - midpoint){
-            this.x = this.mage.x - midpoint;  
-        }
+            if (this.mage.x > midpoint && (this.mage.x + midpoint <= 3500)) this.x = this.mage.x - midpoint;
+            if (this.mage.x < midpoint && (this.mage.x - midpoint >= 0)) this.x = this.mage.x - midpoint;
 
 
     };
@@ -66,5 +76,4 @@ class SceneManager {
     };
     
 };
-
 
