@@ -1,3 +1,6 @@
 var levelOne = {
-    ground: [{ x: 0, y: 750, width: 500 }]
+    backround: "./sprites/Background.png",
+    ground: [{ x: 0, y: 750, width: 3100 }],
+    
+
 };

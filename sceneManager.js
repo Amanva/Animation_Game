@@ -5,12 +5,12 @@ class SceneManager {
         this.x = 0;
         this.elapsedTime = 0;
         this.level = null;
-        this.mage = new Mage(this.game, 100, 100); 
+        this.mage = new Mage(this.game, 100, 600); 
         // this.game.addEntity(new Projectile(this.game, 100, 100));
         this.game.addEntity(this.mage);
         this.loadLevel(levelOne);
-        // this.game.addEntity(new Monster(this.game, 600, 600))
-        this.game.addEntity(this.mage);
+        // this.game.addEntity(new Monster(this.game, 600, 600))S
+        this.game.addEntity(new BackGround(this.game, 0, 0, 1800, 800));
     //    this.enemy = new ChainBot(this.game, 170, 170); 
       // this.enemy = new ChainBot(this.game, 120, 120); 
         // this.game.addEntity(this.enemy);
@@ -35,19 +35,20 @@ class SceneManager {
         this.game.entites = [];
         this.level = level;
         this.x = 0;
+
         let ground = level.ground[0];
         this.game.addEntity(new Ground(this.game, ground.x, ground.y, ground.width));
+        this.game.addEntity(new BackGround(this.game, 0, 0, 1800, 800));
         
     }
     update() {
         let midpoint = PARAMS.CANVAS_WIDTH/2 - PARAMS.PLAYERWIDTH / 2;
         // console.log(this.x,this.mage.x - midpoint);
       
-            this.x = this.mage.x - midpoint;
-        
-        // else if(this.x > this.mage.x - midpoint){
-        //     this.x = this.mage.x - midpoint;  
-        // }
+            // this.x = this.mage.x - midpoint;
+         if(this.x < this.mage.x - midpoint){
+            this.x = this.mage.x - midpoint;  
+        }
 
 
     };
@@ -58,3 +59,5 @@ class SceneManager {
     };
     
 };
+
+
