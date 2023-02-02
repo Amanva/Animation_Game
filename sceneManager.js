@@ -6,6 +6,8 @@ class SceneManager {
         this.elapsedTime = 0;
         this.level = null;
         this.mage = new Mage(this.game, 100, 600); 
+        this.fireBoss = new fireBoss(this.game, 300, 300); 
+        this.game.addEntity(this.fireBoss);
         // this.game.addEntity(new Projectile(this.game, 100, 100));
         this.game.addEntity(this.mage);
         this.loadLevel(levelOne);
@@ -17,8 +19,7 @@ class SceneManager {
        // this.game.addEntity(this.monster);
         
         
-        // this.fireBoss = new fireBoss(this.game, 300, 300); 
-        // this.game.addEntity(this.fireBoss);
+        
     };
 
     // loadLevel(level){
@@ -37,9 +38,15 @@ class SceneManager {
         this.x = 0;
 
         let ground = level.ground[0];
-        this.game.addEntity(new Ground(this.game, ground.x, ground.y, ground.width));
+
+        if(level.ground){
+            for (var i = 0; i < level.ground.length; i++) {
+                let ground = level.ground[i];
+                this.game.addEntity(new Ground(this.game, ground.x, ground.y, ground.width, ground.height));
+            }
+        }
         this.game.addEntity(new BackGround(this.game, 0, 0, 1800, 800));
-        
+
     }
     update() {
         let midpoint = PARAMS.CANVAS_WIDTH/2 - PARAMS.PLAYERWIDTH / 2;

@@ -1,7 +1,7 @@
 const GSCALE = 1;
 class Ground {
-    constructor(game, x, y, w) {
-        Object.assign(this, { game, x, y, w});
+    constructor(game, x, y, w, height) {
+        Object.assign(this, { game, x, y, w, height});
 
         this.spritesheet = assetMangager.getAsset("./sprites/Lava64.png");
         // this.animations = [];
@@ -10,7 +10,7 @@ class Ground {
     };
     updateBB() {
         this.lastBB = this.BB;
-        this.BB = new BoundingBox(this.x, this.y, this.w+256, (64*GSCALE));
+        this.BB = new BoundingBox(this.x, this.y, this.w, (64*GSCALE));
         
     };
     update() {
@@ -18,7 +18,7 @@ class Ground {
     draw(ctx) {
         let brickCount = this.w / ((256*GSCALE));
         for (var i = 0; i < brickCount; i++) {
-        ctx.drawImage(this.spritesheet, 0, 255, 256, 64, this.x + i * (256*GSCALE)-this.game.camera.x, this.y, (256*GSCALE), (64*GSCALE));
+        ctx.drawImage(this.spritesheet, 0, 255, 256, 64, this.x + i * (256*GSCALE)-this.game.camera.x, this.y-this.height, (256*GSCALE), (64*GSCALE));
         }
         ctx.strokeStyle = 'Red';
         ctx.strokeRect(this.BB.x-this.game.camera.x, this.BB.y, this.BB.width, this.BB.height);
