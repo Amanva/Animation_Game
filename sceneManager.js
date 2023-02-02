@@ -45,7 +45,7 @@ class SceneManager {
             }
         }
         if(level.wall){
-            for (var i = 0; i < level.ground.length; i++) {
+            for (var i = 0; i < level.wall.length; i++) {
                 let wall = level.wall[i];
                 this.game.addEntity(new Wall(this.game, wall.x, wall.y, wall.width, wall.height));
             }
@@ -56,6 +56,12 @@ class SceneManager {
                 this.game.addEntity(new platforms(this.game, wall.x, wall.y, wall.width, wall.height));
             }
         }
+        // if(level.lava){
+        //     for (var i = 0; i < level.lava.length; i++) {
+        //         let wall = level.lava[i];
+        //         this.game.addEntity(new lava(this.game, wall.x, wall.y, wall.width, wall.height));
+        //     }
+        // }
         
         
     }
@@ -64,10 +70,13 @@ class SceneManager {
         // console.log(this.x,this.mage.x - midpoint);
       
             // this.x = this.mage.x - midpoint;
-            if (this.mage.x > midpoint && (this.mage.x + midpoint <= 3500)) this.x = this.mage.x - midpoint;
-            if (this.mage.x < midpoint && (this.mage.x - midpoint >= 0)) this.x = this.mage.x - midpoint;
-
-
+            if ((this.mage.x > midpoint) && (this.mage.x + midpoint <= 12000)) this.x = this.mage.x - midpoint;
+            if ((this.mage.x < midpoint) && (this.mage.x - midpoint >= 0)) this.x = this.mage.x - midpoint;
+            if ((this.mage.y < 200) && (this.mage.y + 200 >= -3000)) this.y = this.mage.y - 200;
+            if ((this.mage.y > 600) && (this.mage.y - 600 <= 700)) this.y = this.mage.y - 600;
+    
+        
+        
     };
 
 
