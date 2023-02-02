@@ -9,8 +9,9 @@ class SceneManager {
         // this.game.addEntity(new Projectile(this.game, 100, 100));
         this.game.addEntity(this.mage);
         this.loadLevel(levelOne);
-        // this.game.addEntity(new Monster(this.game, 600, 600))S
+
         this.game.addEntity(new BackGround(this.game, 0, 0, 1800, 800));
+        // this.game.addEntity(new Monster(this.game, 600, 600))S
     //    this.enemy = new ChainBot(this.game, 170, 170); 
       // this.enemy = new ChainBot(this.game, 120, 120); 
         // this.game.addEntity(this.enemy);
@@ -35,10 +36,19 @@ class SceneManager {
         this.game.entites = [];
         this.level = level;
         this.x = 0;
-
-        let ground = level.ground[0];
-        this.game.addEntity(new Ground(this.game, ground.x, ground.y, ground.width));
-        this.game.addEntity(new BackGround(this.game, 0, 0, 1800, 800));
+        if(level.ground){
+            for (var i = 0; i < level.ground.length; i++) {
+                let ground = level.ground[i];
+                this.game.addEntity(new Ground(this.game, ground.x, ground.y, ground.width, ground.height));
+            }
+        }
+        if(level.wall){
+            for (var i = 0; i < level.ground.length; i++) {
+                let wall = level.wall[i];
+                this.game.addEntity(new Wall(this.game, wall.x, wall.y, wall.width, wall.height));
+            }
+        }
+        
         
     }
     update() {

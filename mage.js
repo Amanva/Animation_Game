@@ -89,7 +89,7 @@ class Mage {
     update() {
         this.timetoShoot += this.game.clockTick;
         const TICK = this.game.clockTick;
-        const RUN = 150;
+        const RUN = 300;
         const MAXFALL = 200;
 
         this.velocity.y += this.fallAcc * TICK;
