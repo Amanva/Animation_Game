@@ -1,8 +1,9 @@
 class SceneManager {
     constructor(game) {
+        this.x = 0;
+        this.y = 0;
         this.game = game;
         this.game.camera = this;
-        this.x = 0;
         this.elapsedTime = 0;
         this.level = null;
         this.mage = new Mage(this.game, 100, 600); 
@@ -35,7 +36,7 @@ class SceneManager {
     loadLevel(level){
         this.game.entites = [];
         this.level = level;
-        this.x = 0;
+        // this.x = 0;
         if(level.ground){
             for (var i = 0; i < level.ground.length; i++) {
                 let ground = level.ground[i];
@@ -56,11 +57,14 @@ class SceneManager {
         // console.log(this.x,this.mage.x - midpoint);
       
             // this.x = this.mage.x - midpoint;
-         if(this.x < this.mage.x - midpoint){
-            this.x = this.mage.x - midpoint;  
-        }
+        //  if(this.x < this.mage.x - midpoint){
+        //     this.x = this.mage.x - midpoint;  
+        // } 
 
-
+        if ((this.mage.x > midpoint) && (this.mage.x + midpoint <= 3500)) this.x = this.mage.x - midpoint;
+        if ((this.mage.x < midpoint) && (this.mage.x - midpoint >= 0)) this.x = this.mage.x - midpoint;
+        if ((this.mage.y < 200) && (this.mage.y + 200 >= -3000)) this.y = this.mage.y - 200;
+        if ((this.mage.y > 600) && (this.mage.y - 600 <= 700)) this.y = this.mage.y - 600;
     };
 
 

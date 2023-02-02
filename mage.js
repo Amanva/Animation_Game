@@ -50,7 +50,7 @@ class Mage {
         // death
         this.animations[5][0] = new Animator(this.spritesheet, 57, 789, 50, 105, 9, 0.20, 110, false, true, false);
         // jump
-        this.animations[6][0] = new Animator(this.spritesheet, 57, 399, 50, 105, 13, 0.20, 110, 0, false, false, false);
+        this.animations[6][0] = new Animator(this.spritesheet, 57, 399, 50, 105, 13, 0.20, 110, 0, false, true, false);
 
 
         // left idle
@@ -71,7 +71,7 @@ class Mage {
         // left death
         this.animations[5][1] = new Animator(this.spritesheetLeft, 1336, 789, 50, 105, 9, 0.20, 110,0 , true, true, false);
         // left jump 13
-        this.animations[6][1] = new Animator(this.spritesheetLeft, 692, 399, 50, 105, 13, 0.20, 110,0 , true, false, false);
+        this.animations[6][1] = new Animator(this.spritesheetLeft, 692, 399, 50, 105, 13, 0.20, 110,0 , true, true, false);
         // this.shootAnim = new Animator(this.spritesheetMage, 1205, 1051, 60, 52, 4, 0.05, 84, false, true)
         // left jump
 
@@ -90,7 +90,7 @@ class Mage {
         this.timetoShoot += this.game.clockTick;
         const TICK = this.game.clockTick;
         const RUN = 300;
-        const MAXFALL = 200;
+        const MAXFALL = 300;
 
         this.velocity.y += this.fallAcc * TICK;
             if(this.state != this.states.jump){
@@ -190,10 +190,10 @@ class Mage {
     };
 
     draw(ctx) {
-            this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y, PARAMS.SCALE);
+            this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, PARAMS.SCALE);
             // this.animations[0][0].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y, PARAMS.SCALE);
             ctx.strokeStyle = 'Red';
-            ctx.strokeRect(this.BB.x-this.game.camera.x, this.BB.y, this.BB.width, this.BB.height);
+            ctx.strokeRect(this.BB.x-this.game.camera.x, this.BB.y-this.game.camera.y, this.BB.width, this.BB.height);
     };
 
 
