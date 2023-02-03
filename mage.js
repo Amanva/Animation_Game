@@ -186,14 +186,16 @@ class Mage {
             if(this.velocity.x > 0){
                 this.facing = 0;
             }
-            
+            console.log(this.x);
     };
 
     draw(ctx) {
             this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, PARAMS.SCALE);
             // this.animations[0][0].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y, PARAMS.SCALE);
+            if(debug){
             ctx.strokeStyle = 'Red';
             ctx.strokeRect(this.BB.x-this.game.camera.x, this.BB.y-this.game.camera.y, this.BB.width, this.BB.height);
+            }
     };
 
 

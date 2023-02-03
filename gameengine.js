@@ -24,8 +24,8 @@ class GameEngine {
         this.options = options || {
             debugging: false,
         };
+        
     };
-
     init(ctx) {
         this.ctx = ctx;
         this.startInput();
@@ -142,6 +142,7 @@ class GameEngine {
                     break;
             }
         }, false);
+
     };
 
     addEntity(entity) {
