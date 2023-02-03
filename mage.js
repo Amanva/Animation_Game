@@ -20,6 +20,9 @@ class Mage {
             jump: 6
         }
         // jumping 
+        this.hp= 100;
+        this.maxHP = 100;
+        this.healthbar = new HealthBar(game, this);
         this.playerJump = false;
         this.air = false;
         this.shoot = false;
@@ -199,6 +202,7 @@ class Mage {
     };
 
     draw(ctx) {
+            this.healthbar.draw(ctx);
             this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, PARAMS.SCALE);
             // this.animations[0][0].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y, PARAMS.SCALE);
             if(debug){
