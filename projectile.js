@@ -15,7 +15,7 @@ class Projectile{
     };
     updateBB() {
         this.lastBB = this.BB;
-        this.BB = new BoundingBox(this.x, this.y, 30, 30);
+        this.BB = new BoundingBox(this.x-15, this.y-15, 30, 30);
         
     };
     update(){
@@ -33,7 +33,7 @@ class Projectile{
         // console.log(this.velocity.x, this.velocity.y);
         // if(this.velocity.x < 0){
         // this.animations[0].flipped = true;
-        // }
+        // } 
         var that = this;
         this.game.entities.forEach(function (entity) {
             if (entity.BB && that.BB.collide(entity.BB)) {
@@ -42,7 +42,7 @@ class Projectile{
                 }
                     }
             });
-            console.log(this.velocity.x, this.velocity.y);
+            // console.log(this.velocity.x, this.velocity.y);
     };
 // up: 4.7
 // down 1.5
@@ -66,7 +66,6 @@ class Projectile{
 function distanceBetween(A, B) {
     return Math.sqrt((B.x - A.x) * (B.x - A.x) + (B.y - A.y) * (B.y - A.y));
 };
-
 function getAngle(velocity) {
     let change = Math.atan2(velocity.y, velocity.x) / Math.PI;
     if (-0.625 < change && change < -0.375) return 4.7; // up

@@ -64,7 +64,7 @@ class Animator {
         ctx.save();
         ctx.translate(x, y);
         ctx.rotate(degree);
-        this.drawFrame(tick, ctx, -(this.width/2), -(this.height/2), scale)
+        this.drawFrame(tick, ctx, -(this.width), -(this.height), scale)
     }
 currentFrame() {
     return Math.floor(this.elapsedTime / this.frameDuration);

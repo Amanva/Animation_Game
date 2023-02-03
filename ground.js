@@ -89,7 +89,7 @@ class platforms {
     draw(ctx) {
         let brickWidth = this.width / ((256*GSCALE));
         for (var i = 0; i < brickWidth; i++) {
-            ctx.drawImage(this.spritesheet, 322, 256, 127, 31, this.x + i * (256*GSCALE)-this.game.camera.x, this.y, (256*GSCALE), (64*GSCALE));
+            ctx.drawImage(this.spritesheet, 322, 256, 127, 31, this.x + i * (256*GSCALE)-this.game.camera.x, this.y-this.game.camera.y, (256*GSCALE), (64*GSCALE));
         }
 
         if(debug){

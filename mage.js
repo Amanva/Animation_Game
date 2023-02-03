@@ -160,7 +160,7 @@ class Mage {
             this.game.entities.forEach(function (entity) {
                 if (entity.BB && that.BB.collide(entity.BB)) {
                     if (that.velocity.y > 0) { 
-                        if ((entity instanceof Ground) && (that.lastBB.bottom <= entity.BB.top) ){
+                        if ((entity instanceof Ground || entity instanceof Wall) && (that.lastBB.bottom <= entity.BB.top) ){
                             that.playerJump = true;
                             that.y = entity.BB.top - PARAMS.PLAYERHEIGHT - 130;
                             that.velocity.y = 0;
