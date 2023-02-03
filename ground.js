@@ -98,3 +98,30 @@ class platforms {
             }
     };
 };
+
+class lava {
+    constructor(game, x, y, width, height) {
+        Object.assign(this, { game, x, y, width, height});
+
+        this.spritesheet = assetMangager.getAsset("./sprites/Lava64.png");
+        // this.animations = [];
+        // this.animations.push(new Animator(this.spritesheet, 0, 0, 48, 48, 1, 0.1, 0,0,false, true, false));
+        this.updateBB();
+    };
+    updateBB() {
+        this.lastBB = this.BB;
+        this.BB = new BoundingBox(this.x, this.y, this.width, (64*GSCALE));
+        
+    };
+    update() {
+    };
+    draw(ctx) {
+        let brickWidth = this.width / ((256*GSCALE));
+        for (var i = 0; i < brickWidth; i++) {
+            ctx.drawImage(this.spritesheet, 188, 196, 10, 20, this.x + i * (10*GSCALE)-this.game.camera.x, this.y, (10*GSCALE), (64*GSCALE));
+        }
+        ctx.strokeStyle = 'Red';
+        ctx.strokeRect(this.BB.x-this.game.camera.x, this.BB.y, this.BB.width, this.BB.height);
+    };
+};
+

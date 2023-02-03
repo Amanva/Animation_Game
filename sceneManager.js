@@ -1,3 +1,4 @@
+
 class SceneManager {
     constructor(game) {
         this.x = 0;
@@ -6,7 +7,7 @@ class SceneManager {
         this.game.camera = this;
         this.elapsedTime = 0;
         this.level = null;
-        this.mage = new Mage(this.game, 100, 600); 
+        this.mage = new Mage(this.game, 100, 500); 
         // this.game.addEntity(new Projectile(this.game, 100, 100));
         this.game.addEntity(this.mage);
         this.loadLevel(levelOne);
@@ -20,8 +21,7 @@ class SceneManager {
        // this.game.addEntity(this.monster);
         
         
-        // this.fireBoss = new fireBoss(this.game, 300, 300); 
-        // this.game.addEntity(this.fireBoss);
+        
     };
 
     // loadLevel(level){
@@ -56,6 +56,12 @@ class SceneManager {
                 this.game.addEntity(new platforms(this.game, wall.x, wall.y, wall.width, wall.height));
             }
         }
+        // if(level.lava){
+        //     for (var i = 0; i < level.lava.length; i++) {
+        //         let wall = level.lava[i];
+        //         this.game.addEntity(new lava(this.game, wall.x, wall.y, wall.width, wall.height));
+        //     }
+        // }
         
         
     }
@@ -80,5 +86,4 @@ class SceneManager {
     };
     
 };
-
 
