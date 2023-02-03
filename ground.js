@@ -12,6 +12,7 @@ class Ground {
     updateBB() {
         this.lastBB = this.BB;
         this.BB = new BoundingBox(this.x, this.y, this.width, (64*GSCALE));
+
         
     };
     update() {
@@ -38,6 +39,8 @@ class Wall {
     updateBB() {
         this.lastBB = this.BB;
         this.BB = new BoundingBox(this.x, this.y, (192*WSCALE), this.height);
+        this.leftBB = new BoundingBox(this.x, this.y, 0, this.height);
+        this.rightBB = new BoundingBox(this.x + (192*WSCALE), this.y, 0, this.height);
         
     };
     update() {
@@ -52,6 +55,8 @@ class Wall {
         if(debug){
             ctx.strokeStyle = 'Red';
             ctx.strokeRect(this.BB.x-this.game.camera.x, this.BB.y-this.game.camera.y, this.BB.width, this.BB.height);
+            // ctx.strokeRect(this.leftBB.x-this.game.camera.x, this.leftBB.y-this.game.camera.y, this.leftBB.width, this.leftBB.height);
+            // ctx.strokeRect(this.rightBB.x-this.game.camera.x, this.rightBB.y-this.game.camera.y, this.rightBB.width, this.rightBB.height);
         }
     };
 };

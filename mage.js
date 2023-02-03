@@ -82,7 +82,7 @@ class Mage {
     };
     updateBB() {
         this.lastBB = this.BB;
-        this.BB = new BoundingBox(this.x, this.y+130, PARAMS.PLAYERWIDTH, PARAMS.PLAYERHEIGHT);
+        this.BB = new BoundingBox(this.x+10, this.y+130, PARAMS.PLAYERWIDTH, PARAMS.PLAYERHEIGHT);
         
     };
     
@@ -160,16 +160,24 @@ class Mage {
             this.game.entities.forEach(function (entity) {
                 if (entity.BB && that.BB.collide(entity.BB)) {
                     if (that.velocity.y > 0) { 
-                        if ((entity instanceof Ground || entity instanceof Wall) && (that.lastBB.bottom <= entity.BB.top) ){
+                        if ((entity instanceof Ground || entity instanceof Wall || entity instanceof platforms) && (that.lastBB.bottom <= entity.BB.top) ){
                             that.playerJump = true;
                             that.y = entity.BB.top - PARAMS.PLAYERHEIGHT - 130;
                             that.velocity.y = 0;
                             if(that.state == that.states.jump) that.state = that.states.idle;
                             that.updateBB();
                             }
-                            
                         }
-                    
+                            if ((entity instanceof Wall)){
+                                if(that.BB.collide(entity.leftBB)){
+                                that.x = entity.leftBB.left - PARAMS.PLAYERWIDTH-10;
+                                }
+                                if(that.BB.collide(entity.rightBB)){
+                                that.x = entity.rightBB.right - 10;
+                                }
+                                that.velocity.x = 0;
+                                that.updateBB();
+                        }
                     }
                 });
             if(this.state != this.states.jump){
