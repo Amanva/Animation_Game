@@ -187,7 +187,7 @@ class Mage {
             if(this.velocity.x > 0){
                 this.facing = 0;
             }
-            console.log(this.x);
+            // console.log(this.x);
     };
 
     draw(ctx) {

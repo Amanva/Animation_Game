@@ -33,8 +33,9 @@ class Animator {
         */
        let mult = 1;
        let offset = 0;
-       ctx.save();
+       
        if(this.flipped){
+        ctx.save();
         ctx.scale(-1, 1);
         mult *= -1;
         offset = -(this.width*scale);
@@ -59,7 +60,12 @@ class Animator {
         
             
     };
-
+    drawAngle(tick, ctx, x, y, scale, degree){
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.rotate(degree);
+        this.drawFrame(tick, ctx, -(this.width/2), -(this.height/2), scale)
+    }
 currentFrame() {
     return Math.floor(this.elapsedTime / this.frameDuration);
 };
