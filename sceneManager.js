@@ -1,18 +1,18 @@
 
 class SceneManager {
     constructor(game) {
+        this.x = 0;
+        this.y = 0;
         this.game = game;
         this.game.camera = this;
-        this.x = 0;
         this.elapsedTime = 0;
         this.level = null;
         this.mage = new Mage(this.game, 100, 500); 
         // this.game.addEntity(new Projectile(this.game, 100, 100));
         this.game.addEntity(this.mage);
         this.loadLevel(levelOne);
-        this.fireBoss = new fireBoss(this.game, 300, 300); 
-        this.game.addEntity(this.fireBoss);
-
+        // this.fireBoss = new fireBoss(this.game, 300, 300); 
+        // this.game.addEntity(this.fireBoss);
         this.game.addEntity(new BackGround(this.game, 0, 0, 1800, 800));
         // this.game.addEntity(new Monster(this.game, 600, 600))S
     //    this.enemy = new ChainBot(this.game, 170, 170); 
@@ -37,7 +37,7 @@ class SceneManager {
     loadLevel(level){
         this.game.entites = [];
         this.level = level;
-        this.x = 0;
+        // this.x = 0;
         if(level.ground){
             for (var i = 0; i < level.ground.length; i++) {
                 let ground = level.ground[i];
@@ -70,13 +70,14 @@ class SceneManager {
         // console.log(this.x,this.mage.x - midpoint);
       
             // this.x = this.mage.x - midpoint;
-            if ((this.mage.x > midpoint) && (this.mage.x + midpoint <= 12000)) this.x = this.mage.x - midpoint;
-            if ((this.mage.x < midpoint) && (this.mage.x - midpoint >= 0)) this.x = this.mage.x - midpoint;
-            if ((this.mage.y < 200) && (this.mage.y + 200 >= -3000)) this.y = this.mage.y - 200;
-            if ((this.mage.y > 600) && (this.mage.y - 600 <= 700)) this.y = this.mage.y - 600;
-    
-        
-        
+        //  if(this.x < this.mage.x - midpoint){
+        //     this.x = this.mage.x - midpoint;  
+        // } 
+
+        if ((this.mage.x > midpoint) && (this.mage.x + midpoint <= 12000)) this.x = this.mage.x - midpoint;
+        if ((this.mage.x < midpoint) && (this.mage.x - midpoint >= 0)) this.x = this.mage.x - midpoint;
+        if ((this.mage.y < 200) && (this.mage.y + 200 >= -3000)) this.y = this.mage.y - 200;
+        if ((this.mage.y > 600) && (this.mage.y - 600 <= 700)) this.y = this.mage.y - 600;
     };
 
 

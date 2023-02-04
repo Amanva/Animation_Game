@@ -225,12 +225,12 @@ class fireBoss{
 
     draw(ctx) {
         this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y, PARAMS.SCALE);
-
+            if(debug){
             ctx.strokeStyle = 'Red';
             ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y, this.BB.width, this.BB.height);
             ctx.strokeStyle = 'Green';
             ctx.strokeRect(this.AttackBB.x- this.game.camera.x, this.AttackBB.y, this.AttackBB.width, this.AttackBB.height);
-
+            }
     };
 
 
