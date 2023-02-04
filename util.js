@@ -1,7 +1,6 @@
 function randomInt(n) {
     return Math.floor(Math.random() * n);
 };
-
 // returns a string that can be used as a rgb web color
 function rgb(r, g, b) {
     return "rgb(" + r + "," + g + "," + b + ")";
@@ -24,11 +23,14 @@ window.requestAnimFrame = (function () {
         };
 })();
 
-// add global parameters here
 
+// add global parameters here
 const PARAMS = {
-    DEBUG: true,
     SCALE: 2.5,
     BITWIDTH: 35,
     BITHEIGHT: 45
 };
+let debug = true;
+function debugOn() {
+    debug = !debug;
+}

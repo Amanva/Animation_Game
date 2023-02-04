@@ -55,3 +55,5 @@ class Projectile{
 function distance(A, B) {
     return Math.sqrt((B.x - A.x) * (B.x - A.x) + (B.y - A.y) * (B.y - A.y));
 };
+
+

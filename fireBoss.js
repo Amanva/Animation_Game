@@ -14,9 +14,11 @@ class fireBoss{
         this.y = 300;
         this.speed = 100;
         this.facing = 1; //0=left, 1 = right
-        this.state =7; // 0 = idle, 1 = walking , 2 = attacking, 3 = hit, 4 = death, 5 = spawn, 6 = jump, 7 = fire attack, 8 = magic attack
+        this.state =6; // 0 = idle, 1 = walking , 2 = attacking, 3 = hit, 4 = death, 5 = spawn, 6 = jump, 7 = fire attack, 8 = magic attack
         this.dead = false;
         this.health = 300;
+        this.offsetX = 0;
+        this.offsetY = 0;
         //animations
         this.animations = [];
         this.BB;
@@ -121,49 +123,98 @@ class fireBoss{
     updateBB() {
         this.lastBB = this.BB;
         this.lastAttackBB = this.AttackBB;
-        if(this.state === 0){
-            this.BB = new BoundingBox(this.x+250, this.y+200, 205, 200);
-            this.AttackBB = new BoundingBox(this.x+50, this.y+100, 0,0);
+        if(this.facing === 0){
+            if(this.state === 0){
+                this.BB = new BoundingBox(this.x+250, this.y+200, 205, 200);
+                this.AttackBB = new BoundingBox(this.x+50, this.y+100, 0,0);
 
-        }
-        else if(this.state === 1){ // walk
-            this.BB = new BoundingBox(this.x+255, this.y+200, 210, 200);
-            this.AttackBB = new BoundingBox(0, 0,0,0);
-        }
-        else if(this.state === 2){ // attack
-            this.BB = new BoundingBox(this.x+50, this.y+200, 500, 200);
-            this.AttackBB = new BoundingBox(this.x+50, this.y+162, 200,235);
-        }
-        else if(this.state === 3){
-            this.BB = new BoundingBox(this.x+260, this.y+200, 230, 200);
-            this.AttackBB = new BoundingBox(0,0,0,0);
+            }
+            else if(this.state === 1){ // walk
+                this.BB = new BoundingBox(this.x+255, this.y+200, 210, 200);
+                this.AttackBB = new BoundingBox(0, 0,0,0);
+            }
+            else if(this.state === 2){ // attack
+                this.BB = new BoundingBox(this.x+50, this.y+200, 500, 200);
+                this.AttackBB = new BoundingBox(this.x+50, this.y+162, 200,235);
+            }
+            else if(this.state === 3){
+                this.BB = new BoundingBox(this.x+260, this.y+200, 230, 200);
+                this.AttackBB = new BoundingBox(0,0,0,0);
 
-        }
-        else if(this.state === 4){
-            this.BB = new BoundingBox(this.x+260, this.y+200, 230, 200);
-            this.AttackBB = new BoundingBox(0,0,0,0);
+            }
+            else if(this.state === 4){
+                this.BB = new BoundingBox(this.x+260, this.y+200, 230, 200);
+                this.AttackBB = new BoundingBox(0,0,0,0);
 
-        }
-        else if(this.state === 5){
-            this.BB = new BoundingBox(this.x+240, this.y+200, 250, 200);
-            this.AttackBB = new BoundingBox(0,0,0,0);
+            }
+            else if(this.state === 5){
+                this.BB = new BoundingBox(this.x+240, this.y+200, 250, 200);
+                this.AttackBB = new BoundingBox(0,0,0,0);
 
-        }
-        else if(this.state === 6){
-            this.BB = new BoundingBox(this.x+270, this.y+80, 190, 320);
-            this.AttackBB = new BoundingBox(this.x+160, this.y+345, 380, 50);
+            }
+            else if(this.state === 6){
+                this.BB = new BoundingBox(this.x+270, this.y+80, 190, 320);
+                this.AttackBB = new BoundingBox(this.x+160, this.y+345, 380, 50);
 
-        }
-        else if(this.state === 7){
-            this.BB = new BoundingBox(this.x+270, this.y+200, 230, 200);
-            this.AttackBB = new BoundingBox(this.x+50, this.y+100, 220, 295);
-            
+            }
+            else if(this.state === 7){
+                this.BB = new BoundingBox(this.x+270, this.y+200, 230, 200);
+                this.AttackBB = new BoundingBox(this.x+50, this.y+100, 220, 295);
 
-        }
-        else if(this.state === 8){
-            this.BB = new BoundingBox(this.x+240, this.y+200, 250, 200);
-            this.AttackBB = new BoundingBox(this.x, this.y+100, 150, 305);
+                // this.BB = new BoundingBox(this.x+220, this.y+200, 230, 200);
+                // this.AttackBB = new BoundingBox(this.x+450, this.y+100, 220, 295);
+                
 
+            }
+            else if(this.state === 8){
+                this.BB = new BoundingBox(this.x+240, this.y+200, 250, 200);
+                this.AttackBB = new BoundingBox(this.x, this.y+100, 150, 305);
+
+            }
+        }
+        else{
+            if(this.state === 0){
+                this.BB = new BoundingBox(this.x+250, this.y+200, 205, 200);
+                this.AttackBB = new BoundingBox(this.x+50, this.y+100, 0,0);
+
+            }
+            else if(this.state === 1){ // walk
+                this.BB = new BoundingBox(this.x+255, this.y+200, 210, 200);
+                this.AttackBB = new BoundingBox(0, 0,0,0);
+            }
+            else if(this.state === 2){ // attack
+                this.BB = new BoundingBox(this.x+50, this.y+200, 500, 200);
+                this.AttackBB = new BoundingBox(this.x+50, this.y+162, 200,235);
+            }
+            else if(this.state === 3){
+                this.BB = new BoundingBox(this.x+260, this.y+200, 230, 200);
+                this.AttackBB = new BoundingBox(0,0,0,0);
+
+            }
+            else if(this.state === 4){
+                this.BB = new BoundingBox(this.x+260, this.y+200, 230, 200);
+                this.AttackBB = new BoundingBox(0,0,0,0);
+
+            }
+            else if(this.state === 5){
+                this.BB = new BoundingBox(this.x+240, this.y+200, 250, 200);
+                this.AttackBB = new BoundingBox(0,0,0,0);
+
+            }
+            else if(this.state === 6){
+                this.BB = new BoundingBox(this.x+270, this.y+80, 190, 320);
+                this.AttackBB = new BoundingBox(this.x+250, this.y+345, 380, 50);
+
+            }
+            else if(this.state === 7){
+                this.BB = new BoundingBox(this.x+220, this.y+200, 230, 200);
+                this.AttackBB = new BoundingBox(this.x+450, this.y+100, 220, 295);
+            }
+            else if(this.state === 8){
+                this.BB = new BoundingBox(this.x+240, this.y+200, 250, 200);
+                this.AttackBB = new BoundingBox(this.x, this.y+100, 150, 305);
+
+            }
         }
        
 
