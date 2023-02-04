@@ -87,6 +87,8 @@ class platforms {
     updateBB() {
         this.lastBB = this.BB;
         this.BB = new BoundingBox(this.x, this.y, this.width, (64*GSCALE));
+        this.leftBB = new BoundingBox(this.x, this.y, 0, (64*GSCALE));
+        this.rightBB = new BoundingBox(this.x + this.width, this.y, 0, (64*GSCALE));
         
     };
     update() {
@@ -100,6 +102,7 @@ class platforms {
         if(debug){
             ctx.strokeStyle = 'Red';
             ctx.strokeRect(this.BB.x-this.game.camera.x, this.BB.y-this.game.camera.y, this.BB.width, this.BB.height);
+            // ctx.strokeRect(this.rightBB.x-this.game.camera.x, this.rightBB.y-this.game.camera.y, this.rightBB.width, this.rightBB.height);
             }
     };
 };
