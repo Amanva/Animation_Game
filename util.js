@@ -26,9 +26,18 @@ window.requestAnimFrame = (function () {
 
 // add global parameters here
 
+// const PARAMS = {
+//     DEBUG: true,
+//     SCALE: 2.5,
+//     BITWIDTH: 35,
+//     BITHEIGHT: 45,
+//     PLAYERWIDTH: 100, //this should be here
+//     PLAYERHEIGHT: 113 //this shouldbe here also
+// };
+
 const PARAMS = {
     DEBUG: true,
-    SCALE: 3,
-    BITWIDTH: 50,
-    BITHEIGHT: 60
+    SCALE: 2.5,
+    BITWIDTH: 35,
+    BITHEIGHT: 45
 };
