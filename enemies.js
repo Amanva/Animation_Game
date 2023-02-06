@@ -80,27 +80,22 @@ class ChainBot {
         // chainBot behaviour and collisions
         // TODO this works, but need to ajust duration for the hit and death state, and death logic.
         this.game.entities.forEach(function (entity) {
-            if (entity instanceof Projectile && entity.BB && that.BB.collide(entity.BB)){
+            if (entity instanceof Projectile && entity.BB && that.BB.collide(entity.BB) && that.hitPoints > 0){
                     // && Math.abs(entity.BB && that.BB.distance(entity.BB)) === 0) {
                     entity.removeFromWorld = true;
                     --that.hitPoints;            
-                    that.state = 5;  //chainBot hit
+                    that.state = 5;  //TODO does not rendring forthe whole cycle (sprite duration) chainBot hit
 
-                    console.log(entity.BB && that.BB.distance(entity.BB)); //TODO delete **************************************TEST
-
-                    if(that.animations[that.state].isAlmostDone(TICK) && that.hitPoints !== 0){
-                         // chainBotHealtPoints  decrement
-                        that.updateBB();
-                        that.state = 0;
-                        } else if (that.animations[that.state].isAlmostDone(TICK)) {
-                    that.velocity = 0;
+                    console.log(entity.BB && that.BB.distance(entity.BB)); //TODO delete **************************************   TEST
+                    that.updateBB();
+                    that.state = 0;
+            } else if (that.hitPoints <= 0) {
+                    // that.velocity = 0;
                     that.state = 6; // death
-                    if(that.animations[that.state].isAlmostDone(TICK)){
-                        that.dead = true;
-                        that.removeFromWorld = true;
-                        that.updateBB();
-                    }    
-                                            
+                    that.dead = true;
+                    that.removeFromWorld = true;
+                    that.updateBB();
+                        
                 }
 
             // //From mario
@@ -109,7 +104,7 @@ class ChainBot {
             //         this.deadCounter += this.game.clockTick;
             //         if (this.deadCounter > 0.5) this.removeFromWorld = true;  // flicker for half a second
 
-            };
+            // };
 
             //Decide to approach the mage
             if (entity instanceof Mage && LOWER_BOUND < Math.abs(that.BB.distance(entity.BB)) 
