@@ -1,3 +1,4 @@
+const divisorPlatforms = 256;
 var levelOne = {
     background: "./sprites/Background.png",
     ground: [
@@ -6,17 +7,35 @@ var levelOne = {
 
     ],
     wall: [
-        {x:3072 , y:-100, width:192, height: 308 },
-        {x:3072 , y:500, width:192, height: 308 },
+        {x:3072 , y:-100, width:192*2, height: 308 },
+        {x:3072 , y:500, width:192*2, height: 308 },
+        {x:2000, y:-158, width:192*1, height:308}
         
     ],
     platforms: [
-        {x:100 ,y:500, width: 256, height:0}, 
-        {x:400, y:400, width: 256, height:0},
-        {x:900, y:200, width: 256, height:0},
-        {x:1500, y:400, width: 256, height:0},
-        {x:2000, y:400, width: 1024, height:0},
-        {x:2000, y:150, width: 768, height:0},
+        //first area L1
+        {x:100 ,y:500, width: 256, height:64, divisorPlatforms:256}, 
+        {x:400, y:400, width: 256, height:64, divisorPlatforms:256},
+        {x:900, y:200, width: 256, height:64, divisorPlatforms:256},
+        // {x:1500, y:400, width: 256, height:64, divisorPlatforms:256},
+        {x:2000, y:400, width: 1024, height:64, divisorPlatforms:256},
+        {x:2000, y:150, width: 768, height:64, divisorPlatforms:256},
+
+        //second area L1
+        {x:3600 ,y:500, width: 256, height:64, divisorPlatforms:256},
+        {x:3900 ,y:400, width: 128 , height:64, divisorPlatforms: 128},
+        {x:4100 ,y:80, width: 128 , height:64, divisorPlatforms: 128},
+        {x:4800 ,y:80, width: 128 , height:64, divisorPlatforms: 128},
+        {x:5300, y:80, width: 128, height: 64, divisorPlatforms: 128},
+        {x:4400 ,y:300, width: 128 , height:64, divisorPlatforms: 128},
+
+
+    ],
+
+    movingPlatforms: [
+        {x:4800, y:200, width: 256, height: 64, divisorPlatforms: 256, direction: "x-axis"},
+        {x:1500, y:200, width: 256, height:64, divisorPlatforms:256, direcction: "y-axis"},
+
     ],
 
     lava: [

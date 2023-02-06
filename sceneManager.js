@@ -11,8 +11,8 @@ class SceneManager {
         // this.game.addEntity(new Projectile(this.game, 100, 100));
         this.game.addEntity(this.mage);
         this.loadLevel(levelOne);
-        // this.fireBoss = new fireBoss(this.game, 300, 300); 
-        // this.game.addEntity(this.fireBoss);
+        this.fireBoss = new fireBoss(this.game, 300, 300); 
+        this.game.addEntity(this.fireBoss);
         this.game.addEntity(new BackGround(this.game, 0, 0, 1800, 800));
         // this.game.addEntity(new Monster(this.game, 600, 600))S
     //    this.enemy = new ChainBot(this.game, 170, 170); 
@@ -53,7 +53,13 @@ class SceneManager {
         if(level.platforms){
             for (var i = 0; i < level.platforms.length; i++) {
                 let wall = level.platforms[i];
-                this.game.addEntity(new platforms(this.game, wall.x, wall.y, wall.width, wall.height));
+                this.game.addEntity(new platforms(this.game, wall.x, wall.y, wall.width, wall.height, wall.divisorPlatforms));
+            }
+        }
+        if(level.movingPlatforms){
+            for (var i = 0; i < level.movingPlatforms.length; i++) {
+                let wall = level.movingPlatforms[i];
+                this.game.addEntity(new movingPlatforms(this.game, wall.x, wall.y, wall.width, wall.height, wall.divisorPlatforms, wall.direction));
             }
         }
         // if(level.lava){

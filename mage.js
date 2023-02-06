@@ -85,16 +85,16 @@ class Mage {
     };
     updateBB() {
         this.lastBB = this.BB;
-        this.BB = new BoundingBox(this.x+10, this.y+130, PARAMS.PLAYERWIDTH, PARAMS.PLAYERHEIGHT);
+        this.BB = new BoundingBox(this.x+15, this.y+130, PARAMS.PLAYERWIDTH, PARAMS.PLAYERHEIGHT);
         
     };
     
     update() {
         this.timetoShoot += this.game.clockTick;
         const TICK = this.game.clockTick;
-        const RUN = 300;
-        const MAXFALL = 300;
-
+        const RUN = 400; // 150
+        const MAXFALL = 200; //200
+            
         this.velocity.y += this.fallAcc * TICK;
             if(this.state != this.states.jump){
                 if(this.shoot && this.timetoShoot > 0.5){
@@ -163,7 +163,7 @@ class Mage {
             this.game.entities.forEach(function (entity) {
                 if (entity.BB && that.BB.collide(entity.BB)) {
                     if (that.velocity.y >= 0) { 
-                        if ((entity instanceof Ground || entity instanceof Wall || entity instanceof platforms) && (that.lastBB.bottom <= entity.BB.top) ){
+                        if ((entity instanceof Ground || entity instanceof Wall || entity instanceof platforms || entity instanceof movingPlatforms) && (that.lastBB.bottom <= entity.BB.top) ){
                             that.playerJump = true;
                             that.y = entity.BB.top - PARAMS.PLAYERHEIGHT - 130;
                             that.velocity.y = 0;
@@ -182,7 +182,7 @@ class Mage {
                               
                             that.updateBB();
                         }
-                        if ((entity instanceof Wall || entity instanceof platforms)){
+                        if ((entity instanceof Wall || entity instanceof platforms || entity instanceof movingPlatforms)){
                             console.log(that.lastBB.right);
                             if(that.BB.collide(entity.leftBB) && that.lastBB.right <= entity.leftBB){
                                 console.log("collide");
@@ -199,7 +199,7 @@ class Mage {
                         }
 
                     if(that.velocity.y < 0){
-                        if ((entity instanceof Ground || entity instanceof Wall || entity instanceof platforms) && (that.lastBB.top) >= entity.BB.bottom){
+                        if ((entity instanceof Ground || entity instanceof Wall || entity instanceof platforms || entity instanceof movingPlatforms) && (that.lastBB.top) >= entity.BB.bottom){
                             that.velocity.y = 0;
                         }
                         if ((entity instanceof Wall)){
@@ -213,7 +213,7 @@ class Mage {
                                 that.x = entity.rightBB.right - 10;
                                 that.velocity.x = 0;
                             }
-                            if ((entity instanceof Wall) || entity instanceof platforms){
+                            if ((entity instanceof Wall) || entity instanceof platforms || entity instanceof movingPlatforms){
                                 if(that.BB.collide(entity.leftBB) && that.lastBB.right <= entity.leftBB){
                                     console.log("collide");
                                     that.x = entity.leftBB.left - PARAMS.PLAYERWIDTH-10;

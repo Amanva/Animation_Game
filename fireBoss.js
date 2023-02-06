@@ -13,8 +13,8 @@ class fireBoss{
         this.x = 300;
         this.y = 300;
         this.speed = 100;
-        this.facing = 1; //0=left, 1 = right
-        this.state =6; // 0 = idle, 1 = walking , 2 = attacking, 3 = hit, 4 = death, 5 = spawn, 6 = jump, 7 = fire attack, 8 = magic attack
+        this.facing = 0; //0=left, 1 = right
+        this.state = 8; // 0 = idle, 1 = walking , 2 = attacking, 3 = hit, 4 = death, 5 = spawn, 6 = jump, 7 = fire attack, 8 = magic attack
         this.dead = false;
         this.health = 300;
         this.offsetX = 0;
@@ -92,7 +92,7 @@ class fireBoss{
         // magic attack
         this.animations[8][1] = new Animator(this.spritesheetSpecialAndSlime,0, 1220, 285, 160, 18, 0.1, 3, 0, false,true, false)
         
-        for(var l = 0; l < 8; l++){
+        for(var l = 0; l <= 8; l++){
             this.animations[l][1].flipped = true;
         }
     
@@ -113,8 +113,9 @@ class fireBoss{
                             that.velocity.y = 0;
                             that.updateBB();
                             }
-
                         }
+
+
 
                     }
                 });
@@ -134,7 +135,7 @@ class fireBoss{
                 this.AttackBB = new BoundingBox(0, 0,0,0);
             }
             else if(this.state === 2){ // attack
-                this.BB = new BoundingBox(this.x+50, this.y+200, 500, 200);
+                this.BB = new BoundingBox(this.x+220, this.y+200, 290, 200);
                 this.AttackBB = new BoundingBox(this.x+50, this.y+162, 200,235);
             }
             else if(this.state === 3){
@@ -154,7 +155,7 @@ class fireBoss{
             }
             else if(this.state === 6){
                 this.BB = new BoundingBox(this.x+270, this.y+80, 190, 320);
-                this.AttackBB = new BoundingBox(this.x+160, this.y+345, 380, 50);
+                this.AttackBB = new BoundingBox(this.x+165, this.y+350, 380, 50);
 
             }
             else if(this.state === 7){
@@ -183,36 +184,37 @@ class fireBoss{
                 this.AttackBB = new BoundingBox(0, 0,0,0);
             }
             else if(this.state === 2){ // attack
-                this.BB = new BoundingBox(this.x+50, this.y+200, 500, 200);
-                this.AttackBB = new BoundingBox(this.x+50, this.y+162, 200,235);
+                this.BB = new BoundingBox(this.x+220, this.y+200, 290, 200);
+                this.AttackBB = new BoundingBox(this.x+500, this.y+162, 200,235);
             }
             else if(this.state === 3){
-                this.BB = new BoundingBox(this.x+260, this.y+200, 230, 200);
+                this.BB = new BoundingBox(this.x+230, this.y+200, 230, 200);
                 this.AttackBB = new BoundingBox(0,0,0,0);
 
             }
             else if(this.state === 4){
-                this.BB = new BoundingBox(this.x+260, this.y+200, 230, 200);
+                this.BB = new BoundingBox(this.x+240, this.y+200, 230, 200);
                 this.AttackBB = new BoundingBox(0,0,0,0);
 
             }
             else if(this.state === 5){
-                this.BB = new BoundingBox(this.x+240, this.y+200, 250, 200);
+                this.BB = new BoundingBox(this.x+230, this.y+200, 250, 200);
                 this.AttackBB = new BoundingBox(0,0,0,0);
 
             }
             else if(this.state === 6){
                 this.BB = new BoundingBox(this.x+270, this.y+80, 190, 320);
-                this.AttackBB = new BoundingBox(this.x+250, this.y+345, 380, 50);
+                this.AttackBB = new BoundingBox(this.x+165, this.y+350, 380, 50);
 
             }
             else if(this.state === 7){
                 this.BB = new BoundingBox(this.x+220, this.y+200, 230, 200);
-                this.AttackBB = new BoundingBox(this.x+450, this.y+100, 220, 295);
+                this.AttackBB = new BoundingBox(this.x+450, this.y+110, 220, 295);
+
             }
             else if(this.state === 8){
-                this.BB = new BoundingBox(this.x+240, this.y+200, 250, 200);
-                this.AttackBB = new BoundingBox(this.x, this.y+100, 150, 305);
+                this.BB = new BoundingBox(this.x+230, this.y+200, 250, 200);
+                this.AttackBB = new BoundingBox(this.x+570, this.y+100, 150, 305);
 
             }
         }
@@ -224,12 +226,12 @@ class fireBoss{
     
 
     draw(ctx) {
-        this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y, PARAMS.SCALE);
+        this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, PARAMS.SCALE);
             if(debug){
             ctx.strokeStyle = 'Red';
-            ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y, this.BB.width, this.BB.height);
+            ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y - this.game.camera.y, this.BB.width, this.BB.height);
             ctx.strokeStyle = 'Green';
-            ctx.strokeRect(this.AttackBB.x- this.game.camera.x, this.AttackBB.y, this.AttackBB.width, this.AttackBB.height);
+            ctx.strokeRect(this.AttackBB.x- this.game.camera.x, this.AttackBB.y - this.game.camera.y, this.AttackBB.width, this.AttackBB.height);
             }
     };
 
