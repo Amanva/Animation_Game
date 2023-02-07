@@ -1,13 +1,58 @@
 var levelOne = {
     background: "./sprites/Background.png",
     ground: [
-        { x: 0, y: 750, width: 3072, height:0 },
-        { x: 3456, y: 750, width: 2560, height:0 },
-
+        { x: 0, y: 750, width: 3072, height:64, div: 256},
+        { x: 3456, y: 750, width: 2560, height:64, div: 256},
+        { x: 6400, y: 750, width: 2560, height:64, div: 256},
+        { x: 9100, y: 750, width: 3328, height:64, div: 256},
     ],
     wall: [
-        {x:3072 , y:-100, width:192, height: 308 },
-        {x:3072 , y:500, width:192, height: 308 },
+        {x:3072 , y:-100, width:192*2, height: 308, div: 308},
+        {x:3072 , y:500, width:192*2, height: 308, div: 308},
+        
+    ],
+    platforms: [
+        //first area L1
+        {x:100 ,y:500, width: 256, height:64, divisorPlatforms:256}, 
+        {x:400, y:400, width: 256, height:64, divisorPlatforms:256},
+        {x:900, y:200, width: 256, height:64, divisorPlatforms:256},
+        // {x:1500, y:400, width: 256, height:64, divisorPlatforms:256},
+        {x:2000, y:400, width: 1024, height:64, divisorPlatforms:256},
+        {x:2000, y:150, width: 768, height:64, divisorPlatforms:256},
+
+        //second area L1
+        {x:3600 ,y:500, width: 256, height:64, divisorPlatforms:256},
+        {x:3900 ,y:400, width: 256 , height:64, divisorPlatforms: 256},
+        {x:4100 ,y:80, width: 256 , height:64, divisorPlatforms: 256},
+        {x:4800 ,y:80, width: 256 , height:64, divisorPlatforms: 256},
+        {x:5300, y:80, width: 256, height: 64, divisorPlatforms: 256},
+        {x:4400 ,y:300, width: 256 , height:64, divisorPlatforms: 256},
+
+
+    ],
+
+    movingPlatforms: [
+        {x:4800, y:200, width: 256, height: 64, divisorPlatforms: 256, direction: "x-axis"},
+        {x:1500, y:200, width: 256, height:64, divisorPlatforms:256, direcction: "y-axis"},
+
+    ],
+
+    lava: [
+        {x: 600, y: 300, width: 200, height: 10  }
+    ]
+};
+
+var levelTwo = {
+    background: "./sprites/Background.png",
+    ground: [
+        { x: 0, y: 750, width: 3072, height:64, div: 256},
+        { x: 3456, y: 750, width: 2560, height:64, div: 256},
+        { x: 6400, y: 750, width: 2560, height:64, div: 256},
+        { x: 9100, y: 750, width: 3328, height:64, div: 256},
+    ],
+    wall: [
+        {x:3072 , y:-100, width:192*2, height: 308, div: 308},
+        {x:3072 , y:500, width:192*2, height: 308, div: 308},
         
     ],
     platforms: [
@@ -16,6 +61,7 @@ var levelOne = {
         {x:900, y:200, width: 256, height:0},
         {x:1500, y:400, width: 256, height:0},
         {x:2000, y:400, width: 1024, height:0},
+        // {x:2020, y:200, width: 1024, height:0},
         {x:2000, y:150, width: 768, height:0},
     ],
 

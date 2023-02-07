@@ -22,7 +22,10 @@ class Mage {
         // jumping 
         this.hp= 100;
         this.maxHP = 100;
-        this.healthbar = new HealthBar(game, this);
+        this.curMana = 100;
+        this.maxMana = 100;
+        // this.healthbar = new HealthBar(game, this);
+        // this.manaBar = new ManaBar(game, this);
         this.playerJump = false;
         this.air = false;
         this.shoot = false;
@@ -85,37 +88,23 @@ class Mage {
     };
     updateBB() {
         this.lastBB = this.BB;
-        this.BB = new BoundingBox(this.x+10, this.y+130, PARAMS.PLAYERWIDTH, PARAMS.PLAYERHEIGHT);
+        this.BB = new BoundingBox(this.x+15, this.y+130, PARAMS.PLAYERWIDTH, PARAMS.PLAYERHEIGHT);
+        this.topBB = new BoundingBox(this.x+15, this.y+130, PARAMS.PLAYERWIDTH, 0);
+        this.rightBB = new BoundingBox(this.x+15+PARAMS.PLAYERWIDTH, this.y+130, 0, PARAMS.PLAYERHEIGHT);
+        this.leftBB = new BoundingBox(this.x+15, this.y+130, 0, PARAMS.PLAYERHEIGHT);
         
     };
     
     update() {
+        // console.log(this.state);
         this.timetoShoot += this.game.clockTick;
         const TICK = this.game.clockTick;
-        const RUN = 300;
+        const RUN = 400;
         const MAXFALL = 300;
-
+        const xBBOffset = 15
+        const yBBOffset = 130;
         this.velocity.y += this.fallAcc * TICK;
             if(this.state != this.states.jump){
-                if(this.shoot && this.timetoShoot > 0.5){
-                    this.state = this.states.normAttack;
-                    if(this.animations[this.state][this.facing].isAlmostDone(TICK)){
-                        if(this.facing == 0){
-                        this.game.addEntityToBegin(new Projectile(this.game, this.x+100, this.y+140));
-                        }
-                        else if(this.facing == 1){
-                        this.game.addEntityToBegin(new Projectile(this.game, this.x, this.y+140));
-                        }
-                        this.animations[this.state][this.facing].elapsedTime = 0;
-                        this.timetoShoot = 0;
-                        this.shoot = false;
-                        this.game.attack = false;
-                        
-                    }
-                    
-                        
-                }
-                else{
                 if (this.game.left) {
                     this.velocity.x -= RUN;
                 }
@@ -125,11 +114,10 @@ class Mage {
                 if(!this.game.left && !this.game.right){
                     this.velocity.x = 0;
                 }     
-                if(this.game.attack && this.playerJump){
+                if(this.game.attack){
                     this.shoot = true;
                     this.velocity.x = 0;
                 }
-                
                 if(this.game.jump && this.playerJump){
                     this.state = this.states.jump;  
                     this.velocity.y = -MAXFALL;
@@ -139,14 +127,34 @@ class Mage {
                 }
 
             }
-            }
              else {
+                if(this.game.attack){
+                    this.shoot = true;
+                    // this.velocity.x = 0;
+                }
                 if (this.game.right && !this.game.left) {
                     this.velocity.x += 0.8;
                 } else if (this.game.left && !this.game.right) {
                     this.velocity.x -= 0.8;
                 } else {
                 }
+            }
+            if(this.shoot && this.timetoShoot > 0.5){
+                this.state = this.states.normAttack;
+                
+                if(this.animations[this.state][this.facing].isAlmostDone(TICK)){
+                    if(this.facing == 0){
+                    this.game.addEntityToBegin(new Projectile(this.game, this.x+100, this.y+140));
+                    }
+                     if(this.facing == 1){
+                    this.game.addEntityToBegin(new Projectile(this.game, this.x, this.y+140));
+                    }
+                    this.animations[this.state][this.facing].elapsedTime = 0;
+                    this.timetoShoot = 0;
+                    this.shoot = false;
+                    this.game.attack = false;
+                    this.state = this.states.idle;
+                }      
             }
             if (this.velocity.y >= MAXFALL) this.velocity.y = MAXFALL;
             if (this.velocity.y <= -MAXFALL) this.velocity.y = -MAXFALL;
@@ -162,76 +170,62 @@ class Mage {
             var that = this;
             this.game.entities.forEach(function (entity) {
                 if (entity.BB && that.BB.collide(entity.BB)) {
-                    if (that.velocity.y >= 0) { 
+                    if (that.velocity.y > 0) { 
                         if ((entity instanceof Ground || entity instanceof Wall || entity instanceof platforms) && (that.lastBB.bottom <= entity.BB.top) ){
                             that.playerJump = true;
-                            that.y = entity.BB.top - PARAMS.PLAYERHEIGHT - 130;
+                            that.y = entity.BB.top - PARAMS.PLAYERHEIGHT - yBBOffset;
                             that.velocity.y = 0;
                             if(that.state == that.states.jump) that.state = that.states.idle;
                             that.updateBB();
-                            }
-                            if ((entity instanceof Wall) && (that.BB.collide(entity.rightBB) || that.BB.collide(entity.leftBB)) ){
-                                if(that.BB.collide(entity.leftBB)){
-                                    that.x = entity.leftBB.left - PARAMS.PLAYERWIDTH-10;
-                                    that.velocity.x = 0;
-                                }
-                                if(that.BB.collide(entity.rightBB)){
-                                    that.x = entity.rightBB.right - 10;
-                                    that.velocity.x = 0;
-                                }
-                              
-                            that.updateBB();
                         }
-                        if ((entity instanceof Wall || entity instanceof platforms)){
-                            console.log(that.lastBB.right);
-                            if(that.BB.collide(entity.leftBB) && that.lastBB.right <= entity.leftBB){
-                                console.log("collide");
-                                that.x = entity.leftBB.left - PARAMS.PLAYERWIDTH-10;
-                                that.velocity.x = 0;
-                            }
-                            if(that.BB.collide(entity.rightBB) && that.lastBB.left >= entity.rightBB){
-                                console.log("collide");
-                                that.x = entity.rightBB.right - 10;
-                                that.velocity.x = 0;
-                            }
-                            that.updateBB();
-                        }
+                        
                         }
 
                     if(that.velocity.y < 0){
                         if ((entity instanceof Ground || entity instanceof Wall || entity instanceof platforms) && (that.lastBB.top) >= entity.BB.bottom){
                             that.velocity.y = 0;
+                            // that.y = entity.BB.bottom - PARAMS.PLAYERHEIGHT - xBBOffset;
+                            // that.updateBB();
                         }
-                        if ((entity instanceof Wall)){
-                            if(that.BB.collide(entity.leftBB)){
-                                console.log("collide");
-                                that.x = entity.leftBB.left - PARAMS.PLAYERWIDTH-10;
-                                that.velocity.x = 0;
-                            }
-                            if(that.BB.collide(entity.rightBB)){
-                                console.log("collide");
-                                that.x = entity.rightBB.right - 10;
-                                that.velocity.x = 0;
-                            }
-                            if ((entity instanceof Wall) || entity instanceof platforms){
-                                if(that.BB.collide(entity.leftBB) && that.lastBB.right <= entity.leftBB){
-                                    console.log("collide");
-                                    that.x = entity.leftBB.left - PARAMS.PLAYERWIDTH-10;
-                                    that.velocity.x = 0;
-                                }
-                                if(that.BB.collide(entity.rightBB) && that.lastBB.left >= entity.rightBB){
-                                    console.log("collide");
-                                    that.x = entity.rightBB.right - 10;
-                                    that.velocity.x = 0;
-                                }
-                            }
-                        that.updateBB();
+                       
                     }
+                    // if (){
+                    //     if(that.BB.collide(entity.leftBB) && that.lastBB.bottom < entity.BB.bottom){
+                    //             that.x = entity.leftBB.left - PARAMS.PLAYERWIDTH-xBBOffset;
+                    //             that.velocity.x = 0;  
+                    //     }
+                    //     if(that.BB.collide(entity.rightBB) && that.lastBB.bottom < entity.BB.bottom){
+                    //             that.x = entity.rightBB.right - xBBOffset;
+                    //             that.velocity.x = 0;
+                    //     }
+                    //     that.updateBB(); 
+                    // }
+                    if ((entity instanceof platforms) || (entity instanceof Wall) || (entity instanceof Ground)){
+                        if(that.BB.collide(entity.leftBB) && that.lastBB.top < entity.BB.bottom-4){
+                                that.x = entity.leftBB.left - PARAMS.PLAYERWIDTH-xBBOffset;
+                                that.velocity.x = 0;
+                        }
+                        if(that.BB.collide(entity.rightBB) && that.lastBB.top < entity.BB.bottom-4){
+                                that.x = entity.rightBB.right - xBBOffset;
+                                that.velocity.x = 0; 
+                        }
+                        that.updateBB(); 
                     }
+                    // if (){
+                    //     if(that.BB.collide(entity.leftBB) && that.lastBB.top < entity.BB.bottom-4){
+                    //             that.x = entity.leftBB.left - PARAMS.PLAYERWIDTH-xBBOffset;
+                    //             that.velocity.x = 0;
+                    //     }
+                    //     if(that.BB.collide(entity.rightBB) && that.lastBB.top < entity.BB.bottom-4){
+                    //             that.x = entity.rightBB.right - xBBOffset;
+                    //             that.velocity.x = 0; 
+                    //     }
+                    //     that.updateBB(); 
+                    // }
                 }
                 });
             if(this.state != this.states.jump){
-                if(Math.abs(this.velocity.x) > 0){
+                if(Math.abs(this.velocity.x) > 0 && this.state != this.states.normAttack){
                     this.state = this.states.run;
                 }
                 if(this.velocity.x == 0 && !this.shoot){
@@ -249,12 +243,14 @@ class Mage {
     };
 
     draw(ctx) {
-            this.healthbar.draw(ctx);
+            // this.healthbar.draw(ctx);
+            // this.manaBar.draw(ctx);
             this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, PARAMS.SCALE);
             // this.animations[0][0].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y, PARAMS.SCALE);
             if(debug){
             ctx.strokeStyle = 'Red';
             ctx.strokeRect(this.BB.x-this.game.camera.x, this.BB.y-this.game.camera.y, this.BB.width, this.BB.height);
+            // ctx.strokeRect(this.rightBB.x-this.game.camera.x, this.rightBB.y-this.game.camera.y, this.rightBB.width, this.rightBB.height);
             }
     };
 

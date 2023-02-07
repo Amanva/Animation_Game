@@ -24,16 +24,12 @@ class Projectile{
         this.y += this.velocity.y * TICK;
         this.updateBB();
 
-        if(this.y < 0){
-            this.removeFromWorld = true;                
-        }
+        // if(this.y < 0){
+        //     this.removeFromWorld = true;                
+        // }
         if(this.x < -10){
             this.removeFromWorld = true; 
         }
-        // console.log(this.velocity.x, this.velocity.y);
-        // if(this.velocity.x < 0){
-        // this.animations[0].flipped = true;
-        // } 
         var that = this;
         this.game.entities.forEach(function (entity) {
             if (entity.BB && that.BB.collide(entity.BB)) {
@@ -67,6 +63,8 @@ function distanceBetween(A, B) {
     return Math.sqrt((B.x - A.x) * (B.x - A.x) + (B.y - A.y) * (B.y - A.y));
 };
 function getAngle(velocity) {
+    // let radian = Math.atan2(velocity.y, velocity.x);
+    // let degree = radian * (180 / Math.PI);
     let change = Math.atan2(velocity.y, velocity.x) / Math.PI;
     if (-0.625 < change && change < -0.375) return 4.7; // up
     if (-0.375 < change && change < -0.125) return 5.5; // up right
@@ -76,5 +74,5 @@ function getAngle(velocity) {
     if (-0.875 < change && change < -0.625) return 4.3; // top left
     if (-0.125 < change && change < 0.125) return 0; // right
     if (0.125 < change && change < 0.375) return 7; // down right
-    
+    return change;
 };
