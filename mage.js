@@ -182,7 +182,7 @@ class Mage {
                         }
 
                     if(that.velocity.y < 0){
-                        if ((entity instanceof Ground || entity instanceof Wall || entity instanceof platforms) && (that.lastBB.top) >= entity.BB.bottom){
+                        if ((entity instanceof Ground || entity instanceof Wall || entity instanceof platforms || entity instanceof movingPlatforms) && (that.lastBB.top) >= entity.BB.bottom){
                             that.velocity.y = 0;
                             // that.y = entity.BB.bottom - PARAMS.PLAYERHEIGHT - xBBOffset;
                             // that.updateBB();
@@ -242,6 +242,10 @@ class Mage {
             // console.log(this.x);
     };
 
+    removeHealth(damageRecieved){
+        this.hp -= damageRecieved;
+    }
+    
     draw(ctx) {
             // this.healthbar.draw(ctx);
             // this.manaBar.draw(ctx);

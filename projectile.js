@@ -36,7 +36,13 @@ class Projectile{
                 if ((entity instanceof Ground || entity instanceof Wall || entity instanceof platforms) && that.BB.collide(entity.BB)) {
                    that.removeFromWorld = true;
                 }
-                    }
+                if(entity instanceof fireBoss){
+                    that.removeFromWorld = true;
+                    entity.loseHealth(100);
+
+                }
+            }
+            
             });
             // console.log(this.velocity.x, this.velocity.y);
     };

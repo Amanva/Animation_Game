@@ -53,7 +53,13 @@ class SceneManager {
         if(level.platforms){
             for (var i = 0; i < level.platforms.length; i++) {
                 let platform = level.platforms[i];
-                this.game.addEntity(new platforms(this.game, platform.x, platform.y, platform.width, platform.height));
+                this.game.addEntity(new platforms(this.game, platform.x, platform.y, platform.width, platform.height, platform.divisorPlatforms));
+            }
+        }
+        if(level.movingPlatforms){
+            for (var i = 0; i < level.movingPlatforms.length; i++) {
+                let wall = level.movingPlatforms[i];
+                this.game.addEntity(new movingPlatforms(this.game, wall.x, wall.y, wall.width, wall.height, wall.divisorPlatforms, wall.direction));
             }
         }
         // if(level.lava){

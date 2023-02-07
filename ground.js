@@ -79,8 +79,8 @@ class BackGround {
     };
 };
 class platforms {
-    constructor(game, x, y, width, height) {
-        Object.assign(this, { game, x, y, width, height});
+    constructor(game, x, y, width, height, divisor) {
+        Object.assign(this, { game, x, y, width, height, divisor});
 
         this.spritesheet = assetMangager.getAsset("./sprites/Lava64.png");
         // this.animations = [];
@@ -89,17 +89,17 @@ class platforms {
     };
     updateBB() {
         this.lastBB = this.BB;
-        this.BB = new BoundingBox(this.x, this.y, this.width, (64*GSCALE));
-        this.leftBB = new BoundingBox(this.x, this.y, 0, (64*GSCALE));
-        this.rightBB = new BoundingBox(this.x + this.width, this.y, 0, (64*GSCALE));
+        this.BB = new BoundingBox(this.x, this.y, this.width, this.height);
+        this.leftBB = new BoundingBox(this.x, this.y, 0, this.height);
+        this.rightBB = new BoundingBox(this.x + this.width, this.y, 0, this.height);
         
     };
     update() {
     };
     draw(ctx) {
-        let brickWidth = this.width / ((256*GSCALE));
+        let brickWidth = this.width / (256);
         for (var i = 0; i < brickWidth; i++) {
-            ctx.drawImage(this.spritesheet, 322, 256, 127, 31, this.x + i * (256*GSCALE)-this.game.camera.x, this.y-this.game.camera.y, (256*GSCALE), (64*GSCALE));
+            ctx.drawImage(this.spritesheet, 322, 256, 127, 31, this.x + i * (this.divisor)-this.game.camera.x, this.y-this.game.camera.y, this.divisor, this.height);
         }
 
         if(debug){
@@ -109,6 +109,87 @@ class platforms {
             }
     };
 };
+
+class movingPlatforms {
+    constructor(game, x, y, width, height, divisor, direction) {
+        Object.assign(this, { game, x, y, width, height, divisor, direction});
+
+        this.spritesheet = assetMangager.getAsset("./sprites/Lava64.png");
+        // this.animations = [];
+        // this.animations.push(new Animator(this.spritesheet, 0, 0, 48, 48, 1, 0.1, 0,0,false, true, false));
+        this.updateBB();
+        this.originalX = x;
+        this.originalY = y;
+        this.reverse = false;
+    };
+    updateBB() {
+        this.lastBB = this.BB;
+        this.BB = new BoundingBox(this.x, this.y, this.width, this.height);
+        this.leftBB = new BoundingBox(this.x, this.y, 0, this.height);
+        this.rightBB = new BoundingBox(this.x + this.width, this.y, 0, this.height);
+        
+    };
+    update() {
+        if(this.direction === "x-axis"){
+            if(this.x < 5400 && this.reverse === false){
+                this.x += 50* this.game.clockTick;
+                this.updateBB();
+                if(this.x >= 5400){
+                    this.reverse = true;
+                }
+            }
+            else{
+                    
+                    this.x -= 100 * this.game.clockTick;
+                    if(this.x <= this.originalX){
+                        this.reverse = false;
+                    }
+                    this.updateBB();
+                    
+                
+            }
+    }
+    else {
+        if(this.y < 400 && this.reverse === false){
+
+            this.y += 50* this.game.clockTick;
+            this.updateBB();
+            if(this.y >= 400){
+                this.reverse = true;
+            }
+            console.log(this.y + "testing");
+
+        }
+        else{
+                
+                this.y -= 50 * this.game.clockTick;
+                if(this.y <= this.originalY){
+                    this.reverse = false;
+                }
+                this.updateBB();
+                
+            
+        }
+    }
+        
+        
+
+    };
+   
+    draw(ctx) {
+        let brickWidth = this.width / (256);
+        for (var i = 0; i < brickWidth; i++) {
+            ctx.drawImage(this.spritesheet, 322, 256, 127, 31, this.x + i * (this.divisor)-this.game.camera.x, this.y-this.game.camera.y, this.divisor, this.height);
+        }
+
+        if(debug){
+            ctx.strokeStyle = 'Red';
+            ctx.strokeRect(this.BB.x-this.game.camera.x, this.BB.y-this.game.camera.y, this.BB.width, this.BB.height);
+            // ctx.strokeRect(this.rightBB.x-this.game.camera.x, this.rightBB.y-this.game.camera.y, this.rightBB.width, this.rightBB.height);
+            }
+    };
+};
+
 
 class lava {
     constructor(game, x, y, width, height) {

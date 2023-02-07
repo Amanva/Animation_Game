@@ -1,3 +1,4 @@
+const divisorPlatforms = 256;
 var levelOne = {
     background: "./sprites/Background.png",
     ground: [
