@@ -248,6 +248,10 @@ class Mage {
             // console.log(this.x);
     };
 
+    removeHealth(damageRecieved){
+        this.hp -= damageRecieved;
+    }
+    
     draw(ctx) {
             this.healthbar.draw(ctx);
             this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, PARAMS.SCALE);

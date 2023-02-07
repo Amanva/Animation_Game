@@ -16,13 +16,22 @@ class fireBoss{
         this.facing = 0; //0=left, 1 = right
         this.state = 8; // 0 = idle, 1 = walking , 2 = attacking, 3 = hit, 4 = death, 5 = spawn, 6 = jump, 7 = fire attack, 8 = magic attack
         this.dead = false;
-        this.health = 300;
+        this.hp = 300;
+        this.healthbar = new HealthBar(game, this);
+        this.maxHP = 300;
+
+
+        // attack damage
+        this.swordAttack = 50;
+        this.flameAttack = 70;
+        this.jumpAttack = 50;
         this.offsetX = 0;
         this.offsetY = 0;
         //animations
         this.animations = [];
         this.BB;
         this.AttackBB;
+        this.lastMageDetection;
         this.loadAnimations();
         this.updateBB();
 
@@ -100,30 +109,48 @@ class fireBoss{
 
     update() {
         this.velocity.y += 200 * this.game.clockTick;
+        
 
         this.y += this.velocity.y * this.game.clockTick * PARAMS.SCALE;
         this.updateBB();
         var that = this;
-            this.game.entities.forEach(function (entity) {
-                if (entity.BB && that.BB.collide(entity.BB)) {
-                    // console.log("yes");
-                    if (that.velocity.y > 0) { 
-                        if ((entity instanceof Ground) && (that.lastBB.bottom <= entity.BB.top) ){
-                            that.y = entity.BB.top - 160*PARAMS.SCALE;
-                            that.velocity.y = 0;
-                            that.updateBB();
-                            }
+        if(this.hp <= 0){
+            this.state = 4;
+            this.updateBB;
+            if(this.animations[this.state][this.facing].isAlmostDone(this.game.clockTick)){
+                this.removeFromWorld = true;
+            }        
+        }
+        this.game.entities.forEach(function (entity) {
+            if(entity instanceof Mage && that.MageDetection.collide(entity.BB)){
+
+                that.x -= 10*that.game.clockTick;
+                that.updateBB();
+                that.state=6;
+                if(that.AttackBB.collide(entity.BB)){
+                    entity.removeHealth(that.jumpAttack);
+                }
+            }
+            if (entity.BB && that.BB.collide(entity.BB)) {
+                // console.log("yes");
+                if (that.velocity.y > 0) { 
+                    if ((entity instanceof Ground) && (that.lastBB.bottom <= entity.BB.top) ){
+                        that.y = entity.BB.top - 160*PARAMS.SCALE;
+                        that.velocity.y = 0;
+                        that.updateBB();
                         }
-
-
-
                     }
-                });
+
+            }
+            
+            });
 
     };
     updateBB() {
         this.lastBB = this.BB;
         this.lastAttackBB = this.AttackBB;
+        this.lastMageDetection = this.MageDetection
+        this.MageDetection = new BoundingBox(this.x, this.y, 500, 500);
         if(this.facing === 0){
             if(this.state === 0){
                 this.BB = new BoundingBox(this.x+250, this.y+200, 205, 200);
@@ -223,16 +250,23 @@ class fireBoss{
 
     };
 
+    loseHealth(damageRecieved){
+        this.hp -= damageRecieved;
+    }
     
 
     draw(ctx) {
+        this.healthbar.draw(ctx);
         this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, PARAMS.SCALE);
             if(debug){
             ctx.strokeStyle = 'Red';
             ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y - this.game.camera.y, this.BB.width, this.BB.height);
             ctx.strokeStyle = 'Green';
             ctx.strokeRect(this.AttackBB.x- this.game.camera.x, this.AttackBB.y - this.game.camera.y, this.AttackBB.width, this.AttackBB.height);
-            }
+            ctx.strokeStyle = 'blue';
+            ctx.strokeRect(this.MageDetection.x - this.game.camera.x, this.MageDetection.y - this.game.camera.y, this.MageDetection.width, this.MageDetection.height);
+
+        }
     };
 
 
