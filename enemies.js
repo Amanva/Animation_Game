@@ -88,7 +88,7 @@ class ChainBot {
 
                     console.log(entity.BB && that.BB.distance(entity.BB)); //TODO delete **************************************   TEST
                     that.updateBB();
-                    that.state = 0;
+                    // that.state = 0;
             } else if (that.hitPoints <= 0) {
                     // that.velocity = 0;
                     that.state = 6; // death
@@ -121,7 +121,7 @@ class ChainBot {
                     // console.log(that.BB.distance(entity.BB));
                 } 
             //Mage is not in range then stop and wait.        
-            } else if (entity instanceof Mage && Math.abs( that.BB.distance(entity.BB)) >= UPPER_BOUND) {
+            } else if (entity instanceof Mage && Math.abs( that.BB.distance(entity.BB)) >= UPPER_BOUND) {  //!that.state = 5
                     that.state = 0; //state idle
                     that.velocity.x = 0;
                     that.updateBB();

@@ -28,7 +28,7 @@ class BoundingBox {
         //  console.log("mageLeft: " + oth.left + " mage width/2: " + oth.width/2 );
         //  console.log("distance mage bot: ");
         //  console.log(Math.round((this.left + this.width/2) - (oth.left + oth.width/2)));
-        return (this.left + this.width/2 - oth.left + oth.width/2);
+        return ((this.left + this.width/2) - (oth.left + oth.width/2));
     };
 
 };
