@@ -1,8 +1,8 @@
 const GSCALE = 1;
 const WSCALE = 2;
 class Ground {
-    constructor(game, x, y, width, height) {
-        Object.assign(this, { game, x, y, width, height});
+    constructor(game, x, y, width, height, div) {
+        Object.assign(this, { game, x, y, width, height, div});
 
         this.spritesheet = assetMangager.getAsset("./sprites/Lava64.png");
         // this.animations = [];
@@ -11,16 +11,18 @@ class Ground {
     };
     updateBB() {
         this.lastBB = this.BB;
-        this.BB = new BoundingBox(this.x, this.y, this.width, (64*GSCALE));
-
+        this.BB = new BoundingBox(this.x, this.y, this.width, this.height);
+        this.leftBB = new BoundingBox(this.x, this.y, 0, this.height);
+        this.rightBB = new BoundingBox(this.x + this.width, this.y, 0, this.height);
+        this.bottomBB = new BoundingBox(this.x, this.y+this.height, this.width, 0);
         
     };
     update() {
     };
     draw(ctx) {
-        let brickWidth = this.width / ((256*GSCALE));
+        let brickWidth = this.width / (this.div);
         for (var i = 0; i < brickWidth; i++) {
-            ctx.drawImage(this.spritesheet, 0, 255, 256, 64, this.x + i * (256*GSCALE)-this.game.camera.x, this.y-this.game.camera.y, (256*GSCALE), (64*GSCALE));
+            ctx.drawImage(this.spritesheet, 0, 255, 256, 64, this.x + i * (this.div)-this.game.camera.x, this.y-this.game.camera.y, this.div, this.height);
         }
         if(debug){
             ctx.strokeStyle = 'Red';
@@ -30,25 +32,26 @@ class Ground {
 };
 
 class Wall {
-    constructor(game, x, y, width, height) {
-        Object.assign(this, { game, x, y, width, height});
+    constructor(game, x, y, width, height, div) {
+        Object.assign(this, { game, x, y, width, height, div});
 
         this.spritesheet = assetMangager.getAsset("./sprites/Lava64.png");
         this.updateBB();
     };
     updateBB() {
         this.lastBB = this.BB;
-        this.BB = new BoundingBox(this.x, this.y, (this.width), this.height);
+        this.BB = new BoundingBox(this.x, this.y, this.width, this.height);
         this.leftBB = new BoundingBox(this.x, this.y, 0, this.height);
-        this.rightBB = new BoundingBox(this.x + (192*WSCALE), this.y, 0, this.height);
+        this.rightBB = new BoundingBox(this.x + this.width, this.y, 0, this.height);
+        this.bottomBB = new BoundingBox(this.x, this.y+this.height, this.width, 0);
         
     };
     update() {
     };
     draw(ctx) {
-        let brickHeight = this.height / ((154*WSCALE));
+        let brickHeight = this.height / this.div;
         for (var i = 0; i < brickHeight; i++) {
-        ctx.drawImage(this.spritesheet, 0, 11, 192, 154, this.x - this.game.camera.x, this.y + i * (154*WSCALE)-this.game.camera.y, (this.width), (154*WSCALE));
+        ctx.drawImage(this.spritesheet, 0, 11, 192, 154, this.x - this.game.camera.x, this.y + i * this.div-this.game.camera.y, this.width, this.div);
         // ctx.drawImage(this.spritesheet, 0, 11, 192, 154, this.x +192 - this.game.camera.x, this.y - i * (154*WSCALE), (192*WSCALE), (154*WSCALE));
         // ctx.drawImage(this.spritesheet, 0, 11, 192, 154, this.x +384 - this.game.camera.x, this.y - i * (154*WSCALE), (192*WSCALE), (154*WSCALE));
         }
