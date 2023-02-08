@@ -171,20 +171,19 @@ class Mage {
             this.game.entities.forEach(function (entity) {
                 if (entity.BB && that.BB.collide(entity.BB)) {
                     if (that.velocity.y > 0) { 
-                        if (((entity instanceof Ground) || (entity instanceof Platform) || (entity instanceof Wall)) && (that.lastBB.bottom <= entity.BB.top)){
-                            // console.log(entity.BB.top);
-                            // console.log("1");
+                        if (((entity instanceof Ground) || (entity instanceof Platform) || (entity instanceof Wall) || (entity instanceof Tiles)) && (that.lastBB.bottom <= entity.BB.top)){
+                          
                             that.playerJump = true;
                             that.velocity.y = 0;
                             that.y = entity.BB.top - PARAMS.PLAYERHEIGHT - yBBOffset;
                             if(that.state == that.states.jump) that.state = that.states.idle;
                             that.updateBB();
                         }
-                        if ((entity instanceof movingPlatforms) && (that.lastBB.bottom >= entity.BB.top)){
+                        if ((entity instanceof movingPlatforms) && (that.lastBB.bottom < entity.BB.top+6)){
                             console.log(entity.BB.top);
-                            // console.log("1");
+                       
                             that.playerJump = true;
-                            that.y = entity.BB.top - PARAMS.PLAYERHEIGHT -125;
+                            that.y = entity.BB.top - PARAMS.PLAYERHEIGHT -129;
                             that.velocity.y = 0;
                             if(that.state == that.states.jump) that.state = that.states.idle;
                             that.updateBB();
@@ -198,17 +197,21 @@ class Mage {
                             that.updateBB();
                         }
                     }
-                    if (((entity instanceof Wall) || (entity instanceof Ground) || (entity instanceof Platform) || (entity instanceof movingPlatforms)) && that.BB.collide(entity.leftBB) && (that.lastBB.top < entity.BB.bottom-7)){
+                    if (((entity instanceof Wall) || (entity instanceof Ground) || (entity instanceof Platform)) && that.BB.collide(entity.leftBB) && (that.lastBB.top < entity.BB.bottom-5)){
                                 that.x = entity.leftBB.left - PARAMS.PLAYERWIDTH-xBBOffset;
                                 that.velocity.x = 0;
                                 that.updateBB();
                     }
-                    if (((entity instanceof Wall) || (entity instanceof Ground) || (entity instanceof Platform) || (entity instanceof movingPlatforms)) && that.BB.collide(entity.rightBB) && (that.lastBB.top < entity.BB.bottom-7)){               
+                    if (((entity instanceof Wall) || (entity instanceof Ground) || (entity instanceof Platform)) && that.BB.collide(entity.rightBB) && (that.lastBB.top < entity.BB.bottom-5)){               
                                 that.x = entity.rightBB.right - xBBOffset;
                                 that.velocity.x = 0; 
                                 that.updateBB(); 
                     }
-                   
+                    if (((entity instanceof Wall) || (entity instanceof Ground) || (entity instanceof Platform)) && that.BB.collide(entity.rightBB) && (that.lastBB.top < entity.BB.bottom-5)){               
+                        that.x = entity.rightBB.right - xBBOffset;
+                        that.velocity.x = 0; 
+                        that.updateBB(); 
+            }
                 }
                 });
             if(this.state != this.states.jump){
@@ -227,7 +230,7 @@ class Mage {
                 this.facing = 0;
             }
             // console.log(this.x);
-    };
+    };q
 
     removeHealth(damageRecieved){
         this.hp -= damageRecieved;

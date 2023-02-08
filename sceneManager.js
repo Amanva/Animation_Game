@@ -7,7 +7,7 @@ class SceneManager {
         this.game.camera = this;
         this.elapsedTime = 0;
         this.level = null;
-        this.mage = new Mage(this.game, 1556, -93); 
+        this.mage = new Mage(this.game, 2150, -93); 
         this.heartMana = new HeartManaHQ(this.game, this.mage);
         // this.game.addEntity(new Projectile(this.game, 100, 100));
         this.game.addEntity(this.mage);
@@ -54,6 +54,12 @@ class SceneManager {
             for (var i = 0; i < level.movingPlatforms.length; i++) {
                 let wall = level.movingPlatforms[i];
                 this.game.addEntity(new movingPlatforms(this.game, wall.x, wall.y, wall.width, wall.height, wall.divisorPlatforms, wall.direction));
+            }
+        }
+        if(level.tiles){
+            for (var i = 0; i < level.tiles.length; i++) {
+                let tiles = level.tiles[i];
+                this.game.addEntity(new Tiles(this.game, tiles.x, tiles.y, tiles.width, tiles.height, tiles.div));
             }
         }
         if(level.wall){

@@ -114,7 +114,41 @@ class Platform {
             }
     };
 };
+class Tiles {
+    constructor(game, x, y, width, height, divisor) {
+        Object.assign(this, { game, x, y, width, height, divisor});
 
+        this.spritesheet = assetMangager.getAsset("./sprites/Lava64.png");
+        // this.animations = [];
+        // this.animations.push(new Animator(this.spritesheet, 0, 0, 48, 48, 1, 0.1, 0,0,false, true, false));
+        this.updateBB();
+    };
+    updateBB() {
+        
+        this.lastBB = this.BB;
+        this.BB = new BoundingBox(this.x, this.y, this.width, this.height);
+        this.leftBB = new BoundingBox(this.x, this.y, 0, this.height);
+        this.rightBB = new BoundingBox(this.x + this.width, this.y, 0, this.height);
+        this.bottomBB = new BoundingBox(this.x, this.y+this.height, this.width, 0);
+        this.topBB = new BoundingBox(this.x, this.y, this.width, 0);
+        
+    };
+    update() {
+    };
+    draw(ctx) {
+        let brickWidth = this.width / (192);
+        for (var i = 0; i < brickWidth; i++) {
+            ctx.drawImage(this.spritesheet, 0, 191, 192, 51, this.x + i * (this.divisor)-this.game.camera.x, this.y-this.game.camera.y, this.divisor, this.height);
+        }
+
+        if(debug){
+            ctx.strokeStyle = 'Red';
+            ctx.strokeRect(this.BB.x-this.game.camera.x, this.BB.y-this.game.camera.y, this.BB.width, this.BB.height);
+            // ctx.strokeRect(this.rightBB.x-this.game.camera.x, this.rightBB.y-this.game.camera.y, this.rightBB.width, this.rightBB.height);
+            // ctx.strokeRect(this.topBB.x-this.game.camera.x, this.topBB.y-this.game.camera.y, this.topBB.width, this.topBB.height);
+            }
+    };
+};
 class movingPlatforms {
     constructor(game, x, y, width, height, divisor, direction) {
         Object.assign(this, { game, x, y, width, height, divisor, direction});

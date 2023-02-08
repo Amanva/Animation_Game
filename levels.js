@@ -39,7 +39,11 @@ var levelOne = {
         {x:1500, y:200, width: 256, height:64, divisorPlatforms:256, direcction: "y-axis"},
 
     ],
+    tiles:[
+        {x:-298 , y:-210, width: 2304 , height:51, div: 192},
+        {x:-298 , y:-159, width: 2304 , height:51, div: 192}
 
+    ],
     lava: [
         {x: 600, y: 300, width: 200, height: 10  }
     ]
