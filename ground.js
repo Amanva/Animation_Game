@@ -83,8 +83,6 @@ class platforms {
         Object.assign(this, { game, x, y, width, height, divisor});
 
         this.spritesheet = assetMangager.getAsset("./sprites/Lava64.png");
-        // this.animations = [];
-        // this.animations.push(new Animator(this.spritesheet, 0, 0, 48, 48, 1, 0.1, 0,0,false, true, false));
         this.updateBB();
     };
     updateBB() {
@@ -92,12 +90,13 @@ class platforms {
         this.BB = new BoundingBox(this.x, this.y, this.width, this.height);
         this.leftBB = new BoundingBox(this.x, this.y, 0, this.height);
         this.rightBB = new BoundingBox(this.x + this.width, this.y, 0, this.height);
+        this.bottomBB = new BoundingBox(this.x, this.y+this.height, this.width, 0);
         
     };
     update() {
     };
     draw(ctx) {
-        let brickWidth = this.width / (256);
+        let brickWidth = this.width / (this.divisor);
         for (var i = 0; i < brickWidth; i++) {
             ctx.drawImage(this.spritesheet, 322, 256, 127, 31, this.x + i * (this.divisor)-this.game.camera.x, this.y-this.game.camera.y, this.divisor, this.height);
         }

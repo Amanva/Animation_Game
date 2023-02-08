@@ -180,7 +180,6 @@ class Mage {
                         }
                         
                         }
-
                     if(that.velocity.y < 0){
                         if ((entity instanceof Ground || entity instanceof Wall || entity instanceof platforms || entity instanceof movingPlatforms) && (that.lastBB.top) >= entity.BB.bottom){
                             that.velocity.y = 0;
@@ -209,6 +208,7 @@ class Mage {
                                 that.x = entity.rightBB.right - xBBOffset;
                                 that.velocity.x = 0; 
                         }
+                        
                         that.updateBB(); 
                     }
                     // if (){

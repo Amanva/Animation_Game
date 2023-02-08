@@ -1,4 +1,4 @@
-const divisorPlatforms = 256;
+// const divisorPlatforms = 256;
 var levelOne = {
     background: "./sprites/Background.png",
     ground: [
@@ -6,10 +6,12 @@ var levelOne = {
         { x: 3456, y: 750, width: 2560, height:64, div: 256},
         { x: 6400, y: 750, width: 2560, height:64, div: 256},
         { x: 9100, y: 750, width: 3328, height:64, div: 256},
+        // { x:2000, y:150, width: 3328, height:64, div: 256},
     ],
     wall: [
         {x:3072 , y:-100, width:192*2, height: 308, div: 308},
         {x:3072 , y:500, width:192*2, height: 308, div: 308},
+        {x:2000 , y:-158, width:192*1, height: 308, div: 308}
         
     ],
     platforms: [
@@ -23,11 +25,11 @@ var levelOne = {
 
         //second area L1
         {x:3600 ,y:500, width: 256, height:64, divisorPlatforms:256},
-        {x:3900 ,y:400, width: 256 , height:64, divisorPlatforms: 256},
-        {x:4100 ,y:80, width: 256 , height:64, divisorPlatforms: 256},
-        {x:4800 ,y:80, width: 256 , height:64, divisorPlatforms: 256},
-        {x:5300, y:80, width: 256, height: 64, divisorPlatforms: 256},
-        {x:4400 ,y:300, width: 256 , height:64, divisorPlatforms: 256},
+        {x:3900 ,y:400, width: 128 , height:64, divisorPlatforms: 128},
+        {x:4100 ,y:80, width: 128 , height:64, divisorPlatforms: 128},
+        {x:4800 ,y:80, width: 128 , height:64, divisorPlatforms: 128},
+        {x:5300, y:80, width: 128, height: 64, divisorPlatforms: 128},
+        {x:4400 ,y:300, width: 128 , height:64, divisorPlatforms: 128},
 
 
     ],
@@ -37,7 +39,11 @@ var levelOne = {
         {x:1500, y:200, width: 256, height:64, divisorPlatforms:256, direcction: "y-axis"},
 
     ],
+    tiles:[
+        {x:-298 , y:-210, width: 2304 , height:51, div: 192},
+        {x:-298 , y:-159, width: 2304 , height:51, div: 192}
 
+    ],
     lava: [
         {x: 600, y: 300, width: 200, height: 10  }
     ]
@@ -54,6 +60,7 @@ var levelTwo = {
     wall: [
         {x:3072 , y:-100, width:192*2, height: 308, div: 308},
         {x:3072 , y:500, width:192*2, height: 308, div: 308},
+        
         
     ],
     platforms: [

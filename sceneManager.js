@@ -12,8 +12,8 @@ class SceneManager {
         // this.game.addEntity(new Projectile(this.game, 100, 100));
         this.game.addEntity(this.mage);
         this.loadLevel(levelOne);
-        // this.fireBoss = new fireBoss(this.game, 300, 300); 
-        // this.game.addEntity(this.fireBoss);
+        this.fireBoss = new fireBoss(this.game, 300, 300); 
+        this.game.addEntity(this.fireBoss);
         this.enemy = new ChainBot(this.game, 50, 610); 
         this.game.addEntity(this.enemy);
         this.game.addEntity(new BackGround(this.game, 0, 0, 1800, 800));
@@ -44,16 +44,17 @@ class SceneManager {
                 this.game.addEntity(new Ground(this.game, ground.x, ground.y, ground.width, ground.height, ground.div));
             }
         }
-        if(level.wall){
-            for (var i = 0; i < level.wall.length; i++) {
-                let wall = level.wall[i];
-                this.game.addEntity(new Wall(this.game, wall.x, wall.y, wall.width, wall.height, wall.div));
-            }
-        }
+        
         if(level.platforms){
             for (var i = 0; i < level.platforms.length; i++) {
                 let wall = level.platforms[i];
                 this.game.addEntity(new platforms(this.game, wall.x, wall.y, wall.width, wall.height, wall.divisorPlatforms));
+            }
+        }
+        if(level.wall){
+            for (var i = 0; i < level.wall.length; i++) {
+                let wall = level.wall[i];
+                this.game.addEntity(new Wall(this.game, wall.x, wall.y, wall.width, wall.height, wall.div));
             }
         }
         if(level.movingPlatforms){
