@@ -7,7 +7,7 @@ class SceneManager {
         this.game.camera = this;
         this.elapsedTime = 0;
         this.level = null;
-        this.mage = new Mage(this.game, 100, 500); 
+        this.mage = new Mage(this.game, 2150, -93); 
         this.heartMana = new HeartManaHQ(this.game, this.mage);
         // this.game.addEntity(new Projectile(this.game, 100, 100));
         this.game.addEntity(this.mage);
@@ -44,23 +44,28 @@ class SceneManager {
                 this.game.addEntity(new Ground(this.game, ground.x, ground.y, ground.width, ground.height, ground.div));
             }
         }
-        
         if(level.platforms){
             for (var i = 0; i < level.platforms.length; i++) {
-                let wall = level.platforms[i];
-                this.game.addEntity(new platforms(this.game, wall.x, wall.y, wall.width, wall.height, wall.divisorPlatforms));
-            }
-        }
-        if(level.wall){
-            for (var i = 0; i < level.wall.length; i++) {
-                let wall = level.wall[i];
-                this.game.addEntity(new Wall(this.game, wall.x, wall.y, wall.width, wall.height, wall.div));
+                let platform = level.platforms[i];
+                this.game.addEntity(new Platform(this.game, platform.x, platform.y, platform.width, platform.height, platform.divisorPlatforms));
             }
         }
         if(level.movingPlatforms){
             for (var i = 0; i < level.movingPlatforms.length; i++) {
                 let wall = level.movingPlatforms[i];
                 this.game.addEntity(new movingPlatforms(this.game, wall.x, wall.y, wall.width, wall.height, wall.divisorPlatforms, wall.direction));
+            }
+        }
+        if(level.tiles){
+            for (var i = 0; i < level.tiles.length; i++) {
+                let tiles = level.tiles[i];
+                this.game.addEntity(new Tiles(this.game, tiles.x, tiles.y, tiles.width, tiles.height, tiles.div));
+            }
+        }
+        if(level.wall){
+            for (var i = 0; i < level.wall.length; i++) {
+                let wall = level.wall[i];
+                this.game.addEntity(new Wall(this.game, wall.x, wall.y, wall.width, wall.height, wall.div));
             }
         }
         // if(level.lava){
@@ -92,8 +97,8 @@ class SceneManager {
     draw(ctx) {
         this.heartMana.draw(ctx);
         if(debug){
-            let xV = "xV=" + Math.floor(this.game.mage.velocity.x);
-            let yV = "yV=" + Math.floor(this.game.mage.velocity.y);
+            let xV = "xP=" + Math.floor(this.game.mage.x);
+            let yV = "yP=" + Math.floor(this.game.mage.y);
             ctx.strokeStyle = "White";
             ctx.fillStyle = ctx.strokeStyle; 
             ctx.font = "30px Verdana";
