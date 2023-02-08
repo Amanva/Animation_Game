@@ -130,7 +130,7 @@ class ChainBot {
                 that.state = 4; //state attackRight
                 that.velocity.x = 0;
                 that.updateBB();
-                console.log(that.BB.distance(entity.BB));
+                // console.log(that.BB.distance(entity.BB));
                 } else {
                 that.state = 3; //state attackLeft
                 that.velocity.x = 0;

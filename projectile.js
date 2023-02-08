@@ -33,7 +33,7 @@ class Projectile{
         var that = this;
         this.game.entities.forEach(function (entity) {
             if (entity.BB && that.BB.collide(entity.BB)) {
-                if ((entity instanceof Ground || entity instanceof Wall || entity instanceof platforms) && that.BB.collide(entity.BB)) {
+                if ((entity instanceof Ground || entity instanceof Wall || entity instanceof Platform || entity instanceof movingPlatforms) && that.BB.collide(entity.BB)) {
                    that.removeFromWorld = true;
                 }
                 if(entity instanceof fireBoss){

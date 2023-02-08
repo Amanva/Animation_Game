@@ -44,6 +44,7 @@ class Wall {
         this.leftBB = new BoundingBox(this.x, this.y, 0, this.height);
         this.rightBB = new BoundingBox(this.x + this.width, this.y, 0, this.height);
         this.bottomBB = new BoundingBox(this.x, this.y+this.height, this.width, 0);
+        this.topBB = new BoundingBox(this.x, this.y, this.width, 0);
         
     };
     update() {
@@ -57,9 +58,9 @@ class Wall {
         }
         if(debug){
             ctx.strokeStyle = 'Red';
-            ctx.strokeRect(this.BB.x-this.game.camera.x, this.BB.y-this.game.camera.y, this.BB.width, this.BB.height);
+            // ctx.strokeRect(this.BB.x-this.game.camera.x, this.BB.y-this.game.camera.y, this.BB.width, this.BB.height);
             // ctx.strokeRect(this.leftBB.x-this.game.camera.x, this.leftBB.y-this.game.camera.y, this.leftBB.width, this.leftBB.height);
-            // ctx.strokeRect(this.rightBB.x-this.game.camera.x, this.rightBB.y-this.game.camera.y, this.rightBB.width, this.rightBB.height);
+            ctx.strokeRect(this.rightBB.x-this.game.camera.x, this.rightBB.y-this.game.camera.y, this.rightBB.width, this.rightBB.height);
         }
     };
 };
@@ -78,7 +79,7 @@ class BackGround {
         ctx.drawImage(this.spritesheet,this.x ,this.y, this.w, this.h);
     };
 };
-class platforms {
+class Platform {
     constructor(game, x, y, width, height, divisor) {
         Object.assign(this, { game, x, y, width, height, divisor});
 
@@ -88,10 +89,13 @@ class platforms {
         this.updateBB();
     };
     updateBB() {
+        
         this.lastBB = this.BB;
         this.BB = new BoundingBox(this.x, this.y, this.width, this.height);
         this.leftBB = new BoundingBox(this.x, this.y, 0, this.height);
         this.rightBB = new BoundingBox(this.x + this.width, this.y, 0, this.height);
+        this.bottomBB = new BoundingBox(this.x, this.y+this.height, this.width, 0);
+        this.topBB = new BoundingBox(this.x, this.y, this.width, 0);
         
     };
     update() {
@@ -104,8 +108,9 @@ class platforms {
 
         if(debug){
             ctx.strokeStyle = 'Red';
-            ctx.strokeRect(this.BB.x-this.game.camera.x, this.BB.y-this.game.camera.y, this.BB.width, this.BB.height);
+            // ctx.strokeRect(this.BB.x-this.game.camera.x, this.BB.y-this.game.camera.y, this.BB.width, this.BB.height);
             // ctx.strokeRect(this.rightBB.x-this.game.camera.x, this.rightBB.y-this.game.camera.y, this.rightBB.width, this.rightBB.height);
+            ctx.strokeRect(this.topBB.x-this.game.camera.x, this.topBB.y-this.game.camera.y, this.topBB.width, this.topBB.height);
             }
     };
 };
@@ -127,6 +132,8 @@ class movingPlatforms {
         this.BB = new BoundingBox(this.x, this.y, this.width, this.height);
         this.leftBB = new BoundingBox(this.x, this.y, 0, this.height);
         this.rightBB = new BoundingBox(this.x + this.width, this.y, 0, this.height);
+        this.bottomBB = new BoundingBox(this.x, this.y+this.height, this.width, 0);
+        this.topBB = new BoundingBox(this.x, this.y, this.width, 0);
         
     };
     update() {
@@ -157,7 +164,7 @@ class movingPlatforms {
             if(this.y >= 400){
                 this.reverse = true;
             }
-            console.log(this.y + "testing");
+            // console.log(this.y + "testing");
 
         }
         else{
