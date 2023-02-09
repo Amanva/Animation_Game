@@ -191,7 +191,7 @@ class Mage {
                         } 
 
                     if(that.velocity.y < 0){
-                        if ((entity instanceof Ground || entity instanceof Wall || entity instanceof Platform || entity instanceof movingPlatforms || entity instanceof smallPlatforms) && (that.lastBB.top >= entity.BB.bottom)){
+                        if ((entity instanceof Ground || entity instanceof Wall || entity instanceof Platform || entity instanceof movingPlatforms || (entity instanceof Tiles) || entity instanceof smallPlatforms) && (that.lastBB.top >= entity.BB.bottom)){
                             that.velocity.y = 0;
                             // that.y = entity.BB.bottom - PARAMS.PLAYERHEIGHT - xBBOffset;
                             that.updateBB();
@@ -202,12 +202,12 @@ class Mage {
                                 that.velocity.x = 0;
                                 that.updateBB();
                     }
-                    if (((entity instanceof Wall) || (entity instanceof Ground) || (entity instanceof Platform)) && that.BB.collide(entity.rightBB) && (that.lastBB.top < entity.BB.bottom-5)){               
+                    if (((entity instanceof Wall) || (entity instanceof Ground) || (entity instanceof Platform) || (entity instanceof Tiles)) && that.BB.collide(entity.rightBB) && (that.lastBB.top < entity.BB.bottom-5)){               
                                 that.x = entity.rightBB.right - xBBOffset;
                                 that.velocity.x = 0; 
                                 that.updateBB(); 
                     }
-                    if (((entity instanceof Wall) || (entity instanceof Ground) || (entity instanceof Platform)) && that.BB.collide(entity.rightBB) && (that.lastBB.top < entity.BB.bottom-5)){               
+                    if (((entity instanceof Wall) || (entity instanceof Ground) || (entity instanceof Platform) || (entity instanceof Tiles)) && that.BB.collide(entity.rightBB) && (that.lastBB.top < entity.BB.bottom-5)){               
                         that.x = entity.rightBB.right - xBBOffset;
                         that.velocity.x = 0; 
                         that.updateBB(); 

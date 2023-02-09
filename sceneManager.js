@@ -7,6 +7,7 @@ class SceneManager {
         this.game.camera = this;
         this.elapsedTime = 0;
         this.level = null;
+        this.myCursor = new Cursor(this.game);
         this.mage = new Mage(this.game, 7050, -93); 
         this.heartMana = new HeartManaHQ(this.game, this.mage);
         // this.game.addEntity(new Projectile(this.game, 100, 100));
@@ -17,6 +18,7 @@ class SceneManager {
         this.enemy = new ChainBot(this.game, 50, 610); 
         this.game.addEntity(this.enemy);
         this.game.addEntity(new BackGround(this.game, 0, 0, 1800, 800));
+        
         // this.game.addEntity(new Monster(this.game, 600, 600))S
        // this.game.addEntity(this.monster);
         
@@ -68,18 +70,25 @@ class SceneManager {
                 this.game.addEntity(new smallPlatforms(this.game, tiles.x, tiles.y, tiles.width, tiles.height, tiles.div));
             }
         }
-        if(level.tiles){
-            for (var i = 0; i < level.tiles.length; i++) {
-                let tiles = level.tiles[i];
-                this.game.addEntity(new Tiles(this.game, tiles.x, tiles.y, tiles.width, tiles.height, tiles.div));
-            }
-        }
         if(level.wall){
             for (var i = 0; i < level.wall.length; i++) {
                 let wall = level.wall[i];
                 this.game.addEntity(new Wall(this.game, wall.x, wall.y, wall.width, wall.height, wall.div));
             }
         }
+        if(level.tiles){
+            for (var i = 0; i < level.tiles.length; i++) {
+                let tiles = level.tiles[i];
+                this.game.addEntity(new Tiles(this.game, tiles.x, tiles.y, tiles.width, tiles.height, tiles.div));
+            }
+        }
+        if(level.gate){
+            for (var i = 0; i < level.gate.length; i++) {
+                let gate = level.gate[i];
+                this.game.addEntity(new Gate(this.game, gate.x, gate.y, gate.wallX, gate.wallY, gate.wallWidth, gate.wallHeight, gate.div));
+            }
+        }
+        
         // if(level.lava){
         //     for (var i = 0; i < level.lava.length; i++) {
         //         let wall = level.lava[i];
@@ -108,6 +117,7 @@ class SceneManager {
 
     draw(ctx) {
         this.heartMana.draw(ctx);
+        // this.myCursor.draw(ctx);
         if(debug){
             let xV = "xP=" + Math.floor(this.game.mage.x);
             let yV = "yP=" + Math.floor(this.game.mage.y);

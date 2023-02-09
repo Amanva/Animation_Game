@@ -9,6 +9,8 @@ assetMangager.queueDownload("./slime_demonboss_specialmoves.png");
 assetMangager.queueDownload("./slime_demonboss_specialmovesLeft.png");
 assetMangager.queueDownload("./sprites/Hearts.png");
 assetMangager.queueDownload("./sprites/Mana.png");
+assetMangager.queueDownload("./sprites/cursor.png");
+assetMangager.queueDownload("./sprites/gate.png");
 
 
 // Load chain_bot sprites.
