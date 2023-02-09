@@ -35,7 +35,7 @@ class Monster{
             // idle
            this.animations[0] = new Animator(this.spritesheetIdleLeft, 5, 0, 155, 126, 6, 0.10, 5, 0, true, true, false);
             // right run
-           this.animations[1] = new Animator(this.spritesheetIdle, 0, 0, 155, 126, 6, 0.10, 5, 0, false, true, false);
+           this.animations[1] = new Animator(this.spritesheetIdleLeft, 0, 0, 155, 126, 6, 0.10, 5, 0, false, true, false);
             // left run
            this.animations[2] = new Animator(this.spritesheetIdle, 0, 0, 155, 126, 6, 0.10, 5, 0, false, true, false);
             // left attack
@@ -50,9 +50,9 @@ class Monster{
          updateBB() {
              this.lastBB = this.BB;
              this.BB = new BoundingBox(this.x+140, this.y + 25, 50, 30 * 1.8); 
-             this.BB = new BoundingBox(this.x, this.y, 80, 120);
+             this.BB = new BoundingBox(this.x, this.y, 110, 140);
             
-            
+                          
         // };
         //updateBB() {
           //  this.BB = new BoundingBox(this.x + 45-this.game.camera.x, this.y + 35, 70, 90, "red");
@@ -100,33 +100,33 @@ class Monster{
                     
                 //go towards to mage
                 if (entity instanceof Mage && LOWER_BOUND < Math.abs(that.BB.distance(entity.BB)) 
-                            && Math.abs(that.BB.distance(entity.BB)) < UPPER_BOUND) { //Mage is close, then go to Mage
-                    if (that.BB && that.BB.distance(entity.BB) < 0) { // Mage is on the Right side
+                            && Math.abs(that.BB.distance(entity.BB)) < UPPER_BOUND) { //
+                    if (that.BB && that.BB.distance(entity.BB) < 0) { 
                         that.state = 1; //state runRight
                         that.velocity.x = RUN; //RUN = 50
                         that.updateBB();
                         // console.log(Math.abs(entity.BB && that.BB.distance(entity.BB)));
                     } else { 
-                        that.state = 2; //state runLeft otherwise
+                        that.state = 2;
                         that.velocity.x = -RUN;
                         that.updateBB();
                         // console.log(that.BB.distance(entity.BB));
                     } 
-                //Mage is not in range then stop and wait.        
-                } else if (entity instanceof Mage && Math.abs( that.BB.distance(entity.BB)) >= UPPER_BOUND) {  //!that.state = 5
-                        that.state = 0; //state idle
+                
+                } else if (entity instanceof Mage && Math.abs( that.BB.distance(entity.BB)) >= UPPER_BOUND) {  
+                        that.state = 0; 
                         that.velocity.x = 0;
                         that.updateBB();
     
                 // attack Mage                         
                 } else if (entity instanceof Mage && Math.abs(that.BB.distance(entity.BB)) <= LOWER_BOUND) {
                     if (-LOWER_BOUND < (that.BB.distance(entity.BB)) && (that.BB.distance(entity.BB)) < 0) {
-                    that.state = 4; //state attackRight
+                    that.state = 4; 
                     that.velocity.x = 0;
                     that.updateBB();
                     console.log(that.BB.distance(entity.BB));
                     } else {
-                    that.state = 3; //state attackLeft
+                    that.state = 3; 
                     that.velocity.x = 0;
                     that.updateBB();
                     console.log(entity.BB && that.BB.distance(entity.BB));
@@ -144,24 +144,8 @@ class Monster{
                 
                 ctx.strokeStyle = 'Red';
                 ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y, this.BB.width , this.BB.height);
-                ctx.strokeStyle = 'Yellow';
-                ctx.strokeRect(this.BB.x + this.BB.width/2 - this.game.camera.x, this.BB.y, 87 , 3);
-                            
-                                
-                 ctx.strokeStyle = 'Green';
-                 ctx.strokeRect(this.BB.x + this.BB.width/2 - this.game.camera.x-87, this.BB.y, 87 , 3);
-               
-                 
-                ctx.font = "20px Arial";
-                ctx.fillStyle = "white";
-                ctx.fillText("X: " + Math.round(this.x), 10, 50);
-                ctx.fillText("Monster BB Width: " + Math.round(this.BB.width), 160, 50);
-                // ctx.fillText("Y: " + Math.round(this.y), 10, 70);
-                ctx.fillText("Speed: " + this.velocity.x, 10, 90);
-                ctx.fillText("State: " + this.state, 10, 110);
-                ctx.fillText("hitPoints: " + this.hitPoints, 10, 130);
-                             
-        }; 
+       
+              }; 
     
     }; 
     
