@@ -99,7 +99,7 @@ class Mage {
         // console.log(this.state);
         this.timetoShoot += this.game.clockTick;
         const TICK = this.game.clockTick;
-        const RUN = 400;
+        const RUN = 200;
         const MAXFALL = 300;
         const xBBOffset = 15
         const yBBOffset = 130;

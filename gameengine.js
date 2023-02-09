@@ -18,6 +18,7 @@ class GameEngine {
         this.click = null;
         this.mouse = null;
         this.wheel = null;
+        this.inCanvas = true;
         this.keys = {};
 
         // Options and the Details

@@ -14,6 +14,10 @@ var levelOne = {
         {x:2000 , y:-158, width:192*1, height: 308, div: 308}
         
     ],
+    gate: [
+        {x:5 ,y:-370, wallX: 1800, wallY:-453, wallWidth: 192, wallHeight: 308, div:308}
+
+    ],
     platforms: [
         //first area L1
         {x:100 ,y:500, width: 256, height:64, divisorPlatforms:256}, 
