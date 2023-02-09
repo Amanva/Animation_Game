@@ -18,14 +18,15 @@ class GameEngine {
         this.click = null;
         this.mouse = null;
         this.wheel = null;
+        this.inCanvas = true;
         this.keys = {};
 
         // Options and the Details
         this.options = options || {
             debugging: false,
         };
+        
     };
-
     init(ctx) {
         this.ctx = ctx;
         this.startInput();
@@ -142,6 +143,7 @@ class GameEngine {
                     break;
             }
         }, false);
+
     };
 
     addEntity(entity) {
@@ -159,6 +161,7 @@ class GameEngine {
         for (let i = this.entities.length - 1; i >= 0; i--) {
             this.entities[i].draw(this.ctx, this);
         }
+        this.camera.draw(this.ctx);
     };
 
     update() {
