@@ -7,7 +7,7 @@ class SceneManager {
         this.game.camera = this;
         this.elapsedTime = 0;
         this.level = null;
-        this.mage = new Mage(this.game, 2150, -93); 
+        this.mage = new Mage(this.game, 7050, -93); 
         this.heartMana = new HeartManaHQ(this.game, this.mage);
         // this.game.addEntity(new Projectile(this.game, 100, 100));
         this.game.addEntity(this.mage);
@@ -53,7 +53,19 @@ class SceneManager {
         if(level.movingPlatforms){
             for (var i = 0; i < level.movingPlatforms.length; i++) {
                 let wall = level.movingPlatforms[i];
-                this.game.addEntity(new movingPlatforms(this.game, wall.x, wall.y, wall.width, wall.height, wall.divisorPlatforms, wall.direction));
+                this.game.addEntity(new movingPlatforms(this.game, wall.x, wall.y, wall.width, wall.height, wall.divisorPlatforms, wall.direction, wall.distance));
+            }
+        }
+        if(level.verticalWall){
+            for (var i = 0; i < level.verticalWall.length; i++) {
+                let tiles = level.verticalWall[i];
+                this.game.addEntity(new verticalWall(this.game, tiles.x, tiles.y, tiles.width, tiles.height, tiles.div));
+            }
+        }
+        if(level.smallPlatforms){
+            for (var i = 0; i < level.smallPlatforms.length; i++) {
+                let tiles = level.smallPlatforms[i];
+                this.game.addEntity(new smallPlatforms(this.game, tiles.x, tiles.y, tiles.width, tiles.height, tiles.div));
             }
         }
         if(level.tiles){

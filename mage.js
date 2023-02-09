@@ -99,8 +99,8 @@ class Mage {
         // console.log(this.state);
         this.timetoShoot += this.game.clockTick;
         const TICK = this.game.clockTick;
-        const RUN = 400;
-        const MAXFALL = 300;
+        const RUN = 200;
+        const MAXFALL = 200;
         const xBBOffset = 15
         const yBBOffset = 130;
         this.velocity.y += this.fallAcc * TICK;
@@ -171,7 +171,7 @@ class Mage {
             this.game.entities.forEach(function (entity) {
                 if (entity.BB && that.BB.collide(entity.BB)) {
                     if (that.velocity.y > 0) { 
-                        if (((entity instanceof Ground) || (entity instanceof Platform) || (entity instanceof Wall) || (entity instanceof Tiles)) && (that.lastBB.bottom <= entity.BB.top)){
+                        if (((entity instanceof Ground) || (entity instanceof Platform) || (entity instanceof Wall) || (entity instanceof Tiles || (entity instanceof smallPlatforms))) && (that.lastBB.bottom <= entity.BB.top)){
                           
                             that.playerJump = true;
                             that.velocity.y = 0;
@@ -191,7 +191,7 @@ class Mage {
                         } 
 
                     if(that.velocity.y < 0){
-                        if ((entity instanceof Ground || entity instanceof Wall || entity instanceof Platform || entity instanceof movingPlatforms) && (that.lastBB.top >= entity.BB.bottom)){
+                        if ((entity instanceof Ground || entity instanceof Wall || entity instanceof Platform || entity instanceof movingPlatforms || entity instanceof smallPlatforms) && (that.lastBB.top >= entity.BB.bottom)){
                             that.velocity.y = 0;
                             // that.y = entity.BB.bottom - PARAMS.PLAYERHEIGHT - xBBOffset;
                             that.updateBB();
