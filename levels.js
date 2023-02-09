@@ -15,7 +15,7 @@ var levelOne = {
         
     ],
     gate: [
-        {x:5 ,y:-370, wallX: 1800, wallY:-453, wallWidth: 192, wallHeight: 308, div:308}
+        {x:5 ,y:-370, wallX: 3072, wallY:206, wallWidth: 192, wallHeight: 308, div:308}
 
     ],
     platforms: [

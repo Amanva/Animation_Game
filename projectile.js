@@ -72,7 +72,7 @@ function getAngle(velocity) {
     // let radian = Math.atan2(velocity.y, velocity.x);
     // let degree = radian * (180 / Math.PI);
     let change = Math.atan2(velocity.y, velocity.x) / Math.PI;
-    if (-0.625 < change && change < -0.375) return 4.7; // up
+    if (-0.625 < change && change < -0.375) return 4.7; // up 
     if (-0.375 < change && change < -0.125) return 5.5; // up right
     if (0.375 < change && change < 0.625) return 1.5; // down
     if (0.625 < change && change < 0.875) return 8.5; // down left

@@ -58,6 +58,12 @@ class SceneManager {
                 this.game.addEntity(new movingPlatforms(this.game, wall.x, wall.y, wall.width, wall.height, wall.divisorPlatforms, wall.direction));
             }
         }
+        if(level.wall){
+            for (var i = 0; i < level.wall.length; i++) {
+                let wall = level.wall[i];
+                this.game.addEntity(new Wall(this.game, wall.x, wall.y, wall.width, wall.height, wall.div));
+            }
+        }
         if(level.tiles){
             for (var i = 0; i < level.tiles.length; i++) {
                 let tiles = level.tiles[i];
@@ -70,12 +76,7 @@ class SceneManager {
                 this.game.addEntity(new Gate(this.game, gate.x, gate.y, gate.wallX, gate.wallY, gate.wallWidth, gate.wallHeight, gate.div));
             }
         }
-        if(level.wall){
-            for (var i = 0; i < level.wall.length; i++) {
-                let wall = level.wall[i];
-                this.game.addEntity(new Wall(this.game, wall.x, wall.y, wall.width, wall.height, wall.div));
-            }
-        }
+        
         // if(level.lava){
         //     for (var i = 0; i < level.lava.length; i++) {
         //         let wall = level.lava[i];
