@@ -12,9 +12,9 @@ class Ground {
     updateBB() {
         this.lastBB = this.BB;
         this.BB = new BoundingBox(this.x, this.y, this.width, this.height);
-        this.leftBB = new BoundingBox(this.x, this.y, 0, this.height);
-        this.rightBB = new BoundingBox(this.x + this.width, this.y, 0, this.height);
-        this.bottomBB = new BoundingBox(this.x, this.y+this.height, this.width, 0);
+        // this.leftBB = new BoundingBox(this.x, this.y, 0, this.height);
+        // this.rightBB = new BoundingBox(this.x + this.width, this.y, 0, this.height);
+        // this.bottomBB = new BoundingBox(this.x, this.y+this.height, this.width, 0);
         
     };
     update() {
@@ -127,10 +127,10 @@ class Tiles {
         
         this.lastBB = this.BB;
         this.BB = new BoundingBox(this.x, this.y, this.width, this.height);
-        this.leftBB = new BoundingBox(this.x, this.y, 0, this.height);
-        this.rightBB = new BoundingBox(this.x + this.width, this.y, 0, this.height);
-        this.bottomBB = new BoundingBox(this.x, this.y+this.height, this.width, 0);
-        this.topBB = new BoundingBox(this.x, this.y, this.width, 0);
+        // this.leftBB = new BoundingBox(this.x, this.y, 0, this.height);
+        // this.rightBB = new BoundingBox(this.x + this.width, this.y, 0, this.height);
+        // this.bottomBB = new BoundingBox(this.x, this.y+this.height, this.width, 0);
+        // this.topBB = new BoundingBox(this.x, this.y, this.width, 0);
         
     };
     update() {

@@ -108,7 +108,7 @@ class ChainBot {
             //Ground and platforms collisions. Landing.
             if (((entity instanceof Ground) || (entity instanceof Platform) || (entity instanceof movingPlatforms) || (entity instanceof Tiles)) 
                 && entity.BB && that.BB.collide(entity.BB) && (that.lastBB.bottom) <= entity.BB.top) {
-                    that.y = entity.BB.top - that.BB.height;
+                    that.y = entity.BB.top - that.BB.height-25;
                     that.velocity.y = 0;
                     that.updateBB();
                 }
@@ -127,7 +127,7 @@ class ChainBot {
                     that.updateBB();
                     // console.log(that.BB.distance(entity.BB));
                 } 
-            //Mage is not in range then stop and wait. Default state.        
+            //TODO Mage is not in range then stop and wait. Default state.        
             } else if (entity instanceof Mage && Math.abs( that.BB.distance(entity.BB)) >= UPPER_BOUND) {  //!that.state = 5
                     that.state = 0; //state idle
                     that.velocity.x = 0;
@@ -139,12 +139,12 @@ class ChainBot {
                 that.state = 4; //state attackRight
                 that.velocity.x = 0;
                 that.updateBB();
-                console.log(that.BB.distance(entity.BB));
+                // console.log(that.BB.distance(entity.BB)); 
                 } else {
                 that.state = 3; //state attackLeft
                 that.velocity.x = 0;
                 that.updateBB();
-                console.log(entity.BB && that.BB.distance(entity.BB));
+                // console.log(entity.BB && that.BB.distance(entity.BB));
                 }
 
             }//end of ddattack logic

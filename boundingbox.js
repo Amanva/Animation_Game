@@ -16,6 +16,7 @@ class BoundingBox {
     /** 
      * @method distance() checks distance between entities.
      * If positive then other on the left side, negative means right.
+     * @param oth other bounding box
      * @return distance between the entities
      * @author Uladzimir Hanevich
     */
