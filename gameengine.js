@@ -11,7 +11,8 @@ class GameEngine {
         this.right = false;
         this.up = false;
         this.down = false;
-        this.B = false;
+        this.E = false;
+        this.digit1 = false;
         this.attack = false;
         this.jump = false;
         this.c = false;
@@ -20,7 +21,6 @@ class GameEngine {
         this.wheel = null;
         this.inCanvas = true;
         this.keys = {};
-
         // Options and the Details
         this.options = options || {
             debugging: false,
@@ -110,7 +110,10 @@ class GameEngine {
                     that.down = true;
                     break;
                 case "KeyE":
-                    that.E = true;
+                that.E = true;
+                break;
+                case "Digit1":
+                    that.digit1 = true;
                     break;
                 case "Space":
                     that.jump= true;
@@ -137,6 +140,9 @@ class GameEngine {
                     break;
                 case "KeyE":
                     that.E = false;
+                    break;
+                case "Digit1":
+                    that.digit1 = false;
                     break;
                 case "Space":
                     that.jump = false;

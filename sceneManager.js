@@ -8,19 +8,22 @@ class SceneManager {
         this.elapsedTime = 0;
         this.level = null;
         this.myCursor = new Cursor(this.game);
-        this.mage = new Mage(this.game, 605, -453); 
+        this.mage = new Mage(this.game, 662, 488); 
         this.heartMana = new HeartManaHQ(this.game, this.mage);
-        // this.game.addEntity(new Projectile(this.game, 100, 100));
+        // this.game.addEntity(new FireBall(this.game, 300, 400));
         this.game.addEntity(this.mage);
+        this.enemy = new ChainBot(this.game, 50, 0); 
+        this.game.addEntity(this.enemy);
         this.loadLevel(levelOne);
         // this.fireBoss = new fireBoss(this.game, 300, 300); 
         // this.game.addEntity(this.fireBoss);
-        this.enemy = new ChainBot(this.game, 50, 610); 
-        this.game.addEntity(this.enemy);
+        
+        
+        // this.game.addEntity(new Monster(this.game, 600, 600));
+        
         this.game.addEntity(new BackGround(this.game, 0, 0, 1800, 800));
         
-        // this.game.addEntity(new Monster(this.game, 600, 600))S
-       // this.game.addEntity(this.monster);
+       
         
         
         
@@ -87,6 +90,7 @@ class SceneManager {
         
     }
     update() {
+        this.heartMana.update();
         let midpoint = PARAMS.CANVAS_WIDTH/2 - PARAMS.PLAYERWIDTH / 2;
         // console.log(this.x,this.mage.x - midpoint);
       

@@ -1,3 +1,15 @@
+function distanceBetween(A, B) {
+    return Math.sqrt((B.x - A.x) * (B.x - A.x) + (B.y - A.y) * (B.y - A.y));
+};
+function getAngle(velocity) {
+    let change = Math.atan2(velocity.y, velocity.x);
+    // let degree = radian * (180 / Math.PI);
+    if (change < 0) change += Math.PI * 2;
+    let degrees = Math.floor(change / Math.PI / 2 * 360);
+    let bot = degrees / 360 * 2 * Math.PI;
+    console.log(bot);
+    return bot;
+};
 function randomInt(n) {
     return Math.floor(Math.random() * n);
 };
