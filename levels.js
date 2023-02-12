@@ -46,10 +46,40 @@ var levelOne = {
         {x:7127 ,y:600, width: 63 , height:17, div: 63},
         {x:7300 ,y:300, width: 63 , height:17, div: 63},
         {x:7500 ,y:400, width: 63 , height:17, div: 63},
+        {x:7127 ,y:200, width: 63 , height:17, div: 63},
+        {x:7450 ,y:0, width: 63 , height:17, div: 63},
+        {x:7750 ,y:150, width: 63 , height:17, div: 63},
+        {x:7200 ,y:100, width: 63 , height:17, div: 63},
+
+
+
 
         
         {x:7600 ,y:700, width: 63 , height:17, div: 63},
         {x:7450 ,y:700, width: 63 , height:17, div: 63},
+        {x:7450 ,y:200, width: 63 , height:17, div: 63},
+
+        {x:7700 ,y:670, width: 63 , height:17, div: 63},
+        {x:7700 ,y:250, width: 63 , height:17, div: 63},
+
+
+
+        {x:7700 ,y:0, width: 63 , height:17, div: 63},
+        {x:8000 ,y:-50, width: 63 , height:17, div: 63},
+        {x:8200 ,y:-10, width: 63 , height:17, div: 63},
+        {x:8250 ,y:60, width: 63 , height:17, div: 63},
+
+
+        {x:8000 ,y:500, width: 63 , height:17, div: 63},
+        {x:8200 ,y:400, width: 63 , height:17, div: 63},
+        {x:8200 ,y:600, width: 63 , height:17, div: 63},
+        {x:8500 ,y:500, width: 63 , height:17, div: 63},
+        {x:8300 ,y:300, width: 63 , height:17, div: 63},
+
+
+
+
+
 
 
 
@@ -80,9 +110,26 @@ var levelOne = {
         {x: 6750, y: 504, width: 127, height: 127, div: 127 },
         {x: 6750, y: 631, width: 127, height: 127, div: 127 },
 
+
+        {x: 7000, y: -385, width: 127, height: 127, div: 127 },
+        {x: 7000, y: -512, width: 127, height: 127, div: 127 },
+        {x: 7000, y: -258, width: 127, height: 127, div: 127 },
+        {x: 7000, y: -131, width: 127, height: 127, div: 127 },
+        {x: 7000, y: -4, width: 127, height: 127, div: 127 },
+        {x: 7000, y: 123, width: 127, height: 127, div: 127 },
+
         {x: 7000, y: 250, width: 127, height: 127, div: 127 },
         {x: 7000, y: 377, width: 127, height: 127, div: 127 },
         {x: 7000, y: 504, width: 127, height: 127, div: 127 },
+
+
+        {x: 8000, y: -131, width: 127, height: 127, div: 127 },
+        {x: 8000, y: -258, width: 127, height: 127, div: 127 },
+        {x: 8000, y: -385, width: 127, height: 127, div: 127 },
+        {x: 8000, y: -512, width: 127, height: 127, div: 127 },
+
+
+
 
 
 
