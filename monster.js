@@ -1,80 +1,151 @@
+class Monster{ 
 
-  class Monster {
+    constructor(game, x, y){
+     Object.assign(this, { game, x, y });
+     this.game.monster = this;
+     this.velocity = { x: 0, y: 0 };
+     this.hitPoints = 1;
+     this.fallAcc = 200;       
+     
+     this.spritesheet = assetMangager.getAsset("./sprites/monster.png");
+     this.spritesheetLeft = assetMangager.getAsset("./sprites/monsterLeft.png");
+     this.spritesheetIdle = assetMangager.getAsset("./sprites/demon-idle.png");
+     this.spritesheetIdleLeft = assetMangager.getAsset("./sprites/demon-idleLeft.png");
+    //  this.spritesheetIdleLeft = assetMangager.getAsset("./sprites/demon-idleRight.png");
+     
+                               
+     // this.fallAcc = 200;
+     this.x = 180;
+     this.y = 330;
+     this.speed = 100;
+     this.state = 0;
+     this.dead = false;
+     this.updateBB();
+     this.loadAnimations();
+     
+ }; // end of constructor
+
+ loadAnimations() {
+     this.animations = [];
+     for (var i = 0; i < 2; i++) { 
+         this.animations.push([]);
+         
+     }
+               
+     // idle
+    this.animations[0] = new Animator(this.spritesheetIdleLeft, 5, 0, 155, 126, 6, 0.10, 5, 0, true, true, false);
+     // right run
+    this.animations[1] = new Animator(this.spritesheetIdleLeft, 0, 0, 155, 126, 6, 0.10, 5, 0, false, true, false);
+     // left run
+    this.animations[2] = new Animator(this.spritesheetIdle, 0, 0, 155, 126, 6, 0.10, 5, 0, false, true, false);
+     // left attack
+    this.animations [3] = new Animator(this.spritesheet, -40, 0, 200, 150, 11, 0.1, 40, 0, false, true, false);
+     // right attack
+     this.animations[4] = new Animator(this.spritesheetLeft, 0, 0, 200, 150, 11, 0.1, 40, 100, true, true, false);
+               
+ }; // End load animation
+
+
+
+  updateBB() {
+      this.lastBB = this.BB;
+      this.BB = new BoundingBox(this.x+140, this.y + 25, 50, 30 * 1.8); 
+      this.BB = new BoundingBox(this.x, this.y, 110, 140);
+     
+                   
+ // };
+ //updateBB() {
+   //  this.BB = new BoundingBox(this.x + 45-this.game.camera.x, this.y + 35, 70, 90, "red");
+     // this.BB = new BoundingBox(this.x + 60-this.game.camera.x, this.y + 35, 70, 110, "red");
+     
+ }
+ update() {
+     this.elapsedTime += this.game.clockTick;
+    //  this.velocity.y += this.fallAcc * TICK;
+     // default state, and default velocity
+     // this.state = 0;  
+      //this.velocity.x = 0; 
+     const TICK = this.game.clockTick;
+     const RUN = 200; //change the speed
+     const LOWER_BOUND = 80;
+     const UPPER_BOUND = 350;
    
-    constructor(game, x, y) {
-        Object.assign(this, { game, x, y});
-        this.spritesheet = assetMangager.getAsset("./sprites/monster.png");
-        this.spritesheetLeft = assetMangager.getAsset("./sprites/monsterLeft.png");
-        this.spritesheetIdle = assetMangager.getAsset("./sprites/demon-idle.png");
-        this.spritesheetIdleLeft = assetMangager.getAsset("./sprites/demon-idleLeft.png");
-        this.speed = 250;
-        this.animations = [];
-        this.dead = false;
-        this.loadAnimations();  
-        this.updateBB();
-    };
+     // const MAXFALL = 270;
 
-    loadAnimations() {
-        for (var i = 0; i < 2; i++) { 
-            this.animations.push([]);
-            for (var j = 0; j < 2; j++) { 
-                this.animations[i].push([]);
-            }
-        }
-        // attack
-        this.animations[0][0] = new Animator(this.spritesheet, -40, 0, 200, 150, 11, 0.1, 40, 0, false, true, false);
-        // idle
-        this.animations[1][0] = new Animator(this.spritesheetIdle, 0, 0, 155, 126, 6, 0.10, 5, 0, false, true, false);
+     // update position
+     this.x += this.velocity.x * TICK;
+    //  this.y += this.velocity.y * TICK * PARAMS.SCALE; 
+     var that = this;
+     this.updateBB();
 
-        // attack
-        this.animations[0][1] = new Animator(this.spritesheetLeft, 0, 0, 200, 150, 11, 0.1, 40, 0, true, true, false);
-        // idle
-        this.animations[1][1] = new Animator(this.spritesheetIdleLeft, 5, 0, 155, 126, 6, 0.10, 5, 0, true, true, false);
+     // collisions
+     this.game.entities.forEach(function (entity) {
+         if (entity instanceof Projectile && entity.BB && that.BB.collide(entity.BB) && that.hitPoints > 0){
+                 // && Math.abs(entity.BB && that.BB.distance(entity.BB)) === 0) {
+                 entity.removeFromWorld = true;
+                 --that.hitPoints;            
+                 that.state = 5;  
 
-    };
-    updateBB() {
-       // this.lastBB = this.BB;
-        //this.BB = new BoundingBox(this.x, this.y, 120, 120);
+                //  console.log(entity.BB && that.BB.distance(entity.BB)); 
+                 that.updateBB();
+                 // that.state = 0;
+          } else if (that.hitPoints <= 0) {
+                 // that.velocity = 0;
+                 that.state = 6; // death
+                 that.dead = true;
+                 that.removeFromWorld = true;
+                 that.updateBB();
+                     
+             }
 
-    };
-    update(){
-        
-       // this.x += this.speed * this.game.clockTick;
-       // this.updateBB();
-       
-    };
+             
+         //go towards to mage
+         if (entity instanceof Mage && LOWER_BOUND < Math.abs(that.BB.distance(entity.BB)) 
+                     && Math.abs(that.BB.distance(entity.BB)) < UPPER_BOUND) { //
+             if (that.BB && that.BB.distance(entity.BB) < 0) { 
+                 that.state = 1; //state runRight
+                 that.velocity.x = RUN; //RUN = 50
+                 that.updateBB();
+                 // console.log(Math.abs(entity.BB && that.BB.distance(entity.BB)));
+             } else { 
+                 that.state = 2;
+                 that.velocity.x = -RUN;
+                 that.updateBB();
+                 // console.log(that.BB.distance(entity.BB));
+             } 
+         
+         } else if (entity instanceof Mage && Math.abs( that.BB.distance(entity.BB)) >= UPPER_BOUND) {  
+                 that.state = 0; 
+                 that.velocity.x = 0;
+                 that.updateBB();
 
-    draw(ctx){
-        // this.animations[0][0].drawFrame(this.game.clockTick, ctx, this.x , this.y, 1);
-        this.animations[0][1].drawFrame(this.game.clockTick, ctx, this.x , this.y, 1);
-        // when idle, use this
-        //right
-        // this.animations[1][1].drawFrame(this.game.clockTick, ctx, this.x, this.y + 30, 1);
-        //left
-        // this.animations[1][0].drawFrame(this.game.clockTick, ctx, this.x + 60, this.y + 30, 1);
-       
-    };
-};
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+         // attack Mage                         
+         } else if (entity instanceof Mage && Math.abs(that.BB.distance(entity.BB)) <= LOWER_BOUND) {
+             if (-LOWER_BOUND < (that.BB.distance(entity.BB)) && (that.BB.distance(entity.BB)) < 0) {
+             that.state = 4; 
+             that.velocity.x = 0;
+             that.updateBB();
+             console.log(that.BB.distance(entity.BB));
+             } else {
+             that.state = 3; 
+             that.velocity.x = 0;
+             that.updateBB();
+             console.log(entity.BB && that.BB.distance(entity.BB));
+             }
+
+         }
+     
+     }); 
+               
+ };
+
+ draw(ctx) {
+     
+     this.animations[this.state].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, 1 ); //PARAMS.SCALE);
+         
+         ctx.strokeStyle = 'Red';
+         ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y, this.BB.width , this.BB.height);
+
+       }; 
+
+}; 
