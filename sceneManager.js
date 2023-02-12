@@ -8,22 +8,22 @@ class SceneManager {
         this.elapsedTime = 0;
         this.level = null;
         this.myCursor = new Cursor(this.game);
-        // this.mage = new Mage(this.game, 605, -453); 
-        // this.heartMana = new HeartManaHQ(this.game, this.mage);
-        // // this.game.addEntity(new Projectile(this.game, 100, 100));
-        // this.game.addEntity(this.mage);
-
+        this.mage = new Mage(this.game, 662, 488); 
+        this.heartMana = new HeartManaHQ(this.game, this.mage);
+        // this.game.addEntity(new FireBall(this.game, 300, 400));
+        this.game.addEntity(this.mage);
         this.enemy = new ChainBot(this.game, 50, 0); 
         this.game.addEntity(this.enemy);
-        this.portal = new Portal(this.game, 350, 430); 
-        this.game.addEntity(this.portal);
-
         this.loadLevel(levelOne);
         // this.fireBoss = new fireBoss(this.game, 300, 300); 
         // this.game.addEntity(this.fireBoss);
+        
+        
+        // this.game.addEntity(new Monster(this.game, 600, 600));
+        
         this.game.addEntity(new BackGround(this.game, 0, 0, 1800, 800));
-        // this.game.addEntity(new Monster(this.game, 600, 600))S
-       // this.game.addEntity(this.monster);
+        
+       
         
         
         
@@ -86,10 +86,11 @@ class SceneManager {
         //         this.game.addEntity(new lava(this.game, wall.x, wall.y, wall.width, wall.height));
         //     }
         // }
-        // this.mage.velocity = { x: 0, y: 0 };  //TODO what is it?
+        this.mage.velocity = { x: 0, y: 0 };
         
     }
     update() {
+        this.heartMana.update();
         let midpoint = PARAMS.CANVAS_WIDTH/2 - PARAMS.PLAYERWIDTH / 2;
         // console.log(this.x,this.mage.x - midpoint);
       
@@ -98,25 +99,25 @@ class SceneManager {
         //     this.x = this.mage.x - midpoint;  
         // } 
 
-        // if ((this.mage.x > midpoint) && (this.mage.x + midpoint <= 12000)) this.x = this.mage.x - midpoint;
-        // if ((this.mage.x < midpoint) && (this.mage.x - midpoint >= 0)) this.x = this.mage.x - midpoint;
-        // if ((this.mage.y < 200) && (this.mage.y + 200 >= -3000)) this.y = this.mage.y - 200;
-        // if ((this.mage.y > 600) && (this.mage.y - 600 <= 700)) this.y = this.mage.y - 600;
+        if ((this.mage.x > midpoint) && (this.mage.x + midpoint <= 12000)) this.x = this.mage.x - midpoint;
+        if ((this.mage.x < midpoint) && (this.mage.x - midpoint >= 0)) this.x = this.mage.x - midpoint;
+        if ((this.mage.y < 200) && (this.mage.y + 200 >= -3000)) this.y = this.mage.y - 200;
+        if ((this.mage.y > 600) && (this.mage.y - 600 <= 700)) this.y = this.mage.y - 600;
     };
 
 
 
     draw(ctx) {
-        // this.heartMana.draw(ctx);
+        this.heartMana.draw(ctx);
         // this.myCursor.draw(ctx);
         if(debug){
-            // let xV = "xP=" + Math.floor(this.game.mage.x);
-            // let yV = "yP=" + Math.floor(this.game.mage.y);
-            // ctx.strokeStyle = "White";
-            // ctx.fillStyle = ctx.strokeStyle; 
-            // ctx.font = "30px Verdana";
-            // ctx.fillText(xV, 50, 100);
-            // ctx.fillText(yV, 50, 140);
+            let xV = "xP=" + Math.floor(this.game.mage.x);
+            let yV = "yP=" + Math.floor(this.game.mage.y);
+            ctx.strokeStyle = "White";
+            ctx.fillStyle = ctx.strokeStyle; 
+            ctx.font = "30px Verdana";
+            ctx.fillText(xV, 50, 100);
+            ctx.fillText(yV, 50, 140);
             
         }
     };

@@ -1,8 +1,3 @@
-/*
-chain bot enemy animation
-Uladzimir Hanevich
-TCSS491 winter 2023
-*/
 class ChainBot {
 
     constructor(game, x, y){

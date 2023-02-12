@@ -31,5 +31,4 @@ class BoundingBox {
         //  console.log(Math.round((this.left + this.width/2) - (oth.left + oth.width/2)));
         return ((this.left + this.width/2) - (oth.left + oth.width/2));
     };
-
 };
