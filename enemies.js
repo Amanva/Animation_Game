@@ -5,7 +5,8 @@ class ChainBot {
         this.game.chainBot = this;
         this.velocity = { x: 0, y: 0 };
         this.hitPoints = 3;
-                
+        this.hp = 100;
+        this.maxHP = 100;
         this.botIdle = assetMangager.getAsset("./sprites/enemies/chain_bot_idle.png");
         this.botRunRight = assetMangager.getAsset("./sprites/enemies/chain_bot_run_right.png");
         this.botRunLeft = assetMangager.getAsset("./sprites/enemies/chain_bot_run_left.png");
@@ -13,7 +14,7 @@ class ChainBot {
         this.botAttackLeft = assetMangager.getAsset("./sprites/enemies/chain_bot_attack_left.png");
         this.botHit = assetMangager.getAsset("./sprites/enemies/chain_bot_hit.png");
         this.botDeath = assetMangager.getAsset("./sprites/enemies/chain_bot_death.png");
-              
+        this.enemHealthBar = new HealthBar(this.game, this);
         this.fallAcc = 300;
         this.state = 0;
         this.dead = false;
@@ -166,7 +167,7 @@ class ChainBot {
     };//end update() chainBot behavior and collisions
 
     draw(ctx) {
-                   
+        this.enemHealthBar.draw(ctx);
         this.animations[this.state].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y, PARAMS.SCALE);
             //draw the boundingBox
             ctx.strokeStyle = 'Red';
