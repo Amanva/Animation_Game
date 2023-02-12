@@ -73,7 +73,7 @@ class ChainBot {
         /** chainBot behaviour and collisions */ 
         
         // TODO this works, but need to ajust duration for the hit and death state, and death logic.
-        this.game.entities.forEach(function (entity) {
+        that.game.entities.forEach(function (entity) {
             if (entity.BB && that.BB.collide(entity.BB)) {
                 // if((entity instanceof Mage)) {
                 //     // console.log("collide");
@@ -91,6 +91,7 @@ class ChainBot {
             } else if (that.hitPoints <= 0) {
                     // that.velocity = 0;
                     // that.game.camera.heartMana.addFullHeart();
+                    that.game.mage.curMana += 10;
                     that.state = 6; // death
                     that.dead = true;
                     that.removeFromWorld = true;
@@ -142,8 +143,8 @@ class ChainBot {
                 if (-LOWER_BOUND < (that.BB.distance(entity.BB)) && (that.BB.distance(entity.BB)) < 0) {
                 that.state = 4; //state attackRight
                 if(that.animations[that.state].isAlmostDone(TICK)){
-                    console.log("ran");
-                    entity.hp -= 5;
+                    // console.log("ran");
+                    // entity.hp -= 5;
                 }
                 that.velocity.x = 0;
                 that.updateBB();

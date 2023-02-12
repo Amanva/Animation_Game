@@ -118,9 +118,9 @@ class Mage {
                     this.shoot = true;
                     this.velocity.x = 0;
                 }
-                else if(this.game.digit1){
-                    this.specialAttack1 = true;
+                else if(this.game.digit1){       
                     
+                    this.specialAttack1 = true;
                 }
                 if(this.game.jump && this.playerJump){
                     this.state = this.states.jump;  
@@ -152,6 +152,8 @@ class Mage {
                      if(this.facing == 1){
                     this.game.addEntityToBegin(new FireBall(this.game, this.x, this.y+140));
                     }
+                    console.log("howmany");
+                    this.curMana -= 50;
                     this.animations[this.state][this.facing].elapsedTime = 0;
                     this.timetoShoot = 0;
                     this.specialAttack1 = false;

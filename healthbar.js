@@ -31,7 +31,8 @@ class HeartManaHQ{
     constructor(game, agent) {
         Object.assign(this, { game, agent});
         this.heartHP = 10;
-        this.max_Mana = 10;
+        this.mp = 10;
+        this.max_Mana = this.agent.maxMana / this.mp;
         this.max_Hearts = this.agent.maxHP / this.heartHP;
         this.cur_Hearts = this.max_Hearts;
         this.cur_Mana = this.max_Mana;
@@ -42,7 +43,7 @@ class HeartManaHQ{
             this.total_Hearts.push(heart);
         }
         for (let i = 0; i < this.max_Mana; i++) {
-            let mana = new Mana(this.game, 45 * i + 6, 40, 3);
+            let mana = new Mana(this.game, 45 * i + 6, 40, 3, this.mp);
             this.total_Mana.push(mana);
         }
 
@@ -51,16 +52,27 @@ class HeartManaHQ{
 
     update() {
         // console.log("run");
-        let currentDiff = this.agent.maxHP - this.agent.hp;
-        this.setHeartState(currentDiff);
+        let healthDiff = this.agent.maxHP - this.agent.hp;
+        this.setHeartState(healthDiff);
+
+        let manaDiff = this.agent.maxMana - this.agent.curMana;
+        this.setManaState(manaDiff);
     
         // console.log(currentDiff);
         
     };
+    setManaState(manaDiff){
+        this.total_Mana.slice().reverse().forEach(function (entity) {
+            if (entity instanceof Mana) {
+                entity.setState(manaDiff);
+                if(manaDiff >= 0) {
+                    manaDiff -= entity.MP;
+                }
+            }
+        });
+    }
     setHeartState(currentDiff) {
-        let that = this;
-        // reverse
-        that.total_Hearts.slice().reverse().forEach(function (entity) {
+        this.total_Hearts.slice().reverse().forEach(function (entity) {
             if (entity instanceof Hearts) {
                 entity.setState(currentDiff);
                 if(currentDiff >= 0) {
@@ -128,8 +140,8 @@ class Hearts{
 };
 
 class Mana{
-    constructor(game, x, y, scale) {
-        Object.assign(this, { game, x, y, scale});
+    constructor(game, x, y, scale, MP) {
+        Object.assign(this, { game, x, y, scale, MP});
         this.spritesheet = assetMangager.getAsset("./sprites/Mana.png");
         this.states = {
             full: 0,
@@ -141,7 +153,14 @@ class Mana{
         this.animations[this.states.empty] = new Animator(this.spritesheet, 32, 25, 12, 12, 1, 0.1, 0, 0, false, true, false);
     };
 
-
+    setState(amount) {
+        if(amount >= this.MP) {
+            this.state = this.states.empty;
+        } 
+         else {
+            this.state = this.states.full;
+        }
+    }
     update() {
     
     };
