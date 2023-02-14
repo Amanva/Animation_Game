@@ -8,7 +8,7 @@ class SceneManager {
         this.elapsedTime = 0;
         this.level = null;
         this.myCursor = new Cursor(this.game);
-        this.mage = new Mage(this.game, 9200, -93); 
+        this.mage = new Mage(this.game, 400, 400); 
         this.heartMana = new HeartManaHQ(this.game, this.mage);
         // this.game.addEntity(new FireBall(this.game, 300, 400));
         this.game.addEntity(this.mage);
@@ -17,8 +17,8 @@ class SceneManager {
         this.loadLevel(levelOne);
         this.fireBoss = new fireBoss(this.game, 9600, 300); 
         this.game.addEntity(this.fireBoss);
-        this.enemy = new ChainBot(this.game, 50, 610); 
-        this.game.addEntity(this.enemy);
+        // this.enemy = new ChainBot(this.game, 50, 610); 
+        // this.game.addEntity(this.enemy);
         this.game.addEntity(new BackGround(this.game, 0, 0, 1800, 800));
         
        
