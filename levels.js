@@ -11,7 +11,8 @@ var levelOne = {
     wall: [
         {x:3072 , y:-100, width:192*2, height: 308, div: 308},
         {x:3072 , y:500, width:192*2, height: 308, div: 308},
-        {x:2000 , y:-158, width:192*1, height: 308, div: 308}
+        {x:2000 , y:-158, width:192, height: 308, div: 308},
+        {x:3264 , y:-400, width:192, height: 308, div: 308}
         
     ],
     gate: [
@@ -64,7 +65,6 @@ var levelTwo = {
     wall: [
         {x:3072 , y:-100, width:192*2, height: 308, div: 308},
         {x:3072 , y:500, width:192*2, height: 308, div: 308},
-        
         
     ],
     platforms: [

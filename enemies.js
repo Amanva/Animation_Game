@@ -38,7 +38,7 @@ class ChainBot {
         // left run
         this.animations[2] = new Animator(this.botRunLeft, 0, 0, 126, 39, 8, 0.30, 0, 0, false, true, true);
         // left attack
-        this.animations[3] = new Animator(this.botAttackLeft, 0, 0, 126, 39, 8, 0.30, 0, 0, false, true, true); 
+        this.animations[3] = new Animator(this.botAttackLeft, 0, 0, 126, 39, 8, 0.10, 0, 0, false, true, true); 
         // right attack
         this.animations[4] = new Animator(this.botAttackRight, 0, 0, 126, 39, 8, 0.10, 0, 0, false, true, true);
         // hit
@@ -60,7 +60,7 @@ class ChainBot {
         const TICK = this.game.clockTick;
         const RUN = 80; //change the speed
         const LOWER_BOUND = 80;
-        const UPPER_BOUND = 350;
+        const UPPER_BOUND = 550;
         this.velocity.y += this.fallAcc * TICK;
         
         // update position
@@ -110,64 +110,51 @@ class ChainBot {
                 }
             }
         }
-            // //From mario
-            //     if (this.dead) {
-            //         if (this.deadCounter === 0) this.game.addEntity(new Score(this.game, this.x, this.y, 100));
-            //         this.deadCounter += this.game.clockTick;
-            //         if (this.deadCounter > 0.5) this.removeFromWorld = true;  // flicker for half a second
-
-            // };
-
-            //Ground and platforms collisions. Landing.
-            // if(that.velocity.y > 0){
-            // if (((entity instanceof Ground) || (entity instanceof Platform) || (entity instanceof movingPlatforms) || (entity instanceof Tiles)) && (that.lastBB.bottom <= entity.BB.top)) {
-            //     // console.log("collide");
-            //         that.y = entity.BB.top - that.BB.height - 25;
-            //         that.velocity.y = 0;
-            //         that.updateBB();
-            //     }
-            // }
-            // }
+           
 
             // Decide to approach the mage
-            if (entity instanceof Mage && LOWER_BOUND < Math.abs(that.BB.distance(entity.BB)) 
+            if (entity instanceof Mage && that.BB.bottom === entity.BB.bottom){
+                if (entity instanceof Mage && LOWER_BOUND < Math.abs(that.BB.distance(entity.BB)) 
                         && Math.abs(that.BB.distance(entity.BB)) < UPPER_BOUND) { //Mage is close, then go to Mage
-                if (that.BB && that.BB.distance(entity.BB) < 0) { // Mage is on the Right side
-                    that.state = 1; //state runRight
-                    that.velocity.x = RUN; //RUN = 50
-                    // that.updateBB();
-                    // console.log(Math.abs(entity.BB && that.BB.distance(entity.BB)));
-                } else { 
-                    that.state = 2; //state runLeft otherwise
-                    that.velocity.x = -RUN;
-                    // that.updateBB();
-                    // console.log(that.BB.distance(entity.BB));
-                } 
-            //Mage is not in range then stop and wait. Default state.        
-            } else if (entity instanceof Mage && Math.abs( that.BB.distance(entity.BB)) >= UPPER_BOUND) {  //!that.state = 5
-                    that.state = 0; //state idle
+                    if (that.BB && that.BB.distance(entity.BB) < 0) { // Mage is on the Right side
+                        that.state = 1; //state runRight
+                        that.velocity.x = RUN; //RUN = 50
+                        // that.updateBB();
+                        // console.log(Math.abs(entity.BB && that.BB.distance(entity.BB)));
+                    } else { 
+                        that.state = 2; //state runLeft otherwise
+                        that.velocity.x = -RUN;
+                        // that.updateBB();
+                        // console.log(that.BB.distance(entity.BB));
+                    } 
+                    //Mage is not in range then stop and wait. Default state.        
+                    } else if (entity instanceof Mage && Math.abs( that.BB.distance(entity.BB)) >= UPPER_BOUND) {  //!that.state = 5
+                        that.state = 0; //state idle
+                        that.velocity.x = 0;
+                        // that.updateBB();
+
+                    //Mage is close enough to fight, then fight                        
+                    } else if (entity instanceof Mage && Math.abs(that.BB.distance(entity.BB)) <= LOWER_BOUND) {
+                    if (-LOWER_BOUND < (that.BB.distance(entity.BB)) && (that.BB.distance(entity.BB)) < 0) {
+                    that.state = 4; //state attackRight
+                    if(that.animations[that.state].isAlmostDone(TICK)){
+                        // console.log("ran");
+                        // entity.hp -= 5;
+                    }
                     that.velocity.x = 0;
                     // that.updateBB();
+                    // console.log(that.BB.distance(entity.BB));
+                    } else {
+                    that.state = 3; //state attackLeft
+                    that.velocity.x = 0;
+                    // that.updateBB();
+                    // console.log(entity.BB && that.BB.distance(entity.BB));
+                    }
 
-            //Mage is close enough to fight, then fight                        
-            } else if (entity instanceof Mage && Math.abs(that.BB.distance(entity.BB)) <= LOWER_BOUND) {
-                if (-LOWER_BOUND < (that.BB.distance(entity.BB)) && (that.BB.distance(entity.BB)) < 0) {
-                that.state = 4; //state attackRight
-                if(that.animations[that.state].isAlmostDone(TICK)){
-                    // console.log("ran");
-                    // entity.hp -= 5;
-                }
-                that.velocity.x = 0;
-                // that.updateBB();
-                // console.log(that.BB.distance(entity.BB));
-                } else {
-                that.state = 3; //state attackLeft
-                that.velocity.x = 0;
-                // that.updateBB();
-                // console.log(entity.BB && that.BB.distance(entity.BB));
-                }
+                }//end of ddattack logic
 
-            }//end of ddattack logic
+            }
+            
         
            
         }); //end of forEach
@@ -178,10 +165,10 @@ class ChainBot {
 
     draw(ctx) {
         this.enemHealthBar.draw(ctx);
-        this.animations[this.state].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y, PARAMS.SCALE);
+        this.animations[this.state].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, PARAMS.SCALE);
             //draw the boundingBox
             ctx.strokeStyle = 'Red';
-            ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y, this.BB.width , this.BB.height);
+            ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y-this.game.camera.y, this.BB.width , this.BB.height);
             // ctx.strokeStyle = 'Yellow';
             // ctx.strokeRect(this.BB.x + this.BB.width/2 - this.game.camera.x, this.BB.y-62, 87 , 3);
             // ctx.strokeStyle = 'Green';

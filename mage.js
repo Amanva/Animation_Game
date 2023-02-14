@@ -88,10 +88,10 @@ class Mage {
     };
     updateBB() {
         this.lastBB = this.BB;
-        this.BB = new BoundingBox(this.x+15, this.y+130, PARAMS.PLAYERWIDTH, PARAMS.PLAYERHEIGHT);
-        this.topBB = new BoundingBox(this.x+15, this.y+130, PARAMS.PLAYERWIDTH, 0);
-        this.rightBB = new BoundingBox(this.x+15+PARAMS.PLAYERWIDTH, this.y+130, 0, PARAMS.PLAYERHEIGHT);
-        this.leftBB = new BoundingBox(this.x+15, this.y+130, 0, PARAMS.PLAYERHEIGHT);
+        this.BB = new BoundingBox(this.x+20, this.y+130, PARAMS.PLAYERWIDTH, PARAMS.PLAYERHEIGHT);
+        this.topBB = new BoundingBox(this.x+20, this.y+130, PARAMS.PLAYERWIDTH, 0);
+        this.rightBB = new BoundingBox(this.x+20+PARAMS.PLAYERWIDTH, this.y+130, 0, PARAMS.PLAYERHEIGHT);
+        this.leftBB = new BoundingBox(this.x+20, this.y+130, 0, PARAMS.PLAYERHEIGHT);
         
     };
     
@@ -99,9 +99,9 @@ class Mage {
         // console.log(this.state);
         this.timetoShoot += this.game.clockTick;
         const TICK = this.game.clockTick;
-        const RUN = 300;
-        const MAXFALL = 300;
-        const xBBOffset = 15
+        const RUN = 200;
+        const MAXFALL = 200;
+        const xBBOffset = 20;
         const yBBOffset = 130;
         this.velocity.y += this.fallAcc * TICK;
             if(this.state != this.states.jump){
@@ -118,7 +118,7 @@ class Mage {
                     this.shoot = true;
                     this.velocity.x = 0;
                 }
-                else if(this.game.digit1){       
+                else if(this.game.digit1 && (this.curMana >= 50)){       
                     
                     this.specialAttack1 = true;
                 }
@@ -262,6 +262,11 @@ class Mage {
             }
             if(this.velocity.x > 0){
                 this.facing = 0;
+            }
+            if(this.x < -40){
+                this.x = -40;
+                this.velocity.x = 0;
+                this.state = this.states.idle;
             }
             // console.log(this.x);
            
