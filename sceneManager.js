@@ -8,19 +8,17 @@ class SceneManager {
         this.elapsedTime = 0;
         this.level = null;
         this.myCursor = new Cursor(this.game);
-        this.mage = new Mage(this.game, 662, 488); 
+        this.mage = new Mage(this.game, 9200, -93); 
         this.heartMana = new HeartManaHQ(this.game, this.mage);
         // this.game.addEntity(new FireBall(this.game, 300, 400));
         this.game.addEntity(this.mage);
         this.enemy = new ChainBot(this.game, 50, 0); 
         this.game.addEntity(this.enemy);
         this.loadLevel(levelOne);
-        // this.fireBoss = new fireBoss(this.game, 300, 300); 
-        // this.game.addEntity(this.fireBoss);
-        
-        
-        // this.game.addEntity(new Monster(this.game, 600, 600));
-        
+        this.fireBoss = new fireBoss(this.game, 9600, 300); 
+        this.game.addEntity(this.fireBoss);
+        this.enemy = new ChainBot(this.game, 50, 610); 
+        this.game.addEntity(this.enemy);
         this.game.addEntity(new BackGround(this.game, 0, 0, 1800, 800));
         
        
@@ -58,7 +56,19 @@ class SceneManager {
         if(level.movingPlatforms){
             for (var i = 0; i < level.movingPlatforms.length; i++) {
                 let wall = level.movingPlatforms[i];
-                this.game.addEntity(new movingPlatforms(this.game, wall.x, wall.y, wall.width, wall.height, wall.divisorPlatforms, wall.direction));
+                this.game.addEntity(new movingPlatforms(this.game, wall.x, wall.y, wall.width, wall.height, wall.divisorPlatforms, wall.direction, wall.distance));
+            }
+        }
+        if(level.verticalWall){
+            for (var i = 0; i < level.verticalWall.length; i++) {
+                let tiles = level.verticalWall[i];
+                this.game.addEntity(new verticalWall(this.game, tiles.x, tiles.y, tiles.width, tiles.height, tiles.div));
+            }
+        }
+        if(level.smallPlatforms){
+            for (var i = 0; i < level.smallPlatforms.length; i++) {
+                let tiles = level.smallPlatforms[i];
+                this.game.addEntity(new smallPlatforms(this.game, tiles.x, tiles.y, tiles.width, tiles.height, tiles.div));
             }
         }
         if(level.wall){

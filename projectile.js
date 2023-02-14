@@ -39,7 +39,7 @@ class Projectile{
                 if(entity instanceof fireBoss){
                     that.removeFromWorld = true;
                     entity.loseHealth(100);
-
+                    console.log("HIT2");
                 }
             }
             
