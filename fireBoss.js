@@ -150,8 +150,8 @@ class fireBoss{
                 }
                 
 
-                if(that.AttackBB.collide(entity.BB)){
-                    entity.removeHealth(that.jumpAttack);
+                if(that.AttackBB.collide(entity.BB) && that.state === 2 && that.animations[that.state][that.facing].currentFrame() >= 9 && that.animations[that.state][that.facing].currentFrame() <= 12){
+                    entity.removeHealth(1) * that.game.clockTick;
                 }
             }
             if (entity.BB && that.BB.collide(entity.BB)) {
