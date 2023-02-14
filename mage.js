@@ -160,6 +160,15 @@ class Mage {
                     // this.game.E = false;
                     this.state = this.states.idle;
                 }
+                if (this.game.right && !this.game.left) {
+                    this.velocity.x += 0.8;
+                } else if (this.game.left && !this.game.right) {
+                    this.velocity.x -= 0.8;
+                } else {
+                }
+            }
+            if(this.shoot && this.timetoShoot > 0.5){
+                this.state = this.states.normAttack;
                 
             }
             else if(this.shoot && this.timetoShoot > 0.5){

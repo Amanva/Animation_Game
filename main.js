@@ -27,6 +27,7 @@ assetMangager.queueDownload("./sprites/monster.png");
 assetMangager.queueDownload("./sprites/demon-idle.png");
 assetMangager.queueDownload("./sprites/monsterLeft.png");
 assetMangager.queueDownload("./sprites/demon-idleLeft.png");
+assetMangager.queueDownload("./sprites/portal.png");
 assetMangager.queueDownload("./sprites/demon-idleRight.png");
 assetMangager.downloadAll(() => {
 var canvas = document.getElementById('gameWorld');

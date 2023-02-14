@@ -12,18 +12,20 @@ class SceneManager {
         this.heartMana = new HeartManaHQ(this.game, this.mage);
         // this.game.addEntity(new FireBall(this.game, 300, 400));
         this.game.addEntity(this.mage);
-        this.enemy = new ChainBot(this.game, 50, 0); 
+        this.enemy = new ChainBot(this.game, 50, 500); 
         this.game.addEntity(this.enemy);
+        this.enemy = new ChainBot(this.game, 350, 300); 
+        this.game.addEntity(this.enemy);
+        // this.game.addEntity(new Monster(this.game, 600, 600));
+        this.portal = new Portal(this.game, 10000, 430); 
+        // this.portal = new Portal(this.game, 200, 430);
+        this.game.addEntity(this.portal);
         this.loadLevel(levelOne);
         this.fireBoss = new fireBoss(this.game, 9600, 300); 
         this.game.addEntity(this.fireBoss);
         // this.enemy = new ChainBot(this.game, 50, 610); 
         // this.game.addEntity(this.enemy);
         this.game.addEntity(new BackGround(this.game, 0, 0, 1800, 800));
-        
-       
-        
-        
         
     };
 
