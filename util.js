@@ -7,7 +7,7 @@ function getAngle(velocity) {
     if (change < 0) change += Math.PI * 2;
     let degrees = Math.floor(change / Math.PI / 2 * 360);
     let bot = degrees / 360 * 2 * Math.PI;
-    console.log(bot);
+    // console.log(bot);
     return bot;
 };
 function randomInt(n) {
@@ -42,7 +42,7 @@ const PARAMS = {
     BITWIDTH: 25,
     BITHEIGHT: 45
 };
-let debug = false;
+let debug = true;
 function debugOn() {
     debug = !debug;
 }

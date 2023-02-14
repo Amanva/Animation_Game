@@ -60,8 +60,8 @@ class ChainBot {
         this.elapsedTime += this.game.clockTick;
         const TICK = this.game.clockTick;
         const RUN = 80; //change the speed
-        const LOWER_BOUND = 95;
-        const UPPER_BOUND = 450;
+        const LOWER_BOUND = 80;
+        const UPPER_BOUND = 550;
         this.velocity.y += this.fallAcc * TICK;
         
         // update position
@@ -84,7 +84,7 @@ class ChainBot {
                     --that.hitPoints;
                     that.state = 5;  //TODO does not rendring forthe whole cycle (sprite duration) chainBot hit
 
-                    //TODO delete **************************************   TEST
+ //TODO delete **************************************   TEST
                     // that.updateBB();
                     // that.state = 0;
                 } else if (that.hitPoints <= 0) {
@@ -92,8 +92,7 @@ class ChainBot {
                     // that.game.camera.heartMana.addFullHeart();
                     that.game.mage.curMana += 10;
                     that.state = 6; // death
-                    that.dead = true;
-                    that.removeFromWorld = true;
+                    that.velocity.x = 0;
                     // that.updateBB();
                         
                 }
@@ -106,48 +105,70 @@ class ChainBot {
                     that.updateBB();
                 }
             }
-        } 
+            if (that.velocity.y > 0) { 
+                if (((entity instanceof Ground) || (entity instanceof Platform) || (entity instanceof Wall) || (entity instanceof Tiles)) && (that.lastBB.bottom <= entity.BB.top)){
+                  
+                    that.velocity.y = 0;
+                    that.y = entity.BB.top - that.BB.height-25;
+                    // if(that.state == that.states.jump) that.state = that.states.idle;
+                    that.updateBB();
+                }
+            }
+        }
+           
 
             // Decide to approach the mage
-            if (entity instanceof Mage && Math.round(that.BB.bottom) === Math.round(entity.BB.bottom)){
+            if (entity instanceof Mage && that.BB.bottom === entity.BB.bottom){
                 if (entity instanceof Mage && LOWER_BOUND < Math.abs(that.BB.distance(entity.BB)) 
                         && Math.abs(that.BB.distance(entity.BB)) < UPPER_BOUND) { //Mage is close, then go to Mage
                     if (that.BB && that.BB.distance(entity.BB) < 0) { // Mage is on the Right side
                         that.state = 1; //state runRight
                         that.velocity.x = RUN; //RUN = 50
-                        
+                        that.updateBB();
+                        // console.log(Math.abs(entity.BB && that.BB.distance(entity.BB)));
                     } else { 
                         that.state = 2; //state runLeft otherwise
                         that.velocity.x = -RUN;
-                        
+                        that.updateBB();
+                        // console.log(that.BB.distance(entity.BB));
                     } 
                     //Mage is not in range then stop and wait. Default state.        
                     } else if (entity instanceof Mage && Math.abs( that.BB.distance(entity.BB)) >= UPPER_BOUND) {  //!that.state = 5
                         that.state = 0; //state idle
                         that.velocity.x = 0;
-                        
+                        that.updateBB();
+
                     //Mage is close enough to fight, then fight                        
                     } else if (entity instanceof Mage && Math.abs(that.BB.distance(entity.BB)) <= LOWER_BOUND) {
                     if (-LOWER_BOUND < (that.BB.distance(entity.BB)) && (that.BB.distance(entity.BB)) < 0) {
                     that.state = 4; //state attackRight
-                    entity.removeHealth(0.05);
+                    if(that.animations[that.state].isAlmostDone(TICK)){
+                        // console.log("ran");
+                        // entity.hp -= 5;
+                    }
+                    that.velocity.x = 0;
+                    that.updateBB();
+                    // console.log(that.BB.distance(entity.BB));
                     } else {
                     that.state = 3; //state attackLeft
-                    entity.removeHealth(0.05);
                     that.velocity.x = 0;
-                    // that.updateBB();
+                    that.updateBB();
+                    // console.log(entity.BB && that.BB.distance(entity.BB));
                     }
 
                 }//end of ddattack logic
 
-            } else if (entity instanceof Mage && Math.round(that.BB.bottom) !== Math.round(entity.BB.bottom)) {
-                that.state = 0;
-                that.velocity.x = 0;
+            }
+            if(that.animations[6].isAlmostDone(TICK)){
+                that.dead = true;
+                that.removeFromWorld = true;
             }
         
            
         }); //end of forEach
-          
+        // if(this.y >= 650){
+        //     this.y = 650;
+        // }  
     };//end update() chainBot behavior and collisions
 
     draw(ctx) {
@@ -156,7 +177,11 @@ class ChainBot {
             //draw the boundingBox
             ctx.strokeStyle = 'Red';
             ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y-this.game.camera.y, this.BB.width , this.BB.height);
-                        
+            // ctx.strokeStyle = 'Yellow';
+            // ctx.strokeRect(this.BB.x + this.BB.width/2 - this.game.camera.x, this.BB.y-62, 87 , 3);
+            // ctx.strokeStyle = 'Green';
+            // ctx.strokeRect(this.BB.x + this.BB.width/2 - this.game.camera.x -87, this.BB.y-62, 87 , 3);
+            
             //  // TEST draw text to canvas
             // ctx.font = "20px Arial";
             // ctx.fillStyle = "white";
@@ -164,6 +189,10 @@ class ChainBot {
             // ctx.fillText("ChainBot BB Width: " + Math.round(this.BB.width), 660, 50);
             // ctx.fillText("ChainBot BB bottom: " + Math.round(this.BB.bottom), 660, 70);
             
+
+            // // console.log(that.BB.bottom);
+            // // console.log(entity.BB.top);
+
             // ctx.fillText("Y: " + Math.round(this.y), 510, 70);
             // ctx.fillText("Speed: " + this.velocity.x, 510, 90);
             // ctx.fillText("State: " + this.state, 510, 110);
