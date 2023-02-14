@@ -10,30 +10,41 @@ class Portal {
         this.velocity = { x: 0, y: 0 };
         this.portal = assetMangager.getAsset("./sprites/portal.png");
         this.scale = 1;
-        
-        this.visible = true;
-        this.updateBB();
         this.animations = new Animator(this.portal, 0, 0, 320, 320, 41, 0.07, 0, 0, false, true, undefined);
+        this.updateBB();
         
     }; // end of constructor
 
 
     updateBB() {
         this.lastBB = this.BB;
-        this.BB = new BoundingBox(this.x, this.y, this.width, this.height); 
+        this.BB = new BoundingBox(this.x+160, this.y+200, 50, 120); 
     };
     
     update() {
-       //Do noting
+        this.updateBB();
+        var that = this;
+        that.game.entities.forEach(function (entity) {
+            if (entity instanceof Mage  && entity.BB && that.BB.collide(entity.BB)) {
+                // this.win = false;
+                // this.game.camera.loadLevel(levelTwo, 2.5 * PARAMS.BLOCKWIDTH, 0 * PARAMS.BLOCKWIDTH, true, false);  // from Mario
+                this.game.camera.loadLevel(levelTwo);
+                // this.disappear = false;
+                // this.state = 0;
+                this.game.startInput();
+            }
+        
+           
+        }); //end of forEach
                   
     };//end update() chainBot behavior and collisions
 
     draw(ctx) {
                    
-        this.animations.drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y, this.scale);
+        this.animations.drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, this.scale);
             //draw the boundingBox
-            ctx.strokeStyle = 'Red';
-            ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y, this.BB.width , this.BB.height);
+            ctx.strokeStyle = 'white';
+            ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y-this.game.camera.y, this.BB.width , this.BB.height);
                                      
     }; // End draw method
 
