@@ -225,7 +225,6 @@ class Mage {
                     if(that.velocity.y < 0){
                         if ((entity instanceof Ground || entity instanceof Wall || entity instanceof Platform || entity instanceof movingPlatforms || (entity instanceof Tiles) || entity instanceof smallPlatforms) && (that.lastBB.top >= entity.BB.bottom)){
                             that.velocity.y = 0;
-                            // that.y = entity.BB.bottom - PARAMS.PLAYERHEIGHT - that.xBBOffset;
                             that.updateBB();
                         }
                     }
