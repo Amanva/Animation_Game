@@ -32,19 +32,19 @@ class ChainBot {
 //(spritesheet, xStart, yStart, width, height, frameCount, frameDuration, framePaddingX, framePaddingY, reverse, loop, verticalSprite)
                
         // idle
-        this.animations[0] = new Animator(this.botIdle, 0, 0, 126, 39, 5, 0.30, 0, 0, false, true, true);
+        this.animations[0] = new Animator(this.botIdle, 0, 0, 126, 39, 5, 0.20, 0, 0, false, true, true);
         // right run
-        this.animations[1] = new Animator(this.botRunRight, 0, 0, 126, 39, 8, 0.30, 0, 0, false, true, true);
+        this.animations[1] = new Animator(this.botRunRight, 0, 0, 126, 39, 8, 0.20, 0, 0, false, true, true);
         // left run
-        this.animations[2] = new Animator(this.botRunLeft, 0, 0, 126, 39, 8, 0.30, 0, 0, false, true, true);
+        this.animations[2] = new Animator(this.botRunLeft, 0, 0, 126, 39, 8, 0.20, 0, 0, false, true, true);
         // left attack
         this.animations[3] = new Animator(this.botAttackLeft, 0, 0, 126, 39, 8, 0.10, 0, 0, false, true, true); 
         // right attack
         this.animations[4] = new Animator(this.botAttackRight, 0, 0, 126, 39, 8, 0.10, 0, 0, false, true, true);
         // hit
-        this.animations[5] = new Animator(this.botHit, 0, 0, 126, 39, 2, 0.30, 0, 0, false, true, true);
+        this.animations[5] = new Animator(this.botHit, 0, 0, 126, 39, 2, 0.20, 0, 0, false, true, true);
         // death
-        this.animations[6] = new Animator(this.botDeath, 0, 0, 126, 39, 5, 0.30, 0, 0, false, true, true);
+        this.animations[6] = new Animator(this.botDeath, 0, 0, 126, 39, 5, 0.20, 0, 0, false, true, true);
       
     }; // End load animationf
 
@@ -55,11 +55,16 @@ class ChainBot {
         // this.BB = new BoundingBox(this.x, this.y, 126, 30);
         
     };
+
+    // delay(state) {
+    //     this.elapsed += this.game.clockTick;
+    //     if (this.elapsed < 0.6) this.state = state;
+    // };
     
     update() {
         this.elapsedTime += this.game.clockTick;
         const TICK = this.game.clockTick;
-        const RUN = 80; //change the speed
+        const RUN = 110; //change the speed
         const LOWER_BOUND = 95;
         const UPPER_BOUND = 450;
         this.velocity.y += this.fallAcc * TICK;
@@ -68,10 +73,8 @@ class ChainBot {
         this.x += this.velocity.x * TICK;
         this.y += this.velocity.y * TICK;
         this.updateBB();
-        
               
         var that = this;
-
 
         /** chainBot behaviour and collisions */ 
         
@@ -82,8 +85,9 @@ class ChainBot {
                     // && Math.abs(entity.BB && that.BB.distance(entity.BB)) === 0) {
                     entity.removeFromWorld = true;
                     --that.hitPoints;
-                    that.state = 5;  //TODO does not rendring forthe whole cycle (sprite duration) chainBot hit
-
+                    that.state = 5
+                    // delay(that.state);  //TODO does not rendring forthe whole cycle (sprite duration) chainBot hit
+                   
                     //TODO delete **************************************   TEST
                     // that.updateBB();
                     // that.state = 0;
@@ -93,7 +97,10 @@ class ChainBot {
                     that.game.mage.curMana += 10;
                     that.state = 6; // death
                     that.dead = true;
-                    that.removeFromWorld = true;
+                    if(that.animations[6].isAlmostDone(TICK)){
+                        // that.dead = true;
+                        that.removeFromWorld = true;
+                    }
                     // that.updateBB();
                         
                 }
@@ -109,12 +116,12 @@ class ChainBot {
         } 
 
             // Decide to approach the mage
-            if (entity instanceof Mage && Math.round(that.BB.bottom) === Math.round(entity.BB.bottom)){
-                if (entity instanceof Mage && LOWER_BOUND < Math.abs(that.BB.distance(entity.BB)) 
-                        && Math.abs(that.BB.distance(entity.BB)) < UPPER_BOUND) { //Mage is close, then go to Mage
+            if (entity instanceof Mage && Math.round(that.BB.bottom) === Math.round(entity.BB.bottom)){ // if both are on same surfase
+                if (entity instanceof Mage && LOWER_BOUND <= Math.abs(that.BB.distance(entity.BB)) 
+                        && Math.abs(that.BB.distance(entity.BB)) <= UPPER_BOUND) { //Mage is close, then go to Mage
                     if (that.BB && that.BB.distance(entity.BB) < 0) { // Mage is on the Right side
                         that.state = 1; //state runRight
-                        that.velocity.x = RUN; //RUN = 50
+                        that.velocity.x = RUN; //speed of RUN
                         
                     } else { 
                         that.state = 2; //state runLeft otherwise
@@ -128,12 +135,13 @@ class ChainBot {
                         
                     //Mage is close enough to fight, then fight                        
                     } else if (entity instanceof Mage && Math.abs(that.BB.distance(entity.BB)) <= LOWER_BOUND) {
-                    if (-LOWER_BOUND < (that.BB.distance(entity.BB)) && (that.BB.distance(entity.BB)) < 0) {
+                    if (-LOWER_BOUND <= (that.BB.distance(entity.BB)) && (that.BB.distance(entity.BB)) < 0) {
                     that.state = 4; //state attackRight
-                    entity.removeHealth(0.05);
+                    that.velocity.x = 0;
+                    entity.removeHealth(0.075);
                     } else {
                     that.state = 3; //state attackLeft
-                    entity.removeHealth(0.05);
+                    entity.removeHealth(0.075);
                     that.velocity.x = 0;
                     // that.updateBB();
                     }
