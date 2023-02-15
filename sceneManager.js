@@ -13,7 +13,7 @@ class SceneManager {
         
         
         
-        this.game.addEntity(new BackGround(this.game, 0, 0, 1800, 800));
+        // this.game.addEntity(new BackGround(this.game, 0, 0, 1800, 800));
         
     };
 
@@ -40,8 +40,8 @@ class SceneManager {
         this.game.addEntity(this.enemy);
         this.enemy = new ChainBot(this.game, 350, 300); 
         this.game.addEntity(this.enemy);
-        // this.portal = new Portal(this.game, 200, 430);
-        // this.game.addEntity(this.portal);
+        this.portal = new Portal(this.game, 200, 430);
+        this.game.addEntity(this.portal);
 
         if(level.ground){
             for (var i = 0; i < level.ground.length; i++) {

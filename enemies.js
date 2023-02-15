@@ -67,18 +67,24 @@ class ChainBot {
         var that = this;
 
         /** chainBot behaviour and collisions */ 
-        // TODO this works, but need to ajust duration for the hit and death state, and death logic.
+        // TODO this works, but need to ajust duration for the hit state.
         that.game.entities.forEach(function (entity) {
             if (entity.BB && that.BB.collide(entity.BB)) {
                 if (entity instanceof Projectile  && that.hp > 0){
                     entity.removeFromWorld = true;
                     that.hp -= 20;
                     that.state = 5
+                    if(that.animations[5].isAlmostDone(TICK)){
+                        that.dead = true;
+                        that.removeFromWorld = true;
+                    }
                     
                 } else if (that.hp <= 0) {
                     that.state = 6; // death
+                    that.velocity.x = 0;
                     that.dead = true;
-                    if(that.animations[6].isAlmostDone(TICK)){ //TODO this one don't work anymore after the las changes (merge commit)
+                    if(that.animations[6].isAlmostDone(TICK)){
+                        // assetMangager.playAsset("sounds/blood_splash.wav");
                         that.dead = true;
                         that.removeFromWorld = true;
                     }
@@ -117,12 +123,13 @@ class ChainBot {
                     if (-LOWER_BOUND <= (that.BB.distance(entity.BB)) && (that.BB.distance(entity.BB)) < 0) {
                     that.state = 4; //state attackRight
                     that.velocity.x = 0;
+                    // assetMangager.playAsset("sounds/slash_swoosh.wav");
                     entity.removeHealth(0.075);
                     } else {
                     that.state = 3; //state attackLeft
                     entity.removeHealth(0.075);
                     that.velocity.x = 0;
-                    // that.updateBB();
+                    // assetMangager.playAsset("sounds/slash_swoosh.wav");
                     }
 
                 }//end of attack logic
@@ -139,13 +146,13 @@ class ChainBot {
     draw(ctx) {
         this.enemHealthBar.draw(ctx);
         this.animations[this.state].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, PARAMS.SCALE);
-            //draw the boundingBox
-            ctx.strokeStyle = 'Red';
-            ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y-this.game.camera.y, this.BB.width , this.BB.height);
-                        
-            
-            // TEST draw text to canvas
+           
+              
             if(debug){
+                //draw the boundingBox
+                ctx.strokeStyle = 'Red';
+                ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y-this.game.camera.y, this.BB.width , this.BB.height);
+                // TEST draw text to canvas
                 ctx.font = "20px Arial";
                 ctx.fillStyle = "white";
                 ctx.fillText("X: " + Math.round(this.x), 510, 50);

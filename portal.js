@@ -26,7 +26,7 @@ class Portal {
         var that = this;
         that.game.entities.forEach(function (entity) {
             if (entity instanceof Mage  && entity.BB && that.BB.collide(entity.BB)) {
-                // this.game.camera.loadLevel(levelTwo);
+                that.game.camera.loadLevel(levelTwo);
                 // this.game.startInput();
             }
         
@@ -38,10 +38,13 @@ class Portal {
     draw(ctx) {
                    
         this.animations.drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, this.scale);
+        if (debug) {
             //draw the boundingBox
             ctx.strokeStyle = 'white';
             ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y-this.game.camera.y, this.BB.width , this.BB.height);
-                                     
+        }    
+        
+                                
     }; // End draw method
 
 }; // End of chain_bot
