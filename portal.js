@@ -26,7 +26,7 @@ class Portal {
         var that = this;
         that.game.entities.forEach(function (entity) {
             if (entity instanceof Mage  && entity.BB && that.BB.collide(entity.BB)) {
-                this.game.camera.loadLevel(levelTwo);
+                // this.game.camera.loadLevel(levelTwo);
                 // this.game.startInput();
             }
         
