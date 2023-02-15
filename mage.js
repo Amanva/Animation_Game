@@ -20,17 +20,19 @@ class Mage {
             jump: 6
         }
         this.specialAttack1 = false;
-        // jumping 
         this.hp= 100;
         this.maxHP = 100;
         this.curMana = 100;
         this.maxMana = 100;
+        this.manaTime = 0;
         // this.healthbar = new HealthBar(game, this);
         // this.manaBar = new ManaBar(game, this);
         this.playerJump = false;
         this.air = false;
         this.shoot = false;
         this.timetoShoot = 0;
+        this.xBBOffset = 20;
+        this.yBBOffset = 130;
         this.dead = false;
         this.updateBB();
         this.animations = [];
@@ -55,7 +57,7 @@ class Mage {
         // hit
         this.animations[4][0] = new Animator(this.spritesheet, 57, 655, 50, 105, 5, 0.20, 110, 0, false, true, false);
         // death
-        this.animations[5][0] = new Animator(this.spritesheet, 57, 789, 50, 105, 9, 0.20, 110, false, true, false);
+        this.animations[5][0] = new Animator(this.spritesheet, 57, 786, 50, 105, 9, 0.20, 110, 0, false, false, false);
         // jump
         this.animations[6][0] = new Animator(this.spritesheet, 57, 399, 50, 105, 13, 0.20, 110, 0, false, true, false);
 
@@ -75,7 +77,7 @@ class Mage {
         // left hit
         this.animations[4][1] = new Animator(this.spritesheetLeft, 1976, 655, 50, 105, 5, 0.20, 110, 0, true, true, false);
         // left death
-        this.animations[5][1] = new Animator(this.spritesheetLeft, 1336, 789, 50, 105, 9, 0.20, 110,0 , true, true, false);
+        this.animations[5][1] = new Animator(this.spritesheetLeft, 1336, 786, 50, 105, 9, 0.20, 110,0 , true, false, false);
         // left jump 13
         this.animations[6][1] = new Animator(this.spritesheetLeft, 692, 399, 50, 105, 13, 0.20, 110,0 , true, true, false);
         // this.shootAnim = new Animator(this.spritesheetMage, 1205, 1051, 60, 52, 4, 0.05, 84, false, true)
@@ -88,22 +90,30 @@ class Mage {
     };
     updateBB() {
         this.lastBB = this.BB;
-        this.BB = new BoundingBox(this.x+15, this.y+130, PARAMS.PLAYERWIDTH, PARAMS.PLAYERHEIGHT);
-        this.topBB = new BoundingBox(this.x+15, this.y+130, PARAMS.PLAYERWIDTH, 0);
-        this.rightBB = new BoundingBox(this.x+15+PARAMS.PLAYERWIDTH, this.y+130, 0, PARAMS.PLAYERHEIGHT);
-        this.leftBB = new BoundingBox(this.x+15, this.y+130, 0, PARAMS.PLAYERHEIGHT);
-        
+        this.BB = new BoundingBox(this.x+20, this.y+130, PARAMS.PLAYERWIDTH, PARAMS.PLAYERHEIGHT);
+        this.topBB = new BoundingBox(this.x+20, this.y+130, PARAMS.PLAYERWIDTH, 0);
+        this.rightBB = new BoundingBox(this.x+20+PARAMS.PLAYERWIDTH, this.y+130, 0, PARAMS.PLAYERHEIGHT);
+        this.leftBB = new BoundingBox(this.x+20, this.y+130, 0, PARAMS.PLAYERHEIGHT);  
     };
     
     update() {
         // console.log(this.state);
         this.timetoShoot += this.game.clockTick;
+        this.manaTime += this.game.clockTick;
         const TICK = this.game.clockTick;
-        const RUN = 300;
-        const MAXFALL = 300;
-        const xBBOffset = 15
-        const yBBOffset = 130;
+        const DE_ACC = 200;
+        const RUN = 200;
+        const MAXFALL = 200;
         this.velocity.y += this.fallAcc * TICK;
+        if(this.dead){
+            this.deadPlayer(TICK, DE_ACC);
+            if(this.animations[this.states.death][this.facing].isAlmostDone(TICK)){
+                this.game.camera.loadLevel(levelOne);
+                this.hp = 100;
+                this.curMana = 100;
+            } 
+        }
+        else{
             if(this.state != this.states.jump){
                 if (this.game.left) {
                     this.velocity.x -= RUN;
@@ -118,9 +128,8 @@ class Mage {
                     this.shoot = true;
                     this.velocity.x = 0;
                 }
-                else if(this.game.digit1){
+                else if(this.game.digit1 && (this.curMana >= 50)){       
                     this.specialAttack1 = true;
-                    
                 }
                 if(this.game.jump && this.playerJump){
                     this.state = this.states.jump;  
@@ -133,7 +142,6 @@ class Mage {
              else {
                 if(this.game.attack){
                     this.shoot = true;
-                    // this.velocity.x = 0;
                 }
                 if (this.game.right && !this.game.left) {
                     this.velocity.x += 0.8;
@@ -152,21 +160,13 @@ class Mage {
                      if(this.facing == 1){
                     this.game.addEntityToBegin(new FireBall(this.game, this.x, this.y+140));
                     }
+                    this.curMana -= 50;
                     this.animations[this.state][this.facing].elapsedTime = 0;
                     this.timetoShoot = 0;
                     this.specialAttack1 = false;
                     // this.game.E = false;
                     this.state = this.states.idle;
                 }
-                if (this.game.right && !this.game.left) {
-                    this.velocity.x += 0.8;
-                } else if (this.game.left && !this.game.right) {
-                    this.velocity.x -= 0.8;
-                } else {
-                }
-            }
-            if(this.shoot && this.timetoShoot > 0.5){
-                this.state = this.states.normAttack;
                 
             }
             else if(this.shoot && this.timetoShoot > 0.5){
@@ -186,7 +186,7 @@ class Mage {
                     this.state = this.states.idle;
                 }      
             }
-             
+        }
             
             if (this.velocity.y >= MAXFALL) this.velocity.y = MAXFALL;
             if (this.velocity.y <= -MAXFALL) this.velocity.y = -MAXFALL;
@@ -203,11 +203,11 @@ class Mage {
             this.game.entities.forEach(function (entity) {
                 if (entity.BB && that.BB.collide(entity.BB)) {
                     if (that.velocity.y > 0) { 
-                        if (((entity instanceof Ground) || (entity instanceof Platform) || (entity instanceof Wall) || (entity instanceof Tiles)) && (that.lastBB.bottom <= entity.BB.top)){
+                        if (((entity instanceof Ground) || (entity instanceof Platform) || (entity instanceof Wall) || (entity instanceof Tiles || (entity instanceof smallPlatforms))) && (that.lastBB.bottom <= entity.BB.top)){
                           
                             that.playerJump = true;
                             that.velocity.y = 0;
-                            that.y = entity.BB.top - PARAMS.PLAYERHEIGHT - yBBOffset;
+                            that.y = entity.BB.top - PARAMS.PLAYERHEIGHT - that.yBBOffset;
                             if(that.state == that.states.jump) that.state = that.states.idle;
                             that.updateBB();
                         }
@@ -223,29 +223,29 @@ class Mage {
                         } 
 
                     if(that.velocity.y < 0){
-                        if ((entity instanceof Ground || entity instanceof Wall || entity instanceof Platform || entity instanceof movingPlatforms || (entity instanceof Tiles)) && (that.lastBB.top >= entity.BB.bottom)){
+                        if ((entity instanceof Ground || entity instanceof Wall || entity instanceof Platform || entity instanceof movingPlatforms || (entity instanceof Tiles) || entity instanceof smallPlatforms) && (that.lastBB.top >= entity.BB.bottom)){
                             that.velocity.y = 0;
-                            // that.y = entity.BB.bottom - PARAMS.PLAYERHEIGHT - xBBOffset;
+                            // that.y = entity.BB.bottom - PARAMS.PLAYERHEIGHT - that.xBBOffset;
                             that.updateBB();
                         }
                     }
-                    if (((entity instanceof Wall) || (entity instanceof Ground) || (entity instanceof Platform)) && that.BB.collide(entity.leftBB) && (that.lastBB.top < entity.BB.bottom-5)){
-                                that.x = entity.leftBB.left - PARAMS.PLAYERWIDTH-xBBOffset;
+                    if (((entity instanceof Wall) || (entity instanceof Ground) || (entity instanceof Platform) || (entity instanceof smallPlatforms)) && that.BB.collide(entity.leftBB) && (that.lastBB.top < entity.BB.bottom-5)){
+                                that.x = entity.leftBB.left - PARAMS.PLAYERWIDTH-that.xBBOffset;
                                 that.velocity.x = 0;
                                 that.updateBB();
                     }
-                    if (((entity instanceof Wall) || (entity instanceof Ground) || (entity instanceof Platform) || (entity instanceof Tiles)) && that.BB.collide(entity.rightBB) && (that.lastBB.top < entity.BB.bottom-5)){               
-                                that.x = entity.rightBB.right - xBBOffset;
+                    if (((entity instanceof Wall) || (entity instanceof Ground) || (entity instanceof Platform) || (entity instanceof Tiles) || (entity instanceof smallPlatforms)) && that.BB.collide(entity.rightBB) && (that.lastBB.top < entity.BB.bottom-5)){               
+                                that.x = entity.rightBB.right - that.xBBOffset;
                                 that.velocity.x = 0; 
                                 that.updateBB(); 
                     }
                     if (((entity instanceof movingPlatforms)) && (that.lastBB.left >= entity.BB.right) && (that.lastBB.top < entity.BB.bottom-5)){               
-                        that.x = entity.rightBB.right - xBBOffset;
+                        that.x = entity.rightBB.right - that.xBBOffset;
                         that.velocity.x = 0; 
                         that.updateBB(); 
                     }
                     if (((entity instanceof movingPlatforms)) && (that.lastBB.right <= entity.BB.left) && (that.lastBB.top < entity.BB.bottom-5)){               
-                        that.x = entity.leftBB.left - PARAMS.PLAYERWIDTH-xBBOffset;
+                        that.x = entity.leftBB.left - PARAMS.PLAYERWIDTH-that.xBBOffset;
                         that.velocity.x = 0; 
                         that.updateBB(); 
                     }
@@ -263,17 +263,46 @@ class Mage {
                 //     this.animations[this.states.skullAttack][this.facing].isAlmostDone(TICK);
                 // }
             }
-
+            if(this.hp <= 0){
+                this.dead = true;
+            }
              if(this.velocity.x < 0){
                 this.facing = 1;
             }
             if(this.velocity.x > 0){
                 this.facing = 0;
             }
+            if(this.x < -40){
+                this.x = -40;
+                this.velocity.x = 0;
+                this.state = this.states.idle;
+            }
             // console.log(this.x);
+            if(this.manaTime >= 10 && this.curMana <= this.maxMana){
+                this.manaTime = 0;
+                this.curMana += 10;
+            }
            
     };
-    
+    deadPlayer(TICK, DE_ACC){
+        this.state = this.states.death;
+        if (this.facing == 1) {
+            if (this.velocity.x < 0) {
+                this.velocity.x += DE_ACC * TICK;
+            }
+            else {
+                this.velocity.x = 0;
+            }
+        }
+        else if (this.facing == 0) {
+            if (this.velocity.x > 0) {
+                this.velocity.x -= DE_ACC * TICK;
+            }
+            else {
+                this.velocity.x = 0;
+            }
+        }
+    }
     heal(healAmount) {
         if (this.hp < this.maxHP) {
             let canHeal = ((this.hp + healAmount) >= this.maxHP) ? (this.maxHP - this.hp) : healAmount;
@@ -293,8 +322,12 @@ class Mage {
     draw(ctx) {
             // this.healthbar.draw(ctx);
             // this.manaBar.draw(ctx);
-            this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, PARAMS.SCALE);
-            // this.animations[0][0].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y, PARAMS.SCALE);
+            if(this.dead){
+                this.animations[this.states.death][this.facing].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, PARAMS.SCALE);
+            }
+            else{
+                this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, PARAMS.SCALE);
+            }
             if(debug){
             ctx.strokeStyle = 'Red';
             ctx.strokeRect(this.BB.x-this.game.camera.x, this.BB.y-this.game.camera.y, this.BB.width, this.BB.height);
