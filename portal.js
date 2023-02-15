@@ -28,10 +28,9 @@ class Portal {
             if (entity instanceof Mage  && entity.BB && that.BB.collide(entity.BB)) {
                 // this.win = false;
                 // this.game.camera.loadLevel(levelTwo, 2.5 * PARAMS.BLOCKWIDTH, 0 * PARAMS.BLOCKWIDTH, true, false);  // from Mario
+                entity.removeFromWorld = true;
                 this.game.camera.loadLevel(levelTwo);
-                // this.disappear = false;
-                // this.state = 0;
-                this.game.startInput();
+                // this.game.startInput();
             }
         
            
