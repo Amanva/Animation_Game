@@ -12,6 +12,7 @@ assetMangager.queueDownload("./sprites/Mana.png");
 assetMangager.queueDownload("./sprites/cursor.png");
 assetMangager.queueDownload("./sprites/gate.png");
 assetMangager.queueDownload("./sprites/FB001.png");
+assetMangager.queueDownload("./sprites/04.png");
 
 // Load chain_bot sprites.
 assetMangager.queueDownload("./sprites/enemies/chain_bot_idle.png");

@@ -8,15 +8,7 @@ class SceneManager {
         this.elapsedTime = 0;
         this.level = null; 
         this.loadLevel(levelOne);
-        this.enemy = new ChainBot(this.game, 50, 500); 
-        this.game.addEntity(this.enemy);
         this.myCursor = new Cursor(this.game);
-        // this.enemy = new ChainBot(this.game, 350, 300); 
-        // this.game.addEntity(this.enemy);
-        // this.game.addEntity(new Monster(this.game, 600, 600));
-        // this.portal = new Portal(this.game, 10000, 430); 
-        // // this.portal = new Portal(this.game, 200, 430);
-        // this.game.addEntity(this.portal);
         
     };
     clearEntities() {
@@ -27,6 +19,15 @@ class SceneManager {
     loadLevel(level){
         this.level = level;
         this.clearEntities();
+        this.mage = new Mage(this.game, 400, 400);
+        this.game.addEntity(this.mage);
+        this.game.addEntity(new Sign(this.game, 700, 670));
+        this.heartMana = new HeartManaHQ(this.game, this.mage);
+        this.fireBoss = new fireBoss(this.game, 9600, 300);
+        this.enemy = new ChainBot(this.game, 50, 500); 
+        this.game.addEntity(this.enemy); 
+        this.game.addEntity(this.fireBoss);
+        
         if(level.ground){
             for (var i = 0; i < level.ground.length; i++) {
                 let ground = level.ground[i];
@@ -75,11 +76,7 @@ class SceneManager {
                 this.game.addEntity(new Gate(this.game, gate.x, gate.y, gate.wallX, gate.wallY, gate.wallWidth, gate.wallHeight, gate.div));
             }
         }
-        this.mage = new Mage(this.game, 9300, 400);
-        this.game.addEntity(this.mage);
-        this.heartMana = new HeartManaHQ(this.game, this.mage);
-        this.fireBoss = new fireBoss(this.game, 9600, 300); 
-        this.game.addEntity(this.fireBoss);
+
         this.game.addEntity(new BackGround(this.game, 0, 0, 1800, 800));
         // if(level.lava){
         //     for (var i = 0; i < level.lava.length; i++) {
