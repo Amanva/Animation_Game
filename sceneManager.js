@@ -6,24 +6,45 @@ class SceneManager {
         this.game = game;
         this.game.camera = this;
         this.elapsedTime = 0;
-        this.level = null; 
-        this.loadLevel(levelOne);
-        this.enemy = new ChainBot(this.game, 50, 500); 
-        this.game.addEntity(this.enemy);
+        this.level = null;
         this.myCursor = new Cursor(this.game);
+        // this.mage = new Mage(this.game, 662, 488); 
+        // this.heartMana = new HeartManaHQ(this.game, this.mage);
+        // // this.game.addEntity(new FireBall(this.game, 300, 400));
+        // this.game.addEntity(this.mage);
+        // this.enemy = new ChainBot(this.game, 50, 500); 
+        // this.game.addEntity(this.enemy);
         // this.enemy = new ChainBot(this.game, 350, 300); 
         // this.game.addEntity(this.enemy);
-        // this.game.addEntity(new Monster(this.game, 600, 600));
+        // // this.game.addEntity(new Monster(this.game, 600, 600));
         // this.portal = new Portal(this.game, 10000, 430); 
         // // this.portal = new Portal(this.game, 200, 430);
         // this.game.addEntity(this.portal);
+        this.loadLevel(levelOne);
+        // this.fireBoss = new fireBoss(this.game, 300, 300); 
+        // this.game.addEntity(this.fireBoss);
+        
+        
+        this.game.addEntity(new BackGround(this.game, 0, 0, 1800, 800));
         
     };
+
     clearEntities() {
         this.game.entities.forEach(function (entity) {
             entity.removeFromWorld = true;
         });
-    };
+    }
+
+    // loadLevel(level){
+    //     this.game.entites = [];
+    //     this.x = 0;
+
+    //     for(var i = 0; i < this.level.length; i++){
+
+    //     }
+    // }
+
+
     loadLevel(level){
         this.level = level;
         this.clearEntities();
@@ -75,19 +96,26 @@ class SceneManager {
                 this.game.addEntity(new Gate(this.game, gate.x, gate.y, gate.wallX, gate.wallY, gate.wallWidth, gate.wallHeight, gate.div));
             }
         }
-        this.mage = new Mage(this.game, 9300, 400);
-        this.game.addEntity(this.mage);
+        this.mage = new Mage(this.game, 662, 488);
+        // this.mage = new Mage(this.game, 9300, 400);
+        
         this.heartMana = new HeartManaHQ(this.game, this.mage);
         this.fireBoss = new fireBoss(this.game, 9600, 300); 
         this.game.addEntity(this.fireBoss);
+
+        this.game.addEntity(this.mage);
+        this.enemy = new ChainBot(this.game, 50, 500); 
+        this.game.addEntity(this.enemy);
+        this.enemy = new ChainBot(this.game, 350, 300); 
+        this.game.addEntity(this.enemy);
+        this.portal = new Portal(this.game, 200, 430);
+        this.game.addEntity(this.portal);
         this.game.addEntity(new BackGround(this.game, 0, 0, 1800, 800));
-        // if(level.lava){
-        //     for (var i = 0; i < level.lava.length; i++) {
-        //         let wall = level.lava[i];
-        //         this.game.addEntity(new lava(this.game, wall.x, wall.y, wall.width, wall.height));
-        //     }
-        // }
-        this.mage.velocity = { x: 0, y: 0 };
+        
+        // this.mage = new Mage(this.game, 662, 488);
+        this.game.addEntity(this.mage);
+        
+        // this.mage.velocity = { x: 0, y: 0 };
         
     }
     update() {
@@ -128,4 +156,3 @@ class SceneManager {
     };
     
 };
-
