@@ -7,7 +7,7 @@ function getAngle(velocity) {
     if (change < 0) change += Math.PI * 2;
     let degrees = Math.floor(change / Math.PI / 2 * 360);
     let bot = degrees / 360 * 2 * Math.PI;
-    console.log(bot);
+    // console.log(bot);
     return bot;
 };
 function randomInt(n) {
@@ -39,7 +39,7 @@ window.requestAnimFrame = (function () {
 // add global parameters here
 const PARAMS = {
     SCALE: 2.5,
-    BITWIDTH: 30,
+    BITWIDTH: 25,
     BITHEIGHT: 45
 };
 let debug = true;

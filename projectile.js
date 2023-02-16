@@ -23,10 +23,6 @@ class Projectile{
         this.x += this.velocity.x * TICK;
         this.y += this.velocity.y * TICK;
         this.updateBB();
-
-        // if(this.y < 0){
-        //     this.removeFromWorld = true;                
-        // }
         if(this.x < -10){
             this.removeFromWorld = true; 
         }
@@ -101,6 +97,7 @@ class FireBall{
             }
             
             });
+            // console.log(this.game.mouse.x);
     };
 
     draw(ctx){

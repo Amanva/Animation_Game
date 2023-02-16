@@ -6,41 +6,28 @@ class SceneManager {
         this.game = game;
         this.game.camera = this;
         this.elapsedTime = 0;
-        this.level = null;
-        this.myCursor = new Cursor(this.game);
-        this.mage = new Mage(this.game, 9200, -93); 
-        this.heartMana = new HeartManaHQ(this.game, this.mage);
-        // this.game.addEntity(new FireBall(this.game, 300, 400));
-        this.game.addEntity(this.mage);
-        this.enemy = new ChainBot(this.game, 50, 0); 
-        this.game.addEntity(this.enemy);
+        this.level = null; 
         this.loadLevel(levelOne);
-        this.fireBoss = new fireBoss(this.game, 9600, 300); 
-        this.game.addEntity(this.fireBoss);
-        this.enemy = new ChainBot(this.game, 50, 610); 
-        this.game.addEntity(this.enemy);
-        this.game.addEntity(new BackGround(this.game, 0, 0, 1800, 800));
-        
-       
-        
-        
+        this.myCursor = new Cursor(this.game);
         
     };
-
-    // loadLevel(level){
-    //     this.game.entites = [];
-    //     this.x = 0;
-
-    //     for(var i = 0; i < this.level.length; i++){
-
-    //     }
-    // }
-
-
+    clearEntities() {
+        this.game.entities.forEach(function (entity) {
+            entity.removeFromWorld = true;
+        });
+    };
     loadLevel(level){
-        this.game.entites = [];
         this.level = level;
-        // this.x = 0;
+        this.clearEntities();
+        this.mage = new Mage(this.game, 9400, 400);
+        this.game.addEntity(this.mage);
+        this.game.addEntity(new Sign(this.game, 700, 670, 5, "You're Finally Awake. Sigma Must Have Done A Number On You. Do You Remember Me? I'm Rush. Don't Worry. I'll Help You Remember Everything."));
+        this.heartMana = new HeartManaHQ(this.game, this.mage);
+        this.fireBoss = new fireBoss(this.game, 9600, 300);
+        this.enemy = new ChainBot(this.game, 50, 500); 
+        this.game.addEntity(this.enemy); 
+        this.game.addEntity(this.fireBoss);
+        
         if(level.ground){
             for (var i = 0; i < level.ground.length; i++) {
                 let ground = level.ground[i];
@@ -89,7 +76,8 @@ class SceneManager {
                 this.game.addEntity(new Gate(this.game, gate.x, gate.y, gate.wallX, gate.wallY, gate.wallWidth, gate.wallHeight, gate.div));
             }
         }
-        
+
+        this.game.addEntity(new BackGround(this.game, 0, 0, 1800, 800));
         // if(level.lava){
         //     for (var i = 0; i < level.lava.length; i++) {
         //         let wall = level.lava[i];
@@ -101,6 +89,7 @@ class SceneManager {
     }
     update() {
         this.heartMana.update();
+        this.myCursor.update();
         let midpoint = PARAMS.CANVAS_WIDTH/2 - PARAMS.PLAYERWIDTH / 2;
         // console.log(this.x,this.mage.x - midpoint);
       
@@ -118,8 +107,11 @@ class SceneManager {
 
 
     draw(ctx) {
-        this.heartMana.draw(ctx);
-        // this.myCursor.draw(ctx);
+        this.heartMana.draw(ctx); 
+        this.myCursor.draw(ctx);
+        // if(this.game.inCanvas){
+        //     this.myCursor.draw(ctx); 
+        // }       
         if(debug){
             let xV = "xP=" + Math.floor(this.game.mage.x);
             let yV = "yP=" + Math.floor(this.game.mage.y);

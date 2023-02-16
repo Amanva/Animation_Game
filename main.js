@@ -12,6 +12,7 @@ assetMangager.queueDownload("./sprites/Mana.png");
 assetMangager.queueDownload("./sprites/cursor.png");
 assetMangager.queueDownload("./sprites/gate.png");
 assetMangager.queueDownload("./sprites/FB001.png");
+assetMangager.queueDownload("./sprites/04.png");
 
 // Load chain_bot sprites.
 assetMangager.queueDownload("./sprites/enemies/chain_bot_idle.png");
@@ -27,6 +28,7 @@ assetMangager.queueDownload("./sprites/monster.png");
 assetMangager.queueDownload("./sprites/demon-idle.png");
 assetMangager.queueDownload("./sprites/monsterLeft.png");
 assetMangager.queueDownload("./sprites/demon-idleLeft.png");
+assetMangager.queueDownload("./sprites/portal.png");
 assetMangager.queueDownload("./sprites/demon-idleRight.png");
 assetMangager.downloadAll(() => {
 var canvas = document.getElementById('gameWorld');
@@ -39,7 +41,7 @@ PARAMS.CANVAS_WIDTH = canvas.width;
 PARAMS.CANVAS_HEIGHT = canvas.height;
 
 gameEngine.init(ctx);
-gameEngine.addEntity(new SceneManager(gameEngine));
+new SceneManager(gameEngine);
 gameEngine.start();
 
 });
