@@ -6,6 +6,8 @@ class Portal {
         this.portal = assetMangager.getAsset("./sprites/portal.png");
         this.scale = 1;
         this.animations = new Animator(this.portal, 0, 0, 320, 320, 41, 0.07, 0, 0, false, false, undefined);
+        this.animations.columnNum = 6;
+        this.animations.rowNum = 6;
         this.updateBB();
         
     }; // end of constructor

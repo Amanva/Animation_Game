@@ -32,7 +32,6 @@ class fireBoss{
         this.offsetX = 0;
         this.offsetY = 0;
         //animations
-        this.isDead = false;
         this.animations = [];
         this.BB;
         this.AttackBB;
@@ -320,15 +319,16 @@ class fireBoss{
             console.log("Dead");
             that.state = 4;
             that.updateBB;
-            
+
             if(that.animations[that.state][that.facing].isAlmostDone(that.game.clockTick)){
                 that.removeFromWorld = true;
                 that.isDead = true;
-            }        
+            }
         }
         if(this.isDead){
             this.game.addEntityToBegin(new Portal(this.game, this.x, 430));
         }
+        // console.log(this.state);
     };
     updateBB() {
         this.lastBB = this.BB;
@@ -466,4 +466,10 @@ class fireBoss{
     };
 
 
+}
+
+class Slime{
+    
+
+    
 }

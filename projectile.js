@@ -8,8 +8,8 @@ class Projectile{
         this.dead = false;
         this.animations.push(new Animator(this.spritesheet, 0, 0, 15, 15, 4, 0.3, 7, 0, false, true, false));
         this.shot = {x: this.game.click.x + this.game.camera.x, y: this.game.click.y + this.game.camera.y};
-        var dist = distanceBetween(this, this.shot);
-        this.velocity = { x: (this.shot.x - this.x) / dist * this.speed, y: (this.shot.y - this.y) / dist * this.speed};
+        this.dist = distanceBetween(this, this.shot);
+        this.velocity = { x: (this.shot.x - this.x) / this.dist * this.speed, y: (this.shot.y - this.y) / this.dist * this.speed};
         this.angle = getAngle(this.velocity);
         this.updateBB();
     };
@@ -40,7 +40,7 @@ class Projectile{
             }
             
             });
-            
+            console.log(this.dist);
             // console.log(this.velocity.x, this.velocity.y);
     };
     draw(ctx){
@@ -92,12 +92,14 @@ class FireBall{
                 if(entity instanceof fireBoss){
                     that.removeFromWorld = true;
                     entity.loseHealth(100);
-
+                }
+                if(entity instanceof ChainBot){
+                    that.removeFromWorld = true;
+                    entity.hp -= 100;
                 }
             }
             
             });
-            // console.log(this.game.mouse.x);
     };
 
     draw(ctx){
