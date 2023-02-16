@@ -82,7 +82,7 @@ class Monster{
             if ((entity instanceof Ground) || (entity instanceof Platform) || (entity instanceof Wall) || (entity instanceof Tiles)) {
                 //monster goes down
                 if ((that.lastBB.bottom <= entity.BB.top && that.velocity.y > 0)) {
-                    that.velocity.y = 0;
+                    that.velocity.y = -that.velocity.y;
                     // that.velocity.x = 0;
                     if ((that.lastBB.Right <= entity.BB.Left) || (that.lastBB.Left >= entity.BB.Right)) {
                         that.velocity.y = -that.velosity.y;
@@ -90,7 +90,7 @@ class Monster{
                     }
 
                 } else if((that.lastBB.top >= entity.BB.Bottom && that.velocity.y < 0)){ //Monster goes UP
-                    that.velocity.y = 0;
+                    that.velocity.y = -that.velocity.y;
                     if ((that.lastBB.Right <= entity.BB.Left) || (that.lastBB.Left >= entity.BB.Right)) {
                         that.velocity.y = -that.velosity.y;
                         that.velocity.x = 0;
@@ -147,17 +147,18 @@ class Monster{
          }
      
      }); 
-               
+     this.updateBB();
+                
  };
 
  draw(ctx) {
-     
+     ctx.globalAlpha = 0.5;
     //  this.animations[this.state].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, 1 ); //PARAMS.SCALE);
      this.animations[0].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, 1 );
-
+ctx.globalAlpha = 1;
          
          ctx.strokeStyle = 'Red';
-         ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y - this.game.camera.x, this.BB.width , this.BB.height);
+         ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y - this.game.camera.y, this.BB.width , this.BB.height);
 
        }; 
 
