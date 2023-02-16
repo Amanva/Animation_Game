@@ -65,7 +65,7 @@ class Wall {
     };
 };
 
-class BackGround {
+class LevelOneBackGround {
     constructor(game, x, y, w, h) {
         Object.assign(this, { game, x, y, w, h});
 
@@ -79,6 +79,8 @@ class BackGround {
         ctx.drawImage(this.spritesheet,this.x ,this.y, this.w, this.h);
     };
 };
+
+
 class Platform {
     constructor(game, x, y, width, height, divisor) {
         Object.assign(this, { game, x, y, width, height, divisor});
@@ -317,5 +319,21 @@ class smallPlatforms {
             ctx.strokeStyle = 'Red';
             ctx.strokeRect(this.BB.x-this.game.camera.x, this.BB.y-this.game.camera.y, this.BB.width, this.BB.height);
             }
+    };
+};
+
+/**                          Level Two classes are bolow                                */
+class LevelTwoBackGround {
+    constructor(game, x, y, w, h) {
+        Object.assign(this, { game, x, y, w, h});
+
+        this.spritesheet = assetMangager.getAsset(levelTwo.background);
+
+    };
+
+    update() {
+    };
+    draw(ctx) {
+        ctx.drawImage(this.spritesheet,this.x ,this.y, this.w, this.h);
     };
 };

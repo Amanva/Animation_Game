@@ -10,7 +10,7 @@ class Portal {
         this.velocity = { x: 0, y: 0 };
         this.portal = assetMangager.getAsset("./sprites/portal.png");
         this.scale = 1;
-        this.animations = new Animator(this.portal, 0, 0, 320, 320, 41, 0.07, 0, 0, false, true, undefined);
+        this.animations = new Animator(this.portal, 0, 0, 320, 320, 41, 0.07, 0, 0, false, false, undefined);
         this.updateBB();
         
     }; // end of constructor
@@ -22,18 +22,19 @@ class Portal {
     };
     
     update() {
+        // let curFrame = this.animations.currentFrame();
         this.updateBB();
         var that = this;
         that.game.entities.forEach(function (entity) {
             if (entity instanceof Mage  && entity.BB && that.BB.collide(entity.BB)) {
-                that.game.camera.loadLevel(levelTwo);
-                // this.game.startInput();
+                that.game.camera.loadLevelTwo(levelTwo);
             }
-        
-           
         }); //end of forEach
-                  
-    };//end update() chainBot behavior and collisions
+              
+        if(that.animations.isAlmostDone(that.game.clockTick)){
+            that.animations.elapsedTime = 2.7;
+        }
+    };
 
     draw(ctx) {
                    
@@ -45,6 +46,6 @@ class Portal {
         }    
         
                                 
-    }; // End draw method
+    };
 
-}; // End of chain_bot
+}; 

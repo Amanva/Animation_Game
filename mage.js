@@ -6,7 +6,6 @@ class Mage {
         this.velocity = { x: 0, y: 0 };
         this.spritesheet = assetMangager.getAsset("./sprites/mageRight.png");
         this.spritesheetLeft = assetMangager.getAsset("./sprites/mageLeft.png");
-        this.speed = 100;
         this.fallAcc = 200;
         this.facing = 0; 
         this.state = 0;

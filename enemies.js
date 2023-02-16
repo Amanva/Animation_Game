@@ -74,10 +74,10 @@ class ChainBot {
                     entity.removeFromWorld = true;
                     that.hp -= 20;
                     that.state = 5
-                    if(that.animations[5].isAlmostDone(TICK)){
-                        that.dead = true;
-                        that.removeFromWorld = true;
-                    }
+                    // if(that.animations[5].isAlmostDone(TICK)){
+                    //     that.animations.elapsedTime = 2.7;
+                        
+                    // }
                     
                 } else if (that.hp <= 0) {
                     that.state = 6; // death
@@ -132,12 +132,12 @@ class ChainBot {
                     // assetMangager.playAsset("sounds/slash_swoosh.wav");
                     }
 
-                }//end of attack logic
+                }
 
             } else if (entity instanceof Mage && Math.round(that.BB.bottom) !== Math.round(entity.BB.bottom)) {
                 that.state = 0;
                 that.velocity.x = 0;
-            }
+            }// end attack logic
             
         }); //end of forEach
           

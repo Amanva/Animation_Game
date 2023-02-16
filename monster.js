@@ -7,11 +7,10 @@ class Monster{
      this.hitPoints = 1;
      this.fallAcc = 200;       
      
-     this.spritesheet = assetMangager.getAsset("./sprites/monster.png");
-     this.spritesheetLeft = assetMangager.getAsset("./sprites/monsterLeft.png");
-     this.spritesheetIdle = assetMangager.getAsset("./sprites/demon-idle.png");
-     this.spritesheetIdleLeft = assetMangager.getAsset("./sprites/demon-idleLeft.png");
-    //  this.spritesheetIdleLeft = assetMangager.getAsset("./sprites/demon-idleRight.png");
+     this.IdleRight = assetMangager.getAsset("./sprites/demon-idleRight.png"); // idling and running right
+     this.IdleLeft = assetMangager.getAsset("./sprites/demon-idleLeft.png"); // idling and running left
+     this.AttackLeft = assetMangager.getAsset("./sprites/monsterRight.png"); //Left attack
+     this.AttackRight = assetMangager.getAsset("./sprites/monsterLeft.png"); // Right attack
      
                                
      // this.fallAcc = 200;
@@ -27,111 +26,123 @@ class Monster{
 
  loadAnimations() {
      this.animations = [];
-     for (var i = 0; i < 2; i++) { 
+     for (var i = 0; i < 4; i++) { 
          this.animations.push([]);
-         
      }
                
-     // idle
-    this.animations[0] = new Animator(this.spritesheetIdleLeft, 5, 0, 155, 126, 6, 0.10, 5, 0, true, true, false);
-     // right run
-    this.animations[1] = new Animator(this.spritesheetIdleLeft, 0, 0, 155, 126, 6, 0.10, 5, 0, false, true, false);
-     // left run
-    this.animations[2] = new Animator(this.spritesheetIdle, 0, 0, 155, 126, 6, 0.10, 5, 0, false, true, false);
-     // left attack
-    this.animations [3] = new Animator(this.spritesheet, -40, 0, 200, 150, 11, 0.1, 40, 0, false, true, false);
-     // right attack
-     this.animations[4] = new Animator(this.spritesheetLeft, 0, 0, 200, 150, 11, 0.1, 40, 100, true, true, false);
-               
+    // idle or run left
+    //(spritesheet, xStart, yStart, width, height, frameCount, frameDuration, framePaddingX, framePaddingY, reverse, loop, verticalSprite)
+    this.animations[0] = new Animator(this.IdleRight, 0, 0, 160, 144, 6, 0.20, 0, 0, false, true, false);  
+    // idle or runright
+    this.animations[1] = new Animator(this.IdleLeft, 0, 0, 160, 144, 6, 0.20, 0, 0, false, true, false);  
+    // attack right
+    this.animations[2] = new Animator(this.AttackRight, 0, 0, 233, 179, 11, 0.20, 0, 0, true, true, false);
+    // attack left
+    this.animations[3] = new Animator(this.AttackLeft, 0, 0, 233, 179, 11, 0.20, 0, 0, false, true, false);
+                    
  }; // End load animation
 
 
 
   updateBB() {
       this.lastBB = this.BB;
-      this.BB = new BoundingBox(this.x+140, this.y + 25, 50, 30 * 1.8); 
-      this.BB = new BoundingBox(this.x, this.y, 110, 140);
-     
-                   
- // };
- //updateBB() {
-   //  this.BB = new BoundingBox(this.x + 45-this.game.camera.x, this.y + 35, 70, 90, "red");
-     // this.BB = new BoundingBox(this.x + 60-this.game.camera.x, this.y + 35, 70, 110, "red");
-     
- }
- update() {
-     this.elapsedTime += this.game.clockTick;
-    //  this.velocity.y += this.fallAcc * TICK;
-     // default state, and default velocity
-     // this.state = 0;  
-      //this.velocity.x = 0; 
-     const TICK = this.game.clockTick;
-     const RUN = 200; //change the speed
-     const LOWER_BOUND = 80;
-     const UPPER_BOUND = 350;
-   
-     // const MAXFALL = 270;
+      this.BB = new BoundingBox(this.x, this.y, 160, 144);
+    //   this.BB = new BoundingBox(this.x+20, this.y+30, 100, 100); // BB for Idling state
+    }
 
-     // update position
-     this.x += this.velocity.x * TICK;
-    //  this.y += this.velocity.y * TICK * PARAMS.SCALE; 
-     var that = this;
-     this.updateBB();
+ update() {
+    this.elapsedTime += this.game.clockTick;
+    const TICK = this.game.clockTick;
+    const RUN_X = 200; //change the X speed
+    const RUN_Y = 200; //change the Y speed
+    const UPPER_BOUND = 450;
+   
+    // update position
+    this.x += this.velocity.x * TICK;
+    this.y += this.velocity.y * TICK; 
+    this.updateBB();
+    var that = this;
 
      // collisions
      this.game.entities.forEach(function (entity) {
-         if (entity instanceof Projectile && entity.BB && that.BB.collide(entity.BB) && that.hitPoints > 0){
-                 // && Math.abs(entity.BB && that.BB.distance(entity.BB)) === 0) {
-                 entity.removeFromWorld = true;
-                 --that.hitPoints;            
-                 that.state = 5;  
+        if (entity.BB && that.BB.collide(entity.BB)) {
+            if (entity instanceof Projectile &&  that.hitPoints > 0){
+                // && Math.abs(entity.BB && that.BB.distance(entity.BB)) === 0) {
+                entity.removeFromWorld = true;
+                --that.hitPoints;
+            } else if (that.hitPoints <= 0) {
+                that.dead = true;
+                that.removeFromWorld = true;
+            } //end projectile collision
 
-                //  console.log(entity.BB && that.BB.distance(entity.BB)); 
-                 that.updateBB();
-                 // that.state = 0;
-          } else if (that.hitPoints <= 0) {
-                 // that.velocity = 0;
-                 that.state = 6; // death
-                 that.dead = true;
-                 that.removeFromWorld = true;
-                 that.updateBB();
-                     
-             }
+            if (entity instanceof Mage) {  //collide mage and take his health
+                entity.removeHealth(0.075);
+                }
 
-             
+            if ((entity instanceof Ground) || (entity instanceof Platform) || (entity instanceof Wall) || (entity instanceof Tiles)) {
+                //monster goes down
+                if ((that.lastBB.bottom <= entity.BB.top && that.velocity.y > 0)) {
+                    that.velocity.y = 0;
+                    // that.velocity.x = 0;
+                    if ((that.lastBB.Right <= entity.BB.Left) || (that.lastBB.Left >= entity.BB.Right)) {
+                        that.velocity.y = -that.velosity.y;
+                        that.velocity.x = 0; 
+                    }
+
+                } else if((that.lastBB.top >= entity.BB.Bottom && that.velocity.y < 0)){ //Monster goes UP
+                    that.velocity.y = 0;
+                    if ((that.lastBB.Right <= entity.BB.Left) || (that.lastBB.Left >= entity.BB.Right)) {
+                        that.velocity.y = -that.velosity.y;
+                        that.velocity.x = 0;
+                    }
+                } 
+                else {
+                    that.velocity.y = 0;
+                    that.velocity.x = RUN_X; 
+                }
+            
+                
+            }
+
+            
+                    
+        } // end of if collide
+   
          //go towards to mage
-         if (entity instanceof Mage && LOWER_BOUND < Math.abs(that.BB.distance(entity.BB)) 
-                     && Math.abs(that.BB.distance(entity.BB)) < UPPER_BOUND) { //
+        if (entity instanceof Mage && Math.abs(that.BB.distance(entity.BB)) < UPPER_BOUND) { // to toward the Mage if he is in range
              if (that.BB && that.BB.distance(entity.BB) < 0) { 
-                 that.state = 1; //state runRight
-                 that.velocity.x = RUN; //RUN = 50
-                 that.updateBB();
+                 that.state = 0; //state runRight
+                 that.velocity.x = RUN_X; // X increment
+                 that.velocity.y = RUN_Y; // Y increment
+                 
                  // console.log(Math.abs(entity.BB && that.BB.distance(entity.BB)));
              } else { 
-                 that.state = 2;
-                 that.velocity.x = -RUN;
-                 that.updateBB();
+                 that.state = 1;
+                 that.velocity.x = -RUN_X;
+                 that.velocity.y = -RUN_Y;
+                 
                  // console.log(that.BB.distance(entity.BB));
              } 
          
          } else if (entity instanceof Mage && Math.abs( that.BB.distance(entity.BB)) >= UPPER_BOUND) {  
                  that.state = 0; 
                  that.velocity.x = 0;
-                 that.updateBB();
+                 that.velocity.y = 0;
+                 
 
-         // attack Mage                         
-         } else if (entity instanceof Mage && Math.abs(that.BB.distance(entity.BB)) <= LOWER_BOUND) {
-             if (-LOWER_BOUND < (that.BB.distance(entity.BB)) && (that.BB.distance(entity.BB)) < 0) {
-             that.state = 4; 
-             that.velocity.x = 0;
-             that.updateBB();
-             console.log(that.BB.distance(entity.BB));
-             } else {
-             that.state = 3; 
-             that.velocity.x = 0;
-             that.updateBB();
-             console.log(entity.BB && that.BB.distance(entity.BB));
-             }
+        //  // attack Mage                         
+        //  } else if (entity instanceof Mage && Math.abs(that.BB.distance(entity.BB)) <= LOWER_BOUND) {
+        //      if (-LOWER_BOUND < (that.BB.distance(entity.BB)) && (that.BB.distance(entity.BB)) < 0) {
+        //      that.state = 4; 
+        //      that.velocity.x = 0;
+        //      that.updateBB();
+        //      console.log(that.BB.distance(entity.BB));
+        //      } else {
+        //      that.state = 3; 
+        //      that.velocity.x = 0;
+        //      that.updateBB();
+        //      console.log(entity.BB && that.BB.distance(entity.BB));
+        //      }
 
          }
      
@@ -141,10 +152,12 @@ class Monster{
 
  draw(ctx) {
      
-     this.animations[this.state].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, 1 ); //PARAMS.SCALE);
+    //  this.animations[this.state].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, 1 ); //PARAMS.SCALE);
+     this.animations[0].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, 1 );
+
          
          ctx.strokeStyle = 'Red';
-         ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y, this.BB.width , this.BB.height);
+         ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y - this.game.camera.x, this.BB.width , this.BB.height);
 
        }; 
 

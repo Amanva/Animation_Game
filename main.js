@@ -23,12 +23,19 @@ assetMangager.queueDownload("./sprites/enemies/chain_bot_hit.png");
 assetMangager.queueDownload("./sprites/enemies/chain_bot_death.png");
 assetMangager.queueDownload("./sprites/Lava64.png");
 assetMangager.queueDownload("./sprites/Background.png");
-assetMangager.queueDownload("./sprites/monster.png");
-assetMangager.queueDownload("./sprites/demon-idle.png");
+assetMangager.queueDownload("./sprites/underWater.png");
+assetMangager.queueDownload("./sprites/monsterRight.png");
+assetMangager.queueDownload("./sprites/demon-idleRight.png");
 assetMangager.queueDownload("./sprites/monsterLeft.png");
 assetMangager.queueDownload("./sprites/demon-idleLeft.png");
 assetMangager.queueDownload("./sprites/portal.png");
 assetMangager.queueDownload("./sprites/demon-idleRight.png");
+//sounds
+assetMangager.queueDownload("./sounds/blood_splash.wav");
+assetMangager.queueDownload("./sounds/slash_swoosh.mp3");
+assetMangager.queueDownload("./sounds/metal_hit_woosh.wav");
+
+
 assetMangager.downloadAll(() => {
 var canvas = document.getElementById('gameWorld');
 var ctx = canvas.getContext('2d');
