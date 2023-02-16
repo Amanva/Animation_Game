@@ -19,13 +19,13 @@ class SceneManager {
     loadLevel(level){
         this.level = level;
         this.clearEntities();
-        this.mage = new Mage(this.game, 9400, 400);
+        this.mage = new Mage(this.game, 400, 400);
         this.game.addEntity(this.mage);
-        this.game.addEntity(new Sign(this.game, 700, 670, 5, "You're Finally Awake. Sigma Must Have Done A Number On You. Do You Remember Me? I'm Rush. Don't Worry. I'll Help You Remember Everything."));
+        this.game.addEntity(new Sign(this.game, 700, 670, 6, "Controls:        A-left           D-right          click-Basic attack  Num1-special attack "));
         this.heartMana = new HeartManaHQ(this.game, this.mage);
         this.fireBoss = new fireBoss(this.game, 9600, 300);
-        this.enemy = new ChainBot(this.game, 50, 500); 
-        this.game.addEntity(this.enemy); 
+        // this.enemy = new ChainBot(this.game, 50, 500); 
+        // this.game.addEntity(this.enemy); 
         this.game.addEntity(this.fireBoss);
         
         if(level.ground){

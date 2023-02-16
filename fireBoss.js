@@ -12,7 +12,7 @@ class fireBoss{
         // this.animator = new Animator(ASSET_MANAGER.getAsset("./demonFire.png"), 103, 50, 100, 108, 6, .2 ,187, false);
         this.speed = 100;
         this.facing = 0; //0=left, 1 = right
-        this.state = 2; // 0 = idle, 1 = walking , 2 = attacking, 3 = hit, 4 = death, 5 = spawn, 6 = jump, 7 = fire attack, 8 = magic attack
+        this.state = 1; // 0 = idle, 1 = walking , 2 = attacking, 3 = hit, 4 = death, 5 = spawn, 6 = jump, 7 = fire attack, 8 = magic attack
         this.dead = false;
         this.hp = 300;
         this.healthbar = new HealthBar(game, this);
@@ -32,7 +32,6 @@ class fireBoss{
         this.offsetX = 0;
         this.offsetY = 0;
         //animations
-        this.isDead = false;
         this.animations = [];
         this.BB;
         this.AttackBB;
@@ -42,6 +41,10 @@ class fireBoss{
         this.updateBB();
         this.ctx;
 
+        //if move or attack
+        this.moveBoss = false;
+        this.attackBoss = true;
+        this.attackFrameFinished = false;
     };
 
     loadAnimations() {
@@ -75,10 +78,10 @@ class fireBoss{
         this.animations[6][0] = new Animator(this.spritesheetSpecialAndSlime,0, 900, 288, 160, 18, 0.1, 0, 0, false,true, false)
 
         // fire attack
-        this.animations[7][0] = new Animator(this.spritesheetSpecialAndSlime,0, 1060, 288, 160, 21, 0.05, 0, 0, false,true, false)
+        this.animations[7][0] = new Animator(this.spritesheetSpecialAndSlime,0, 1060, 288, 160, 21, 0.05, 0, 0, false,false, false)
 
         // magic attack
-        this.animations[8][0] = new Animator(this.spritesheetSpecialAndSlime,0, 1220, 285, 160, 18, 0.1, 3, 0, false,true, false)
+        this.animations[8][0] = new Animator(this.spritesheetSpecialAndSlime,0, 1220, 285, 160, 18, 0.1, 3, 0, false,false, false)
 
 
         // //right
@@ -103,10 +106,10 @@ class fireBoss{
         this.animations[6][1] = new Animator(this.spritesheetSpecialAndSlime,0, 900, 288, 160, 18, 0.1, 0, 0, false,true, false)
 
         // fire attack
-        this.animations[7][1] = new Animator(this.spritesheetSpecialAndSlime,0, 1060, 288, 160, 21, 0.05, 0, 0, false,true, false)
+        this.animations[7][1] = new Animator(this.spritesheetSpecialAndSlime,0, 1060, 288, 160, 21, 0.05, 0, 0, false,false, false)
 
         // magic attack
-        this.animations[8][1] = new Animator(this.spritesheetSpecialAndSlime,0, 1220, 285, 160, 18, 0.1, 3, 0, false,true, false)
+        this.animations[8][1] = new Animator(this.spritesheetSpecialAndSlime,0, 1220, 285, 160, 18, 0.1, 3, 0, false,false, false)
         
         for(var l = 0; l <= 8; l++){
             this.animations[l][1].flipped = true;
@@ -121,130 +124,166 @@ class fireBoss{
         this.y += this.velocity.y * this.game.clockTick * PARAMS.SCALE;
         this.updateBB();
         var that = this;
-        
-        
+        if(this.attackFrameFinished){
+            this.animations[this.state][this.facing].elapsedTime =0;
+            that.moveBoss = true;
+            that.attackBoss = false;
+            // this.state = 1;
+        }
         this.game.entities.forEach(function (entity) {
             if(entity instanceof Mage && that.MageDetection.collide(entity.BB)){
                 if(that.hit){
                     that.attackCoolDown += that.game.clockTick;
                     that.attackFrameCD += that.game.clockTick;
                 }
-                if(that.attackCoolDown >= 5){
+                if(that.attackCoolDown >= 3){
                     that.hit = false;
                     that.attackCoolDown = 0;
                     that.attackFrameCD = 0;
+                    that.attackFrameFinished = false;
+                    that.moveBoss = true;
+                    that.attackBoss = false;
                     // that.jumpState = true;
 
                 }
-                
-                //jump state, if your under boss
-                if(that.state === 6 && that.jumpState){
-                    that.changeState = false;
-                    if(that.animations[that.state][that.facing].isAlmostDone(that.game.clockTick)){
-                        that.changeState = true;
-                        that.state = 1;
+                //If move 
+
+                if(that.moveBoss){
+                    that.state = 1;
+                    that.attackBoss = false;
+                    if(that.BB.left > entity.BB.right){
+                    
+                        if(that.state == 1){
+                            // that.state = 1;
+                            that.x -= 80*that.game.clockTick;
+                        }
+                        else if(that.state === 6){
+                            that.x -= 80*that.game.clockTick;
+                        }
+                        that.facing = 0;
+                    }
+                    //moving right
+                    else if(that.BB.right < entity.BB.left){
+                        if(that.state == 1){
+                            that.x += 80* that.game.clockTick;
+                            // that.state = 1;
+    
+                        }
+                        else if(that.state == 6){
+                            that.x += 80* that.game.clockTick;
+    
+                        }
+                        that.facing = 1; 
+                        
+                    }
+
+                    if(that.AttackDetectionBB.collide(entity.BB) && that.state === 1){
+                        that.moveBoss = false;
+                        that.attackBoss = true;
+                        
                     }
                 }
                 
+                //jump state, if your under boss
+                // if(that.state === 6){
+                //     that.changeState = false;
+                //     if(that.animations[that.state][that.facing].isAlmostDone(that.game.clockTick)){
+                //         that.changeState = true;
+                //         that.state = 1;
+                //     }
+                // }
+           
                 //if attack animation doesnt collide with mage. reset frames
-                // if((that.state === 7 || that.state === 2 || that.state === 8) && !that.AttackDetectionBB.collide(entity.BB)){
-                //     that.animations[that.state][that.facing].elapsedTime = 0;
+                // if(that.state === 2 || that.state === 7 || that.state === 8 && !that.AttackDetectionBB.collide(entity)){
+                //     that.animations[that.state][that.facinga].elapsedTime = 0;
                 // }
                 
                 //moving left
-                if(that.BB.left > entity.BB.right){
-                    if(that.state !== 6){
-                        that.state = 1;
-                    }
-                    if(that.state == 1){
-                        that.state = 1;
-                        that.x -= 80*that.game.clockTick;
-                    }
-                    else if(that.state === 6){
-                        that.x -= 80*that.game.clockTick;
-                    }
-                    that.facing = 0;
-                }
-                //moving right
-                else if(that.BB.right < entity.BB.left){
-                    if(that.state !== 6){
-                        that.state = 1;
-                    }
-                    if(that.state == 1){
-                        that.x += 80* that.game.clockTick;
-                        that.state =1;
-
-                    }
-                    else if(that.state == 6){
-                        that.x += 80* that.game.clockTick;
-
-                    }
-                    that.facing = 1; 
+            else if(that.attackBoss && !that.attackFrameFinished){
                     
-                }
-                else{
                     //[2,7,8] random select. then remove
                     //if attack bb colliding with mage bb 
-                    // if(that.randomSelectCD <= 0){
-                    //     that.rand = randomInt(3);
-                    //     that.randomSelectCD = 4;
-                    //     console.log("TEST2");
-                    // }
+                    if(that.randomSelectCD <= 0){
+                        that.rand = randomInt(3);
+                        that.randomSelectCD = 4;
+                        console.log("TEST2");
+                    }
                     that.rand = 1;
-                    if(that.changeState){
-                        if((that.JumpBB.collide(entity.BB)) && that.jumpState){
-                            console.log("JUMPING STATE");
-                            that.state = 6; 
+                    
+                        // if((that.JumpBB.collide(entity.BB))){
+                        //     console.log("JUMPING STATE");
+                        //     that.state = 6; 
+                        // }
+                        if(!that.AttackDetectionBB.collide(entity.BB) && that.state === 1){
+                            that.moveBoss = true;
+                            that.attackBoss = false;
                         }
-                        else if(that.rand === 1){
-                            if(that.AttackDetectionBB.collide(entity.BB) && that.attackFrameCD < .5){
+                        else {
+                            
+                        if(that.rand === 1){
+                            
+                            if(that.AttackDetectionBB.collide(entity.BB) && (that.AttackDetectionBB.right > entity.BB.left-200)){
+                                // console.log(that.AttackDetectionBB.right, entity.BB.left);
                                 that.state = that.attackList[that.rand];
-            
-                                // if(that.animations[that.state][that.facing].isAlmostDone(that.game.clockTick)){
-                                //     that.animations[that.state][that.facing].elapsedTime = 0;
-                                // }
+                                // console.log("In Attacking Range");
+                                that.updateBB();
                             }
-            
-                            if(that.AttackBB.collide(entity.BB) && that.state === 7 && that.animations[that.state][that.facing].currentFrame() >= 10 && that.animations[that.state][that.facing].currentFrame() <= 12 && !that.hit){
+                            
+                            if(that.AttackBB.collide(entity.BB) && that.state === 7 && that.animations[that.state][that.facing].currentFrame() >= 10 && that.animations[that.state][that.facing].currentFrame() <= 16 && !that.hit){
                                     that.hit = true;
-                                    console.log("STEP IN");
                                     entity.removeHealth(10);
+                                    // that.state = 1;
+                                    that.updateBB();
             
                             }
+                            if(that.animations[that.state][that.facing].isAlmostDone(that.game.clockTick)){
+                                console.log("Finish attack");
+                            }
+                            if(that.animations[that.state][that.facing].currentFrame() >= 20){
+                                console.log("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
+                                that.attackFrameFinished = true;
+                                
+                                
+                            }
                         }
-                        else if(that.rand === 0){
-                            if(that.AttackDetectionBB.collide(entity.BB) && that.attackFrameCD < .5){
+                        else if(that.rand === 0 && !that.hit){
+                            if(that.AttackDetectionBB.collide(entity.BB) && that.attackFrameCD > .5){
                                 that.state = that.attackList[that.rand];
-            
-                                // if(that.animations[that.state][that.facing].isAlmostDone(that.game.clockTick)){
-                                //     that.animations[that.state][that.facing].elapsedTime = 0;
-                                // }
+                                that.updateBB();
+   
                             }
             
                             if(that.AttackBB.collide(entity.BB) && that.state === 2 && that.animations[that.state][that.facing].currentFrame() >= 10 && that.animations[that.state][that.facing].currentFrame() <= 12 && !that.hit){
                                     that.hit = true;
-                                    console.log("STEP IN");
                                     entity.removeHealth(10);
+                                    // that.state = 1;
+                                    that.updateBB();
+
+
             
                             }
                         }
-                        else if(that.rand === 2){
-                            if(that.AttackDetectionBB.collide(entity.BB) && that.attackFrameCD < 1.5){
+                        else if(that.rand === 2 && !that.hit){
+                            if(that.AttackDetectionBB.collide(entity.BB) && that.attackFrameCD > .5){
                                 that.state = that.attackList[that.rand];
-            
-                                // if(that.animations[that.state][that.facing].isAlmostDone(that.game.clockTick)){
-                                //     that.animations[that.state][that.facing].elapsedTime = 0;
-                                // }
+                                that.updateBB();
+
+                               
                             }
             
                             if(that.AttackBB.collide(entity.BB) && that.state === 8 && that.animations[that.state][that.facing].currentFrame() >= 5 && that.animations[that.state][that.facing].currentFrame() <= 11 && !that.hit){
                                     that.hit = true;
-                                    console.log("STEP IN");
                                     entity.removeHealth(10);
+                                    // that.state = 1;
+                                    that.updateBB();
+
             
                             }
                         }
                     }
+                    
+                    
+                    
                 }
                 
                 that.updateBB();
@@ -264,7 +303,7 @@ class fireBoss{
             
             
             });
-        // console.log(this.rand);
+        // console.log(this.randomSelectCD);
         if(this.randomSelectCD > 0){
             this.randomSelectCD -= this.game.clockTick;
         }
@@ -275,15 +314,16 @@ class fireBoss{
             console.log("Dead");
             that.state = 4;
             that.updateBB;
-            
+
             if(that.animations[that.state][that.facing].isAlmostDone(that.game.clockTick)){
                 that.removeFromWorld = true;
                 that.isDead = true;
-            }        
+            }
         }
         if(this.isDead){
             this.game.addEntityToBegin(new Portal(this.game, this.x, 430));
         }
+        // console.log(this.state);
     };
     updateBB() {
         this.lastBB = this.BB;
@@ -294,7 +334,7 @@ class fireBoss{
 
         this.JumpBB = new BoundingBox(this.x+285,this.y+380,150,20)
         this.MageDetection = new BoundingBox(this.x-500, this.y-400, 2000, 900);
-        this.AttackDetectionBB = new BoundingBox(this.x+90, this.y+70, 600,530);
+        this.AttackDetectionBB = new BoundingBox(this.x+80, this.y+70, 550,530);
         if(this.facing === 0){
             if(this.state === 0){
                 this.BB = new BoundingBox(this.x+250, this.y+200, 205, 200);
@@ -335,9 +375,6 @@ class fireBoss{
             else if(this.state === 7){
                 this.BB = new BoundingBox(this.x+270, this.y+200, 230, 200);
                 this.AttackBB = new BoundingBox(this.x+50, this.y+100, 220, 295);
-
-                // this.BB = new BoundingBox(this.x+220, this.y+200, 230, 200);
-                // this.AttackBB = new BoundingBox(this.x+450, this.y+100, 220, 295);
                 
 
             }
@@ -424,4 +461,10 @@ class fireBoss{
     };
 
 
+}
+
+class Slime{
+    
+
+    
 }

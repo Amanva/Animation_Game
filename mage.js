@@ -47,7 +47,7 @@ class Mage {
         }
 
         // right idle
-        this.animations[0][0] = new Animator(this.spritesheet, 58, 15, 45, 105, 8, 0.20, 115, 0, false, true, false);
+        this.animations[0][0] = new Animator(this.spritesheet, 58, 15, 45, 105, 8, 0.10, 115, 0, false, true, false);
         // right run
         this.animations[1][0] = new Animator(this.spritesheet, 65, 150, 39, 105, 8, 0.10, 121, 0, false, true, false);
         // right attack
@@ -166,8 +166,7 @@ class Mage {
                     this.specialAttack1 = false;
                     // this.game.E = false;
                     this.state = this.states.idle;
-                }
-                
+                } 
             }
             else if(this.shoot && this.timetoShoot > 0.5){
                 this.state = this.states.normAttack;
