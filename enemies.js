@@ -19,6 +19,7 @@ class ChainBot {
         this.dead = false;
         this.updateBB();
         this.loadAnimations();
+        this.isHit = false;
         
     }; // end of constructor
 
@@ -36,9 +37,9 @@ class ChainBot {
         // left run
         this.animations[2] = new Animator(this.botRunLeft, 0, 0, 126, 39, 4, 0.20, 0, 0, false, true, true);
         // left attack
-        this.animations[3] = new Animator(this.botAttackLeft, 0, 0, 126, 39, 8, 0.10, 0, 0, false, true, true); 
+        this.animations[3] = new Animator(this.botAttackLeft, 0, 0, 126, 39, 4, 0.20, 0, 0, false, true, true); 
         // right attack
-        this.animations[4] = new Animator(this.botAttackRight, 0, 0, 126, 39, 8, 0.10, 0, 0, false, true, true);
+        this.animations[4] = new Animator(this.botAttackRight, 0, 0, 126, 39, 4, 0.3, 0, 0, false, true, true);
         // hit
         this.animations[5] = new Animator(this.botHit, 0, 0, 126, 39, 2, 0.20, 0, 0, false, true, true);
         // death
@@ -49,6 +50,19 @@ class ChainBot {
     updateBB() {
         this.lastBB = this.BB;
         this.BB = new BoundingBox(this.x+140, this.y+25, 50, 30*1.8 );
+        this.lastAttackBB = this.AttackBB;
+        this.detectionAttackBB = new BoundingBox(this.x+60,this.y+25,200,50);
+
+        if(this.state === 4){
+            this.AttackBB = new BoundingBox(this.x+190,this.y+25,100,50);
+        }
+        else if(this.state ===3){
+            this.AttackBB = new BoundingBox(this.x+40,this.y+25,100,50);
+        }
+        else{
+            this.AttackBB = new BoundingBox(0,0,0,0);
+        }
+        
     };
 
     update() {
@@ -60,12 +74,13 @@ class ChainBot {
         this.velocity.y += this.fallAcc * TICK;
         
         // update position
+        this.updateBB();
+
         this.x += this.velocity.x * TICK;
         this.y += this.velocity.y * TICK;
-        this.updateBB();
               
         var that = this;
-
+        
         /** chainBot behaviour and collisions */ 
         // TODO this works, but need to ajust duration for the hit state.
         that.game.entities.forEach(function (entity) {
@@ -91,7 +106,7 @@ class ChainBot {
                                             
                 }
                 if (that.velocity.y > 0) { 
-                    if (((entity instanceof Ground) || (entity instanceof Platform) || (entity instanceof Wall) || (entity instanceof Tiles)) && (that.lastBB.bottom <= entity.BB.top)){
+                    if (((entity instanceof Ground) || (entity instanceof Platform) || (entity instanceof Wall) || (entity instanceof Tiles)) && (that.lastBB.bottom >= entity.BB.top)){
                   
                     that.velocity.y = 0;
                     that.y = entity.BB.top - that.BB.height-25;
@@ -107,33 +122,51 @@ class ChainBot {
                         // console.log(that.BB.distance(entity.BB));
                         that.state = 1; //state runRight
                         that.velocity.x = RUN; //speed of RUN
+                        that.updateBB();
+
                     } else if(that.BB && that.BB.distance(entity.BB) > 0 && (that.state !== 4) && (that.state !== 3)){ 
                         that.state = 2; //state runLeft otherwise
                         that.velocity.x = -RUN;
+                        that.updateBB();
+
                     } 
                     //Mage is not in range then stop and wait. Default state.        
                     } else if (entity instanceof Mage && Math.abs( that.BB.distance(entity.BB)) >= UPPER_BOUND) {  //!that.state = 5
                         that.state = 0; //state idle
                         that.velocity.x = 0;
+                        that.updateBB();
+
                         
                     //Mage is close enough to fight, then fight                        
-                    } else if ((entity instanceof Mage) && (Math.abs(that.BB.distance(entity.BB)) <= LOWER_BOUND)) {
-                    if (-LOWER_BOUND <= (that.BB.distance(entity.BB)) && (that.BB.distance(entity.BB)) < 0) {
+                    } else if ((entity instanceof Mage) && (Math.abs(that.BB.distance(entity.BB)) <= LOWER_BOUND&& that.detectionAttackBB.collide(entity.BB)) && !that.isHit) {
+                        console.log("ISSUE");
+                    if (entity.BB.left > that.BB.right) {
+                    that.isHit = true;
                     that.velocity.x = 0;
                     that.state = 4; //state attackRight
-                    entity.removeHealth(0.075);
+                    that.updateBB();
+                    entity.removeHealth(10);
+
                     
-                    } else {
-                    that.state = 3; //state attackLeft
-                    entity.removeHealth(0.075);
+                    } else if(entity.BB.right < that.BB.left) {
+                    that.isHit = true;
                     that.velocity.x = 0;
+
+                    that.state = 3; //state attackLeft
+                    that.updateBB();
+
+                    entity.removeHealth(10);
                     }
+
                     // console.log(that.animations[that.state].currentFrame());
                 }//end of attack logic
                     if(that.animations[4].isAlmostDone(TICK) || that.animations[3].isAlmostDone(TICK)){
                         that.state = 1;
                         that.animations[4].elapsedTime = 0;
                         that.animations[3].elapsedTime = 0;
+                        that.isHit = false;
+                        that.updateBB();
+
                     }
             } else if (entity instanceof Mage && Math.round(that.BB.bottom) !== Math.round(entity.BB.bottom)) {
                 that.state = 0;
@@ -149,8 +182,12 @@ class ChainBot {
         this.animations[this.state].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, PARAMS.SCALE);
             if(debug){
                 // //draw the boundingBox
-                // ctx.strokeStyle = 'Red';
-                // ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y-this.game.camera.y, this.BB.width , this.BB.height);
+                ctx.strokeStyle = 'Red';
+                ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y-this.game.camera.y, this.BB.width , this.BB.height);
+                ctx.strokeStyle = 'yellow';
+                ctx.strokeRect(this.AttackBB.x - this.game.camera.x, this.AttackBB.y-this.game.camera.y, this.AttackBB.width , this.AttackBB.height);
+                ctx.strokeStyle = 'green';
+                ctx.strokeRect(this.detectionAttackBB.x - this.game.camera.x, this.detectionAttackBB.y-this.game.camera.y, this.detectionAttackBB.width , this.detectionAttackBB.height);
                 // // TEST draw text to canvas
                 // ctx.font = "20px Arial";
                 // ctx.fillStyle = "white";

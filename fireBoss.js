@@ -63,7 +63,7 @@ class fireBoss{
         this.animations[1][0] = new Animator(this.spritesheet, 0, 160, 288, 160, 12, 0.1, 0, 0, false, true, false);
 
         // attacking
-        this.animations[2][0] = new Animator(this.spritesheet, 0, 320, 288, 160, 15, 0.1, 0, 0, false, false, false);
+        this.animations[2][0] = new Animator(this.spritesheet, 0, 320, 288, 160, 15, 0.07, 0, 0, false, false, false);
 
         // hit
         this.animations[3][0] = new Animator(this.spritesheet, 0, 480, 288, 160, 5, 0.09, 0, 0, false, true, false);
@@ -75,7 +75,7 @@ class fireBoss{
         this.animations[5][0] = new Animator(this.spritesheetSpecialAndSlime,  0, 740, 288, 160, 19, 0.15, 0, 0, false,true, false)
 
         // jump
-        this.animations[6][0] = new Animator(this.spritesheetSpecialAndSlime,0, 900, 288, 160, 18, 0.1, 0, 0, false,true, false)
+        this.animations[6][0] = new Animator(this.spritesheetSpecialAndSlime,0, 900, 288, 160, 18, 0.1, 0, 0, false,false, false)
 
         // fire attack
         this.animations[7][0] = new Animator(this.spritesheetSpecialAndSlime,0, 1060, 288, 160, 21, 0.05, 0, 0, false,false, false)
@@ -91,7 +91,7 @@ class fireBoss{
         this.animations[1][1] = new Animator(this.spritesheet, 0, 160, 288, 160, 12, 0.1, 0, 0, false, true, false);
 
         // attacking
-        this.animations[2][1] = new Animator(this.spritesheet, 0, 320, 288, 160, 15, 0.1, 0, 0, false, false, false);
+        this.animations[2][1] = new Animator(this.spritesheet, 0, 320, 288, 160, 15, 0.07, 0, 0, false, false, false);
 
         // hit
         this.animations[3][1] = new Animator(this.spritesheet, 0, 480, 288, 160, 5, 0.09, 0, 0, false, true, false);
@@ -103,7 +103,7 @@ class fireBoss{
         this.animations[5][1] = new Animator(this.spritesheetSpecialAndSlime,  0, 740, 288, 160, 19, 0.15, 0, 0, false,true, false)
 
         // jump
-        this.animations[6][1] = new Animator(this.spritesheetSpecialAndSlime,0, 900, 288, 160, 18, 0.1, 0, 0, false,true, false)
+        this.animations[6][1] = new Animator(this.spritesheetSpecialAndSlime,0, 900, 288, 160, 18, 0.1, 0, 0, false,false, false)
 
         // fire attack
         this.animations[7][1] = new Animator(this.spritesheetSpecialAndSlime,0, 1060, 288, 160, 21, 0.05, 0, 0, false,false, false)
@@ -148,29 +148,29 @@ class fireBoss{
 
                 }
                 //If move 
-
+                
                 if(that.moveBoss){
                     that.state = 1;
                     if(that.BB.left > entity.BB.right){
                     
                         if(that.state == 1){
                             that.state = 1;
-                            that.x -= 80*that.game.clockTick;
+                            that.x -= 240*that.game.clockTick;
                         }
                         else if(that.state === 6){
-                            that.x -= 80*that.game.clockTick;
+                            that.x -= 240*that.game.clockTick;
                         }
                         that.facing = 0;
                     }
                     //moving right
                     else if(that.BB.right < entity.BB.left){
                         if(that.state == 1){
-                            that.x += 80* that.game.clockTick;
+                            that.x += 240* that.game.clockTick;
                             that.state = 1;
     
                         }
                         else if(that.state == 6){
-                            that.x += 80* that.game.clockTick;
+                            that.x += 240* that.game.clockTick;
     
                         }
                         that.facing = 1; 
@@ -209,7 +209,9 @@ class fireBoss{
                         console.log("TEST2");
                     }
                     that.rand = 0;
-                    
+                    if(that.state === 2){
+                        that.animations[6][that.facing].elapsedTime = 0;
+                    }
                         // if((that.JumpBB.collide(entity.BB))){
                         //     console.log("JUMPING STATE");
                         //     that.state = 6; 
@@ -218,6 +220,24 @@ class fireBoss{
                             that.moveBoss = true;
                             that.attackBoss = false;
                         }
+                        else if(that.JumpBB.collide(entity.BB) && that.state != 2){
+                            
+                            that.state = 6;
+                            if(that.AttackBB.collide(entity.BB) && that.state === 6 && that.animations[that.state][that.facing].currentFrame() >= 11 && that.animations[that.state][that.facing].currentFrame() <= 15 && !that.hit){
+                                that.hit = true;
+                                entity.removeHealth(10);
+                                that.updateBB();
+                                console.log("MAGE HIT");
+                            }
+                        
+                        if(that.animations[that.state][that.facing].currentFrame() >= 17){
+                            console.log("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
+                            that.attackFrameFinished = true; 
+                            that.updateBB();
+                        }
+
+                        }
+                        
                         else {
                             
                         if(that.rand === 1){
@@ -241,7 +261,6 @@ class fireBoss{
                                 console.log("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
                                 that.attackFrameFinished = true; 
                                 that.updateBB();
-  
                             }
                         }
                         else if(that.rand === 0 ){
@@ -337,7 +356,7 @@ class fireBoss{
         this.lastAttackDetectionBB = this.AttackDetectionBB;
         this.lastJumpBB = this.JumpBB;
 
-        this.JumpBB = new BoundingBox(this.x+285,this.y+380,150,20)
+        this.JumpBB = new BoundingBox(this.x+280,this.y+380,160,20)
         this.MageDetection = new BoundingBox(this.x-500, this.y-400, 2000, 900);
         this.AttackDetectionBB = new BoundingBox(this.x+80, this.y+70, 550,530);
         if(this.facing === 0){
@@ -351,8 +370,9 @@ class fireBoss{
                 this.AttackBB = new BoundingBox(0, 0,0,0);
             }
             else if(this.state === 2){ // attack
-                this.BB = new BoundingBox(this.x+220, this.y+200, 290, 200);
-                this.AttackBB = new BoundingBox(this.x+70, this.y+220, 100,180);
+                this.BB = new BoundingBox(this.x+260, this.y+200, 200, 200);
+                this.AttackBB = new BoundingBox(this.x+70, this.y+162, 200,235);
+
             }
             else if(this.state === 3){
                 this.BB = new BoundingBox(this.x+260, this.y+200, 230, 200);
@@ -400,8 +420,9 @@ class fireBoss{
                 this.AttackBB = new BoundingBox(0, 0,0,0);
             }
             else if(this.state === 2){ // attack
-                this.BB = new BoundingBox(this.x+220, this.y+200, 290, 200);
-                this.AttackBB = new BoundingBox(this.x+500, this.y+162, 200,235);
+                this.BB = new BoundingBox(this.x+260, this.y+200, 200, 200);
+
+                this.AttackBB = new BoundingBox(this.x+450, this.y+162, 200,235);
             }
             else if(this.state === 3){
                 this.BB = new BoundingBox(this.x+230, this.y+200, 230, 200);
@@ -467,9 +488,64 @@ class fireBoss{
 
 
 }
-
 class Slime{
-    
+    constructor(game, x , y){
+        Object.assign(this, { game, x, y });
+        this.spritesheet = assetMangager.getAsset("./slime_demonboss_specialmoves.png");
+        this.state = 1;
+        this.facing = 0;
+        this.animations = [];
+        this.loadAnimations();
+    };
+    loadAnimations() {
+        
+        for (var i = 0; i < 4; i++) {
+            this.animations.push([]);
+            for (var j = 0; j < 2; j++) {
+                this.animations[i].push([]);
+            }
+        }
+        // idle
+        this.animations[0][0] = new Animator(this.spritesheet,  120, 55, 200, 160, 6, 0.1, 88, 0, false, true, false);
+
+        // walking
+        this.animations[1][0] = new Animator(this.spritesheet, 120, 215, 200, 160, 8, 0.1, 88, 0, false, true, false);
+
+        // attacking
+        this.animations[2][0] = new Animator(this.spritesheet, 0, 320, 288, 160, 15, 0.1, 0, 0, false, true, false);
+
+        // hit
+        this.animations[3][0] = new Animator(this.spritesheet, 0, 480, 288, 160, 5, 0.09, 0, 0, false, true, false);
+
+
+
+
+    };
+    update(){
+
+    };
+
+    updateBB(){
+
+    }
 
     
+     draw(ctx) {
+        // this.healthbar.draw(ctx);
+        this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, PARAMS.SCALE);
+        //     if(debug){
+        //     ctx.strokeStyle = 'Red';
+        //     ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y - this.game.camera.y, this.BB.width, this.BB.height);
+        //     ctx.strokeStyle = 'Green';
+        //     ctx.strokeRect(this.AttackBB.x- this.game.camera.x, this.AttackBB.y - this.game.camera.y, this.AttackBB.width, this.AttackBB.height);
+        //     ctx.strokeStyle = 'blue';
+        //     ctx.strokeRect(this.MageDetection.x - this.game.camera.x, this.MageDetection.y - this.game.camera.y, this.MageDetection.width, this.MageDetection.height);
+        //     ctx.strokeStyle = 'yellow';
+        //     ctx.strokeRect(this.AttackDetectionBB.x - this.game.camera.x, this.AttackDetectionBB.y - this.game.camera.y, this.AttackDetectionBB.width, this.AttackDetectionBB.height);
+        //     ctx.strokeStyle = 'purple';
+        //     ctx.strokeRect(this.JumpBB.x - this.game.camera.x, this.JumpBB.y - this.game.camera.y, this.JumpBB.width, this.JumpBB.height);
+
+        // }
+    };
+
 }
