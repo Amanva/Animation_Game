@@ -90,8 +90,7 @@ class ChainBot {
                     // if(that.animations[5].isAlmostDone(TICK)){
                     //     that.dead = true;
                     //     that.removeFromWorld = true;
-                    // }
-                    
+                    // }   
                 } else if ((that.hp <= 0) && !that.dead) {
                     that.state = 6; // death
                     that.velocity.x = 0;
@@ -99,8 +98,7 @@ class ChainBot {
                         that.game.addEntityToBegin(new Potion(that.game, that.x+140, that.y+25, false, 0));
                         that.dead = true;
                         that.removeFromWorld = true;
-                    }
-                                            
+                    }                          
                 }
                 if (that.velocity.y > 0) { 
                     if (((entity instanceof Ground) || (entity instanceof Platform) || (entity instanceof Wall) || (entity instanceof Tiles)) && (that.lastBB.bottom >= entity.BB.top)){

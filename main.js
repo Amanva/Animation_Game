@@ -24,10 +24,11 @@ assetMangager.queueDownload("./sprites/enemies/chain_bot_hit.png");
 assetMangager.queueDownload("./sprites/enemies/chain_bot_death.png");
 assetMangager.queueDownload("./sprites/Lava64.png");
 assetMangager.queueDownload("./sprites/Background.png");
-assetMangager.queueDownload("./sprites/monster.png");
-assetMangager.queueDownload("./sprites/demon-idle.png");
-assetMangager.queueDownload("./sprites/monsterLeft.png");
-assetMangager.queueDownload("./sprites/demon-idleLeft.png");
+assetMangager.queueDownload("./sprites/monster-Left-Attack.png");
+assetMangager.queueDownload("./sprites/monster-Riight-Attack.png");
+assetMangager.queueDownload("./sprites/monster-Left-Fly.png");
+assetMangager.queueDownload("./sprites/monster-idle.png");
+assetMangager.queueDownload("./sprites/monster-Right-Fly.png");
 assetMangager.queueDownload("./sprites/portal.png");
 assetMangager.queueDownload("./sprites/demon-idleRight.png");
 assetMangager.downloadAll(() => {
