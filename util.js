@@ -1,7 +1,18 @@
+function distanceBetween(A, B) {
+    return Math.sqrt((B.x - A.x) * (B.x - A.x) + (B.y - A.y) * (B.y - A.y));
+};
+function getAngle(velocity) {
+    let change = Math.atan2(velocity.y, velocity.x);
+    // let degree = radian * (180 / Math.PI);
+    if (change < 0) change += Math.PI * 2;
+    let degrees = Math.floor(change / Math.PI / 2 * 360);
+    let bot = degrees / 360 * 2 * Math.PI;
+    console.log(bot);
+    return bot;
+};
 function randomInt(n) {
     return Math.floor(Math.random() * n);
 };
-
 // returns a string that can be used as a rgb web color
 function rgb(r, g, b) {
     return "rgb(" + r + "," + g + "," + b + ")";
@@ -24,20 +35,14 @@ window.requestAnimFrame = (function () {
         };
 })();
 
+
 // add global parameters here
-
-// const PARAMS = {
-//     DEBUG: true,
-//     SCALE: 2.5,
-//     BITWIDTH: 35,
-//     BITHEIGHT: 45,
-//     PLAYERWIDTH: 100, //this should be here
-//     PLAYERHEIGHT: 113 //this shouldbe here also
-// };
-
 const PARAMS = {
-    DEBUG: true,
     SCALE: 2.5,
-    BITWIDTH: 35,
+    BITWIDTH: 30,
     BITHEIGHT: 45
 };
+let debug = true;
+function debugOn() {
+    debug = !debug;
+}

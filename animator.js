@@ -22,19 +22,24 @@ class Animator {
         if(this.elapsedTime > this.totalTime) this.elapsedTime -= this.totalTime;
         
         let frame = this.currentFrame();
+        let row = Math.floor(frame / 6);
+        let column = frame % 6;
+
         if (this.reverse) {
             frame = this.frameCount - frame - 1;
         }
 
         /*
          verticalSprite = true for sprites that are verical. 
-         Horizontals are by default.
+         False for Horizontals are by default.
+         Undetermined that are both then else
          added by UH.
         */
        let mult = 1;
        let offset = 0;
-       ctx.save();
+       
        if(this.flipped){
+        ctx.save();
         ctx.scale(-1, 1);
         mult *= -1;
         offset = -(this.width*scale);
@@ -47,19 +52,32 @@ class Animator {
                 x * mult + offset, y, //destination x and y, where to draw this frame
                 this.width * scale, this.height * scale); //destination width and hight
 
-        } else {
+        } else if (this.verticalSprite === false) {
             // Horizontal sprites drawn here
             ctx.drawImage(this.spritesheet,  
                 this.xStart + frame * (this.width + this.framePaddingX), this.yStart, 
                 this.width, this.height, 
                 (x * mult) + offset, y, 
                 this.width * scale, this.height * scale);
+        } else if (this.verticalSprite === undefined) {
+            ctx.drawImage(this.spritesheet,
+            this.xStart + this.width * column, this.yStart + this.height * row, //source x and y (for example, use "0, 0" on call ofthis function)
+            this.width, this.height, //source width and hight
+            x, y, //destination x and y, where to draw this frame
+            this.width, this.height); //destination width and hight
+
         }
+        
         ctx.restore();
         
             
     };
-
+    drawAngle(tick, ctx, x, y, scale, degree){
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.rotate(degree);
+        this.drawFrame(tick, ctx, -(this.width), -(this.height), scale)
+    }
 currentFrame() {
     return Math.floor(this.elapsedTime / this.frameDuration);
 };

@@ -3,25 +3,51 @@
 <head>
     <meta charset="utf-8">
     <title>Game Project Title Goes Here</title>
-
-</head>
-<body>
-    <canvas id="gameWorld" width="1800" height="800" style="background-color: white"  tabindex="0" autofocus></canvas>
+    <!-- <style>
+        /* body {
+            font-family: 'Press Start 2P', serif;
+            font-size: 24px;
+        } */
+        /* canvas {
+            padding-left: 0;
+            padding-right: 0;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+            font-size: 20px;
+        } */
+        /* div {
+            text-align: center;
+        } */
+    </style> -->
     <script type = "text/javascript" src="./assetmanager.js"></script>
     <script type = "text/javascript" src="./timer.js"></script>
     <script type = "text/javascript" src="./gameengine.js"></script>
     <script type = "text/javascript" src="./animator.js"></script>
     <script type = "text/javascript" src="./levels.js"></script>
     <script type = "text/javascript" src="./ground.js"></script>
+    <script type="text/javascript" src="./gate.js"></script>
+    <script type="text/javascript" src="./cursor.js"></script>
     <script type = "text/javascript" src="./projectile.js"></script>
     <script type = "text/javascript" src="./mage.js"></script>
+    <script type = "text/javascript" src="./healthbar.js"></script>
     <script type = "text/javascript" src="./enemies.js"></script>
+    <script type = "text/javascript" src="./portal.js"></script>
     <script type = "text/javascript" src="./fireBoss.js"></script>
     <script type = "text/javascript" src="./sceneManager.js"></script>
     <script type = "text/javascript" src="./util.js"></script>
     <script type=  "text/javascript" src="./boundingbox.js"></script>
     <script type=  "text/javascript" src="./monster.js"></script>
     <script type = "text/javascript" src="./main.js"></script>
+    
+</head>
+<body>
+    <canvas id="gameWorld" width="1800" height="800" style="background-color: white"  tabindex="0" autofocus></canvas>
     <h1> A-Left D-Right Space-Jump click-attack</h1>
+    <div>
+        <br />
+       <input type="checkbox" id="debug" onchange=debugOn()> Debug <input type="checkbox" id="mute" > Mute <input type="range" id="volume" min="0" max="1" value="0.1" step="0.05" > Volume
+    </div>
+    
 </body>
 </html>
