@@ -15,7 +15,7 @@ class GameEngine {
         this.digit1 = false;
         this.attack = false;
         this.jump = false;
-        this.c = false;
+        this.Q = false;
         this.click = null;
         this.mouse = null;
         this.wheel = null;
@@ -111,8 +111,11 @@ class GameEngine {
                     that.down = true;
                     break;
                 case "KeyE":
-                that.E = true;
-                break;
+                    that.E = true;
+                    break;
+                case "KeyQ":
+                    that.Q = true;
+                    break;
                 case "Digit1":
                     that.digit1 = true;
                     break;
@@ -141,6 +144,9 @@ class GameEngine {
                     break;
                 case "KeyE":
                     that.E = false;
+                    break;
+                case "KeyQ":
+                    that.Q = false;
                     break;
                 case "Digit1":
                     that.digit1 = false;
