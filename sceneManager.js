@@ -21,13 +21,12 @@ class SceneManager {
         this.clearEntities();
         this.mage = new Mage(this.game, 400, 400);
         this.game.addEntity(this.mage);
-        this.game.addEntity(new Sign(this.game, 700, 670, 6, "Controls:        A-left           D-right          click-Basic attack  Num1-special attack "));
         this.heartMana = new HeartManaHQ(this.game, this.mage);
         this.fireBoss = new fireBoss(this.game, 9600, 300);
-        // this.enemy = new ChainBot(this.game, 50, 500); 
-        // this.game.addEntity(this.enemy); 
+        this.enemy = new ChainBot(this.game, 50, 500); 
+        this.game.addEntity(this.enemy); 
         this.game.addEntity(this.fireBoss);
-        
+        // this.game.addEntity(new Slime(this.game, 400, 400));
         if(level.ground){
             for (var i = 0; i < level.ground.length; i++) {
                 let ground = level.ground[i];
@@ -76,7 +75,8 @@ class SceneManager {
                 this.game.addEntity(new Gate(this.game, gate.x, gate.y, gate.wallX, gate.wallY, gate.wallWidth, gate.wallHeight, gate.div));
             }
         }
-
+        this.game.addEntity(new Sign(this.game, 700, 670, 6, "Controls:        A-left           D-right          click-Basic attack  Num1-special attack "));
+        this.game.addEntity(new Potion(this.game, true, 0));
         this.game.addEntity(new BackGround(this.game, 0, 0, 1800, 800));
         // if(level.lava){
         //     for (var i = 0; i < level.lava.length; i++) {

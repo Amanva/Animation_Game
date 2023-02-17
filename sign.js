@@ -5,7 +5,7 @@ class Sign {
         this.scale = 2;
         this.textSize = 15;
         this.showText = false;
-        this.style = 'px "Press Start 2P"';
+        this.style = 'px ""';
         this.xOff = 130;
         this.opacity = 100;
         this.yOff = 0;

@@ -429,8 +429,6 @@ class fireBoss{
 
             }
         }
-       
-
 
     };
 
@@ -464,7 +462,56 @@ class fireBoss{
 }
 
 class Slime{
-    
+    constructor(game, x , y){
+        Object.assign(this, { game, x, y });
+        this.spritesheet = assetMangager.getAsset("./slime_demonboss_specialmoves.png");
+        this.state = 1;
+        this.facing = 0;
+        this.animations = [];
+        this.loadAnimations();
+    };
+    loadAnimations() {
+        
+        for (var i = 0; i < 4; i++) {
+            this.animations.push([]);
+            for (var j = 0; j < 2; j++) {
+                this.animations[i].push([]);
+            }
+        }
+        // idle
+        this.animations[0][0] = new Animator(this.spritesheet,  90, 55, 200, 160, 6, 0.1, 88, 0, false, true, false);
 
-    
+        // walking
+        this.animations[1][0] = new Animator(this.spritesheet, 90, 215, 200, 160, 8, 0.1, 88, 0, false, true, false);
+
+        // hit
+        this.animations[2][0] = new Animator(this.spritesheet, 90, 534, 230, 160, 9, 0.1, 58, 0, false, true, false);
+
+
+
+
+    };
+    update(){
+
+    };
+     draw(ctx) {
+        // this.healthbar.draw(ctx);
+        this.animations[0][this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, PARAMS.SCALE);
+        this.animations[2][this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, PARAMS.SCALE);
+        // this.animations[0][this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, PARAMS.SCALE);
+        //     if(debug){
+        //     ctx.strokeStyle = 'Red';
+        //     ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y - this.game.camera.y, this.BB.width, this.BB.height);
+        //     ctx.strokeStyle = 'Green';
+        //     ctx.strokeRect(this.AttackBB.x- this.game.camera.x, this.AttackBB.y - this.game.camera.y, this.AttackBB.width, this.AttackBB.height);
+        //     ctx.strokeStyle = 'blue';
+        //     ctx.strokeRect(this.MageDetection.x - this.game.camera.x, this.MageDetection.y - this.game.camera.y, this.MageDetection.width, this.MageDetection.height);
+        //     ctx.strokeStyle = 'yellow';
+        //     ctx.strokeRect(this.AttackDetectionBB.x - this.game.camera.x, this.AttackDetectionBB.y - this.game.camera.y, this.AttackDetectionBB.width, this.AttackDetectionBB.height);
+        //     ctx.strokeStyle = 'purple';
+        //     ctx.strokeRect(this.JumpBB.x - this.game.camera.x, this.JumpBB.y - this.game.camera.y, this.JumpBB.width, this.JumpBB.height);
+
+        // }
+    };
+
 }

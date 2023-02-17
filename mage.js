@@ -114,6 +114,10 @@ class Mage {
             } 
         }
         else{
+            if(this.game.E){
+                this.heal(50);
+                this.game.E = false;
+            }
             if(this.state != this.states.jump){
                 if (this.game.left) {
                     this.velocity.x -= RUN;
@@ -304,11 +308,6 @@ class Mage {
     heal(healAmount) {
         if (this.hp < this.maxHP) {
             let canHeal = ((this.hp + healAmount) >= this.maxHP) ? (this.maxHP - this.hp) : healAmount;
-            // if ((amount + this.hp) >= this.max_hp) {
-            //     healed = this.max_hp - this.hp;
-            // } else {
-            //     healed = amount;
-            // }
             this.hp += canHeal;
         }
     }
