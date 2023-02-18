@@ -28,9 +28,9 @@ class SceneManager {
         this.game.addEntity(new Potion(this.game, 0, 0, true, 0));
         this.heartMana = new HeartManaHQ(this.game, this.mage);
         this.fireBoss = new fireBoss(this.game, 9600, 300);
-        this.enemy = new ChainBot(this.game, 50, 600); 
-        this.game.addEntity(new Monster(this.game, 600, 600));
-        this.game.addEntity(this.enemy); 
+        // this.enemy = new ChainBot(this.game, 50, 600); 
+        this.game.addEntity(new Monster(this.game, 200, 550));
+        // this.game.addEntity(this.enemy); 
         this.game.addEntity(this.fireBoss);
         // this.game.addEntity(new Slime(this.game, 400, 400));
         if(level.ground){
