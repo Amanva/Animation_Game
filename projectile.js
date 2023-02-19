@@ -36,6 +36,10 @@ class Projectile{
                     that.removeFromWorld = true;
                     entity.loseHealth(100);
                 }
+                if(entity instanceof Monster){
+                    that.removeFromWorld = true;
+                    entity.loseHealth(10);
+                }
             }
             
             });
@@ -95,6 +99,10 @@ class FireBall{
                 if(entity instanceof ChainBot){
                     that.removeFromWorld = true;
                     entity.hp -= 100;
+                }
+                if(entity instanceof Monster){
+                    that.removeFromWorld = true;
+                    entity.loseHealth(100);
                 }
             }
             

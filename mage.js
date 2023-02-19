@@ -272,6 +272,9 @@ class Mage {
             if(this.hp <= 0){
                 this.dead = true;
             }
+            if(this.y >= 700){
+                this.dead = true;
+            }
              if(this.velocity.x < 0){
                 this.facing = 1;
             }

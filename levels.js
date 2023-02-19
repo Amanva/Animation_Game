@@ -4,7 +4,7 @@ var levelOne = {
     ground: [
         { x: 0, y: 750, width: 3072, height:64, div: 256},
         { x: 3456, y: 750, width: 2560, height:64, div: 256},
-        { x: 6400, y: 750, width: 2560, height:64, div: 256},
+        { x: 6700, y: 750, width: 768, height:64, div: 256},
         { x: 9100, y: 750, width: 3328, height:64, div: 256},
         // { x:2000, y:150, width: 3328, height:64, div: 256},
     ],

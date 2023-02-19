@@ -171,7 +171,7 @@ class ChainBot {
         }); //end of forEach
         //   console.log(this.state);
     };//end update() chainBot behavior and collisions
-
+   
     draw(ctx) {
         if(this.hp >= 0) this.enemHealthBar.draw(ctx);
         this.animations[this.state].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, PARAMS.SCALE);
