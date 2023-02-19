@@ -37,6 +37,10 @@ class Projectile{
                     entity.loseHealth(1000);
                     console.log("HIT2");
                 }
+                if(entity instanceof Monster){
+                    that.removeFromWorld = true;
+                    entity.loseHealth(10);
+                }
                 if(entity instanceof Slime){
                     that.removeFromWorld = true;
                     entity.loseHealth(10);
@@ -46,7 +50,7 @@ class Projectile{
             }
             
             });
-            console.log(this.dist);
+            // console.log(this.dist);
             // console.log(this.velocity.x, this.velocity.y);
     };
     draw(ctx){
@@ -55,7 +59,7 @@ class Projectile{
         if(debug){
             ctx.strokeStyle = 'Red';
             ctx.strokeRect(this.BB.x-this.game.camera.x, this.BB.y-this.game.camera.y, this.BB.width, this.BB.height);
-            }
+        }
     };
 
     
@@ -102,6 +106,10 @@ class FireBall{
                 if(entity instanceof ChainBot){
                     that.removeFromWorld = true;
                     entity.hp -= 100;
+                }
+                if(entity instanceof Monster){
+                    that.removeFromWorld = true;
+                    entity.loseHealth(100);
                 }
             }
             

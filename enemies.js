@@ -2,7 +2,6 @@ class ChainBot {
 
     constructor(game, x, y){
         Object.assign(this, { game, x, y });
-        this.game.chainBot = this;
         this.velocity = { x: 0, y: 0 };
         this.hp = 120;
         this.maxHP = 120;
@@ -56,13 +55,12 @@ class ChainBot {
         if(this.state === 4){
             this.AttackBB = new BoundingBox(this.x+190,this.y+25,100,50);
         }
-        else if(this.state ===3){
+        else if(this.state === 3){
             this.AttackBB = new BoundingBox(this.x+40,this.y+25,100,50);
         }
         else{
             this.AttackBB = new BoundingBox(0,0,0,0);
         }
-        
     };
 
     update() {
@@ -89,21 +87,18 @@ class ChainBot {
                     entity.removeFromWorld = true;
                     that.hp -= 20;
                     that.state = 5
-                    if(that.animations[5].isAlmostDone(TICK)){
-                        that.dead = true;
-                        that.removeFromWorld = true;
-                    }
-                    
-                } else if (that.hp <= 0) {
+                    // if(that.animations[5].isAlmostDone(TICK)){
+                    //     that.dead = true;
+                    //     that.removeFromWorld = true;
+                    // }   
+                } else if ((that.hp <= 0) && !that.dead) {
                     that.state = 6; // death
                     that.velocity.x = 0;
-                    that.dead = true;
                     if(that.animations[6].isAlmostDone(TICK)){
-                        // assetMangager.playAsset("sounds/blood_splash.wav");
+                        that.game.addEntityToBegin(new Potion(that.game, that.x+140, that.y+25, false, 0));
                         that.dead = true;
                         that.removeFromWorld = true;
-                    }
-                                            
+                    }                          
                 }
                 if (that.velocity.y > 0) { 
                     if (((entity instanceof Ground) || (entity instanceof Platform) || (entity instanceof Wall) || (entity instanceof Tiles)) && (that.lastBB.bottom >= entity.BB.top)){
@@ -176,7 +171,7 @@ class ChainBot {
         }); //end of forEach
         //   console.log(this.state);
     };//end update() chainBot behavior and collisions
-
+   
     draw(ctx) {
         if(this.hp >= 0) this.enemHealthBar.draw(ctx);
         this.animations[this.state].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, PARAMS.SCALE);

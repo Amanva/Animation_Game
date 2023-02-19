@@ -1,10 +1,10 @@
 
 class SceneManager {
     constructor(game) {
-        this.x = 0;
-        this.y = 0;
         this.game = game;
         this.game.camera = this;
+        this.healthPotion = 0;
+        this.manaPotion = 0;
         this.elapsedTime = 0;
         this.level = null; 
         this.loadLevel(levelOne);
@@ -19,19 +19,22 @@ class SceneManager {
     loadLevel(level){
         this.level = level;
         this.clearEntities();
-        this.mage = new Mage(this.game, 8000, 400);
+        this.x = 0;
+        this.y = 0;
+        this.healthPotion = 0;
+        this.manaPotion = 0;
+        this.mage = new Mage(this.game, 239,257);
         this.game.addEntity(this.mage);
-        this.game.addEntity(new Sign(this.game, 700, 670, 6, "Controls:        A-left           D-right          click-Basic attack  Num1-special attack "));
+        this.game.addEntity(new Potion(this.game, 0, 0, true, 0));
         this.heartMana = new HeartManaHQ(this.game, this.mage);
-        this.fireBoss = new fireBoss(this.game, 9600, 300);
-        this.enemy = new ChainBot(this.game, 400, 500); 
-        // this.game.addEntity(this.enemy); 
+        this.fireBoss = new fireBoss(this.game, 9600, 300); 
+        this.game.addEntity(new ChainBot(this.game, 2629,507));
+        this.game.addEntity(new ChainBot(this.game, 2586,207));
+        this.game.addEntity(new ChainBot(this.game, 703,-453)); 
+        this.game.addEntity(new Monster(this.game, 690, 250));
+         
         this.game.addEntity(this.fireBoss);
-        this.game.addEntity(new Slime(this.game, 400, 400));
-        if(this.fireBoss.dead){
-            this.game.addEntity(new Item(this.game, 9000,400));
-        }
-        
+        // this.game.addEntity(new Slime(this.game, 400, 400));
         if(level.ground){
             for (var i = 0; i < level.ground.length; i++) {
                 let ground = level.ground[i];
@@ -80,7 +83,7 @@ class SceneManager {
                 this.game.addEntity(new Gate(this.game, gate.x, gate.y, gate.wallX, gate.wallY, gate.wallWidth, gate.wallHeight, gate.div));
             }
         }
-
+        this.game.addEntity(new Sign(this.game, 700, 670, 6, "Controls:        A-left           D-right          click-Basic attack  Num1-special attack "));
         this.game.addEntity(new BackGround(this.game, 0, 0, 1800, 800));
         // if(level.lava){
         //     for (var i = 0; i < level.lava.length; i++) {
@@ -105,7 +108,7 @@ class SceneManager {
         if ((this.mage.x > midpoint) && (this.mage.x + midpoint <= 12000)) this.x = this.mage.x - midpoint;
         if ((this.mage.x < midpoint) && (this.mage.x - midpoint >= 0)) this.x = this.mage.x - midpoint;
         if ((this.mage.y < 200) && (this.mage.y + 200 >= -3000)) this.y = this.mage.y - 200;
-        if ((this.mage.y > 600) && (this.mage.y - 600 <= 700)) this.y = this.mage.y - 600;
+        if ((this.mage.y > 600) && (this.mage.y - 600 <= 0)) this.y = this.mage.y - 600;
     };
 
 

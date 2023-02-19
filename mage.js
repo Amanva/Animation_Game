@@ -114,6 +114,14 @@ class Mage {
             } 
         }
         else{
+            if(this.game.E){
+                this.healthPotion();
+                this.game.E = false;
+            }
+            if(this.game.Q){
+                this.manaPotion();
+                this.game.Q = false;
+            }
             if(this.state != this.states.jump){
                 if (this.game.left) {
                     this.velocity.x -= RUN;
@@ -264,6 +272,9 @@ class Mage {
             if(this.hp <= 0){
                 this.dead = true;
             }
+            if(this.y >= 700){
+                this.dead = true;
+            }
              if(this.velocity.x < 0){
                 this.facing = 1;
             }
@@ -280,8 +291,23 @@ class Mage {
                 this.manaTime = 0;
                 this.curMana += 10;
             }
-           
     };
+    healthPotion() {
+        if (this.hp < this.maxHP) {
+            if (this.game.camera.healthPotion > 0) {
+                this.heal(50);
+                this.game.camera.healthPotion--;
+            } 
+        }
+    }
+    manaPotion() {
+        if (this.curMana < this.maxMana) {
+            if (this.game.camera.manaPotion > 0) {
+                this.drinkMana(30);
+                this.game.camera.manaPotion--;
+            }
+        }
+    }
     deadPlayer(TICK, DE_ACC){
         this.state = this.states.death;
         if (this.facing == 1) {
@@ -301,18 +327,19 @@ class Mage {
             }
         }
     }
+    
     heal(healAmount) {
         if (this.hp < this.maxHP) {
             let canHeal = ((this.hp + healAmount) >= this.maxHP) ? (this.maxHP - this.hp) : healAmount;
-            // if ((amount + this.hp) >= this.max_hp) {
-            //     healed = this.max_hp - this.hp;
-            // } else {
-            //     healed = amount;
-            // }
             this.hp += canHeal;
         }
     }
-
+    drinkMana(manaAmount) {
+        if (this.curMana < this.maxMana) {
+            let canDrink = ((this.curMana + manaAmount) >= this.maxMana) ? (this.maxMana - this.curMana) : manaAmount;
+            this.curMana += canDrink;
+        }
+    }
     removeHealth(damageRecieved){
         this.hp -= damageRecieved;
     }

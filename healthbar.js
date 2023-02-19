@@ -1,18 +1,38 @@
 class HealthBar{
     constructor(game, agent) {
         Object.assign(this, { game, agent});
+        this.display = true;
+        this.timeShown = 0;
+        this.maxTimeShown = 3;
+        this.curHp = this.agent.hp;
     };
 
 
     update() {
-
+        
     };
-
+    showBar(){
+        if(this.curHp == this.agent.hp){
+            this.timeShown += this.game.clockTick;
+        }
+        else{
+            this.timeShown = 0;
+        }
+        if(this.timeShown >= this.maxTimeShown){
+            this.display = false;
+        }
+        else{
+            this.display = true;
+        }
+        this.curHp = this.agent.hp;
+    }; 
     draw(ctx) {
-        // if (this.agent.hp < this.agent.maxHP) {
+        this.showBar();
+        if(this.display){
             var height = 10;
             var ratio = this.agent.hp / this.agent.maxHP;
             var offsetY = 30;
+            if (this.agent.hp < this.agent.maxHP) {
             ctx.strokeStyle = "Black";
                 // ctx.fillRect((this.agent.BB.x-this.game.camera.x), (this.agent.BB.y-this.game.camera.y) - offsetY, this.agent.BB.width, height);
                 ctx.fillStyle = ratio < 0.2 ? "Red" : ratio < 0.5 ? "Yellow" : "Green";
@@ -22,7 +42,8 @@ class HealthBar{
             // ctx.fillStyle = ratio < 0.2 ? "Red" : ratio < 0.5 ? "Yellow" : "Green";
             // ctx.fillRect((2), (5), 250 * ratio, height);
             // ctx.strokeRect((2), (5), 250, height);
-        // }
+        }
+    }
     };
 
 
