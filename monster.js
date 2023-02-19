@@ -59,7 +59,7 @@ for(var l = 0; l <= 3; l++){
       this.lastBB = this.BB;
       //this.BB = new BoundingBox(this.x+140, this.y + 25, 50, 30 * 1.8); 
       this.BB = new BoundingBox(this.x+65, this.y+60, 60, 100);
-      this.MageDetection = new BoundingBox(this.x-300, this.y-200, 1000, 500);
+      this.MageDetection = new BoundingBox(this.x-500, this.y-200, 1300, 700);
       if(this.facing == 0){
       this.AttackBB = new BoundingBox(this.x+125, this.y+60, 50, 100);
       }
