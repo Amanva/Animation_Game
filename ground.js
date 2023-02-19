@@ -367,17 +367,17 @@ class Cave {
         var that = this;
         that.game.entities.forEach(function (entity) {
             if (entity instanceof Mage  && entity.BB && that.BB.collide(entity.BB)) {
-                that.game.camera.loadLevel(levelOne);
+                that.game.camera.loadLevel(levelTwo);
             }
         }); //end of forEach
-        that.updateBB();
     }; //end update
 
     draw(ctx) { //(this.spritesheet, 0, 0, width,height, this.x-this.game.camera.x, this.y, this.width, this.height);
         ctx.drawImage(this.spritesheet, 0, 0, 1031,439, this.x-this.game.camera.x, this.y, this.width, this.height);
         if(debug){
             ctx.strokeStyle = 'Red';
-            ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y - this.game.camera.y, this.BB.width , this.BB.height);
+            // ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y - this.game.camera.y, this.BB.width , this.BB.height);
+            
         }
     };
 

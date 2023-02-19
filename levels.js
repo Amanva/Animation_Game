@@ -161,11 +161,6 @@ var levelTwo = {
     ],
 
 
-
-
-
-
-
         
     // cave: [
     //     {x:11000 ,y:500, width: 256, height:64}, 

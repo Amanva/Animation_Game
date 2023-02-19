@@ -9,8 +9,8 @@ class SceneManager {
         this.level = null;
         this.myCursor = new Cursor(this.game);
         
-        // this.loadLevel(levelOne);
-        this.loadLevel(levelTwo);
+        this.loadLevel(levelOne);
+        // this.loadLevel(levelTwo);
         
     };
 
@@ -44,8 +44,8 @@ class SceneManager {
 
             // this.monster = new Monster(this.game, 650, 250); 
             // this.game.addEntity(this.monster);
-            // this.portal = new Portal(this.game, 200, 430);
-            // this.game.addEntity(this.portal);
+            this.portal = new Portal(this.game, 200, 430);
+            this.game.addEntity(this.portal);
 
             if(level.ChainBot){
                 for (var i = 0; i < level.ChainBot.length; i++) {
@@ -115,9 +115,11 @@ class SceneManager {
             // this.mage = new Mage(this.game, 662, 488);
             // this.game.addEntity(this.mage);
             
-            // this.mage.velocity = { x: 0, y: 0 };
+            this.mage.velocity = { x: 0, y: 0 };
 
         } else if( level === levelTwo) {
+            this.clearEntities();
+
             this.mage = new Mage(this.game, 200, 488);
             this.game.addEntity(this.mage);
             this.heartMana = new HeartManaHQ(this.game, this.mage);
