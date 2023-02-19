@@ -1,6 +1,8 @@
-// const divisorPlatforms = 256;
+// const divisorPlatforms = 256; //divizor = size of the one platform
 var levelOne = {
     background: "./sprites/Background.png",
+    floor: "./sprites/Lava64.png",
+
     ground: [
         { x: 0, y: 750, width: 3072, height:64, div: 256},
         { x: 3456, y: 750, width: 2560, height:64, div: 256},
@@ -12,7 +14,8 @@ var levelOne = {
         {x:3072 , y:-100, width:192*2, height: 308, div: 308},
         {x:3072 , y:500, width:192*2, height: 308, div: 308},
         {x:2000 , y:-158, width:192, height: 308, div: 308},
-        {x:3264 , y:-400, width:192, height: 308, div: 308}
+        {x:3264 , y:-400, width:192, height: 308, div: 308},
+        {x:800 , y:500, width:192, height: 308, div: 308} //test wall
         
     ],
     gate: [
@@ -117,28 +120,30 @@ var levelOne = {
 
     ],
 
-    // ChainBot: [
-    //     {x: 50, y: 300},
-    //     {x: 350, y: 300},
-    //     {x: 1000, y: 400},
-    //     {x: 1500, y: 0},
-    //     {x:2000, y: 0},
-    //     {x: 2300, y: 0},
-    // ]
+    ChainBot: [
+        // {x: 50, y: 300},
+        // {x: 350, y: 300},
+        {x: 1000, y: 400},
+        // {x: 1500, y: 0},
+        // {x:2000, y: 0},
+        // {x: 2300, y: 0},
+    ],
 
-    Monster: [
-        {x: 50, y: 300},
+    // Monster: [
+    //     {x: 50, y: 300},
         
-    ]
+    // ]
 };
 
 var levelTwo = {
-    background: "./sprites/underWater.png",
+    background: "./sprites/waterLevel/underWater.png",
+    floor: "./sprites/waterLevel/boulderTiles.png",
+
     ground: [
-        { x: 0, y: 750, width: 3072, height:64, div: 256},
-        { x: 3456, y: 750, width: 2560, height:64, div: 256},
-        { x: 6400, y: 750, width: 2560, height:64, div: 256},
-        { x: 9100, y: 750, width: 3328, height:64, div: 256},
+        { x: 0, y: 750, width: 3080, height:110, div: 110},
+        { x: 3456, y: 750, width: 2530, height:110, div: 110},
+        { x: 6400, y: 750, width: 2530, height:110, div: 110},
+        { x: 9100, y: 750, width: 3300, height:110, div: 110},
     ],
     // wall: [
     //     {x:3072 , y:-100, width:192*2, height: 308, div: 308},
@@ -146,32 +151,30 @@ var levelTwo = {
         
     // ],
     platforms: [
-        {x:100 ,y:500, width: 256, height:64, divisorPlatforms:256}, 
-        {x:400, y:400, width: 256, height:64, divisorPlatforms:256},
-        {x:900, y:200, width: 256, height:64, divisorPlatforms:256},
+        {x:100 ,y:500, width: 220, height:64, divisorPlatforms:110}, 
+        {x:490, y:400, width: 220, height:64, divisorPlatforms:110},
+        {x:900, y:300, width: 220, height:64, divisorPlatforms:110},
         // {x:1500, y:400, width: 256, height:64, divisorPlatforms:256},
-        {x:2000, y:400, width: 1024, height:64, divisorPlatforms:256},
-        {x:2000, y:150, width: 768, height:64, divisorPlatforms:256},
-
-        // {x:100 ,y:500, width: 256, height:64}, 
-        // {x:400, y:400, width: 256, height:64},
-        // {x:900, y:200, width: 256, height:64},
-        // {x:1500, y:400, width: 256, height:64},
-        // {x:2000, y:400, width: 1024, height:64},
-        // // {x:2020, y:200, width: 1024, height:0},
-        // {x:2000, y:150, width: 768, height:64},
+        {x:1500, y:300, width: 770, height:64, divisorPlatforms:110},
+        {x:2500, y:400, width: 880, height:64, divisorPlatforms:110},
+        
     ],
+
+
+
+
+
+
+
+        
+    // cave: [
+    //     {x:11000 ,y:500, width: 256, height:64}, 
+        
+    // ],
 
     // lava: [
     //     {x: 600, y: 300, width: 200, height: 10  }
     // ],
 
-    ChainBot: [
-        {x: 50, y: 300},
-        {x: 350, y: 300},
-        {x: 1000, y: 400},
-        {x: 1500, y: 0},
-        {x:2000, y: 0},
-        {x: 2300, y: 0},
-    ]
+
 };

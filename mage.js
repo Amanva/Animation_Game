@@ -219,7 +219,7 @@ class Mage {
                             if(that.state == that.states.jump) that.state = that.states.idle;
                             that.updateBB();
                         }
-                        } 
+                    } 
 
                     if(that.velocity.y < 0){
                         if ((entity instanceof Ground || entity instanceof Wall || entity instanceof Platform || entity instanceof movingPlatforms || (entity instanceof Tiles) || entity instanceof smallPlatforms) && (that.lastBB.top >= entity.BB.bottom)){
@@ -228,12 +228,14 @@ class Mage {
                             that.updateBB();
                         }
                     }
-                    if (((entity instanceof Wall) || (entity instanceof Ground) || (entity instanceof Platform) || (entity instanceof smallPlatforms)) && that.BB.collide(entity.leftBB) && (that.lastBB.top < entity.BB.bottom-5)){
+                    if (((entity instanceof Wall) || (entity instanceof Ground) || (entity instanceof Platform) 
+                    || (entity instanceof smallPlatforms)) && that.BB.collide(entity.leftBB) && (that.lastBB.top < entity.BB.bottom-5)){
                                 that.x = entity.leftBB.left - PARAMS.PLAYERWIDTH-that.xBBOffset;
                                 that.velocity.x = 0;
                                 that.updateBB();
                     }
-                    if (((entity instanceof Wall) || (entity instanceof Ground) || (entity instanceof Platform) || (entity instanceof Tiles) || (entity instanceof smallPlatforms)) && that.BB.collide(entity.rightBB) && (that.lastBB.top < entity.BB.bottom-5)){               
+                    if (((entity instanceof Wall) || (entity instanceof Ground) || (entity instanceof Platform)
+                     || (entity instanceof Tiles) || (entity instanceof smallPlatforms)) && that.BB.collide(entity.rightBB) && (that.lastBB.top < entity.BB.bottom-5)){               
                                 that.x = entity.rightBB.right - that.xBBOffset;
                                 that.velocity.x = 0; 
                                 that.updateBB(); 

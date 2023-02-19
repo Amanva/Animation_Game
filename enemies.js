@@ -48,7 +48,7 @@ class ChainBot {
 
     updateBB() {
         this.lastBB = this.BB;
-        this.BB = new BoundingBox(this.x+140, this.y+25, 50, 30*1.8 );
+        this.BB = new BoundingBox(this.x+140, this.y+25, 50, 30*1.8);
     };
 
     update() {
@@ -91,18 +91,44 @@ class ChainBot {
                                             
                 }
                 if (that.velocity.y > 0) { 
-                    if (((entity instanceof Ground) || (entity instanceof Platform) || (entity instanceof Wall) || (entity instanceof Tiles)) && (that.lastBB.bottom <= entity.BB.top)){
+                    if (((entity instanceof Ground) || (entity instanceof Platform) 
+                        || (entity instanceof Wall) || (entity instanceof Tiles))
+                                 && (that.lastBB.bottom >= entity.BB.top)){
                   
-                    that.velocity.y = 0;
-                    that.y = entity.BB.top - that.BB.height-25;
-                    that.updateBB();
+                        that.velocity.y = 0;
+                        that.y = entity.BB.top - that.BB.height-25;
+                        // that.updateBB();
+                    } 
+                
+                } else if (that.velocity.y === 0){
+
+                    if (((entity instanceof Platform) 
+                            || (entity instanceof Wall) || (entity instanceof Tiles))
+                                && (that.BB.collide(entity.rightBB))) { //enemy on the right
+
+                        that.velocity.x = 0;
+                        that.velocity.y = 0;
+                        that.state = 0;
+                        
+                    } 
+                    
+                    if (((entity instanceof Platform) 
+                            || (entity instanceof Wall) || (entity instanceof Tiles))
+                                && ( that.BB.collide(entity.leftBB))) { //enemy on the left
+
+                        that.velocity.x = 0;
+                        that.velocity.y = 0;
+                        that.state = 0;
+                        
+                        // that.updateBB();
+                    }
+
                 }
-            }
-        } 
+            } 
 
             // Decide to approach the mage
             if (entity instanceof Mage && Math.round(that.BB.bottom) === Math.round(entity.BB.bottom)){ // if both are on same surfase
-                if (entity instanceof Mage && LOWER_BOUND <= Math.abs(that.BB.distance(entity.BB)) 
+                if (LOWER_BOUND <= Math.abs(that.BB.distance(entity.BB)) 
                         && Math.abs(that.BB.distance(entity.BB)) <= UPPER_BOUND) { //Mage is close, then go to Mage
                     if (that.BB && that.BB.distance(entity.BB) < 0) { // Mage is on the Right side
                         that.state = 1; //state runRight
@@ -114,12 +140,12 @@ class ChainBot {
                         
                     } 
                     //Mage is not in range then stop and wait. Default state.        
-                    } else if (entity instanceof Mage && Math.abs( that.BB.distance(entity.BB)) >= UPPER_BOUND) {  //!that.state = 5
+                    } else if (Math.abs( that.BB.distance(entity.BB)) >= UPPER_BOUND) {
                         that.state = 0; //state idle
                         that.velocity.x = 0;
                         
                     //Mage is close enough to fight, then fight                        
-                    } else if (entity instanceof Mage && Math.abs(that.BB.distance(entity.BB)) <= LOWER_BOUND) {
+                    } else if (Math.abs(that.BB.distance(entity.BB)) <= LOWER_BOUND) {
                     if (-LOWER_BOUND <= (that.BB.distance(entity.BB)) && (that.BB.distance(entity.BB)) < 0) {
                     that.state = 4; //state attackRight
                     that.velocity.x = 0;
@@ -148,23 +174,23 @@ class ChainBot {
         this.animations[this.state].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, PARAMS.SCALE);
            
               
-            if(debug){
-                //draw the boundingBox
-                ctx.strokeStyle = 'Red';
-                ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y-this.game.camera.y, this.BB.width , this.BB.height);
-                // TEST draw text to canvas
-                ctx.font = "20px Arial";
-                ctx.fillStyle = "white";
-                ctx.fillText("X: " + Math.round(this.x), 510, 50);
-                ctx.fillText("ChainBot BB Width: " + Math.round(this.BB.width), 660, 50);
-                ctx.fillText("ChainBot BB bottom: " + Math.round(this.BB.bottom), 660, 70);
-                
-                ctx.fillText("Y: " + Math.round(this.y), 510, 70);
-                ctx.fillText("Speed: " + this.velocity.x, 510, 90);
-                ctx.fillText("State: " + this.state, 510, 110);
-                ctx.fillText("hitPoints: " + this.hp, 510, 130);
+        if(debug){
+            //draw the boundingBox
+            ctx.strokeStyle = 'Red';
+            ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y-this.game.camera.y, this.BB.width , this.BB.height);
+            // TEST draw text to canvas
+            ctx.font = "20px Arial";
+            ctx.fillStyle = "white";
+            ctx.fillText("X: " + Math.round(this.x), 510, 50);
+            ctx.fillText("ChainBot BB Width: " + Math.round(this.BB.width), 660, 50);
+            ctx.fillText("ChainBot BB bottom: " + Math.round(this.BB.bottom), 660, 70);
+            
+            ctx.fillText("Y: " + Math.round(this.y), 510, 70);
+            ctx.fillText("Speed: " + this.velocity.x, 510, 90);
+            ctx.fillText("State: " + this.state, 510, 110);
+            ctx.fillText("hitPoints: " + this.hp, 510, 130);
 
-            }
+        }
             
 
 
@@ -172,3 +198,4 @@ class ChainBot {
     }; // End draw method
 
 };
+                

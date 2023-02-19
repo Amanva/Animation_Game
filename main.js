@@ -23,13 +23,19 @@ assetMangager.queueDownload("./sprites/enemies/chain_bot_hit.png");
 assetMangager.queueDownload("./sprites/enemies/chain_bot_death.png");
 assetMangager.queueDownload("./sprites/Lava64.png");
 assetMangager.queueDownload("./sprites/Background.png");
-assetMangager.queueDownload("./sprites/underWater.png");
 assetMangager.queueDownload("./sprites/monsterRight.png");
 assetMangager.queueDownload("./sprites/demon-idleRight.png");
 assetMangager.queueDownload("./sprites/monsterLeft.png");
 assetMangager.queueDownload("./sprites/demon-idleLeft.png");
 assetMangager.queueDownload("./sprites/portal.png");
 assetMangager.queueDownload("./sprites/demon-idleRight.png");
+//Load water levelassets
+assetMangager.queueDownload("./sprites/waterLevel/underWater.png");
+assetMangager.queueDownload("./sprites/waterLevel/mine.png");
+assetMangager.queueDownload("./sprites/waterLevel/bottomTile.png");
+assetMangager.queueDownload("./sprites/waterLevel/boulderTiles.png");
+assetMangager.queueDownload("./sprites/waterLevel/cave.png");
+
 //sounds
 assetMangager.queueDownload("./sounds/blood_splash.wav");
 assetMangager.queueDownload("./sounds/slash_swoosh.mp3");

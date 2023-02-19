@@ -7,7 +7,6 @@ class Portal {
     constructor(game, x, y){
         Object.assign(this, { game, x, y });
         this.game.portal = this;
-        this.velocity = { x: 0, y: 0 };
         this.portal = assetMangager.getAsset("./sprites/portal.png");
         this.scale = 1;
         this.animations = new Animator(this.portal, 0, 0, 320, 320, 41, 0.07, 0, 0, false, false, undefined);
@@ -22,12 +21,11 @@ class Portal {
     };
     
     update() {
-        // let curFrame = this.animations.currentFrame();
         this.updateBB();
         var that = this;
         that.game.entities.forEach(function (entity) {
             if (entity instanceof Mage  && entity.BB && that.BB.collide(entity.BB)) {
-                that.game.camera.loadLevelTwo(levelTwo);
+                that.game.camera.loadLevel(levelTwo);
             }
         }); //end of forEach
               
