@@ -14,9 +14,9 @@ class fireBoss{
         this.facing = 0; //0=left, 1 = right
         this.state = 1; // 0 = idle, 1 = walking , 2 = attacking, 3 = hit, 4 = death, 5 = spawn, 6 = jump, 7 = fire attack, 8 = magic attack
         this.dead = false;
-        this.hp = 300;
+        this.hp = 1000;
         this.healthbar = new HealthBar(game, this);
-        this.maxHP = 300;
+        this.maxHP = 1000;
         this.hit = false;
         this.attackCoolDown = 0;
         this.attackFrameCD = 0;
@@ -208,7 +208,7 @@ class fireBoss{
                         that.randomSelectCD = 4;
                         console.log("TEST2");
                     }
-                    that.rand = 0;
+                    // that.rand = 0;
                     if(that.state === 2){
                         that.animations[6][that.facing].elapsedTime = 0;
                     }
@@ -220,7 +220,7 @@ class fireBoss{
                             that.moveBoss = true;
                             that.attackBoss = false;
                         }
-                        else if(that.JumpBB.collide(entity.BB) && that.state != 2){
+                        else if(that.JumpBB.collide(entity.BB) && that.state != 2 && that.state != 7 && that.state != 8){
                             
                             that.state = 6;
                             if(that.AttackBB.collide(entity.BB) && that.state === 6 && that.animations[that.state][that.facing].currentFrame() >= 11 && that.animations[that.state][that.facing].currentFrame() <= 15 && !that.hit){
@@ -346,6 +346,7 @@ class fireBoss{
         }
         if(this.isDead){
             this.game.addEntityToBegin(new Portal(this.game, this.x, 430));
+            // this.game.addEntityToBegin(new Item(this.game,8000,500))
         }
         // console.log(this.state);
     };
@@ -491,11 +492,22 @@ class fireBoss{
 class Slime{
     constructor(game, x , y){
         Object.assign(this, { game, x, y });
+        this.velocity = { x: 0, y: 0 };
+
         this.spritesheet = assetMangager.getAsset("./slime_demonboss_specialmoves.png");
         this.state = 1;
         this.facing = 0;
         this.animations = [];
         this.loadAnimations();
+        this.BB;
+        this.lastMageDetection;
+        this.dead = false;
+        this.hp = 50;
+        this.healthbar = new HealthBar(this.game, this);
+        this.maxHP = 50;
+        this.hit = false;
+        this.attackCoolDown =0;
+
     };
     loadAnimations() {
         
@@ -511,41 +523,161 @@ class Slime{
         // walking
         this.animations[1][0] = new Animator(this.spritesheet, 120, 215, 200, 160, 8, 0.1, 88, 0, false, true, false);
 
-        // attacking
-        this.animations[2][0] = new Animator(this.spritesheet, 0, 320, 288, 160, 15, 0.1, 0, 0, false, true, false);
+        // idle
+        this.animations[0][1] = new Animator(this.spritesheet, 120, 55, 200, 160, 6, 0.1, 88, 0, false, true, false);
 
-        // hit
-        this.animations[3][0] = new Animator(this.spritesheet, 0, 480, 288, 160, 5, 0.09, 0, 0, false, true, false);
+        // walking
+        this.animations[1][1] = new Animator(this.spritesheet, 120, 215, 200, 160, 8, 0.1, 88, 0, false, true, false);
+    
+        this.animations[2][0] = new Animator(this.spritesheet, 90, 534, 230, 160, 9, 0.1, 58, 0, false, true, false);
+
+        this.animations[2][1] = new Animator(this.spritesheet, 90, 534, 230, 160, 9, 0.1, 58, 0, false, true, false);
 
 
 
+        //reverse
+        for(var l = 0; l <= 2; l++){
+            this.animations[l][1].flipped = true;
+        }
 
     };
     update(){
+        this.velocity.y += 200 * this.game.clockTick;
+        
+        this.x += this.velocity.x * this.game.clockTick;
+        this.y += this.velocity.y * this.game.clockTick * PARAMS.SCALE;
+        this.updateBB();
+        var that = this;
+        this.game.entities.forEach(function (entity) {  
+        console.log(that.attackCoolDown);
+            if(entity instanceof Mage && that.state !== 2 && !entity.dead){
+                if(that.hit){
+                    that.attackCoolDown += that.game.clockTick;
+                }
+                if(that.attackCoolDown >= 1){
+                    console.log("Reset");
+                    that.hit = false;
+                    that.attackCoolDown = 0;
+                }
+                    const middleMage = { x: entity.BB.left + entity.BB.width / 2, y: entity.BB.top + entity.BB.height / 2 };
+                    const middleMonster = { x: that.BB.left + that.BB.width / 2, y: that.BB.top + that.BB.height / 2 };
+                    const xDis = middleMage.x - middleMonster.x;
+                    const distance = distanceBetween(middleMage,middleMonster);
+                    let mageDB = entity.BB && that.MageDetection.collide(entity.BB);
+
+                    if(mageDB){
+                        if(mageDB)
+                       that.state = 1;
+                        if (xDis > 0 ) {
+                            that.facing = 1;
+                        }
+                        else if (xDis < 0) {
+                            that.facing = 0;
+                        }
+                        if (that.state == 1) {
+                            that.velocity.x = 100 * xDis / distance;
+                        }
+                        
+                    }
+                    else if(!mageDB){
+                        that.velocity.x = 0
+                    };
+                // if(that.BB.left > entity.BB.right){
+                    
+                //     if(that.state === 0){
+                //         that.state = 0;
+                //         that.velocity.x -= 100 * that.game.clockTick;
+                //     }
+                //     that.facing = 0;
+                // }
+                // if(that.BB.right < entity.BB.left){
+                    
+                //     if(that.state === 0){
+                //         that.state = 0;
+                //         that.velocity.x += 100 * that.game.clockTick;
+                //     }
+                //     that.facing = 1;
+                // }
+                // else{
+                //     that.velocity.x =0;
+                // }
+                if(entity.BB.collide(that.BB) && that.hit === false){
+                    console.log("Hit");
+                    that.hit = true;
+                    entity.removeHealth(10);
+                    that.updateBB();
+                }
+                
+            }
+            
+            if (entity.BB && that.BB.collide(entity.BB)) {
+                if (that.velocity.y >= 0) { 
+                    if ((entity instanceof Ground) && (that.lastBB.bottom >= entity.BB.top) ){
+                        that.y = entity.BB.top-105;
+                        that.velocity.y = 0;
+                        that.updateBB();
+                        }
+                    }
+            }
+        });
+        if(this.hp <= 0){
+            this.velocity.x = 0;
+            this.velocity.y = 0;
+            console.log("Dead");
+            this.state = 2;
+            this.updateBB;
+
+            if(this.animations[that.state][that.facing].isAlmostDone(that.game.clockTick)){
+                this.removeFromWorld = true;
+                this.isDead = true;
+            }
+        }
+    
+
 
     };
 
     updateBB(){
-
+        this.lastBB = this.BB;
+        this.lastMageDetection =  this.MageDetection;
+        this.MageDetection = new BoundingBox(this.x-300,this.y,700,110);
+        if(this.state === 0){
+            this.BB = new BoundingBox(this.x+30,this.y+50,50,55);
+        }
+        else if(this.state === 1){
+            this.BB = new BoundingBox(this.x+25,this.y+30,60,75);
+        }
+        else if(this.state === 2){
+            this.BB = new BoundingBox(this.x+25,this.y+30,60,75);
+        }
     }
 
-    
+
+    loseHealth(damage){
+        this.hp -= damage;
+    }
      draw(ctx) {
-        // this.healthbar.draw(ctx);
-        this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, PARAMS.SCALE);
-        //     if(debug){
-        //     ctx.strokeStyle = 'Red';
-        //     ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y - this.game.camera.y, this.BB.width, this.BB.height);
+        this.healthbar.draw(ctx);
+        if(this.facing === 1){
+            this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x-390, this.y - this.game.camera.y, PARAMS.SCALE);
+
+        }
+        else{
+            this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, PARAMS.SCALE);
+        }
+            if(debug){
+            ctx.strokeStyle = 'Red';
+            ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y - this.game.camera.y, this.BB.width, this.BB.height);
         //     ctx.strokeStyle = 'Green';
         //     ctx.strokeRect(this.AttackBB.x- this.game.camera.x, this.AttackBB.y - this.game.camera.y, this.AttackBB.width, this.AttackBB.height);
-        //     ctx.strokeStyle = 'blue';
-        //     ctx.strokeRect(this.MageDetection.x - this.game.camera.x, this.MageDetection.y - this.game.camera.y, this.MageDetection.width, this.MageDetection.height);
+            ctx.strokeStyle = 'blue';
+            ctx.strokeRect(this.MageDetection.x - this.game.camera.x, this.MageDetection.y - this.game.camera.y, this.MageDetection.width, this.MageDetection.height);
         //     ctx.strokeStyle = 'yellow';
         //     ctx.strokeRect(this.AttackDetectionBB.x - this.game.camera.x, this.AttackDetectionBB.y - this.game.camera.y, this.AttackDetectionBB.width, this.AttackDetectionBB.height);
         //     ctx.strokeStyle = 'purple';
         //     ctx.strokeRect(this.JumpBB.x - this.game.camera.x, this.JumpBB.y - this.game.camera.y, this.JumpBB.width, this.JumpBB.height);
 
-        // }
+        }
     };
 
 }

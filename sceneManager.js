@@ -19,16 +19,18 @@ class SceneManager {
     loadLevel(level){
         this.level = level;
         this.clearEntities();
-        this.mage = new Mage(this.game, 400, 400);
+        this.mage = new Mage(this.game, 8000, 400);
         this.game.addEntity(this.mage);
         this.game.addEntity(new Sign(this.game, 700, 670, 6, "Controls:        A-left           D-right          click-Basic attack  Num1-special attack "));
         this.heartMana = new HeartManaHQ(this.game, this.mage);
         this.fireBoss = new fireBoss(this.game, 9600, 300);
         this.enemy = new ChainBot(this.game, 400, 500); 
-        this.game.addEntity(this.enemy); 
+        // this.game.addEntity(this.enemy); 
         this.game.addEntity(this.fireBoss);
-        // this.game.addEntity(new Slime(this.game, 400, 400));
-
+        this.game.addEntity(new Slime(this.game, 400, 400));
+        if(this.fireBoss.dead){
+            this.game.addEntity(new Item(this.game, 9000,400));
+        }
         
         if(level.ground){
             for (var i = 0; i < level.ground.length; i++) {

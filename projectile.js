@@ -34,9 +34,15 @@ class Projectile{
                 }
                 if(entity instanceof fireBoss){
                     that.removeFromWorld = true;
-                    entity.loseHealth(100);
+                    entity.loseHealth(1000);
                     console.log("HIT2");
                 }
+                if(entity instanceof Slime){
+                    that.removeFromWorld = true;
+                    entity.loseHealth(10);
+                    console.log("HIT2");
+                }
+                
             }
             
             });
