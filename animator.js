@@ -72,6 +72,7 @@ class Animator {
         
             
     };
+    
     drawAngle(tick, ctx, x, y, scale, degree){
         ctx.save();
         ctx.translate(x, y);

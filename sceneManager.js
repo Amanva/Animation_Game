@@ -9,8 +9,8 @@ class SceneManager {
         this.level = null;
         this.myCursor = new Cursor(this.game);
         
-        this.loadLevel(levelOne);
-        // this.loadLevel(levelTwo);
+        // this.loadLevel(levelOne);
+        this.loadLevel(levelTwo);
         
     };
 
@@ -149,6 +149,16 @@ class SceneManager {
                     this.game.addEntity(new Platform(this.game, platform.x, platform.y, platform.width, platform.height, platform.divisorPlatforms, level));
                 }
             }
+
+            if(level.bomb){
+                for (var i = 0; i < level.bomb.length; i++) {
+                    let bomb = level.bomb[i];
+                    this.game.addEntity(new Bomb(this.game, bomb.x, bomb.y));
+                }
+            }
+
+
+            
             if(level.movingPlatforms){
                 for (var i = 0; i < level.movingPlatforms.length; i++) {
                     let wall = level.movingPlatforms[i];

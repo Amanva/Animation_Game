@@ -31,7 +31,7 @@ assetMangager.queueDownload("./sprites/portal.png");
 assetMangager.queueDownload("./sprites/demon-idleRight.png");
 //Load water levelassets
 assetMangager.queueDownload("./sprites/waterLevel/underWater.png");
-assetMangager.queueDownload("./sprites/waterLevel/mine.png");
+assetMangager.queueDownload("./sprites/waterLevel/bomb.png");
 assetMangager.queueDownload("./sprites/waterLevel/bottomTile.png");
 assetMangager.queueDownload("./sprites/waterLevel/boulderTiles.png");
 assetMangager.queueDownload("./sprites/waterLevel/cave.png");
