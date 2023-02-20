@@ -26,7 +26,7 @@ class Bomb {
     
     updateBB() {
         this.lastBB = this.BB;
-        this.chainBB =  new BoundingBox(this.x + 51, this.y + 95, 5, 440);
+        this.chainBB =  new BoundingBox(this.x + 52, this.y + 95, 6, 440);
         this.explodeBB = new BoundingBox(this.x + 12, this.y + 14, 80, 80);
         this.stopBB = new BoundingBox(this.x+15, this.y + 535, 80, 5);
     };
@@ -40,6 +40,7 @@ class Bomb {
         var that = this;
 
         that.game.entities.forEach(function (entity) {
+            //Bomb position on the map. Bombs are going up stopped when collides with ground or platform.
             if (( entity instanceof Ground) && (entity.BB && that.stopBB.collide(entity.BB))){
                 that.velocity.y =  0;
                 that.y  = entity.BB.y + entity.BB.height-535;
@@ -50,36 +51,33 @@ class Bomb {
                 that.y  = entity.BB.y + entity.BB.height-14;
             }
 
-
-
+            // Bombs projectile and Mage collision handling.
             if (entity instanceof Projectile && entity.BB && that.explodeBB.collide(entity.BB)) {
-                that.state = 1; // no explosion
                 entity.removeFromWorld = true;
+                that.state = 1;
+                that.dead = true;
                 
                 console.log("projectile hit");
-                if(that.animations[1].isAlmostDone(TICK)){
-                    // assetMangager.playAsset("sounds/blood_splash.wav");
-                    that.dead = true;
-                    that.removeFromWorld = true;
-                    
-                    console.log("IF 1/2");
-                }
+                
             } else if (entity instanceof Projectile && entity.BB && that.chainBB.collide(entity.BB)) {
                 entity.removeFromWorld = true;
 
             } else if (entity instanceof Mage && ((entity.BB && that.explodeBB.collide(entity.BB)))) { //Kill the Mage
-                that.state = 1; // explosion
-                // entity.removeFromWorld = true;
-                console.log("ELSE IF 1");
+                that.state = 1; 
+                that.dead = true;
+                entity.dead = true;
+                entity.removeHealth(100);
+                console.log("Mage hit");
+                
+            }
+
+            // animation delay
+            if (that.state === 1){
                 if(that.animations[1].isAlmostDone(TICK)){
-                    // assetMangager.playAsset("sounds/blood_splash.wav");
-                    that.dead = true;
                     that.removeFromWorld = true;
-                    entity.removeHealth(100);
-                    console.log("ELSE IF isAlmostDone 1/2");
+                    console.log("explosion animation");
                 }
             }
-            
 
         }); //end of forEach
         
@@ -98,4 +96,4 @@ class Bomb {
         }              
     }; // End draw method
 
-};
+};// end Bomb class
