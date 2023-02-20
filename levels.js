@@ -58,15 +58,20 @@ var levelOne = {
         
         {x:7600 ,y:700, width: 63 , height:17, div: 63},
         {x:7450 ,y:700, width: 63 , height:17, div: 63},
+        {x:7300 ,y:-300, width: 63 , height:17, div: 63},
         {x:7450 ,y:200, width: 63 , height:17, div: 63},
+        {x:7400 ,y:-250, width: 63 , height:17, div: 63},    
+        {x:7600 ,y:-380, width: 63 , height:17, div: 63},    
 
         {x:7700 ,y:670, width: 63 , height:17, div: 63},
         {x:7700 ,y:250, width: 63 , height:17, div: 63},
 
 
+        {x:7700 ,y:-100, width: 63 , height:17, div: 63},    
+        {x:7800 ,y:-100, width: 63 , height:17, div: 63},    
 
         {x:7700 ,y:0, width: 63 , height:17, div: 63},
-        {x:8000 ,y:-50, width: 63 , height:17, div: 63},
+        // {x:8000 ,y:-50, width: 63 , height:17, div: 63},
         {x:8200 ,y:-10, width: 63 , height:17, div: 63},
         {x:8250 ,y:60, width: 63 , height:17, div: 63},
 
@@ -84,12 +89,14 @@ var levelOne = {
 
 
 
+
     ],
 
     movingPlatforms: [
         {x:4700, y:150, width: 256, height: 64, divisorPlatforms: 256, direction: "x-axis", distance: 6500},
         {x:1500, y:200, width: 256, height:64, divisorPlatforms:256, direcction: "y-axis", distance: 400},
 
+        {x:7200, y:-600, width: 256, height: 64, divisorPlatforms: 256, direction: "x-axis", distance: 8980},
 
         //second stage/area
         // {x:7400, y:150, width: 256, height: 64, divisorPlatforms: 256, direction: "x-axis", distance: 8100},
@@ -111,7 +118,8 @@ var levelOne = {
         {x: 6750, y: 504, width: 127, height: 127, div: 127 },
         {x: 6750, y: 631, width: 127, height: 127, div: 127 },
 
-
+        {x: 7000, y: -639, width: 127, height: 127, div: 127 },
+        {x: 7000, y: -512, width: 127, height: 127, div: 127 },
         {x: 7000, y: -385, width: 127, height: 127, div: 127 },
         {x: 7000, y: -512, width: 127, height: 127, div: 127 },
         {x: 7000, y: -258, width: 127, height: 127, div: 127 },
@@ -129,11 +137,41 @@ var levelOne = {
         {x: 8000, y: -385, width: 127, height: 127, div: 127 },
         {x: 8000, y: -512, width: 127, height: 127, div: 127 },
 
+        //boss area
+
+        {x: 11000, y: -254, width: 127, height: 127, div: 127 },
+        {x: 11000, y: -127, width: 127, height: 127, div: 127 },
+        {x: 8975, y: 0, width: 127, height: 127, div: 127 },
+        {x: 8975, y: 127, width: 127, height: 127, div: 127 },
+        {x: 8975, y: 254, width: 127, height: 127, div: 127 },
+        {x: 8975, y: 381, width: 127, height: 127, div: 127 },
+        {x: 8975, y: 508, width: 127, height: 127, div: 127 },
+        {x: 8975, y: 635, width: 127, height: 127, div: 127 },
+        {x: 8975, y: 762, width: 127, height: 127, div: 127 },
+
+
+        {x: 11000, y: 0, width: 127, height: 127, div: 127 },
+        {x: 11000, y: 127, width: 127, height: 127, div: 127 },
+        {x: 11000, y: 254, width: 127, height: 127, div: 127 },
+        {x: 11000, y: 381, width: 127, height: 127, div: 127 },
+        {x: 11000, y: 508, width: 127, height: 127, div: 127 },
+        {x: 11000, y: 635, width: 127, height: 127, div: 127 },
+        {x: 11000, y: 762, width: 127, height: 127, div: 127 },
+        
 
 
 
 
+    ],
 
+    ChainBot: [
+        {x: 2629, y:507 },
+        {x: 2586, y:207 },
+        {x: 703, y:-453},
+    ],
+
+    Monster: [
+        {x: 690, y: 250},
     ]
 };
 

@@ -14,9 +14,9 @@ class fireBoss{
         this.facing = 0; //0=left, 1 = right
         this.state = 1; // 0 = idle, 1 = walking , 2 = attacking, 3 = hit, 4 = death, 5 = spawn, 6 = jump, 7 = fire attack, 8 = magic attack
         this.dead = false;
-        this.hp = 1000;
+        this.hp = 300;
         this.healthbar = new HealthBar(game, this);
-        this.maxHP = 1000;
+        this.maxHP = 300;
         this.hit = false;
         this.attackCoolDown = 0;
         this.attackFrameCD = 0;
@@ -123,7 +123,7 @@ class fireBoss{
 
         this.y += this.velocity.y * this.game.clockTick * PARAMS.SCALE;
         this.updateBB();
-        var that = this;
+        if(!this.dead){
         if(this.attackFrameFinished){
             console.log("FINISHED FRAME");
             this.animations[this.state][this.facing].elapsedTime =0;
@@ -131,8 +131,10 @@ class fireBoss{
             this.attackBoss = false;
             this.attackFrameFinished = false;
         }
+        var that = this;
+
         this.game.entities.forEach(function (entity) {
-            if(entity instanceof Mage && that.MageDetection.collide(entity.BB)){
+            if(entity instanceof Mage && that.MageDetection.collide(entity.BB) && !that.dead){
                 if(that.hit){
                     that.attackCoolDown += that.game.clockTick;
                     that.attackFrameCD += that.game.clockTick;
@@ -149,7 +151,7 @@ class fireBoss{
                 }
                 //If move 
                 
-                if(that.moveBoss){
+                if(that.moveBoss && !that.dead){
                     that.state = 1;
                     if(that.BB.left > entity.BB.right){
                     
@@ -199,7 +201,7 @@ class fireBoss{
                 // }
                 
                 //moving left
-            else if(that.attackBoss && !that.attackFrameFinished){
+            else if(that.attackBoss && !that.attackFrameFinished && !that.dead){
                     
                     //[2,7,8] random select. then remove
                     //if attack bb colliding with mage bb 
@@ -312,6 +314,7 @@ class fireBoss{
                 
                 that.updateBB();
             }
+        
             if (entity.BB && that.BB.collide(entity.BB)) {
                 // console.log("yes");
                 if (that.velocity.y >= 0) { 
@@ -327,24 +330,27 @@ class fireBoss{
             
             
             });
+        }
         // console.log(this.randomSelectCD);
         if(this.randomSelectCD > 0){
             this.randomSelectCD -= this.game.clockTick;
         }
 
-        if(that.hp <= 0){
-            that.velocity.x = 0;
-            that.velocity.y = 0;
+        if(this.hp <= 0 && !this.dead){
+            this.velocity.x = 0;
+            this.velocity.y = 0;
             console.log("Dead");
-            that.state = 4;
-            that.updateBB;
+            this.state = 4;
+            this.updateBB();
 
-            if(that.animations[that.state][that.facing].isAlmostDone(that.game.clockTick)){
-                that.removeFromWorld = true;
-                that.isDead = true;
+            if(this.animations[4][this.facing].isAlmostDone(this.game.clockTick)){
+                this.removeFromWorld = true;
+                this.dead = true;
             }
         }
-        if(this.isDead){
+        if(this.dead){
+            this.velocity.x = 0;
+            this.velocity.y = 0;
             this.game.addEntityToBegin(new Portal(this.game, this.x, 430));
             // this.game.addEntityToBegin(new Item(this.game,8000,500))
         }
@@ -655,7 +661,10 @@ class Slime{
         this.hp -= damage;
     }
      draw(ctx) {
-        this.healthbar.draw(ctx);
+        if(this.hp >= 0){
+            this.healthbar.draw(ctx);
+        }
+
         if(this.facing === 1){
             this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x-390, this.y - this.game.camera.y, PARAMS.SCALE);
 

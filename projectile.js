@@ -34,7 +34,7 @@ class Projectile{
                 }
                 if(entity instanceof fireBoss){
                     that.removeFromWorld = true;
-                    entity.loseHealth(1000);
+                    entity.loseHealth(10);
                     console.log("HIT2");
                 }
                 if(entity instanceof Monster){
@@ -101,13 +101,17 @@ class FireBall{
                 }
                 if(entity instanceof fireBoss){
                     that.removeFromWorld = true;
-                    entity.loseHealth(100);
+                    entity.loseHealth(50);
                 }
                 if(entity instanceof ChainBot){
                     that.removeFromWorld = true;
                     entity.hp -= 100;
                 }
                 if(entity instanceof Monster){
+                    that.removeFromWorld = true;
+                    entity.loseHealth(100);
+                }
+                if(entity instanceof Slime){
                     that.removeFromWorld = true;
                     entity.loseHealth(100);
                 }

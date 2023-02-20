@@ -1,14 +1,12 @@
 class Sign {
-    constructor(game, x, y, lines, text) {
-        Object.assign(this, {game, x, y, lines, text});
+    constructor(game, x, y, xOff, yOff, lines, text) {
+        Object.assign(this, {game, x, y, xOff, yOff, lines, text});
         this.spritesheet = assetMangager.getAsset("./sprites/04.png");
         this.scale = 2;
         this.textSize = 15;
         this.showText = false;
         this.style = 'px ""';
-        this.xOff = 130;
         this.opacity = 100;
-        this.yOff = 0;
         this.canvas = document.createElement("canvas");
         this.ctx = this.canvas.getContext("2d");
         this.updateBB();
@@ -52,15 +50,12 @@ updateBB(){
           let boxHeight =  this.textSize + (this.textSize * sentence.length); 
           ctx.fillStyle = "gray";
           ctx.strokeStyle = "black";
-        //   ctx.filter = "opacity(" + this.opacity + "%)";
           ctx.fillRect(this.BB.x - this.game.camera.x - boxWidth/2 + this.BB.width/2, this.BB.y - this.game.camera.y - boxHeight, boxWidth, boxHeight);
           ctx.strokeRect(this.BB.x - this.game.camera.x - boxWidth/2 + this.BB.width/2, this.BB.y - this.game.camera.y - boxHeight, boxWidth, boxHeight);
-
           ctx.font = this.textSize + this.style;
           ctx.fillStyle = "Black";
-        //   ctx.textAlign = "center";
             for(let i = 0; i < sentence.length; i++){
-                ctx.fillText(sentence[i],this.BB.x - this.game.camera.x - this.BB.width + 50, this.BB.y - (boxHeight/2) - this.game.camera.y - boxHeight + (this.textSize * sentence.length) + (this.textSize * i) - this.textSize/2 );
+                ctx.fillText(sentence[i],this.BB.x - this.game.camera.x - this.BB.width + this.xOff, this.BB.y - (boxHeight/2) - this.game.camera.y - boxHeight + (this.textSize * sentence.length) + (this.textSize * i) - this.textSize/2 + this.yOff);
             }
     }
     draw(ctx) {
