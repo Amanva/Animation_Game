@@ -25,23 +25,15 @@ class SceneManager {
         this.clearEntities();
 
         if (level === levelOne) {
-            this.mage = new Mage(this.game, 662, 488);
-            // this.mage = new Mage(this.game, 2860, 150);
+            this.mage = new Mage(this.game, 200, 488);
             this.game.addEntity(this.mage);
-            // this.mage = new Mage(this.game, 9300, 400);
             
             this.heartMana = new HeartManaHQ(this.game, this.mage);
             this.fireBoss = new fireBoss(this.game, 9600, 300); 
             this.game.addEntity(this.fireBoss);
 
             this.game.addEntity(this.mage);
-            // this.enemy = new ChainBot(this.game, 50, 500); 
-            // this.game.addEntity(this.enemy);
-            // this.enemy = new ChainBot(this.game, 350, 300); 
-            // this.game.addEntity(this.enemy);
-            // this.enemy = new ChainBot(this.game, 550, 300); 
-            // this.game.addEntity(this.enemy);
-
+            
             // this.monster = new Monster(this.game, 650, 250); 
             // this.game.addEntity(this.monster);
             this.portal = new Portal(this.game, 200, 430);
@@ -130,13 +122,21 @@ class SceneManager {
             // this.game.addEntity(this.fireBoss);
             
             //Level = levelTwo, the take assets fromthe levelTwo
+
+            if(level.bomb){
+                for (var i = 0; i < level.bomb.length; i++) {
+                    let bomb = level.bomb[i];
+                    this.game.addEntity(new Bomb(this.game, bomb.x, bomb.y));
+                }
+            }
+
             if(level.ChainBot){
                 for (var i = 0; i < level.ChainBot.length; i++) {
                     let chainBot = level.ChainBot[i];
                     this.game.addEntity(new ChainBot(this.game, chainBot.x, chainBot.y));
                 }
             }
-
+            
             if(level.ground){
                 for (var i = 0; i < level.ground.length; i++) {
                     let ground = level.ground[i];
@@ -150,12 +150,7 @@ class SceneManager {
                 }
             }
 
-            if(level.bomb){
-                for (var i = 0; i < level.bomb.length; i++) {
-                    let bomb = level.bomb[i];
-                    this.game.addEntity(new Bomb(this.game, bomb.x, bomb.y));
-                }
-            }
+           
 
 
             

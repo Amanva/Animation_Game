@@ -56,7 +56,7 @@ class ChainBot {
         const TICK = this.game.clockTick;
         const RUN = 110; //change the speed
         const LOWER_BOUND = 95;
-        const UPPER_BOUND = 450;
+        const UPPER_BOUND = 650;
         this.velocity.y += this.fallAcc * TICK;
         
         // update position
