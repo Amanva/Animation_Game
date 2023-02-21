@@ -123,12 +123,7 @@ class SceneManager {
             
             //Level = levelTwo, the take assets fromthe levelTwo
 
-            if(level.bomb){
-                for (var i = 0; i < level.bomb.length; i++) {
-                    let bomb = level.bomb[i];
-                    this.game.addEntity(new Bomb(this.game, bomb.x, bomb.y));
-                }
-            }
+            
 
             if(level.ChainBot){
                 for (var i = 0; i < level.ChainBot.length; i++) {
@@ -147,6 +142,13 @@ class SceneManager {
                 for (var i = 0; i < level.platforms.length; i++) {
                     let platform = level.platforms[i];
                     this.game.addEntity(new Platform(this.game, platform.x, platform.y, platform.width, platform.height, platform.divisorPlatforms, level));
+                }
+            }
+
+            if(level.bomb){
+                for (var i = 0; i < level.bomb.length; i++) {
+                    let bomb = level.bomb[i];
+                    this.game.addEntity(new Bomb(this.game, bomb.x, bomb.y));
                 }
             }
 
