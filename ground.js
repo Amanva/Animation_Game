@@ -66,10 +66,26 @@ class Wall {
 };
 
 class BackGround {
-    constructor(game, x, y, w, h) {
-        Object.assign(this, { game, x, y, w, h});
-
+    constructor(game, x, y, w, h, level) {
+        Object.assign(this, { game, x, y, w, h, level});
+        if(this.level === levelOne){
         this.spritesheet = assetMangager.getAsset(levelOne.background);
+        }
+        else if(this.level === levelThree){
+        this.layerOne = assetMangager.getAsset(levelOne.background);
+        this.layerTwo = assetMangager.getAsset(levelOne.background);
+        this.layerThree = assetMangager.getAsset(levelOne.background);
+        this.layerFour = assetMangager.getAsset(levelOne.background);
+        this.layerFive = assetMangager.getAsset(levelOne.background);
+        this.layerSix = assetMangager.getAsset(levelOne.background);
+        this.layerSeven = assetMangager.getAsset(levelOne.background);
+        this.layerEight = assetMangager.getAsset(levelOne.background);
+        this.layerNine = assetMangager.getAsset(levelOne.background);
+        this.layerTen = assetMangager.getAsset(levelOne.background);
+        this.layerEleven = assetMangager.getAsset(levelOne.background);
+        this.layerTwelve = assetMangager.getAsset(levelOne.background);
+
+        }
 
     };
 
@@ -319,3 +335,4 @@ class smallPlatforms {
             }
     };
 };
+

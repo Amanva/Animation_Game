@@ -7,7 +7,7 @@ class SceneManager {
         this.manaPotion = 0;
         this.elapsedTime = 0;
         this.level = null; 
-        this.loadLevel(levelOne);
+        this.loadLevel(levelThree);
         this.myCursor = new Cursor(this.game);
         
     };
@@ -19,6 +19,7 @@ class SceneManager {
     loadLevel(level){
         this.level = level;
         this.clearEntities();
+        if(this.level === levelOne){
         this.x = 0;
         this.y = 0;
         this.healthPotion = 0;
@@ -105,9 +106,12 @@ class SceneManager {
         this.game.addEntity(new Sign(this.game, 2700, 70, 50, 25, 1, "How do I go through?"));
         this.game.addEntity(new Sign(this.game, 302, -288, 50, 30, 1, "What does this do?"));
         this.game.addEntity(new Sign(this.game, 7300, 670, 70, 30, 1, "Up I must go"));
-        this.game.addEntity(new BackGround(this.game, 0, 0, 1800, 800));
-
-
+        this.game.addEntity(new BackGround(this.game, 0, 0, 1800, 800, this.level));
+        this.mage.velocity = { x: 0, y: 0 };
+    }
+    else if(this.level === levelThree){
+        this.game.addEntity(new BackGround(this.game, 0, 0, 1800, 800, this.level));
+    }
         // if(level.lava){
         //     for (var i = 0; i < level.lava.length; i++) {
         //         let wall = level.lava[i];
@@ -122,12 +126,12 @@ class SceneManager {
         //         this.game.addEntity(new monster(this.game, Monster.x, Monster.y));
         //     }
         // }
-        this.mage.velocity = { x: 0, y: 0 };
+       
         
     }
     update() {
-        this.heartMana.update();
-        this.myCursor.update();
+        // this.heartMana.update();
+        // this.myCursor.update();
         let midpoint = PARAMS.CANVAS_WIDTH/2 - PARAMS.PLAYERWIDTH / 2;
         // console.log(this.x,this.mage.x - midpoint);
       
@@ -136,17 +140,17 @@ class SceneManager {
         //     this.x = this.mage.x - midpoint;  
         // } 
 
-        if ((this.mage.x > midpoint) && (this.mage.x + midpoint <= 12000)) this.x = this.mage.x - midpoint;
-        if ((this.mage.x < midpoint) && (this.mage.x - midpoint >= 0)) this.x = this.mage.x - midpoint;
-        if ((this.mage.y < 200) && (this.mage.y + 200 >= -3000)) this.y = this.mage.y - 200;
-        if ((this.mage.y > 600) && (this.mage.y - 600 <= 0)) this.y = this.mage.y - 600;
+        // if ((this.mage.x > midpoint) && (this.mage.x + midpoint <= 12000)) this.x = this.mage.x - midpoint;
+        // if ((this.mage.x < midpoint) && (this.mage.x - midpoint >= 0)) this.x = this.mage.x - midpoint;
+        // if ((this.mage.y < 200) && (this.mage.y + 200 >= -3000)) this.y = this.mage.y - 200;
+        // if ((this.mage.y > 600) && (this.mage.y - 600 <= 0)) this.y = this.mage.y - 600;
     };
 
 
 
     draw(ctx) {
-        this.heartMana.draw(ctx); 
-        this.myCursor.draw(ctx);
+        // this.heartMana.draw(ctx); 
+        // this.myCursor.draw(ctx);
         // if(this.game.inCanvas){
         //     this.myCursor.draw(ctx); 
         // }       
