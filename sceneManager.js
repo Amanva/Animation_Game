@@ -23,7 +23,7 @@ class SceneManager {
         this.y = 0;
         this.healthPotion = 0;
         this.manaPotion = 0;
-        this.mage = new Mage(this.game, 239,257);
+        this.mage = new Mage(this.game, 7123, 507);
         this.game.addEntity(this.mage);
         this.game.addEntity(new Potion(this.game, 0, 0, true, 0));
         this.heartMana = new HeartManaHQ(this.game, this.mage);
@@ -31,7 +31,7 @@ class SceneManager {
         this.game.addEntity(new ChainBot(this.game, 2629,507));
         this.game.addEntity(new ChainBot(this.game, 2586,207));
         this.game.addEntity(new ChainBot(this.game, 703,-453)); 
-        this.game.addEntity(new Monster(this.game, 690, 250));
+        // this.game.addEntity(new Monster(this.game, 690, 250));
          
         this.game.addEntity(this.fireBoss);
         // this.game.addEntity(new Slime(this.game, 400, 400));
@@ -83,7 +83,10 @@ class SceneManager {
                 this.game.addEntity(new Gate(this.game, gate.x, gate.y, gate.wallX, gate.wallY, gate.wallWidth, gate.wallHeight, gate.div));
             }
         }
-        this.game.addEntity(new Sign(this.game, 700, 670, 6, "Controls:        A-left           D-right          click-Basic attack  Num1-special attack "));
+        this.game.addEntity(new Sign(this.game, 700, 670, 50, -15, 10, "Controls: A-left, D-right, click-Basic attack, Num1-special attack, E-health potion, Q-mana potion"));
+        this.game.addEntity(new Sign(this.game, 2700, 70, 50, 25, 1, "How do I go through?"));
+        this.game.addEntity(new Sign(this.game, 302, -288, 50, 30, 1, "What does this do?"));
+        this.game.addEntity(new Sign(this.game, 7300, 670, 70, 30, 1, "Up I must go"));
         this.game.addEntity(new BackGround(this.game, 0, 0, 1800, 800));
         // if(level.lava){
         //     for (var i = 0; i < level.lava.length; i++) {

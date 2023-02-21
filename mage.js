@@ -151,6 +151,9 @@ class Mage {
                 if(this.game.attack){
                     this.shoot = true;
                 }
+                else if(this.game.digit1 && (this.curMana >= 50)){       
+                    this.specialAttack1 = true;
+                }
                 if (this.game.right && !this.game.left) {
                     this.velocity.x += 0.8;
                 } else if (this.game.left && !this.game.right) {

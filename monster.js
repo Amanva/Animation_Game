@@ -99,6 +99,8 @@ for(var l = 0; l <= 3; l++){
     this.mageCollide(TICK);
     }
     else{
+        this.velocity.x = 0;
+        this.velocity.y = 0;
         let frame = this.animations[3][this.facing].currentFrame();
         console.log(frame);
        if(frame >= 3){
@@ -109,7 +111,8 @@ for(var l = 0; l <= 3; l++){
  };
  mageCollide(TICK){
     let that = this;
-    this.game.entities.forEach(function (entity) {        
+    this.game.entities.forEach(function (entity) {   
+        if(!that.dead){     
         if (entity instanceof Mage) {
             const middleMage = { x: entity.BB.left + entity.BB.width / 2, y: entity.BB.top + entity.BB.height / 2 };
             const middleMonster = { x: that.BB.left + that.BB.width / 2, y: that.BB.top + that.BB.height / 2 };
@@ -156,6 +159,7 @@ for(var l = 0; l <= 3; l++){
                 }
             }
         };
+    }
         });
 
  }
@@ -216,6 +220,9 @@ loseHealth(damageRecieved){
     if(this.state === 2 && this.facing  === 1){
     this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x-30, this.y-this.game.camera.y, 1 );
     }
+    else if(this.facing  === 1 && this.state === 3){
+        this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x-30, this.y-this.game.camera.y, 1 );
+        }
     else if(this.facing  === 1){
     this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x + 30, this.y-this.game.camera.y, 1 );
     }
