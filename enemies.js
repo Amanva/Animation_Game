@@ -86,7 +86,6 @@ class ChainBot {
                 if (entity instanceof Projectile  && that.hp > 0){
                     entity.removeFromWorld = true;
                     that.hp -= 20;
-                    that.state = 5
                     // if(that.animations[5].isAlmostDone(TICK)){
                     //     that.dead = true;
                     //     that.removeFromWorld = true;
@@ -96,6 +95,8 @@ class ChainBot {
                     that.velocity.x = 0;
                     if(that.animations[6].isAlmostDone(TICK)){
                         that.game.addEntityToBegin(new Potion(that.game, that.x+140, that.y+25, false, 0));
+                        that.game.addEntityToBegin(new Potion(that.game, that.x+140, that.y+25, false, 1));
+
                         that.dead = true;
                         that.removeFromWorld = true;
                     }                          
