@@ -6,6 +6,7 @@ class SceneManager {
         this.healthPotion = 0;
         this.manaPotion = 0;
         this.elapsedTime = 0;
+        this.damage = 10;
         this.level = null;
         this.mage = new Mage(this.game, 100,460);
         this.heartMana = new HeartManaHQ(this.game, this.mage); 

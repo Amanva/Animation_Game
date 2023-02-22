@@ -1,10 +1,9 @@
 class Projectile{
     constructor(game, x, y) {
         Object.assign(this, { game, x, y});
-
+        this.game.projectile = this;
         this.spritesheet = assetMangager.getAsset("./sprites/blackFireball.png");
         this.speed = 500;
-        this.damage = 10;
         this.animations = [];
         this.dead = false;
         this.animations.push(new Animator(this.spritesheet, 0, 0, 15, 15, 4, 0.3, 7, 0, false, true, false));
@@ -55,7 +54,7 @@ class Projectile{
             // console.log(this.velocity.x, this.velocity.y);
     };
     getDmg() {
-        let dmg = this.damage;
+        let dmg = this.game.camera.damage;
         return dmg;
     }
     draw(ctx){
