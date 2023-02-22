@@ -15,22 +15,8 @@ class Item {
     };
 
     update(){
-        let curFrame = this.animations.currentFrame();
-        this.updateBB();
-        var that = this;
-        that.game.entities.forEach(function (entity) {
-            if (entity instanceof Mage  && entity.BB && that.BB.collide(entity.BB)) {
-                that.game.camera.loadLevel(levelTwo);
-                // this.game.startInput();
-            }
-        
-           
-        }); //end of forEach
-              
-        if(this.animations.isAlmostDone(this.game.clockTick)){
-            this.animations.elapsedTime = 2.7;
-        }
-    };//end update() chainBot behavior and collisions
+       
+    };
     
 
     draw(ctx){

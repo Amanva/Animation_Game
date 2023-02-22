@@ -110,17 +110,30 @@ class SceneManager {
         this.mage.velocity = { x: 0, y: 0 };
     }
     else if(this.level === levelThree){
-
-        if(level.ground){   
-            for (var i = 0; i < level.ground.length; i++) {
-                let ground = level.ground[i];
-                this.game.addEntity(new Ground(this.game, ground.x, ground.y, ground.width, ground.height, ground.div));
-            }
-        }
+        this.x = 0;
+        this.y = 0;
+        // if(level.ground){   
+        //     for (var i = 0; i < level.ground.length; i++) {
+        //         let ground = level.ground[i];
+        //         this.game.addEntity(new Ground(this.game, ground.x, ground.y, ground.width, ground.height, ground.div));
+        //     }
+        // }
         if(level.platforms){
             for (var i = 0; i < level.platforms.length; i++) {
                 let platform = level.platforms[i];
                 this.game.addEntity(new Platform(this.game, platform.x, platform.y, platform.width, platform.height, platform.divisorPlatforms));
+            }
+        }
+        if(level.smallPlatforms){
+            for (var i = 0; i < level.smallPlatforms.length; i++) {
+                let tiles = level.smallPlatforms[i];
+                this.game.addEntity(new smallPlatforms(this.game, tiles.x, tiles.y, tiles.width, tiles.height, tiles.div));
+            }
+        }
+        if(level.verticalWall){
+            for (var i = 0; i < level.verticalWall.length; i++) {
+                let tiles = level.verticalWall[i];
+                this.game.addEntity(new verticalWall(this.game, tiles.x, tiles.y, tiles.width, tiles.height, tiles.div));
             }
         }
 
