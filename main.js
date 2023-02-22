@@ -23,13 +23,34 @@ assetMangager.queueDownload("./sprites/enemies/chain_bot_hit.png");
 assetMangager.queueDownload("./sprites/enemies/chain_bot_death.png");
 assetMangager.queueDownload("./sprites/Lava64.png");
 assetMangager.queueDownload("./sprites/Background.png");
-assetMangager.queueDownload("./sprites/monster-Left-Attack.png");
+assetMangager.queueDownload("./sprites/demon-idleRight.png");
+assetMangager.queueDownload("./sprites/monsterLeft.png");
 assetMangager.queueDownload("./sprites/monster-Riight-Attack.png");
 assetMangager.queueDownload("./sprites/monster-Left-Fly.png");
 assetMangager.queueDownload("./sprites/monster-idle.png");
 assetMangager.queueDownload("./sprites/monster-Right-Fly.png");
+assetMangager.queueDownload("./sprites/demon-idleLeft.png");
 assetMangager.queueDownload("./sprites/portal.png");
-// assetMangager.queueDownload("./sprites/demon-idleRight.png");
+assetMangager.queueDownload("./sprites/demon-idleRight.png");
+assetMangager.queueDownload("./sprites/seaMonster/monsterLeft.png");
+assetMangager.queueDownload("./sprites/seaMonster/monster-Riight-Attack.png");
+assetMangager.queueDownload("./sprites/seaMonster/monster-Left-Swim.png");
+assetMangager.queueDownload("./sprites/seaMonster/monster-idle.png");
+assetMangager.queueDownload("./sprites/seaMonster/monster-Right-Swim.png");
+
+//Load water levelassets
+assetMangager.queueDownload("./sprites/waterLevel/underWater.png");
+assetMangager.queueDownload("./sprites/waterLevel/bomb.png");
+assetMangager.queueDownload("./sprites/waterLevel/bottomTile.png");
+assetMangager.queueDownload("./sprites/waterLevel/boulderTiles.png");
+assetMangager.queueDownload("./sprites/waterLevel/cave.png");
+
+//sounds
+assetMangager.queueDownload("./sounds/blood_splash.wav");
+assetMangager.queueDownload("./sounds/slash_swoosh.mp3");
+assetMangager.queueDownload("./sounds/metal_hit_woosh.wav");
+
+
 assetMangager.downloadAll(() => {
 var canvas = document.getElementById('gameWorld');
 var ctx = canvas.getContext('2d');
@@ -41,7 +62,7 @@ PARAMS.CANVAS_WIDTH = canvas.width;
 PARAMS.CANVAS_HEIGHT = canvas.height;
 
 gameEngine.init(ctx);
-gameEngine.addEntity(new SceneManager(gameEngine));
+new SceneManager(gameEngine);
 gameEngine.start();
 
 });

@@ -72,6 +72,7 @@ class Animator {
         
             
     };
+    
     drawAngle(tick, ctx, x, y, scale, degree){
         ctx.save();
         ctx.translate(x, y);
@@ -85,7 +86,7 @@ currentFrame() {
 isDone() {
         return (this.elapsedTime >= this.totalTime);
     };
-    isAlmostDone(TICK) {
+isAlmostDone(TICK) {
         return ((this.elapsedTime + TICK) >= this.totalTime);
     }
 }
