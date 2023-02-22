@@ -16,7 +16,6 @@ assetMangager.queueDownload("./sprites/earth.png");
 assetMangager.queueDownload("./sprites/04.png");
 assetMangager.queueDownload("./sprites/book.png");
 assetMangager.queueDownload("./sprites/earthlevel.png");
-
 assetMangager.queueDownload(levelThree.background1);
 assetMangager.queueDownload(levelThree.background2);
 assetMangager.queueDownload(levelThree.background3 );

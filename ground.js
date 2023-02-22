@@ -3,8 +3,12 @@ const WSCALE = 2;
 class Ground {
     constructor(game, x, y, width, height, div) {
         Object.assign(this, { game, x, y, width, height, div});
-
+        if(this.game.camera.level === levelOne){
         this.spritesheet = assetMangager.getAsset("./sprites/Lava64.png");
+        }
+        else if(this.game.camera.level === levelThree){
+        this.spritesheet = assetMangager.getAsset("./sprites/earthlevel.png");
+        }
         // this.animations = [];
         // this.animations.push(new Animator(this.spritesheet, 0, 0, 48, 48, 1, 0.1, 0,0,false, true, false));
         this.updateBB();
@@ -22,7 +26,13 @@ class Ground {
     draw(ctx) {
         let brickWidth = this.width / (this.div);
         for (var i = 0; i < brickWidth; i++) {
-            ctx.drawImage(this.spritesheet, 0, 255, 256, 64, this.x + i * (this.div)-this.game.camera.x, this.y-this.game.camera.y, this.div, this.height);
+            if(this.game.camera.level === levelOne){
+                    ctx.drawImage(this.spritesheet, 0, 255, 256, 64, this.x + i * (this.div)-this.game.camera.x, this.y-this.game.camera.y, this.div, this.height);
+            }
+            else if(this.game.camera.level === levelThree){
+                // console.log("g");
+                ctx.drawImage(this.spritesheet, 120, 168, 72, 25, this.x + i * (this.div)-this.game.camera.x, this.y-this.game.camera.y, this.div, this.height);
+            }
         }
         if(debug){
             ctx.strokeStyle = 'Red';
@@ -52,7 +62,12 @@ class Wall {
     draw(ctx) {
         let brickHeight = this.height / this.div;
         for (var i = 0; i < brickHeight; i++) {
-        ctx.drawImage(this.spritesheet, 0, 11, 192, 154, this.x - this.game.camera.x, this.y + i * this.div-this.game.camera.y, this.width, this.div);
+            if(this.level === levelOne){
+                ctx.drawImage(this.spritesheet, 0, 11, 192, 154, this.x - this.game.camera.x, this.y + i * this.div-this.game.camera.y, this.width, this.div);
+            }
+            else if(this.level === levelThree){
+                ctx.drawImage(this.spritesheet, 119, 168, 73, 25, this.x - this.game.camera.x, this.y + i * this.div-this.game.camera.y, this.width, this.div);
+            }
         // ctx.drawImage(this.spritesheet, 0, 11, 192, 154, this.x +192 - this.game.camera.x, this.y - i * (154*WSCALE), (192*WSCALE), (154*WSCALE));
         // ctx.drawImage(this.spritesheet, 0, 11, 192, 154, this.x +384 - this.game.camera.x, this.y - i * (154*WSCALE), (192*WSCALE), (154*WSCALE));
         }
