@@ -117,6 +117,12 @@ class SceneManager {
                 this.game.addEntity(new Ground(this.game, ground.x, ground.y, ground.width, ground.height, ground.div));
             }
         }
+        if(level.platforms){
+            for (var i = 0; i < level.platforms.length; i++) {
+                let platform = level.platforms[i];
+                this.game.addEntity(new Platform(this.game, platform.x, platform.y, platform.width, platform.height, platform.divisorPlatforms));
+            }
+        }
 
 
         this.game.addEntity(new BackGround(this.game, 0, 0, 1800, 800, this.level));
