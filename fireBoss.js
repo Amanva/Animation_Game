@@ -553,7 +553,7 @@ class Slime{
         this.updateBB();
         var that = this;
         this.game.entities.forEach(function (entity) {  
-        console.log(that.attackCoolDown);
+        // console.log(that.attackCoolDown);
             if(entity instanceof Mage && that.state !== 2 && !entity.dead){
                 if(that.hit){
                     that.attackCoolDown += that.game.clockTick;

@@ -72,18 +72,9 @@ class BackGround {
         this.spritesheet = assetMangager.getAsset(levelOne.background);
         }
         else if(this.level === levelThree){
-        this.layerOne = assetMangager.getAsset(levelOne.background);
-        this.layerTwo = assetMangager.getAsset(levelOne.background);
-        this.layerThree = assetMangager.getAsset(levelOne.background);
-        this.layerFour = assetMangager.getAsset(levelOne.background);
-        this.layerFive = assetMangager.getAsset(levelOne.background);
-        this.layerSix = assetMangager.getAsset(levelOne.background);
-        this.layerSeven = assetMangager.getAsset(levelOne.background);
-        this.layerEight = assetMangager.getAsset(levelOne.background);
-        this.layerNine = assetMangager.getAsset(levelOne.background);
-        this.layerTen = assetMangager.getAsset(levelOne.background);
-        this.layerEleven = assetMangager.getAsset(levelOne.background);
-        this.layerTwelve = assetMangager.getAsset(levelOne.background);
+        this.background1 = assetMangager.getAsset(levelThree.background1);
+        this.background2 = assetMangager.getAsset(levelThree.background2);
+        this.background3 = assetMangager.getAsset(levelThree.background3);
 
         }
 
@@ -92,7 +83,15 @@ class BackGround {
     update() {
     };
     draw(ctx) {
+        if(this.level === levelOne){
         ctx.drawImage(this.spritesheet,this.x ,this.y, this.w, this.h);
+        }
+        else if(this.level === levelThree){
+            ctx.drawImage(this.background1,this.x ,this.y, this.w, this.h);
+            ctx.drawImage(this.background2,this.x ,this.y, this.w, this.h);
+            ctx.drawImage(this.background3,this.x ,this.y, this.w, this.h);
+           
+        }
     };
 };
 class Platform {

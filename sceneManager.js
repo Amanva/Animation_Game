@@ -110,6 +110,15 @@ class SceneManager {
         this.mage.velocity = { x: 0, y: 0 };
     }
     else if(this.level === levelThree){
+
+        if(level.ground){   
+            for (var i = 0; i < level.ground.length; i++) {
+                let ground = level.ground[i];
+                this.game.addEntity(new Ground(this.game, ground.x, ground.y, ground.width, ground.height, ground.div));
+            }
+        }
+
+
         this.game.addEntity(new BackGround(this.game, 0, 0, 1800, 800, this.level));
     }
         // if(level.lava){

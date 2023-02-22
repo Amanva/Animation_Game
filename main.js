@@ -12,9 +12,12 @@ assetMangager.queueDownload("./sprites/Mana.png");
 assetMangager.queueDownload("./sprites/cursor.png");
 assetMangager.queueDownload("./sprites/gate.png");
 assetMangager.queueDownload("./sprites/FB001.png");
+assetMangager.queueDownload("./sprites/earth.png");
 assetMangager.queueDownload("./sprites/04.png");
 assetMangager.queueDownload("./sprites/book.png");
-
+assetMangager.queueDownload(levelThree.background1);
+assetMangager.queueDownload(levelThree.background2);
+assetMangager.queueDownload(levelThree.background3 );
 
 assetMangager.queueDownload("./sprites/potion.png");
 // Load chain_bot sprites.

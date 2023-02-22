@@ -20,6 +20,8 @@ class Mage {
             jump: 6
         }
         this.specialAttack1 = false;
+        this.specialAttack2 = false;
+        this.specialAttack3 = false;
         this.hp= 100;
         this.maxHP = 100;
         this.curMana = 100;
@@ -132,12 +134,15 @@ class Mage {
                 if(!this.game.left && !this.game.right){
                     this.velocity.x = 0;
                 }     
-                if(this.game.attack){
+                if(this.game.attack && !this.specialAttack1 && !this.specialAttack3){
                     this.shoot = true;
                     this.velocity.x = 0;
                 }
                 else if(this.game.digit1 && (this.curMana >= 50)){       
                     this.specialAttack1 = true;
+                }
+                else if(this.game.digit3 && (this.curMana >= 50)){       
+                    this.specialAttack3 = true;
                 }
                 if(this.game.jump && this.playerJump){
                     this.state = this.states.jump;  
@@ -179,7 +184,26 @@ class Mage {
                     this.state = this.states.idle;
                 } 
             }
-            else if(this.shoot && this.timetoShoot > 0.5){
+             if(this.specialAttack3){
+                this.state = this.states.skullAttack;
+                this.velocity.x = 0;
+                console.log("step in");
+                if(this.animations[this.states.skullAttack][this.facing].isAlmostDone(TICK)){
+                    if(this.facing == 0){
+                    this.game.addEntityToBegin(new Earth(this.game, this.x+100, this.y+140));
+                    }
+                     if(this.facing == 1){
+                    this.game.addEntityToBegin(new Earth(this.game, this.x, this.y+140));
+                    }
+                    this.curMana -= 50;
+                    this.animations[this.state][this.facing].elapsedTime = 0;
+                    this.timetoShoot = 0;
+                    this.specialAttack3 = false;
+                    // this.game.E = false;
+                    this.state = this.states.idle;
+                } 
+            }
+            else if(this.shoot && (this.timetoShoot > 0.5) && (!this.specialAttack1)){
                 this.state = this.states.normAttack;
                 
                 if(this.animations[this.state][this.facing].isAlmostDone(TICK)){
@@ -265,7 +289,7 @@ class Mage {
                 if(Math.abs(this.velocity.x) > 0 && (this.state != this.states.normAttack) && (this.state != this.states.skullAttack)){
                     this.state = this.states.run;
                 }
-                if(this.velocity.x == 0 && !this.shoot && !this.specialAttack1){
+                if(this.velocity.x == 0 && !this.shoot && !this.specialAttack1 && !this.specialAttack3){
                     this.state = this.states.idle;
                 }
                 // if(this.states.skullAttack){

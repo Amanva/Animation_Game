@@ -204,18 +204,9 @@ var levelTwo = {
 };
 
 var levelThree = {
-    layerOne: "./sprites/Background layers/Layer_0000_9.png",
-    layerTwo: "./sprites/Background layers/Layer_0001_8.png",
-    layerThree: "./sprites/Background layers/Layer_0002_7.png",
-    layerFour: "./sprites/Background layers/Layer_0003_6.png",
-    layerFive: "./sprites/Background layers/Layer_0004_Lights.png",
-    layerSix: "./sprites/Background layers/Layer_0005_5.png",
-    layerSeven: "./sprites/Background layers/Layer_0006_4.png",
-    layerEight: "./sprites/Background layers/Layer_0007_Lights.png",
-    layerNine: "./sprites/Background layers/Layer_0008_3.png",
-    layerTen: "./sprites/Background layers/Layer_0009_2.png",
-    layerEleven: "./sprites/Background layers/Layer_0010_1.png",
-    layerTwelve: "./sprites/Background layers/Layer_0011_0.png",
+    background1: "./sprites/Background layers/Background1.png",
+    background2: "./sprites/Background layers/Background2.png",
+    background3: "./sprites/Background layers/Background3.png",
     ground: [
         { x: 0, y: 750, width: 3072, height:64, div: 256},
         { x: 3456, y: 750, width: 2560, height:64, div: 256},
