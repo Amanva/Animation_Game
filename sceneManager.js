@@ -6,8 +6,10 @@ class SceneManager {
         this.healthPotion = 0;
         this.manaPotion = 0;
         this.elapsedTime = 0;
-        this.level = null; 
-        this.loadLevel(levelThree);
+        this.level = null;
+        this.mage = new Mage(this.game, 100,460);
+        this.heartMana = new HeartManaHQ(this.game, this.mage); 
+        this.loadLevel(levelOne);
         this.myCursor = new Cursor(this.game);
         
     };
@@ -18,16 +20,17 @@ class SceneManager {
     };
     loadLevel(level){
         this.level = level;
-        this.mage = new Mage(this.game, 100,460);
-        this.game.addEntity(this.mage);
+        this.lastMage = this.mage;
         this.clearEntities();
+        this.mage = this.lastMage;
+        this.game.addEntity(this.mage);
         if(this.level === levelOne){
         this.x = 0;
         this.y = 0;
         this.healthPotion = 0;
         this.manaPotion = 0;
         this.game.addEntity(new Potion(this.game, 0, 0, true, 0));
-        this.heartMana = new HeartManaHQ(this.game, this.mage);
+        this.game.addEntity(new Item(this.game, 400, 400));
         this.fireBoss = new fireBoss(this.game, 9600, 300); 
         //mobs
         //chainbot
@@ -146,27 +149,27 @@ class SceneManager {
         
     }
     update() {
-        // this.heartMana.update();
-        // this.myCursor.update();
+        this.heartMana.update();
+        this.myCursor.update();
         let midpoint = PARAMS.CANVAS_WIDTH/2 - PARAMS.PLAYERWIDTH / 2;
-        // console.log(this.x,this.mage.x - midpoint);
+        // // console.log(this.x,this.mage.x - midpoint);
       
-            // this.x = this.mage.x - midpoint;
-        //  if(this.x < this.mage.x - midpoint){
-        //     this.x = this.mage.x - midpoint;  
-        // } 
+        //     // this.x = this.mage.x - midpoint;
+        // //  if(this.x < this.mage.x - midpoint){
+        // //     this.x = this.mage.x - midpoint;  
+        // // } 
 
-        // if ((this.mage.x > midpoint) && (this.mage.x + midpoint <= 12000)) this.x = this.mage.x - midpoint;
-        // if ((this.mage.x < midpoint) && (this.mage.x - midpoint >= 0)) this.x = this.mage.x - midpoint;
-        // if ((this.mage.y < 200) && (this.mage.y + 200 >= -3000)) this.y = this.mage.y - 200;
-        // if ((this.mage.y > 600) && (this.mage.y - 600 <= 0)) this.y = this.mage.y - 600;
+        if ((this.mage.x > midpoint) && (this.mage.x + midpoint <= 12000)) this.x = this.mage.x - midpoint;
+        if ((this.mage.x < midpoint) && (this.mage.x - midpoint >= 0)) this.x = this.mage.x - midpoint;
+        if ((this.mage.y < 200) && (this.mage.y + 200 >= -3000)) this.y = this.mage.y - 200;
+        if ((this.mage.y > 600) && (this.mage.y - 600 <= 0)) this.y = this.mage.y - 600;
     };
 
 
 
     draw(ctx) {
-        // this.heartMana.draw(ctx); 
-        // this.myCursor.draw(ctx);
+        this.heartMana.draw(ctx); 
+        this.myCursor.draw(ctx);
         // if(this.game.inCanvas){
         //     this.myCursor.draw(ctx); 
         // }       
