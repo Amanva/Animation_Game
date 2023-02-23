@@ -547,7 +547,6 @@ class Slime{
     };
     update(){
         this.velocity.y += 200 * this.game.clockTick;
-        
         this.x += this.velocity.x * this.game.clockTick;
         this.y += this.velocity.y * this.game.clockTick * PARAMS.SCALE;
         this.updateBB();
@@ -636,9 +635,6 @@ class Slime{
                 this.isDead = true;
             }
         }
-    
-
-
     };
 
     updateBB(){

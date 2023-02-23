@@ -27,7 +27,7 @@ class Ground {
         let brickWidth = this.width / (this.div);
         for (var i = 0; i < brickWidth; i++) {
             if(this.game.camera.level === levelOne){
-                    ctx.drawImage(this.spritesheet, 0, 255, 256, 64, this.x + i * (this.div)-this.game.camera.x, this.y-this.game.camera.y, this.div, this.height);
+                ctx.drawImage(this.spritesheet, 0, 255, 256, 64, this.x + i * (this.div)-this.game.camera.x, this.y-this.game.camera.y, this.div, this.height);
             }
             else if(this.game.camera.level === levelThree){
                 // console.log("g");
@@ -41,6 +41,81 @@ class Ground {
     };
 };
 
+class HalfGround {
+    constructor(game, x, y, width, height, div) {
+        Object.assign(this, { game, x, y, width, height, div});
+        if(this.game.camera.level === levelOne){
+        this.spritesheet = assetMangager.getAsset("./sprites/Lava64.png");
+        }
+        else if(this.game.camera.level === levelThree){
+        this.spritesheet = assetMangager.getAsset("./sprites/earthlevel.png");
+        }
+        // this.animations = [];
+        // this.animations.push(new Animator(this.spritesheet, 0, 0, 48, 48, 1, 0.1, 0,0,false, true, false));
+        this.updateBB();
+    };
+    updateBB() {
+        this.lastBB = this.BB;
+        this.BB = new BoundingBox(this.x, this.y, this.width, this.height);
+        this.leftBB = new BoundingBox(this.x, this.y, 0, this.height);
+        this.rightBB = new BoundingBox(this.x + this.width, this.y, 0, this.height);
+        this.bottomBB = new BoundingBox(this.x, this.y+this.height, this.width, 0);
+    };
+    update() {
+    };
+    draw(ctx) {
+        let brickWidth = this.width / (this.div);
+        for (var i = 0; i < brickWidth; i++) {
+            if(this.game.camera.level === levelOne){
+                ctx.drawImage(this.spritesheet, 0, 255, 256, 64, this.x + i * (this.div)-this.game.camera.x, this.y-this.game.camera.y, this.div, this.height);
+            }
+            else if(this.game.camera.level === levelThree){
+                // console.log("g");
+                ctx.drawImage(this.spritesheet, 120, 0, 86, 23, this.x + i * (this.div)-this.game.camera.x, this.y-this.game.camera.y, this.div, this.height);
+            }
+        }
+        if(debug){
+            ctx.strokeStyle = 'Red';
+            ctx.strokeRect(this.BB.x-this.game.camera.x, this.BB.y-this.game.camera.y, this.BB.width, this.BB.height);
+            }
+    };
+};
+class Dirt {
+    constructor(game, x, y, width, height, div) {
+        Object.assign(this, { game, x, y, width, height, div});
+        if(this.game.camera.level === levelOne){
+        this.spritesheet = assetMangager.getAsset("./sprites/Lava64.png");
+        }
+        else if(this.game.camera.level === levelThree){
+        this.spritesheet = assetMangager.getAsset("./sprites/earthlevel.png");
+        }
+        this.updateBB();
+    };
+    updateBB() {
+        this.lastBB = this.BB;
+        this.BB = new BoundingBox(this.x, this.y, this.width, this.height);
+        this.leftBB = new BoundingBox(this.x, this.y, 0, this.height);
+        this.rightBB = new BoundingBox(this.x + this.width, this.y, 0, this.height);
+        this.bottomBB = new BoundingBox(this.x, this.y+this.height, this.width, 0);
+    };
+    update() {
+    };
+    draw(ctx) {
+        let brickWidth = this.width / (this.div);
+        for (var i = 0; i < brickWidth; i++) {
+            if(this.game.camera.level === levelOne){
+                ctx.drawImage(this.spritesheet, 0, 255, 256, 64, this.x + i * (this.div)-this.game.camera.x, this.y-this.game.camera.y, this.div, this.height);
+            }
+            else if(this.game.camera.level === levelThree){
+                ctx.drawImage(this.spritesheet, 37, 288, 58, 14, this.x + i * (this.div)-this.game.camera.x, this.y-this.game.camera.y, this.div, this.height);
+            }
+        }
+        if(debug){
+            ctx.strokeStyle = 'Red';
+            ctx.strokeRect(this.BB.x-this.game.camera.x, this.BB.y-this.game.camera.y, this.BB.width, this.BB.height);
+            }
+    };
+};
 class Wall {
     constructor(game, x, y, width, height, div) {
         Object.assign(this, { game, x, y, width, height, div});

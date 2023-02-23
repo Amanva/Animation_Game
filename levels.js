@@ -209,11 +209,20 @@ var levelThree = {
     background3: "./sprites/Background layers/Background3.png",
     ground: [
         { x: 0, y: 750, width: 73*191, height:25*3, div: 73*3},
+        { x: 0, y: 750, width: 73*191, height:25*3, div: 73*3},
         // { x: 3456, y: 750, width: 73*3, height:25*3, div: 256},
         // { x: 6400, y: 750, width: 2560, height:64, div: 256},
         // { x: 9100, y: 750, width: 3328, height:64, div: 256},
         // { x:2000, y:150, width: 3328, height:64, div: 256},
     ],
+    // halfGround: [
+    //     { x: 500, y: 670, width: 120*5, height:23*5, div: 120*5},
+        
+    // ],
+    // dirt: [
+    //     { x: 550, y: 730, width: 58*7.5, height:14*5, div: 58*7.5},
+        
+    // ],
     wall: [
         {x:3072 , y:-100, width:192*2, height: 308, div: 308},
         {x:3072 , y:500, width:192*2, height: 308, div: 308},

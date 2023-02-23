@@ -116,6 +116,20 @@ class SceneManager {
     else if(this.level === levelThree){
         this.x = 0;
         this.y = 0;
+
+        this.game.addEntity(new Boar(this.game, 400, 500));
+        // if(level.dirt){   
+        //     for (var i = 0; i < level.dirt.length; i++) {
+        //         let dirt = level.dirt[i];
+        //         this.game.addEntity(new Dirt(this.game, dirt.x, dirt.y, dirt.width, dirt.height, dirt.div));
+        //     }
+        // }
+        // if(level.halfGround){   
+        //     for (var i = 0; i < level.halfGround.length; i++) {
+        //         let halfGround = level.halfGround[i];
+        //         this.game.addEntity(new HalfGround(this.game, halfGround.x, halfGround.y, halfGround.width, halfGround.height, halfGround.div));
+        //     }
+        // }
         if(level.ground){   
             for (var i = 0; i < level.ground.length; i++) {
                 let ground = level.ground[i];
