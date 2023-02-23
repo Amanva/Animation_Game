@@ -3,8 +3,8 @@ class Boar{
     constructor(game, x, y){
      Object.assign(this, { game, x, y });
      this.velocity = { x: 0, y: 0 };
-     this.hp = 100;
-     this.maxHP = 100;
+     this.hp = 10;
+     this.maxHP = 10;
      this.healthBar = new HealthBar(this.game, this);
      this.fallAcc = 200;        
      this.scale = 2;
@@ -92,7 +92,7 @@ for(var l = 0; l <= 3; l++){
     this.updateBB();
     if(!this.dead){
     if(this.hp <= 0){
-        // this.state = 3;
+        this.state = 3;
         // this.animations[3][this.facing].elapsedTime = 7;
         this.dead = true;
     }
@@ -103,8 +103,10 @@ for(var l = 0; l <= 3; l++){
         this.velocity.x = 0;
         this.velocity.y = 0;
         let frame = this.animations[3][this.facing].currentFrame();
-        console.log(frame);
-        this.removeFromWorld = true;
+        if(this.animations[3][this.facing].isAlmostDone(TICK)){
+            this.removeFromWorld = true;
+        }
+        
     }
     // console.log(this.velocity.x, this.velocity.y);
  };
@@ -114,9 +116,10 @@ for(var l = 0; l <= 3; l++){
         if(!that.dead){     
         if (entity instanceof Mage) {
             if(that.playerHit){
+                // that.velocity.x = 1000;
                 that.attackCoolDown += TICK;
             }
-            if(that.attackCoolDown >= 1){
+            if(that.attackCoolDown >= 2){
                 console.log("Reset");
                 that.playerHit = false;
                 that.attackCoolDown = 0;
@@ -128,7 +131,7 @@ for(var l = 0; l <= 3; l++){
             let mageDB = entity.BB && that.MageDetection.collide(entity.BB);
             let mageAB = entity.BB && that.AttackBB.collide(entity.BB);
             // let frame = that.animations[that.state][that.facing].currentFrame();
-            if(mageDB && !mageAB){
+            if(mageDB && !mageAB && that.attackCoolDown === 0){
                 that.state = 2;
                 if (xDis > 0 ) {
                     that.facing = 1;
@@ -142,7 +145,7 @@ for(var l = 0; l <= 3; l++){
             }
             else if(mageDB && mageAB){
                 that.state = 1;
-                that.velocity.x = 200 * xDis / distance;
+                that.velocity.x = 300 * xDis / distance;
             }
             else if(!mageDB){
                 that.velocity.x = 0;
@@ -157,7 +160,7 @@ for(var l = 0; l <= 3; l++){
         }
         };
         });
-
+        console.log(this.velocity.x)
  }
  PlatformCollision(){
     var that = this;
