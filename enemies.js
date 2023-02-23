@@ -1,3 +1,9 @@
+/*
+chain bot enemy animation
+Uladzimir Hanevich
+TCSS491 winter 2023
+
+*/
 class ChainBot {
 
     constructor(game, x, y){
@@ -53,6 +59,9 @@ class ChainBot {
 
     update() {
         this.elapsedTime += this.game.clockTick;
+        // default state, and default velocity
+        // this.state = 0;  
+         //this.velocity.x = 0; 
         const TICK = this.game.clockTick;
         const RUN = 110; //change the speed
         const LOWER_BOUND = 95;
