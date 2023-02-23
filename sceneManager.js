@@ -117,7 +117,8 @@ class SceneManager {
             this.heartMana = new HeartManaHQ(this.game, this.mage);
 
             this.game.addEntity(new Cave(this.game, 11030, 363, 1031, 439));
-
+            this.game.addEntity(new SeaMonster(this.game, 690, 250));
+            
             // this.fireBoss = new fireBoss(this.game, 9600, 300); 
             // this.game.addEntity(this.fireBoss);
             
@@ -152,7 +153,12 @@ class SceneManager {
                 }
             }
 
-           
+            if(level.SeaMonster){
+                for (var i = 1; i < level.SeaMonster.length; i++) {
+                    let seaMonster = level.SeaMonster[i];
+                    this.game.addEntity(new SeaMonster(this.game, seaMonster.x, seaMonster.y));
+                }
+            }
 
 
             

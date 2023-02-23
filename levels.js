@@ -120,6 +120,12 @@ var levelOne = {
 
     ],
 
+ Monster: [
+         {x: 50, y: 300},
+        
+     ],
+
+
     ChainBot: [
         // {x: 50, y: 300},
         // {x: 350, y: 300},
@@ -211,7 +217,10 @@ var levelTwo = {
         {x:10800, y: 800}
     ],
 
-        
+    SeaMonster: [
+        {x: 40, y: 280},
+       
+    ],   
     // cave: [
     //     {x:11000 ,y:500, width: 256, height:64}, 
         
