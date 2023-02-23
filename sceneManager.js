@@ -199,26 +199,9 @@ class SceneManager {
         }
         
         
-    // }
+    }
 
-         this.monster = new Monster(this.game, 600, 600);
-         this.game.addEntity(this.monster);
-        
-        this.game.addEntity(new BackGround(this.game, 0, 0, 1800, 800));
-        
-        
-    //     this.fireBoss = new fireBoss(this.game, 300, 300); 
-    //     this.game.addEntity(this.fireBoss);
-    };
-
-    // loadLevel(level){
-    //     this.game.entites = [];
-    //     this.x = 0;
-
-    //     for(var i = 0; i < this.level.length; i++){
-
-    //     }
-    // }
+    
 
     
     update() {
