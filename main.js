@@ -1,5 +1,4 @@
 var assetMangager = new AssetManager();
-
 assetMangager.queueDownload("./sprites/mageRight.png");
 assetMangager.queueDownload("./sprites/mageLeft.png");
 assetMangager.queueDownload("./sprites/blackFireball.png");
@@ -16,6 +15,10 @@ assetMangager.queueDownload("./sprites/earth.png");
 assetMangager.queueDownload("./sprites/04.png");
 assetMangager.queueDownload("./sprites/book.png");
 assetMangager.queueDownload("./sprites/earthlevel.png");
+assetMangager.queueDownload("./sprites/enemies/Run-Sheet.png");
+assetMangager.queueDownload("./sprites/enemies/Idle-Sheet.png");
+assetMangager.queueDownload("./sprites/enemies/Hit-Sheet.png");
+assetMangager.queueDownload("./sprites/enemies/Walk-Base-Sheet.png");
 assetMangager.queueDownload(levelThree.background1);
 assetMangager.queueDownload(levelThree.background2);
 assetMangager.queueDownload(levelThree.background3 );
@@ -38,6 +41,9 @@ assetMangager.queueDownload("./sprites/monster-idle.png");
 assetMangager.queueDownload("./sprites/monster-Right-Fly.png");
 assetMangager.queueDownload("./sprites/portal.png");
 assetMangager.queueDownload("./sprites/demon-idleRight.png");
+
+// sounds
+assetMangager.queueDownload("./sounds/sfx/playerhit.mp3");
 assetMangager.downloadAll(() => {
 var canvas = document.getElementById('gameWorld');
 var ctx = canvas.getContext('2d');

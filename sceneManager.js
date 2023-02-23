@@ -10,7 +10,7 @@ class SceneManager {
         this.level = null;
         this.mage = new Mage(this.game, 100,460);
         this.heartMana = new HeartManaHQ(this.game, this.mage); 
-        this.loadLevel(levelOne);
+        this.loadLevel(levelThree);
         this.myCursor = new Cursor(this.game);
         
     };
@@ -116,12 +116,28 @@ class SceneManager {
     else if(this.level === levelThree){
         this.x = 0;
         this.y = 0;
+
+        this.game.addEntity(new Boar(this.game, 400, 500));
+        // if(level.dirt){   
+        //     for (var i = 0; i < level.dirt.length; i++) {
+        //         let dirt = level.dirt[i];
+        //         this.game.addEntity(new Dirt(this.game, dirt.x, dirt.y, dirt.width, dirt.height, dirt.div));
+        //     }
+        // }
+        // if(level.halfGround){   
+        //     for (var i = 0; i < level.halfGround.length; i++) {
+        //         let halfGround = level.halfGround[i];
+        //         this.game.addEntity(new HalfGround(this.game, halfGround.x, halfGround.y, halfGround.width, halfGround.height, halfGround.div));
+        //     }
+        // }
         if(level.ground){   
             for (var i = 0; i < level.ground.length; i++) {
                 let ground = level.ground[i];
                 this.game.addEntity(new Ground(this.game, ground.x, ground.y, ground.width, ground.height, ground.div));
             }
         }
+        
+        
         // if(level.platforms){
         //     for (var i = 0; i < level.platforms.length; i++) {
         //         let platform = level.platforms[i];
