@@ -26,34 +26,36 @@ class SeaMonster{
  }; 
 
  loadAnimations() {
-     this.animations = [];
-     for (var i = 0; i < 5; i++) { 
-         this.animations.push([]);
-         for (var j = 0; j < 2; j++) { 
-            this.animations[i].push([]);
+    this.animations = [];
+
+    for (var i = 0; i < 5; i++) { 
+        this.animations.push([]);
+        for (var j = 0; j < 2; j++) { 
+           this.animations[i].push([]);
         }
-     }
+    }
 
-// idle
-this.animations[0][0] = new Animator(this.spritesheetIdle, 0, 0, 48, 47, 5, 0.10, 0, 0, false, true, false);
-// swim
-this.animations[1][0] = new Animator(this.spritesheetLeftFly, 0, 0, 48, 47, 15, 0.10, 0, 0, false, true, false);
-// left attack
-this.animations[2][0] = new Animator(this.spritesheetRightAttack, 0, 0, 54, 51, 5, 0.07, 0, 0, true, true, false);
-// idle
-this.animations[0][1] = new Animator(this.spritesheetIdle, 0, 0, 48, 47, 5, 0.10, 0, 0, false, true, false);
-// swim
-this.animations[1][1] = new Animator(this.spritesheetLeftFly, 0, 0, 48, 47, 15, 0.10, 0, 0, false, true, false);
-// left attack
-this.animations[2][1] = new Animator(this.spritesheetRightAttack, 0, 0, 54, 51, 5, 0.07, 0, 0, true, true, false);
+    // idle
+    this.animations[0][0] = new Animator(this.spritesheetIdle, 0, 0, 48, 47, 5, 0.10, 0, 0, false, true, false);
+    // swim
+    this.animations[1][0] = new Animator(this.spritesheetLeftFly, 0, 0, 48, 47, 15, 0.10, 0, 0, false, true, false);
+    // left attack
+    this.animations[2][0] = new Animator(this.spritesheetRightAttack, 0, 0, 54, 51, 5, 0.07, 0, 0, true, true, false);
+    // idle
+    this.animations[0][1] = new Animator(this.spritesheetIdle, 0, 0, 48, 47, 5, 0.10, 0, 0, false, true, false);
+    // swim
+    this.animations[1][1] = new Animator(this.spritesheetLeftFly, 0, 0, 48, 47, 15, 0.10, 0, 0, false, true, false);
+    // left attack
+    this.animations[2][1] = new Animator(this.spritesheetRightAttack, 0, 0, 54, 51, 5, 0.07, 0, 0, true, true, false);
 
-//death
-this.animations[3][0] = new Animator(this.spritesheetRightFly, 0, 0, 48, 47, 15, 0.1, 0, 0, true, true, false);
-          
-this.animations[3][1] = new Animator(this.spritesheetRightFly, 0, 0, 48, 47, 15, 0.1, 0, 0, true, true, false);
-for(var l = 0; l <= 3; l++){
-    this.animations[l][1].flipped = true;
-}
+    //death
+    this.animations[3][0] = new Animator(this.spritesheetRightFly, 0, 0, 48, 47, 15, 0.1, 0, 0, true, true, false);
+            
+    this.animations[3][1] = new Animator(this.spritesheetRightFly, 0, 0, 48, 47, 15, 0.1, 0, 0, true, true, false);
+
+    for(var l = 0; l <= 3; l++){
+        this.animations[l][1].flipped = true;
+    }
  }; 
 
    updateBB() {
@@ -107,13 +109,13 @@ for(var l = 0; l <= 3; l++){
                 that.state = 3; // death
                 that.velocity.x = 0;
                 that.dead = true;
-                if(that.animations[3].isAlmostDone(TICK)){
+                // if(that.animations[3].isAlmostDone(TICK)){
                     // assetMangager.playAsset("sounds/blood_splash.wav");
                     that.dead = true;
                     that.removeFromWorld = true;
 
                     
-                }
+                // }
                                         
             }
         }
