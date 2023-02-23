@@ -209,7 +209,7 @@ class SceneManager {
         
     //     this.fireBoss = new fireBoss(this.game, 300, 300); 
     //     this.game.addEntity(this.fireBoss);
-    };
+    // };
 
     // loadLevel(level){
     //     this.game.entites = [];
@@ -218,7 +218,7 @@ class SceneManager {
     //     for(var i = 0; i < this.level.length; i++){
 
     //     }
-    // }
+    }
 
     
     update() {
