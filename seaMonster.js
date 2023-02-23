@@ -13,7 +13,7 @@ class SeaMonster{
      this.spritesheetLeftFly = assetMangager.getAsset("./sprites/seaMonster/monster-Left-Swim.png");
      this.spritesheetIdle = assetMangager.getAsset("./sprites/seaMonster/monster-idle.png");
      this.spritesheetRightFly = assetMangager.getAsset("./sprites/seaMonster/monster-Right-Swim.png");
-     this.speed = 100;
+     this.speed = 10;
      this.state = 1;
      this.facing = 0;
      this.playerHit = false;
@@ -87,28 +87,61 @@ for(var l = 0; l <= 3; l++){
 // }
 //  };
  update() {
+    this.elapsedTime += this.game.clockTick;
     const TICK = this.game.clockTick;
     this.x += this.velocity.x * TICK;
     this.y += this.velocity.y * TICK;
     this.updateBB();
-    if(!this.dead){
-    if(this.hp <= 0){
-        this.state = 3;
-        // this.animations[3][this.facing].elapsedTime = 7;
-        this.dead = true;
-    }
-    this.PlatformCollision();
-    this.mageCollide(TICK);
-    }
-    else{
-        let frame = this.animations[3][this.facing].currentFrame();
-        console.log(frame);
-       if(frame >= 3){
-        this.removeFromWorld = true;
-       }
-    }
-    // console.log(this.velocity.x, this.velocity.y);
- };
+
+    var that = this;
+    that.game.entities.forEach(function (entity) {
+        if (entity.BB && that.BB.collide(entity.BB)) {
+            if (entity instanceof Projectile  && that.hp > 0){
+                entity.removeFromWorld = true;
+                that.hp -= 10;
+                that.state = 2
+                
+               
+                
+             } else if (that.hp <= 0) {
+                that.state = 3; // death
+                that.velocity.x = 0;
+                that.dead = true;
+                if(that.animations[3].isAlmostDone(TICK)){
+                    // assetMangager.playAsset("sounds/blood_splash.wav");
+                    that.dead = true;
+                    that.removeFromWorld = true;
+
+                    
+                }
+                                        
+            }
+        }
+    })
+
+     
+
+     
+
+    // if(!this.dead){
+    // if(this.hp <= 0){
+    //     this.state = 3;
+    //     // this.animations[3][this.facing].elapsedTime = 7;
+    //     this.dead = true;
+       
+    // }
+     this.PlatformCollision();
+     this.mageCollide(TICK);
+//     }
+//     else{
+//         let frame = this.animations[3][this.facing].currentFrame();
+//         console.log(frame);
+//        if(frame >= 3){
+//         this.removeFromWorld = true;
+//        }
+//     }
+//      //console.log(this.velocity.x, this.velocity.y);
+       };
  mageCollide(TICK){
     let that = this;
     this.game.entities.forEach(function (entity) {        
