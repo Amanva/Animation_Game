@@ -8,9 +8,9 @@ class SceneManager {
         this.elapsedTime = 0;
         this.damage = 10;
         this.level = null;
-        this.mage = new Mage(this.game, 100,460);
+        this.mage = new Mage(this.game, 300,100);
         this.heartMana = new HeartManaHQ(this.game, this.mage); 
-        this.loadLevel(levelOne);
+        this.loadLevel(levelThree);
         this.myCursor = new Cursor(this.game);
         
     };

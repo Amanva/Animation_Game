@@ -62,10 +62,10 @@ class Wall {
     draw(ctx) {
         let brickHeight = this.height / this.div;
         for (var i = 0; i < brickHeight; i++) {
-            if(this.level === levelOne){
+            if(this.game.camera.level === levelOne){
                 ctx.drawImage(this.spritesheet, 0, 11, 192, 154, this.x - this.game.camera.x, this.y + i * this.div-this.game.camera.y, this.width, this.div);
             }
-            else if(this.level === levelThree){
+            else if(this.game.camera.level === levelThree){
                 ctx.drawImage(this.spritesheet, 119, 168, 73, 25, this.x - this.game.camera.x, this.y + i * this.div-this.game.camera.y, this.width, this.div);
             }
         // ctx.drawImage(this.spritesheet, 0, 11, 192, 154, this.x +192 - this.game.camera.x, this.y - i * (154*WSCALE), (192*WSCALE), (154*WSCALE));

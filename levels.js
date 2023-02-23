@@ -227,22 +227,19 @@ var levelThree = {
     ],
     platforms: [
         //first area L1
-        {x:100 ,y:500, width: 71, height:23*3, divisorPlatforms:71*3}, 
-        {x:400, y:400, width: 71, height:23*3, divisorPlatforms:71*3},
-        {x:900, y:200, width: 71, height:23*3, divisorPlatforms:71*3},
-        // {x:1500, y:400, width: 256, height:64, divisorPlatforms:256},
-        {x:2000, y:400, width: 71, height:23, divisorPlatforms:71},
-        {x:2000, y:150, width: 71, height:23, divisorPlatforms:71},
+        {x:300 ,y:500, width: 71*3, height:23*3, divisorPlatforms:71*3}, 
+        {x:700, y:400, width: 71*3, height:23*3, divisorPlatforms:71*3},
+        {x:1400, y:500, width: 71*3, height:23*3, divisorPlatforms:71*3},
 
-        //second area L1
-        {x:3600 ,y:500, width: 71, height:23, divisorPlatforms:71},
-        {x:3900 ,y:400, width: 71 , height:23, divisorPlatforms: 71},
-        {x:4100 ,y:80, width: 71 , height:23, divisorPlatforms: 71},
-        {x:4800 ,y:40, width: 71 , height:23, divisorPlatforms: 71},
-        {x:5500, y:40, width: 71, height: 23, divisorPlatforms: 71},
-        {x:6100, y:40, width: 71, height: 23, divisorPlatforms: 71},
+        {x:2400, y:400, width: 71*3, height:23*3, divisorPlatforms:71*3},
+        {x:2613, y:400, width: 71*3, height:23*3, divisorPlatforms:71*3},
+        {x:2826, y:400, width: 71*3, height:23*3, divisorPlatforms:71*3},
+        {x:3039, y:400, width: 71*3, height:23*3, divisorPlatforms:71*3},
+        {x:3252, y:400, width: 71*3, height:23*3, divisorPlatforms:71*3},
+        {x:3465, y:400, width: 71*3, height:23*3, divisorPlatforms:71*3},
 
-        {x:4400 ,y:300, width: 71 , height:23, divisorPlatforms: 71},
+
+       
 
 
 
@@ -250,9 +247,25 @@ var levelThree = {
 
     smallPlatforms: [
         // {x:400 ,y:300, width: 23 , height:23*3, div: 23*3},
-        {x:400 ,y:600, width: 23 , height:23*3, div: 23*3},
-      
+         {x:1700 ,y:350, width: 23*3 , height:23*3, div: 23*3},
+         {x:1900 ,y:450, width: 23*3 , height:23*3, div: 23*3},
 
+         {x:3800 ,y:450, width: 23*3 , height:23*3, div: 23*3},
+         {x:3700 ,y:200, width: 23*3 , height:23*3, div: 23*3},
+
+         {x:3720 ,y:-50, width: 23*3 , height:23*3, div: 23*3},
+
+         {x:3970 ,y:640, width: 23*3 , height: 23*3, div: 23*3},
+
+         {x:4120 ,y:-115, width: 23*3 , height: 23*3, div: 23*3},
+
+
+         {x:3960 ,y:-335, width: 23*3 , height: 23*3, div: 23*3},
+
+
+         {x:3800 ,y:-340, width: 23*3 , height: 23*3, div: 23*3},
+
+         {x:3960 ,y:-525, width: 23*3 , height: 23*3, div: 23*3},
 
 
 
@@ -284,10 +297,20 @@ var levelThree = {
     ],
 
     verticalWall: [
-        {x: 900, y: 250, width: 47, height: 119*3   , div: 47*3 },
-        {x: 6750, y: 377, width: 47, height: 119, div: 47 },
-        {x: 6750, y: 504, width: 47, height: 119, div: 47 },
-        {x: 6750, y: 631, width: 47, height: 119, div: 47 },
+        // {x: 1000, y: -671, width: 47*3, height: 119*3   , div: 47*3 },
+        {x: 1000, y: -314, width: 47*3, height: 119*3   , div: 47*3 },
+        // {x: 1000, y: 43, width: 47*3, height: 119*3   , div: 47*3 },
+        {x: 1000, y: 400, width: 47*3, height: 119*3   , div: 47*3 },
+        {x: 2100, y: 400, width: 47*3, height: 119*3   , div: 47*3 },
+
+        {x: 4300, y: -671, width: 47*3, height: 119*3   , div: 47*3 },
+        {x: 4300, y: -314, width: 47*3, height: 119*3   , div: 47*3 },
+        {x: 4300, y: 43, width: 47*3, height: 119*3   , div: 47*3 },
+        {x: 4300, y: 400, width: 47*3, height: 119*3   , div: 47*3 },
+
+
+
+
 
     ],
 
