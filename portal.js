@@ -1,6 +1,6 @@
 class Portal {
-    constructor(game, x, y){
-        Object.assign(this, { game, x, y });
+    constructor(game, x, y, level){
+        Object.assign(this, { game, x, y, level});
         this.game.portal = this;
         this.velocity = { x: 0, y: 0 };
         this.portal = assetMangager.getAsset("./sprites/portal.png");
@@ -24,7 +24,7 @@ class Portal {
         var that = this;
         that.game.entities.forEach(function (entity) {
             if (entity instanceof Mage  && entity.BB && that.BB.collide(entity.BB)) {
-                that.game.camera.loadLevel(levelOne);
+                that.game.camera.loadLevel(that.level, false);
                 // this.game.startInput();
             }
         

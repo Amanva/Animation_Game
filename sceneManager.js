@@ -6,20 +6,22 @@ class SceneManager {
         this.healthPotion = 0;
         this.manaPotion = 0;
         this.elapsedTime = 0;
-        this.title = true;
+        this.title = false;
         this.animations = [];
         this.loadAnimations();
         this.damage = 10;
         this.level = null;
-        this.mage = new Mage(this.game, 100,-1100);
+        this.mage = new Mage(this.game, 50,400);
         this.heartMana = new HeartManaHQ(this.game, this.mage); 
-        this.loadLevel(levelThree, this.title);
+        this.loadLevel(levelOne, this.title);
         this.myCursor = new Cursor(this.game);
         
     };
     clearEntities() {
         this.game.entities.forEach(function (entity) {
+            // if(!(entity instanceof Mage)){
             entity.removeFromWorld = true;
+            // }
         });
     };
     loadLevel(level, title){
@@ -28,15 +30,24 @@ class SceneManager {
         this.level = level;
         this.lastMage = this.mage;
         this.clearEntities();
-        this.mage = this.lastMage;
-        this.game.addEntity(this.mage);
+        
         if(this.level === levelOne){
+        if(this.mage.dead){
+            this.mage = new Mage(this.game, 50,300);
+            this.game.addEntity(this.mage);
+        }
+        else{
+        this.game.addEntity(this.mage);
+        }
         this.x = 0;
         this.y = 0;
+        this.mage.x = 100;
+        this.mage.y = 400;
         this.healthPotion = 0;
         this.manaPotion = 0;
         this.game.addEntity(new Item(this.game, 400, 400, 0));
         this.fireBoss = new fireBoss(this.game, 9600, 300); 
+        this.game.addEntityToBegin(new Portal(this.game, 500, 430, levelThree));
         //mobs
         //chainbot
         this.game.addEntity(new ChainBot(this.game, 2629,507));
@@ -120,11 +131,19 @@ class SceneManager {
     else if(this.level === levelThree){
         this.x = 0;
         this.y = 0;
-
+        // this.mage.x = 100;
+        // this.mage.y = 400;
+        if(this.mage.dead){
+            this.mage = new Mage(this.game, 50,300);
+            this.game.addEntity(this.mage);
+        }
+        else{
+            this.game.addEntity(this.mage);
+            }
         // this.game.addEntity(new Boar(this.game, 400, 500));
         this.game.addEntity(new Item(this.game, 400, 400, 1));
-        // this.game.addEntity(new Boar(this.game, 400, 500));
-        // this.game.addEntity(new earthSlime(this.game, 400, 500));
+        this.game.addEntity(new Boar(this.game, 400, 500));
+        this.game.addEntity(new earthSlime(this.game, 400, 500));
 
 
         // if(level.dirt){   
@@ -201,10 +220,14 @@ class SceneManager {
         }
     }
     update() {
-        console.log(this.game.click);
+        // this.game.entities.forEach(function (entity) {
+        //     if(entity instanceof fireBoss){
+        //         console.log("exists");
+        //     }
+        // });
         if(this.title){
             if(this.game.click && (this.game.click.y > 224) && (this.game.click.y < 312) && (this.game.click.x > 733) && (this.game.click.x < 1056)){
-                this.loadLevel(levelOne, false);
+                this.loadLevel(levelThree, false);
                 this.title = false;
             }
         }
@@ -289,6 +312,8 @@ class SceneManager {
             ctx.font = "30px Verdana";
             ctx.fillText(xV, 200, 100);
             ctx.fillText(yV, 200, 140);
+            ctx.fillText("xV=" + Math.floor(this.game.mage.velocity.x), 200, 180);
+            ctx.fillText("yV="+ Math.floor(this.game.mage.velocity.y), 200, 220);
         }
     }
     this.myCursor.draw(ctx);

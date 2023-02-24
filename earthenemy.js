@@ -455,8 +455,7 @@ class earthSlime{
         this.facing = 0;
         this.animations = [];
         this.loadAnimations();
-        this.BB;
-        this.lastMageDetection;
+        this.updateBB();
         this.dead = false;
         this.hp = 50;
         this.healthbar = new HealthBar(this.game, this);
