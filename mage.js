@@ -112,7 +112,13 @@ class Mage {
         if(this.dead){
             this.deadPlayer(TICK, DE_ACC);
             if(this.animations[this.states.death][this.facing].isAlmostDone(TICK)){
-                this.game.camera.loadLevel(levelOne);
+                this.removeFromWorld = true;
+                if(this.game.camera.level === levelOne){
+                this.game.camera.loadLevel(levelOne, false);
+                }
+                else if(this.game.camera.level === levelThree){
+                    this.game.camera.loadLevel(levelThree, false);
+                }
                 this.hp = 100;
                 this.curMana = 100;
             } 

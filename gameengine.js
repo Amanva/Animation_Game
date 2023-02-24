@@ -189,6 +189,7 @@ class GameEngine {
                 //console.log("focused lost")
                 that.inCanvas = false;
             }
+            // console.log(that.inCanvas);
         }
         setInterval(isFocused, 300);
     };

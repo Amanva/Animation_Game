@@ -351,7 +351,7 @@ class fireBoss{
         if(this.dead){
             this.velocity.x = 0;
             this.velocity.y = 0;
-            this.game.addEntityToBegin(new Portal(this.game, this.x, 430));
+            // this.game.addEntityToBegin(new Portal(this.game, this.x, 430));
             // this.game.addEntityToBegin(new Item(this.game,8000,500))
         }
         // console.log(this.state);
