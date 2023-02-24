@@ -29,7 +29,7 @@ class Projectile{
         var that = this;
         this.game.entities.forEach(function (entity) {
             if (entity.BB && that.BB.collide(entity.BB)) {
-                if ((entity instanceof Ground || entity instanceof Wall || entity instanceof Platform || entity instanceof movingPlatforms) && that.BB.collide(entity.BB)) {
+                if ((entity instanceof Ground || entity instanceof Wall || entity instanceof Platform || entity instanceof movingPlatforms || entity instanceof verticalWall || entity instanceof smallPlatforms) && that.BB.collide(entity.BB)) {
                    that.removeFromWorld = true;
                 }
                 if((entity instanceof fireBoss) || (entity instanceof Monster) || (entity instanceof Slime) || (entity instanceof Boar) || (entity instanceof earthSlime)){
@@ -100,7 +100,7 @@ class FireBall{
         var that = this;
         this.game.entities.forEach(function (entity) {
             if (entity.BB && that.BB.collide(entity.BB)) {
-                if ((entity instanceof Ground || entity instanceof Wall || entity instanceof Platform || entity instanceof movingPlatforms) && that.BB.collide(entity.BB)) {
+                if ((entity instanceof Ground || entity instanceof Wall || entity instanceof Platform || entity instanceof movingPlatforms || entity instanceof verticalWall || entity instanceof smallPlatforms) && that.BB.collide(entity.BB)) {
                    that.removeFromWorld = true;
                 }
                 if(entity instanceof fireBoss){
@@ -116,6 +116,10 @@ class FireBall{
                     entity.loseHealth(100);
                 }
                 if(entity instanceof Slime){
+                    that.removeFromWorld = true;
+                    entity.loseHealth(100);
+                }
+                if(entity instanceof earthSlime){
                     that.removeFromWorld = true;
                     entity.loseHealth(100);
                 }
@@ -164,7 +168,7 @@ class Earth{
         var that = this;
         this.game.entities.forEach(function (entity) {
             if (entity.BB && that.BB.collide(entity.BB)) {
-                if ((entity instanceof Ground || entity instanceof Wall || entity instanceof Platform || entity instanceof movingPlatforms) && that.BB.collide(entity.BB)) {
+                if ((entity instanceof Ground || entity instanceof Wall || entity instanceof Platform || entity instanceof movingPlatforms || entity instanceof verticalWall || entity instanceof smallPlatforms) && that.BB.collide(entity.BB)) {
                    that.removeFromWorld = true;
                 }
                 if(entity instanceof fireBoss){
@@ -176,6 +180,10 @@ class Earth{
                     entity.hp -= 100;
                 }
                 if(entity instanceof Monster){
+                    that.removeFromWorld = true;
+                    entity.loseHealth(100);
+                }
+                if(entity instanceof Slime){
                     that.removeFromWorld = true;
                     entity.loseHealth(100);
                 }

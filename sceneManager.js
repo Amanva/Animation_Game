@@ -11,7 +11,7 @@ class SceneManager {
         this.loadAnimations();
         this.damage = 10;
         this.level = null;
-        this.mage = new Mage(this.game, 100,-1100);
+        this.mage = new Mage(this.game, 100,-300);
         this.heartMana = new HeartManaHQ(this.game, this.mage); 
         this.loadLevel(levelThree, this.title);
         this.myCursor = new Cursor(this.game);
@@ -24,6 +24,7 @@ class SceneManager {
     };
     loadLevel(level, title){
         this.title = title;
+        
         if(!this.title){
         this.level = level;
         this.lastMage = this.mage;
@@ -124,7 +125,8 @@ class SceneManager {
         // this.game.addEntity(new Boar(this.game, 400, 500));
         this.game.addEntity(new Item(this.game, 400, 400, 1));
         // this.game.addEntity(new Boar(this.game, 400, 500));
-        // this.game.addEntity(new earthSlime(this.game, 400, 500));
+        // this.game.addEntity(new earthSlime(this.game, 5400, 500));
+        // this.game.addEntity(new mudGuard(this.game, 400,400,1));
 
 
         // if(level.dirt){   
@@ -169,7 +171,12 @@ class SceneManager {
                 this.game.addEntity(new Gate(this.game, gate.x, gate.y, gate.wallX, gate.wallY, gate.wallWidth, gate.wallHeight, gate.div));
             }
         }
-        
+        if(level.trigger){
+            for (var i = 0; i < level.trigger.length; i++) {
+                let triggers = level.trigger[i];
+                this.game.addEntity(new trigger(this.game, triggers.x, triggers.y));
+            }
+        }
       
 
         this.game.addEntity(new Sign(this.game, 3200, -377, 45, 10 , 3, "Defeat the monsters near the other shrine and come back"));

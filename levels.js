@@ -231,8 +231,12 @@ var levelThree = {
         
     ],
     gate: [
-        {x:3450 ,y:-525, wallX: 3320, wallY:-605, wallWidth: 47*2, wallHeight: 119*2, div:47*2}
+        {x:3450 ,y:-525, wallX: 4655, wallY:70, wallWidth: 47*2, wallHeight: 119*2, div:47*2},
+        {x:4490 ,y:90, wallX: 6100, wallY:400, wallWidth: 47*3, wallHeight: 119*3, div:47*3}
 
+    ],
+    trigger: [
+        {x: 5931, y: 0 },
     ],
     platforms: [
         //first area L1
@@ -281,6 +285,10 @@ var levelThree = {
         {x:5292, y:-0, width: 71*3, height:23*3, divisorPlatforms:71*3},
         {x:5505, y:-0, width: 71*3, height:23*3, divisorPlatforms:71*3},
         {x:5718, y:-0, width: 71*3, height:23*3, divisorPlatforms:71*3},
+
+
+        //platform for shrine
+        {x:4440, y:240, width: 71*3, height:23*3, divisorPlatforms:71*3},
 
 
     ],
@@ -381,7 +389,7 @@ var levelThree = {
         {x:6100, y:-671, width: 47*3, height:119*3, div:47*3},
         {x: 6100, y: -314, width: 47*3, height: 119*3   , div: 47*3 },
         {x: 6100, y: 43, width: 47*3, height: 119*3   , div: 47*3 },
-        {x: 6100, y: 400, width: 47*3, height: 119*3   , div: 47*3 },
+        // {x: 6100, y: 400, width: 47*3, height: 119*3   , div: 47*3 },
 
 
     ],

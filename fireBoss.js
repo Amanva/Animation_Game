@@ -658,7 +658,7 @@ class Slime{
     loseHealth(damage){
         this.hp -= damage;
     }
-     draw(ctx) {
+    draw(ctx) {
         if(this.hp >= 0){
             this.healthbar.draw(ctx);
         }
