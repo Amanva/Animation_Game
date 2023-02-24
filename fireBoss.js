@@ -498,7 +498,7 @@ class Slime{
         Object.assign(this, { game, x, y });
         this.velocity = { x: 0, y: 0 };
 
-        this.spritesheet = assetMangager.getAsset("./slime_demonboss_specialmoves.png");
+        this.spritesheet = assetMangager.getAsset("./sprites/enemies/slime.png");
         this.state = 1;
         this.facing = 0;
         this.animations = [];
@@ -532,7 +532,9 @@ class Slime{
 
         // walking
         this.animations[1][1] = new Animator(this.spritesheet, 120, 215, 200, 160, 8, 0.1, 88, 0, false, true, false);
-    
+
+
+        //death
         this.animations[2][0] = new Animator(this.spritesheet, 90, 534, 230, 160, 9, 0.1, 58, 0, false, true, false);
 
         this.animations[2][1] = new Animator(this.spritesheet, 90, 534, 230, 160, 9, 0.1, 58, 0, false, true, false);

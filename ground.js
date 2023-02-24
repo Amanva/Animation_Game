@@ -165,7 +165,6 @@ class BackGround {
         this.background1 = assetMangager.getAsset(levelThree.background1);
         this.background2 = assetMangager.getAsset(levelThree.background2);
         this.background3 = assetMangager.getAsset(levelThree.background3);
-
         }
 
     };
@@ -188,7 +187,13 @@ class Platform {
     constructor(game, x, y, width, height, divisor) {
         Object.assign(this, { game, x, y, width, height, divisor});
 
-        this.spritesheet = assetMangager.getAsset("./sprites/Lava64.png");
+        if(this.game.camera.level === levelOne){
+            this.spritesheet = assetMangager.getAsset("./sprites/Lava64.png");
+        }
+        else if(this.game.camera.level === levelThree){
+
+            this.spritesheet = assetMangager.getAsset("./sprites/earthlevel.png")
+        }
         this.updateBB();
     };
     updateBB() {
@@ -204,9 +209,16 @@ class Platform {
     update() {
     };
     draw(ctx) {
+    
         let brickWidth = this.width / (this.divisor);
         for (var i = 0; i < brickWidth; i++) {
-            ctx.drawImage(this.spritesheet, 322, 256, 127, 31, this.x + i * (this.divisor)-this.game.camera.x, this.y-this.game.camera.y, this.divisor, this.height);
+            if(this.game.camera.level === levelOne){
+                ctx.drawImage(this.spritesheet, 322, 256, 127, 31, this.x + i * (this.divisor)-this.game.camera.x, this.y-this.game.camera.y, this.divisor, this.height);
+            }
+            else if(this.game.camera.level === levelThree){
+                ctx.drawImage(this.spritesheet, 120, 216, 71, 23, this.x + i * (this.divisor)-this.game.camera.x, this.y-this.game.camera.y, this.divisor, this.height);
+
+            }
         }
 
         if(debug){
@@ -215,6 +227,8 @@ class Platform {
             // ctx.strokeRect(this.rightBB.x-this.game.camera.x, this.rightBB.y-this.game.camera.y, this.rightBB.width, this.rightBB.height);
             // ctx.strokeRect(this.topBB.x-this.game.camera.x, this.topBB.y-this.game.camera.y, this.topBB.width, this.topBB.height);
             }
+        
+        
     };
 };
 class Tiles {
@@ -365,7 +379,12 @@ class verticalWall {
     constructor(game, x, y, width, height, divisor) {
         Object.assign(this, { game, x, y, width, height, divisor});
 
-        this.spritesheet = assetMangager.getAsset("./sprites/Lava64.png");
+        if(this.game.camera.level === levelOne){
+            this.spritesheet = assetMangager.getAsset("./sprites/Lava64.png");
+        }
+        else if(this.game.camera.level === levelThree){
+            this.spritesheet = assetMangager.getAsset("./sprites/earthlevel.png");
+        }
         this.updateBB();
     };
     updateBB() {
@@ -383,7 +402,14 @@ class verticalWall {
     draw(ctx) {
         let brickWidth = this.width / (this.divisor);
         for (var i = 0; i < brickWidth; i++) {
-            ctx.drawImage(this.spritesheet, 448, 128, 127, 127, this.x + i * (this.divisor)-this.game.camera.x, this.y-this.game.camera.y, this.divisor, this.height);
+            if(this.game.camera.level === levelOne){
+                ctx.drawImage(this.spritesheet, 448, 128, 127, 127, this.x + i * (this.divisor)-this.game.camera.x, this.y-this.game.camera.y, this.divisor, this.height);
+            }
+            else if(this.game.camera.level === levelThree){
+                
+                ctx.drawImage(this.spritesheet, 216, 144, 47, 119, this.x + i * (this.divisor)-this.game.camera.x, this.y-this.game.camera.y, this.divisor, this.height);
+
+            }
         }
 
         if(debug){
@@ -396,8 +422,12 @@ class verticalWall {
 class smallPlatforms {
     constructor(game, x, y, width, height, divisor) {
         Object.assign(this, { game, x, y, width, height, divisor});
-
-        this.spritesheet = assetMangager.getAsset("./sprites/Lava64.png");
+        if(this.game.camera.level === levelOne){
+            this.spritesheet = assetMangager.getAsset("./sprites/Lava64.png");
+        }
+        else if(this.game.camera.level === levelThree){
+            this.spritesheet = assetMangager.getAsset("./sprites/earthlevel.png");  
+        }
         this.updateBB();
     };
     updateBB() {
@@ -415,7 +445,12 @@ class smallPlatforms {
     draw(ctx) {
         let brickWidth = this.width / (this.divisor);
         for (var i = 0; i < brickWidth; i++) {
-            ctx.drawImage(this.spritesheet, 256, 238, 63, 17, this.x + i * (this.divisor)-this.game.camera.x, this.y-this.game.camera.y, this.divisor, this.height);
+            if(this.game.camera.level === levelOne){
+                ctx.drawImage(this.spritesheet, 256, 238, 63, 17, this.x + i * (this.divisor)-this.game.camera.x, this.y-this.game.camera.y, this.divisor, this.height);
+            }
+            else if(this.game.camera.level === levelThree){
+                ctx.drawImage(this.spritesheet, 144, 48, 23, 23, this.x + i * (this.divisor)-this.game.camera.x, this.y-this.game.camera.y, this.divisor, this.height);
+            }
         }
 
         if(debug){

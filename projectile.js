@@ -32,7 +32,7 @@ class Projectile{
                 if ((entity instanceof Ground || entity instanceof Wall || entity instanceof Platform || entity instanceof movingPlatforms) && that.BB.collide(entity.BB)) {
                    that.removeFromWorld = true;
                 }
-                if((entity instanceof fireBoss) || (entity instanceof Monster) || (entity instanceof Slime) || (entity instanceof Boar)){
+                if((entity instanceof fireBoss) || (entity instanceof Monster) || (entity instanceof Slime) || (entity instanceof Boar) || (entity instanceof earthSlime)){
                     that.removeFromWorld = true;
                     entity.loseHealth(that.getDmg());
                     console.log("HIT2");

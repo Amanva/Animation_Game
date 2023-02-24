@@ -11,7 +11,7 @@ class SceneManager {
         this.loadAnimations();
         this.damage = 10;
         this.level = null;
-        this.mage = new Mage(this.game, 100,460);
+        this.mage = new Mage(this.game, 100,-1100);
         this.heartMana = new HeartManaHQ(this.game, this.mage); 
         this.loadLevel(levelThree, this.title);
         this.myCursor = new Cursor(this.game);
@@ -123,6 +123,10 @@ class SceneManager {
 
         // this.game.addEntity(new Boar(this.game, 400, 500));
         this.game.addEntity(new Item(this.game, 400, 400, 1));
+        // this.game.addEntity(new Boar(this.game, 400, 500));
+        // this.game.addEntity(new earthSlime(this.game, 400, 500));
+
+
         // if(level.dirt){   
         //     for (var i = 0; i < level.dirt.length; i++) {
         //         let dirt = level.dirt[i];
@@ -141,15 +145,34 @@ class SceneManager {
                 this.game.addEntity(new Ground(this.game, ground.x, ground.y, ground.width, ground.height, ground.div));
             }
         }
+        if(level.platforms){
+            for (var i = 0; i < level.platforms.length; i++) {
+                let platform = level.platforms[i];
+                this.game.addEntity(new Platform(this.game, platform.x, platform.y, platform.width, platform.height, platform.divisorPlatforms));
+            }
+        }
+        if(level.smallPlatforms){
+            for (var i = 0; i < level.smallPlatforms.length; i++) {
+                let tiles = level.smallPlatforms[i];
+                this.game.addEntity(new smallPlatforms(this.game, tiles.x, tiles.y, tiles.width, tiles.height, tiles.div));
+            }
+        }
+        if(level.verticalWall){
+            for (var i = 0; i < level.verticalWall.length; i++) {
+                let tiles = level.verticalWall[i];
+                this.game.addEntity(new verticalWall(this.game, tiles.x, tiles.y, tiles.width, tiles.height, tiles.div));
+            }
+        }
+        if(level.gate){
+            for (var i = 0; i < level.gate.length; i++) {
+                let gate = level.gate[i];
+                this.game.addEntity(new Gate(this.game, gate.x, gate.y, gate.wallX, gate.wallY, gate.wallWidth, gate.wallHeight, gate.div));
+            }
+        }
         
-        
-        // if(level.platforms){
-        //     for (var i = 0; i < level.platforms.length; i++) {
-        //         let platform = level.platforms[i];
-        //         this.game.addEntity(new Platform(this.game, platform.x, platform.y, platform.width, platform.height, platform.divisorPlatforms));
-        //     }
-        // }
+      
 
+        this.game.addEntity(new Sign(this.game, 3200, -377, 45, 10 , 3, "Defeat the monsters near the other shrine and come back"));
 
         this.game.addEntity(new BackGround(this.game, 0, 0, 1800, 800, this.level));
     }
