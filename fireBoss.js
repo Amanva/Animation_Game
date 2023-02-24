@@ -503,7 +503,7 @@ class Slime{
         this.facing = 0;
         this.animations = [];
         this.loadAnimations();
-        this.BB;
+        this.updateBB();
         this.lastMageDetection;
         this.dead = false;
         this.hp = 50;

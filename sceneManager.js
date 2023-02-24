@@ -35,7 +35,6 @@ class SceneManager {
         this.y = 0;
         this.healthPotion = 0;
         this.manaPotion = 0;
-        this.game.addEntity(new Potion(this.game, 0, 0, true, 0));
         this.game.addEntity(new Item(this.game, 400, 400, 0));
         this.fireBoss = new fireBoss(this.game, 9600, 300); 
         //mobs
@@ -52,7 +51,7 @@ class SceneManager {
         this.game.addEntity(new Monster(this.game, 2300, -300));
 
          
-        //slime
+        // slime
         this.game.addEntity(new Slime(this.game, 1400, 250));
         this.game.addEntity(new Slime(this.game, 1800, 50));
         this.game.addEntity(new Slime(this.game, 4000, 500));
@@ -182,7 +181,7 @@ class SceneManager {
         console.log(this.game.click);
         if(this.title){
             if(this.game.click && (this.game.click.y > 224) && (this.game.click.y < 312) && (this.game.click.x > 733) && (this.game.click.x < 1056)){
-                this.loadLevel(levelThree, false);
+                this.loadLevel(levelOne, false);
                 this.title = false;
             }
         }
