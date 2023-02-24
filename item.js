@@ -44,7 +44,7 @@ class Item {
                 that.removeFromWorld = true;
                 }
                 else if(that.type === 1){
-                    that.game.mage.jumpItem = true;
+                    that.game.camera.jumpItem = true;
                     that.removeFromWorld = true;
                     }
             }

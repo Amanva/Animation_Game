@@ -5,44 +5,44 @@ class SceneManager {
         this.game.camera = this;
         this.healthPotion = 0;
         this.manaPotion = 0;
+        this.jumpItem = false;
         this.elapsedTime = 0;
+        this.mageDead = false;
         this.title = false;
         this.animations = [];
         this.loadAnimations();
         this.damage = 10;
         this.level = null;
         this.mage = new Mage(this.game, 50,400);
-        this.heartMana = new HeartManaHQ(this.game, this.mage); 
+        this.game.addEntityToBegin(this.mage);
         this.loadLevel(levelOne, this.title);
         this.myCursor = new Cursor(this.game);
         
     };
     clearEntities() {
         this.game.entities.forEach(function (entity) {
-            // if(!(entity instanceof Mage)){
+            if(!(entity instanceof Mage)){
             entity.removeFromWorld = true;
-            // }
+            }
         });
+        // this.mageDead = true;
     };
     loadLevel(level, title){
         this.title = title;
         if(!this.title){
         this.level = level;
-        this.lastMage = this.mage;
+        // this.lastHP = this.mage.hp;
+        // this.lastMana = this.mage.curMana;
+        // this.lastJumpItem = this.mage.jumpItem;
+        
         this.clearEntities();
         
         if(this.level === levelOne){
-        if(this.mage.dead){
-            this.mage = new Mage(this.game, 50,300);
-            this.game.addEntity(this.mage);
-        }
-        else{
-        this.game.addEntity(this.mage);
-        }
+            // this.lastMage = new Mage(this.game, 50,300);
         this.x = 0;
         this.y = 0;
-        this.mage.x = 100;
-        this.mage.y = 400;
+        // this.mage.x = 100;
+        // this.mage.y = 400;
         this.healthPotion = 0;
         this.manaPotion = 0;
         this.game.addEntity(new Item(this.game, 400, 400, 0));
@@ -126,20 +126,13 @@ class SceneManager {
         this.game.addEntity(new Sign(this.game, 302, -288, 50, 30, 1, "What does this do?"));
         this.game.addEntity(new Sign(this.game, 7300, 670, 70, 30, 1, "Up I must go"));
         this.game.addEntity(new BackGround(this.game, 0, 0, 1800, 800, this.level));
-        this.mage.velocity = { x: 0, y: 0 };
     }
     else if(this.level === levelThree){
         this.x = 0;
         this.y = 0;
         // this.mage.x = 100;
         // this.mage.y = 400;
-        if(this.mage.dead){
-            this.mage = new Mage(this.game, 50,300);
-            this.game.addEntity(this.mage);
-        }
-        else{
-            this.game.addEntity(this.mage);
-            }
+        // console.log(this.mage.dead);
         // this.game.addEntity(new Boar(this.game, 400, 500));
         this.game.addEntity(new Item(this.game, 400, 400, 1));
         this.game.addEntity(new Boar(this.game, 400, 500));
@@ -189,8 +182,6 @@ class SceneManager {
             }
         }
         
-      
-
         this.game.addEntity(new Sign(this.game, 3200, -377, 45, 10 , 3, "Defeat the monsters near the other shrine and come back"));
 
         this.game.addEntity(new BackGround(this.game, 0, 0, 1800, 800, this.level));
@@ -209,7 +200,18 @@ class SceneManager {
         //         this.game.addEntity(new monster(this.game, Monster.x, Monster.y));
         //     }
         // }
-       
+        // this.lastMage = new Mage(this.game, 50,300);
+        // this.lastMage.hp = this.lastHP;
+        // this.lastMage.curMana = this.lastMana;
+        // this.mage = this.lastMage;
+        if(this.mageDead){
+            this.mage = new Mage(this.game, 50,400);
+            this.mageDead = false;
+            this.game.addEntityToBegin(this.mage);
+        }
+        this.heartMana = new HeartManaHQ(this.game, this.mage); 
+        
+        this.mage.velocity = { x: 0, y: 0 };
 } 
     }
     potionDrop(x, y){
@@ -220,11 +222,7 @@ class SceneManager {
         }
     }
     update() {
-        // this.game.entities.forEach(function (entity) {
-        //     if(entity instanceof fireBoss){
-        //         console.log("exists");
-        //     }
-        // });
+        console.log(this.heartMana.cur_Hearts, this.mage.hp);
         if(this.title){
             if(this.game.click && (this.game.click.y > 224) && (this.game.click.y < 312) && (this.game.click.x > 733) && (this.game.click.x < 1056)){
                 this.loadLevel(levelThree, false);
