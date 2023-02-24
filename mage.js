@@ -29,7 +29,9 @@ class Mage {
         this.manaTime = 0;
         // this.healthbar = new HealthBar(game, this);
         // this.manaBar = new ManaBar(game, this);
+        this.doubleJump = false;
         this.playerJump = false;
+        this.jumpItem = false;
         this.air = false;
         this.shoot = false;
         this.timetoShoot = 0;
@@ -144,17 +146,25 @@ class Mage {
                 else if(this.game.digit3 && (this.curMana >= 50)){       
                     this.specialAttack3 = true;
                 }
-                if(this.game.jump && this.playerJump){
+                if(this.game.jump && (this.playerJump)){
                     this.state = this.states.jump;  
                     this.velocity.y = -MAXFALL;
                     this.animations[this.state][this.facing].elapsedTime = 0;
-                    
                     this.playerJump = false;
+                    this.game.jump = false;
                 }
             }
              else {
+                // console.log(this.game.jump, this.playerJump, this.doubleJump);
+                    if(this.jumpItem && this.game.jump && this.doubleJump){  
+                        console.log(this.doubleJump)
+                        this.velocity.y = -150;
+                        this.animations[this.state][this.facing].elapsedTime = 0;
+                        this.doubleJump = false;
+                    }
                 if(this.game.attack){
                     this.shoot = true;
+                    this.velocity.y = 0;
                 }
                 else if(this.game.digit1 && (this.curMana >= 50)){       
                     this.specialAttack1 = true;
@@ -222,8 +232,8 @@ class Mage {
             }
         }
             
-            if (this.velocity.y >= MAXFALL) this.velocity.y = MAXFALL;
-            if (this.velocity.y <= -MAXFALL) this.velocity.y = -MAXFALL;
+            // if (this.velocity.y >= MAXFALL) this.velocity.y = MAXFALL;
+            // if (this.velocity.y <= -MAXFALL) this.velocity.y = -MAXFALL;
 
             if (this.velocity.x >= RUN) this.velocity.x = RUN;
             if (this.velocity.x <= -RUN) this.velocity.x = -RUN;
@@ -240,6 +250,7 @@ class Mage {
                         if (((entity instanceof Ground) || (entity instanceof Platform) || (entity instanceof Wall) || (entity instanceof Tiles || (entity instanceof smallPlatforms) || (entity instanceof verticalWall))) && (that.lastBB.bottom <= entity.BB.top)){
                           
                             that.playerJump = true;
+                            that.doubleJump = true;
                             that.velocity.y = 0;
                             that.y = entity.BB.top - PARAMS.PLAYERHEIGHT - that.yBBOffset;
                             if(that.state == that.states.jump) that.state = that.states.idle;
@@ -318,6 +329,7 @@ class Mage {
                 this.manaTime = 0;
                 this.curMana += 10;
             }
+            // console.log(this.velocity.x);
     };
     healthPotion() {
         if (this.hp < this.maxHP) {
@@ -368,6 +380,7 @@ class Mage {
         }
     }
     removeHealth(damageRecieved){
+        assetMangager.playAsset("./sounds/sfx/playerhit.mp3");
         this.hp -= damageRecieved;
     }
     

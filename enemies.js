@@ -94,8 +94,6 @@ class ChainBot {
                     that.state = 6; // death
                     that.velocity.x = 0;
                     if(that.animations[6].isAlmostDone(TICK)){
-                        that.game.addEntityToBegin(new Potion(that.game, that.x+140, that.y+25, false, 0));
-                        that.game.addEntityToBegin(new Potion(that.game, that.x+140, that.y+25, false, 1));
 
                         that.dead = true;
                         that.removeFromWorld = true;

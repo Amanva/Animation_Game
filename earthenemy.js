@@ -104,6 +104,7 @@ for(var l = 0; l <= 3; l++){
         this.velocity.y = 0;
         let frame = this.animations[3][this.facing].currentFrame();
         if(this.animations[3][this.facing].isAlmostDone(TICK)){
+            this.game.camera.potionDrop(this.x, this.y);
             this.removeFromWorld = true;
         }
         
@@ -116,7 +117,6 @@ for(var l = 0; l <= 3; l++){
         if(!that.dead){     
         if (entity instanceof Mage) {
             if(that.playerHit){
-                // that.velocity.x = 1000;
                 that.attackCoolDown += TICK;
             }
             if(that.attackCoolDown >= 2){
@@ -124,10 +124,10 @@ for(var l = 0; l <= 3; l++){
                 that.playerHit = false;
                 that.attackCoolDown = 0;
             }
-            const middleMage = { x: entity.BB.left + entity.BB.width / 2, y: entity.BB.top + entity.BB.height / 2 };
-            const middleMonster = { x: that.BB.left + that.BB.width / 2, y: that.BB.top + that.BB.height / 2 };
-            const xDis = middleMage.x - middleMonster.x;
-            const distance = distanceBetween(middleMage,middleMonster);
+            let middleMage = { x: entity.BB.left + entity.BB.width / 2, y: entity.BB.top + entity.BB.height / 2 };
+            let middleMonster = { x: that.BB.left + that.BB.width / 2, y: that.BB.top + that.BB.height / 2 };
+            let xDis = middleMage.x - middleMonster.x;
+            let distance = distanceBetween(middleMage,middleMonster);
             let mageDB = entity.BB && that.MageDetection.collide(entity.BB);
             let mageAB = entity.BB && that.AttackBB.collide(entity.BB);
             // let frame = that.animations[that.state][that.facing].currentFrame();
@@ -152,7 +152,6 @@ for(var l = 0; l <= 3; l++){
                 that.state = 0;
             }
             if(entity.BB.collide(that.BB) && !that.playerHit){
-                assetMangager.playAsset("./sounds/sfx/playerhit.mp3");
                 that.playerHit = true;
                 entity.removeHealth(10);
                 that.updateBB();
@@ -160,7 +159,7 @@ for(var l = 0; l <= 3; l++){
         }
         };
         });
-        console.log(this.velocity.x)
+        // console.log(this.velocity.x)
  }
  PlatformCollision(){
     var that = this;

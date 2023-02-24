@@ -114,11 +114,11 @@ for(var l = 0; l <= 3; l++){
     this.game.entities.forEach(function (entity) {   
         if(!that.dead){     
         if (entity instanceof Mage) {
-            const middleMage = { x: entity.BB.left + entity.BB.width / 2, y: entity.BB.top + entity.BB.height / 2 };
-            const middleMonster = { x: that.BB.left + that.BB.width / 2, y: that.BB.top + that.BB.height / 2 };
-            const xDis = middleMage.x - middleMonster.x;
-            const yDis = middleMage.y - middleMonster.y;
-            const distance = distanceBetween(middleMage,middleMonster);
+            let middleMage = { x: entity.BB.left + entity.BB.width / 2, y: entity.BB.top + entity.BB.height / 2 };
+            let middleMonster = { x: that.BB.left + that.BB.width / 2, y: that.BB.top + that.BB.height / 2 };
+            let xDis = middleMage.x - middleMonster.x;
+            let yDis = middleMage.y - middleMonster.y;
+            let distance = distanceBetween(middleMage,middleMonster);
             let mageDB = entity.BB && that.MageDetection.collide(entity.BB);
             let mageAB = entity.BB && that.AttackBB.collide(entity.BB);
             let frame = that.animations[that.state][that.facing].currentFrame();

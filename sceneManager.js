@@ -6,20 +6,39 @@ class SceneManager {
         this.healthPotion = 0;
         this.manaPotion = 0;
         this.elapsedTime = 0;
+        this.title = false;
+        this.animations = [];
+        this.loadAnimations();
         this.damage = 10;
         this.level = null;
         this.mage = new Mage(this.game, 100,460);
         this.heartMana = new HeartManaHQ(this.game, this.mage); 
-        this.loadLevel(levelThree);
+        this.loadLevel(levelThree, this.title);
         this.myCursor = new Cursor(this.game);
         
     };
+    loadAnimations(){
+        for (var i = 0; i < 3; i++) { 
+            this.animations.push([]);
+            for (var j = 0; j < 2; j++) { 
+                this.animations[i].push([]);
+            }
+        }
+
+        this.animations[0][0] = new Animator(assetMangager.getAsset("./sprites/mageRight.png"), 1491, 284, 80, 105, 1, 0.05, 0,0, false, true, false);
+        this.animations[0][1] = new Animator(assetMangager.getAsset("./sprites/mageRight.png"), 1491, 284, 80, 105, 1, 0.05, 0,0, false, true, false);
+        this.animations[1][0] = new Animator(assetMangager.getAsset("./sprites/potion.png"), 0, 0, 16, 16, 1, 0.1, 0, 0, false, true, false);
+        this.animations[2][0] = new Animator(assetMangager.getAsset("./sprites/potion.png"), 0, 16, 16, 16, 1, 0.1, 0, 0, false, true, false);
+        this.animations[0][1].flipped = true;
+    }
     clearEntities() {
         this.game.entities.forEach(function (entity) {
             entity.removeFromWorld = true;
         });
     };
-    loadLevel(level){
+    loadLevel(level, title){
+        this.title = title;
+        if(!this.title){
         this.level = level;
         this.lastMage = this.mage;
         this.clearEntities();
@@ -31,7 +50,7 @@ class SceneManager {
         this.healthPotion = 0;
         this.manaPotion = 0;
         this.game.addEntity(new Potion(this.game, 0, 0, true, 0));
-        this.game.addEntity(new Item(this.game, 400, 400));
+        this.game.addEntity(new Item(this.game, 400, 400, 0));
         this.fireBoss = new fireBoss(this.game, 9600, 300); 
         //mobs
         //chainbot
@@ -117,7 +136,8 @@ class SceneManager {
         this.x = 0;
         this.y = 0;
 
-        this.game.addEntity(new Boar(this.game, 400, 500));
+        // this.game.addEntity(new Boar(this.game, 400, 500));
+        this.game.addEntity(new Item(this.game, 400, 400, 1));
         // if(level.dirt){   
         //     for (var i = 0; i < level.dirt.length; i++) {
         //         let dirt = level.dirt[i];
@@ -163,18 +183,20 @@ class SceneManager {
         //     }
         // }
        
-        
+} 
+    }
+    potionDrop(x, y){
+        const ran = randomInt(11); 
+        const typeRan = randomInt(2);
+        if( ran >= 8){
+            this.game.addEntityToBegin(new Potion(this.game, x, y, typeRan));
+        }
     }
     update() {
         this.heartMana.update();
         this.myCursor.update();
         let midpoint = PARAMS.CANVAS_WIDTH/2 - PARAMS.PLAYERWIDTH / 2;
         // // console.log(this.x,this.mage.x - midpoint);
-      
-        //     // this.x = this.mage.x - midpoint;
-        // //  if(this.x < this.mage.x - midpoint){
-        // //     this.x = this.mage.x - midpoint;  
-        // // } 
 
         if ((this.mage.x > midpoint) && (this.mage.x + midpoint <= 12000)) this.x = this.mage.x - midpoint;
         if ((this.mage.x < midpoint) && (this.mage.x - midpoint >= 0)) this.x = this.mage.x - midpoint;
@@ -185,21 +207,32 @@ class SceneManager {
 
 
     draw(ctx) {
-        this.heartMana.draw(ctx); 
+         
         this.myCursor.draw(ctx);
         // if(this.game.inCanvas){
         //     this.myCursor.draw(ctx); 
         // }       
+        if(this.title){
+            this.animations[0][0].drawFrame(this.game.clockTick, ctx, 100, 100, PARAMS.SCALE);
+        }
+        else{
+        this.heartMana.draw(ctx);
+        ctx.font = '15px "Press Start 2P"';
+        ctx.fillStyle = "White";
+        ctx.fillText("X "+ this.game.camera.healthPotion, 50, 110);
+        this.animations[1][0].drawFrame(this.game.clockTick, ctx, 5, 80, PARAMS.SCALE);
+        ctx.fillText("X "+ this.game.camera.manaPotion, 50, 160);
+        this.animations[2][0].drawFrame(this.game.clockTick, ctx, 5, 130, PARAMS.SCALE);
         if(debug){
             let xV = "xP=" + Math.floor(this.game.mage.x);
             let yV = "yP=" + Math.floor(this.game.mage.y);
             ctx.strokeStyle = "White";
             ctx.fillStyle = ctx.strokeStyle; 
             ctx.font = "30px Verdana";
-            ctx.fillText(xV, 50, 100);
-            ctx.fillText(yV, 50, 140);
-            
+            ctx.fillText(xV, 200, 100);
+            ctx.fillText(yV, 200, 140);
         }
+    }
     };
     
 };
