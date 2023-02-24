@@ -6,7 +6,7 @@ class SceneManager {
         this.healthPotion = 0;
         this.manaPotion = 0;
         this.elapsedTime = 0;
-        this.title = false;
+        this.title = true;
         this.animations = [];
         this.loadAnimations();
         this.damage = 10;
@@ -17,20 +17,6 @@ class SceneManager {
         this.myCursor = new Cursor(this.game);
         
     };
-    loadAnimations(){
-        for (var i = 0; i < 3; i++) { 
-            this.animations.push([]);
-            for (var j = 0; j < 2; j++) { 
-                this.animations[i].push([]);
-            }
-        }
-
-        this.animations[0][0] = new Animator(assetMangager.getAsset("./sprites/mageRight.png"), 1491, 284, 80, 105, 1, 0.05, 0,0, false, true, false);
-        this.animations[0][1] = new Animator(assetMangager.getAsset("./sprites/mageRight.png"), 1491, 284, 80, 105, 1, 0.05, 0,0, false, true, false);
-        this.animations[1][0] = new Animator(assetMangager.getAsset("./sprites/potion.png"), 0, 0, 16, 16, 1, 0.1, 0, 0, false, true, false);
-        this.animations[2][0] = new Animator(assetMangager.getAsset("./sprites/potion.png"), 0, 16, 16, 16, 1, 0.1, 0, 0, false, true, false);
-        this.animations[0][1].flipped = true;
-    }
     clearEntities() {
         this.game.entities.forEach(function (entity) {
             entity.removeFromWorld = true;
@@ -193,6 +179,13 @@ class SceneManager {
         }
     }
     update() {
+        console.log(this.game.click);
+        if(this.title){
+            if(this.game.click && (this.game.click.y > 224) && (this.game.click.y < 312) && (this.game.click.x > 733) && (this.game.click.x < 1056)){
+                this.loadLevel(levelThree, false);
+                this.title = false;
+            }
+        }
         this.heartMana.update();
         this.myCursor.update();
         let midpoint = PARAMS.CANVAS_WIDTH/2 - PARAMS.PLAYERWIDTH / 2;
@@ -204,16 +197,59 @@ class SceneManager {
         if ((this.mage.y > 600) && (this.mage.y - 600 <= 0)) this.y = this.mage.y - 600;
     };
 
+    loadAnimations(){
+        for (var i = 0; i < 3; i++) { 
+            this.animations.push([]);
+            for (var j = 0; j < 2; j++) { 
+                this.animations[i].push([]);
+            }
+        }
 
-
+        this.animations[0][0] = new Animator(assetMangager.getAsset("./sprites/mageRight.png"), 1491, 284, 80, 105, 1, 0.05, 0,0, false, true, false);
+        this.animations[0][1] = new Animator(assetMangager.getAsset("./sprites/mageRight.png"), 1491, 284, 80, 105, 1, 0.05, 0,0, false, true, false);
+        // health potion
+        this.animations[1][0] = new Animator(assetMangager.getAsset("./sprites/potion.png"), 0, 0, 16, 16, 1, 0.1, 0, 0, false, true, false);
+        // mana potion
+        this.animations[2][0] = new Animator(assetMangager.getAsset("./sprites/potion.png"), 0, 16, 16, 16, 1, 0.1, 0, 0, false, true, false);
+        // background level 1
+        // this.animations[3][0] = new Animator(, 0, 16, 16, 16, 1, 0.1, 0, 0, false, true, false);
+        this.animations[0][1].flipped = true;
+    }
+    makeTitle(ctx){
+        // background level 1
+        ctx.drawImage(assetMangager.getAsset(levelOne.background), 0, 0, 450, 400);
+        // placeholder level 2
+        ctx.drawImage(assetMangager.getAsset(levelOne.background), 0, 400, 450, 400);
+        // background level 3
+        ctx.drawImage(assetMangager.getAsset(levelThree.background1), 1350, 0, 450, 400);
+        ctx.drawImage(assetMangager.getAsset(levelThree.background2), 1350, 0, 450, 400);
+        ctx.drawImage(assetMangager.getAsset(levelThree.background3), 1350, 0, 450, 400);
+        // placeholder level 4
+        ctx.drawImage(assetMangager.getAsset(levelOne.background), 1350, 400, 450, 400);
+        ctx.fillStyle = 'Black';
+        ctx.fillRect(450, 0, 900, 800);
+        ctx.font = '60px "Press Start 2P"';
+        ctx.fillStyle = "White"
+        ctx.fillText("The Last Magus", 487,  97);
+        ctx.fillText("Start", 750,  300);
+        // ctx.fillText("Start", 487,  97);
+        ctx.fillStyle = "Red"
+        ctx.fillText("The Last Magus", 490, 100);
+        if(this.game.mouse && (this.game.mouse.y > 224) && (this.game.mouse.y < 312) && (this.game.mouse.x > 733) && (this.game.mouse.x < 1056)){
+            this.animations[0][0].drawFrame(this.game.clockTick, ctx, 600, 150, 2);
+            ctx.fillStyle = "White";
+        }
+        else{
+            ctx.fillStyle = "Red";
+        }
+        ctx.fillText("Start", 747,  297);
+    }
     draw(ctx) {
-         
-        this.myCursor.draw(ctx);
         // if(this.game.inCanvas){
         //     this.myCursor.draw(ctx); 
         // }       
         if(this.title){
-            this.animations[0][0].drawFrame(this.game.clockTick, ctx, 100, 100, PARAMS.SCALE);
+            this.makeTitle(ctx);
         }
         else{
         this.heartMana.draw(ctx);
@@ -233,6 +269,7 @@ class SceneManager {
             ctx.fillText(yV, 200, 140);
         }
     }
+    this.myCursor.draw(ctx);
     };
     
 };
