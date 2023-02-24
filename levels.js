@@ -231,7 +231,7 @@ var levelThree = {
         
     ],
     gate: [
-        {x:5 ,y:-370, wallX: 3072, wallY:206, wallWidth: 192, wallHeight: 308, div:308}
+        {x:3450 ,y:-525, wallX: 3320, wallY:-605, wallWidth: 47*2, wallHeight: 119*2, div:47*2}
 
     ],
     platforms: [
@@ -247,9 +247,40 @@ var levelThree = {
         {x:3252, y:400, width: 71*3, height:23*3, divisorPlatforms:71*3},
         {x:3465, y:400, width: 71*3, height:23*3, divisorPlatforms:71*3},
 
+        {x:3500, y:-671, width: 71*3, height:23*3, divisorPlatforms:71*3},
+        {x:3287, y:-671, width: 71*3, height:23*3, divisorPlatforms:71*3},
+        {x:3074, y:-671, width: 71*3, height:23*3, divisorPlatforms:71*3},
+        {x:2861, y:-671, width: 71*3, height:23*3, divisorPlatforms:71*3},
+        {x:2648, y:-671, width: 71*3, height:23*3, divisorPlatforms:71*3},
+        {x:2435, y:-671, width: 71*3, height:23*3, divisorPlatforms:71*3},
+        {x:2222, y:-671, width: 71*3, height:23*3, divisorPlatforms:71*3},
 
-       
 
+        
+        {x:4440, y:-671, width: 71*3, height:23*3, divisorPlatforms:71*3},
+        {x:4653, y:-671, width: 71*3, height:23*3, divisorPlatforms:71*3},
+        {x:4866, y:-671, width: 71*3, height:23*3, divisorPlatforms:71*3},
+        {x:5079, y:-671, width: 71*3, height:23*3, divisorPlatforms:71*3},
+        {x:5292, y:-671, width: 71*3, height:23*3, divisorPlatforms:71*3},
+        {x:5505, y:-671, width: 71*3, height:23*3, divisorPlatforms:71*3},
+        {x:5718, y:-671, width: 71*3, height:23*3, divisorPlatforms:71*3},
+
+
+        {x:4640, y:-371, width: 71*3, height:23*3, divisorPlatforms:71*3},
+        {x:4853, y:-371, width: 71*3, height:23*3, divisorPlatforms:71*3},
+        {x:5066, y:-371, width: 71*3, height:23*3, divisorPlatforms:71*3},
+        {x:5279, y:-371, width: 71*3, height:23*3, divisorPlatforms:71*3},
+        {x:5492, y:-371, width: 71*3, height:23*3, divisorPlatforms:71*3},
+        {x:5705, y:-371, width: 71*3, height:23*3, divisorPlatforms:71*3},
+        {x:5918, y:-371, width: 71*3, height:23*3, divisorPlatforms:71*3},
+
+        {x:4440, y:-0, width: 71*3, height:23*3, divisorPlatforms:71*3},
+        {x:4653, y:-0, width: 71*3, height:23*3, divisorPlatforms:71*3},
+        {x:4866, y:-0, width: 71*3, height:23*3, divisorPlatforms:71*3},
+        {x:5079, y:-0, width: 71*3, height:23*3, divisorPlatforms:71*3},
+        {x:5292, y:-0, width: 71*3, height:23*3, divisorPlatforms:71*3},
+        {x:5505, y:-0, width: 71*3, height:23*3, divisorPlatforms:71*3},
+        {x:5718, y:-0, width: 71*3, height:23*3, divisorPlatforms:71*3},
 
 
     ],
@@ -258,6 +289,20 @@ var levelThree = {
         // {x:400 ,y:300, width: 23 , height:23*3, div: 23*3},
          {x:1700 ,y:350, width: 23*3 , height:23*3, div: 23*3},
          {x:1900 ,y:450, width: 23*3 , height:23*3, div: 23*3},
+
+         {x:2150 ,y:-615, width: 23*3 , height:23*3, div: 23*3},
+         {x:1985 ,y:-335, width: 23*3 , height: 23*3, div: 23*3},
+
+         {x:2222 ,y:-335, width: 23*3 , height: 23*3, div: 23*3},
+
+         {x:2522 ,y:-315, width: 23*3 , height: 23*3, div: 23*3},
+
+         {x:2922 ,y:-325, width: 23*3 , height: 23*3, div: 23*3},
+         {x:3222 ,y:-305, width: 23*3 , height: 23*3, div: 23*3},
+
+         {x:3481 ,y:-365, width: 23*3 , height: 23*3, div: 23*3},
+         {x:3550 ,y:-365, width: 23*3 , height: 23*3, div: 23*3},
+         {x:3412 ,y:-365, width: 23*3 , height: 23*3, div: 23*3},
 
          {x:3800 ,y:450, width: 23*3 , height:23*3, div: 23*3},
          {x:3700 ,y:200, width: 23*3 , height:23*3, div: 23*3},
@@ -277,7 +322,15 @@ var levelThree = {
          {x:3960 ,y:-525, width: 23*3 , height: 23*3, div: 23*3},
 
 
+         
 
+        //  {x:3500, y:-671, width: 71*3, height:23*3, divisorPlatforms:71*3},
+        //  {x:3287, y:-671, width: 71*3, height:23*3, divisorPlatforms:71*3},
+        //  {x:3074, y:-671, width: 71*3, height:23*3, divisorPlatforms:71*3},
+        //  {x:2861, y:-671, width: 71*3, height:23*3, divisorPlatforms:71*3},
+        //  {x:2648, y:-671, width: 71*3, height:23*3, divisorPlatforms:71*3},
+        //  {x:2435, y:-671, width: 71*3, height:23*3, divisorPlatforms:71*3},
+        //  {x:2222, y:-671, width: 71*3, height:23*3, divisorPlatforms:71*3},
 
 
 
@@ -312,13 +365,23 @@ var levelThree = {
         {x: 1000, y: 400, width: 47*3, height: 119*3   , div: 47*3 },
         {x: 2100, y: 400, width: 47*3, height: 119*3   , div: 47*3 },
 
+        {x:1843, y:-1028, width: 47*3, height:119*3, div:47*3},
+        {x:1843, y:-671, width: 47*3, height:119*3, div:47*3},
+        {x:1843, y:-314, width: 47*3, height:119*3, div:47*3},
+        {x:3620, y:-605, width: 47*2, height:119*2, div:47*2},
+
         {x: 4300, y: -671, width: 47*3, height: 119*3   , div: 47*3 },
         {x: 4300, y: -314, width: 47*3, height: 119*3   , div: 47*3 },
         {x: 4300, y: 43, width: 47*3, height: 119*3   , div: 47*3 },
         {x: 4300, y: 400, width: 47*3, height: 119*3   , div: 47*3 },
 
+        {x:6100, y:-1385, width: 47*3, height:119*3, div:47*3},
 
-
+        {x:6100, y:-1028, width: 47*3, height:119*3, div:47*3},
+        {x:6100, y:-671, width: 47*3, height:119*3, div:47*3},
+        {x: 6100, y: -314, width: 47*3, height: 119*3   , div: 47*3 },
+        {x: 6100, y: 43, width: 47*3, height: 119*3   , div: 47*3 },
+        {x: 6100, y: 400, width: 47*3, height: 119*3   , div: 47*3 },
 
 
     ],

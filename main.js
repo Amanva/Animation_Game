@@ -19,6 +19,10 @@ assetMangager.queueDownload("./sprites/enemies/Run-Sheet.png");
 assetMangager.queueDownload("./sprites/enemies/Idle-Sheet.png");
 assetMangager.queueDownload("./sprites/enemies/Hit-Sheet.png");
 assetMangager.queueDownload("./sprites/enemies/Walk-Base-Sheet.png");
+assetMangager.queueDownload("./sprites/enemies/earthslime.png");
+assetMangager.queueDownload("./sprites/enemies/slime.png");
+
+
 assetMangager.queueDownload(levelThree.background1);
 assetMangager.queueDownload(levelThree.background2);
 assetMangager.queueDownload(levelThree.background3 );
