@@ -386,7 +386,7 @@ class Mage {
         }
     }
     removeHealth(damageRecieved){
-        assetMangager.playAsset("./sounds/sfx/playerhit.mp3");
+        assetMangager.playAsset("./sounds/sfx/zombiehit.wav");
         this.hp -= damageRecieved;
     }
     

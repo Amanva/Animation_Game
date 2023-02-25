@@ -13,7 +13,7 @@ class SceneManager {
         this.loadAnimations();
         this.damage = 10;
         this.level = null;
-        this.mage = new Mage(this.game, 50,400);
+        this.mage = new Mage(this.game, 2000,400);
         this.game.addEntityToBegin(this.mage);
         this.loadLevel(levelOne, this.title);
         this.myCursor = new Cursor(this.game);
@@ -130,27 +130,20 @@ class SceneManager {
     else if(this.level === levelThree){
         this.x = 0;
         this.y = 0;
-        // this.mage.x = 100;
-        // this.mage.y = 400;
-        // console.log(this.mage.dead);
-        // this.game.addEntity(new Boar(this.game, 400, 500));
+        if(level.boar){
+            for (var i = 0; i < level.boar.length; i++) {
+                let boar = level.boar[i];
+                this.game.addEntity(new Boar(this.game, boar.x, boar.y));
+            }
+        }
+        if(level.slimeEarth){
+            for (var i = 0; i < level.slimeEarth.length; i++) {
+                let slimeEarth = level.slimeEarth[i];
+                this.game.addEntity(new earthSlime(this.game, slimeEarth.x, slimeEarth.y));
+            }
+        }
         this.game.addEntity(new Item(this.game, 400, 400, 1));
-        this.game.addEntity(new Boar(this.game, 400, 500));
-        this.game.addEntity(new earthSlime(this.game, 400, 500));
-
-
-        // if(level.dirt){   
-        //     for (var i = 0; i < level.dirt.length; i++) {
-        //         let dirt = level.dirt[i];
-        //         this.game.addEntity(new Dirt(this.game, dirt.x, dirt.y, dirt.width, dirt.height, dirt.div));
-        //     }
-        // }
-        // if(level.halfGround){   
-        //     for (var i = 0; i < level.halfGround.length; i++) {
-        //         let halfGround = level.halfGround[i];
-        //         this.game.addEntity(new HalfGround(this.game, halfGround.x, halfGround.y, halfGround.width, halfGround.height, halfGround.div));
-        //     }
-        // }
+        // this.game.addEntity(new earthSlime(this.game, 400, 500));
         if(level.ground){   
             for (var i = 0; i < level.ground.length; i++) {
                 let ground = level.ground[i];
@@ -214,6 +207,14 @@ class SceneManager {
         this.mage.velocity = { x: 0, y: 0 };
 } 
     }
+    updateAudio() {
+        var mute = document.getElementById("mute").checked;
+        var volume = document.getElementById("volume").value;
+
+        assetMangager.muteAudio(mute);
+        assetMangager.adjustVolume(volume);
+
+    };
     potionDrop(x, y){
         const ran = randomInt(11); 
         const typeRan = randomInt(2);
@@ -222,7 +223,7 @@ class SceneManager {
         }
     }
     update() {
-        console.log(this.heartMana.cur_Hearts, this.mage.hp);
+        // console.log(this.heartMana.cur_Hearts, this.mage.hp);
         if(this.title){
             if(this.game.click && (this.game.click.y > 224) && (this.game.click.y < 312) && (this.game.click.x > 733) && (this.game.click.x < 1056)){
                 this.loadLevel(levelThree, false);
@@ -231,6 +232,7 @@ class SceneManager {
         }
         this.heartMana.update();
         this.myCursor.update();
+        this.updateAudio();
         let midpoint = PARAMS.CANVAS_WIDTH/2 - PARAMS.PLAYERWIDTH / 2;
         // // console.log(this.x,this.mage.x - midpoint);
 
