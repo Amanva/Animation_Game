@@ -22,6 +22,8 @@ assetMangager.queueDownload("./sprites/enemies/Walk-Base-Sheet.png");
 assetMangager.queueDownload("./sprites/icons.png");
 assetMangager.queueDownload("./sprites/enemies/earthslime.png");
 assetMangager.queueDownload("./sprites/enemies/slime.png");
+assetMangager.queueDownload("./sprites/enemies/mudGuard/idle.png");
+
 
 
 assetMangager.queueDownload(levelThree.background1);
