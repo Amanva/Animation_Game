@@ -208,12 +208,10 @@ var levelThree = {
     background2: "./sprites/Background layers/Background2.png",
     background3: "./sprites/Background layers/Background3.png",
     ground: [
-        { x: 0, y: 750, width: 73*191, height:25*3, div: 73*3},
-        { x: 0, y: 750, width: 73*191, height:25*3, div: 73*3},
-        // { x: 3456, y: 750, width: 73*3, height:25*3, div: 256},
-        // { x: 6400, y: 750, width: 2560, height:64, div: 256},
-        // { x: 9100, y: 750, width: 3328, height:64, div: 256},
-        // { x:2000, y:150, width: 3328, height:64, div: 256},
+        // { x: 0, y: 750, width: 73*191, height:25*3, div: 73*3},
+        { x: 0, y: 750, width: 219*6, height:25*3, div: 73*3},
+        { x: 4300, y: 750, width: 219*8, height:25*3, div: 73*3.7},
+   
     ],
     // halfGround: [
     //     { x: 500, y: 670, width: 120*5, height:23*5, div: 120*5},
@@ -223,13 +221,13 @@ var levelThree = {
     //     { x: 550, y: 730, width: 58*7.5, height:14*5, div: 58*7.5},
         
     // ],
-    wall: [
-        {x:3072 , y:-100, width:192*2, height: 308, div: 308},
-        {x:3072 , y:500, width:192*2, height: 308, div: 308},
-        {x:2000 , y:-158, width:192, height: 308, div: 308},
-        {x:3264 , y:-400, width:192, height: 308, div: 308}
+    // wall: [
+    //     {x:3072 , y:-100, width:192*2, height: 308, div: 308},
+    //     {x:3072 , y:500, width:192*2, height: 308, div: 308},
+    //     {x:2000 , y:-158, width:192, height: 308, div: 308},
+    //     {x:3264 , y:-400, width:192, height: 308, div: 308}
         
-    ],
+    // ],
     gate: [
         {x:3450 ,y:-525, wallX: 4655, wallY:70, wallWidth: 47*2, wallHeight: 119*2, div:47*2},
         {x:4490 ,y:90, wallX: 6100, wallY:400, wallWidth: 47*3, wallHeight: 119*3, div:47*3}
@@ -271,13 +269,13 @@ var levelThree = {
         {x:5718, y:-671, width: 71*3, height:23*3, divisorPlatforms:71*3},
 
 
-        {x:4640, y:-371, width: 71*3, height:23*3, divisorPlatforms:71*3},
-        {x:4853, y:-371, width: 71*3, height:23*3, divisorPlatforms:71*3},
-        {x:5066, y:-371, width: 71*3, height:23*3, divisorPlatforms:71*3},
-        {x:5279, y:-371, width: 71*3, height:23*3, divisorPlatforms:71*3},
-        {x:5492, y:-371, width: 71*3, height:23*3, divisorPlatforms:71*3},
-        {x:5705, y:-371, width: 71*3, height:23*3, divisorPlatforms:71*3},
-        {x:5918, y:-371, width: 71*3, height:23*3, divisorPlatforms:71*3},
+        {x:4640-80, y:-371, width: 71*3, height:23*3, divisorPlatforms:71*3},
+        {x:4853-80, y:-371, width: 71*3, height:23*3, divisorPlatforms:71*3},
+        {x:5066-80, y:-371, width: 71*3, height:23*3, divisorPlatforms:71*3},
+        {x:5279-80, y:-371, width: 71*3, height:23*3, divisorPlatforms:71*3},
+        {x:5492-80, y:-371, width: 71*3, height:23*3, divisorPlatforms:71*3},
+        {x:5705-80, y:-371, width: 71*3, height:23*3, divisorPlatforms:71*3},
+        {x:5918-80, y:-371, width: 71*3, height:23*3, divisorPlatforms:71*3},
 
         {x:4440, y:-0, width: 71*3, height:23*3, divisorPlatforms:71*3},
         {x:4653, y:-0, width: 71*3, height:23*3, divisorPlatforms:71*3},
@@ -357,15 +355,15 @@ var levelThree = {
     //     // {x:7400, y:150, width: 256, height: 64, divisorPlatforms: 256, direction: "x-axis", distance: 8100},
 
 
-    // ],
-    tiles:[
-        {x:-298 , y:-210, width: 2304 , height:51, div: 192},
-        {x:-298 , y:-159, width: 2304 , height:51, div: 192}
+    // // ],
+    // tiles:[
+    //     {x:-298 , y:-210, width: 2304 , height:51, div: 192},
+    //     {x:-298 , y:-159, width: 2304 , height:51, div: 192}
 
-    ],
-    lava: [
-        {x: 600, y: 300, width: 200, height: 10  }
-    ],
+    // ],
+    // lava: [
+    //     {x: 600, y: 300, width: 200, height: 10  }
+    // ],
 
     verticalWall: [
         // {x: 1000, y: -671, width: 47*3, height: 119*3   , div: 47*3 },
@@ -384,13 +382,13 @@ var levelThree = {
         {x: 4300, y: 43, width: 47*3, height: 119*3   , div: 47*3 },
         // {x: 4300, y: 400, width: 47*3, height: 119*3   , div: 47*3 },
 
-        {x:6100, y:-1385, width: 47*3, height:119*3, div:47*3},
+        {x:6050, y:-1385, width: 47*3, height:119*3, div:47*3},
 
-        {x:6100, y:-1028, width: 47*3, height:119*3, div:47*3},
-        {x:6100, y:-671, width: 47*3, height:119*3, div:47*3},
-        {x: 6100, y: -314, width: 47*3, height: 119*3   , div: 47*3 },
-        {x: 6100, y: 43, width: 47*3, height: 119*3   , div: 47*3 },
-        // {x: 6100, y: 400, width: 47*3, height: 119*3   , div: 47*3 },
+        {x:6050, y:-1028, width: 47*3, height:119*3, div:47*3},
+        {x:6050, y:-671, width: 47*3, height:119*3, div:47*3},
+        {x: 6050, y: -314, width: 47*3, height: 119*3   , div: 47*3 },
+        {x: 6050, y: 43, width: 47*3, height: 119*3   , div: 47*3 },
+        {x: 6050, y: 400, width: 47*3, height: 119*3   , div: 47*3 },
 
 
     ],
@@ -400,7 +398,12 @@ var levelThree = {
         {x: 2586, y:207 },
         {x: 703, y:-453},
     ],
-
+    boar: [
+        {x: 400, y: 400}
+    ],
+    slimeEarth: [
+        {x: 700, y: 400}
+    ],
     Monster: [
         {x: 690, y: 250},
     ]

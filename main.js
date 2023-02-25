@@ -51,6 +51,7 @@ assetMangager.queueDownload("./sprites/demon-idleRight.png");
 
 // sounds
 assetMangager.queueDownload("./sounds/sfx/playerhit.mp3");
+assetMangager.queueDownload("./sounds/sfx/zombiehit.wav");
 assetMangager.downloadAll(() => {
 var canvas = document.getElementById('gameWorld');
 var ctx = canvas.getContext('2d');
