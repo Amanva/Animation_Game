@@ -21,6 +21,7 @@ class SceneManager {
         this.myCursor = new Cursor(this.game);
         
     };
+
     clearEntities() {
         this.game.entities.forEach(function (entity) {
             if(!(entity instanceof Mage)){
@@ -128,7 +129,90 @@ class SceneManager {
         this.game.addEntity(new Sign(this.game, 302, -288, 50, 30, 1, "What does this do?"));
         this.game.addEntity(new Sign(this.game, 7300, 670, 70, 30, 1, "Up I must go"));
         this.game.addEntity(new BackGround(this.game, 0, 0, 1800, 800, this.level));
+
     }
+} else if( level === levelTwo) {
+    this.clearEntities();
+    // this.mage = new Mage(this.game, 200, 488);
+    // this.game.addEntity(this.mage);
+    // this.heartMana = new HeartManaHQ(this.game, this.mage);
+
+    this.game.addEntity(new Cave(this.game, 11030, 363, 1031, 439));
+    // this.game.addEntity(new SeaMonster(this.game, 690, 250));
+
+    this.game.addEntity(new WaterBoss(this.game,1150, 150));
+    
+    if(level.ChainBot){
+        for (var i = 0; i < level.ChainBot.length; i++) {
+            let chainBot = level.ChainBot[i];
+            this.game.addEntity(new ChainBot(this.game, chainBot.x, chainBot.y));
+        }
+    }
+    
+    if(level.ground){
+        for (var i = 0; i < level.ground.length; i++) {
+            let ground = level.ground[i];
+            this.game.addEntity(new Ground(this.game, ground.x, ground.y, ground.width, ground.height, ground.div, level));
+        }
+    }
+    if(level.platforms){
+        for (var i = 0; i < level.platforms.length; i++) {
+            let platform = level.platforms[i];
+            this.game.addEntity(new Platform(this.game, platform.x, platform.y, platform.width, platform.height, platform.divisorPlatforms, level));
+        }
+    }
+
+    if(level.bomb){
+        for (var i = 0; i < level.bomb.length; i++) {
+            let bomb = level.bomb[i];
+            this.game.addEntity(new Bomb(this.game, bomb.x, bomb.y));
+        }
+    }
+
+    if(level.SeaMonster){
+        for (var i = 1; i < level.SeaMonster.length; i++) {
+            let seaMonster = level.SeaMonster[i];
+            this.game.addEntity(new SeaMonster(this.game, seaMonster.x, seaMonster.y));
+        }
+    }
+
+
+    
+    if(level.movingPlatforms){
+        for (var i = 0; i < level.movingPlatforms.length; i++) {
+            let wall = level.movingPlatforms[i];
+            this.game.addEntity(new movingPlatforms(this.game, wall.x, wall.y, wall.width, wall.height, wall.divisorPlatforms, wall.direction, wall.distance));
+        }
+    }
+    if(level.verticalWall){
+        for (var i = 0; i < level.verticalWall.length; i++) {
+            let tiles = level.verticalWall[i];
+            this.game.addEntity(new verticalWall(this.game, tiles.x, tiles.y, tiles.width, tiles.height, tiles.div));
+        }
+    }
+    if(level.smallPlatforms){
+        for (var i = 0; i < level.smallPlatforms.length; i++) {
+            let tiles = level.smallPlatforms[i];
+            this.game.addEntity(new smallPlatforms(this.game, tiles.x, tiles.y, tiles.width, tiles.height, tiles.div));
+        }
+    }
+    if(level.wall){
+        for (var i = 0; i < level.wall.length; i++) {
+            let wall = level.wall[i];
+            this.game.addEntity(new Wall(this.game, wall.x, wall.y, wall.width, wall.height, wall.div));
+        }
+    }
+    if(level.tiles){
+        for (var i = 0; i < level.tiles.length; i++) {
+            let tiles = level.tiles[i];
+            this.game.addEntity(new Tiles(this.game, tiles.x, tiles.y, tiles.width, tiles.height, tiles.div));
+        }
+    }
+
+    
+    this.game.addEntity(new LevelTwoBackGround(this.game, 0, 0, 1800, 800));
+}
+    
     else if(this.level === levelThree){
         this.x = 0;
         this.y = 0;
@@ -228,12 +312,190 @@ class SceneManager {
             this.mage = new Mage(this.game, 50,400);
             this.mageDead = false;
             this.game.addEntityToBegin(this.mage);
-        }
-        this.heartMana = new HeartManaHQ(this.game, this.mage); 
-        
-        this.mage.velocity = { x: 0, y: 0 };
-} 
     }
+    }
+//     loadLevel(level){
+//         this.level = level;
+//         this.clearEntities();
+
+//         if (level === levelOne) {
+//             this.mage = new Mage(this.game, 200, 488);
+//             this.game.addEntity(this.mage);
+            
+//             this.heartMana = new HeartManaHQ(this.game, this.mage);
+//             this.fireBoss = new fireBoss(this.game, 9600, 300); 
+//             this.game.addEntity(this.fireBoss);
+
+//             this.game.addEntity(this.mage);
+            
+//             // this.monster = new Monster(this.game, 650, 250); 
+//             // this.game.addEntity(this.monster);
+//             this.portal = new Portal(this.game, 200, 430);
+//             this.game.addEntity(this.portal);
+
+//             if(level.ChainBot){
+//                 for (var i = 0; i < level.ChainBot.length; i++) {
+//                     let chainBot = level.ChainBot[i];
+//                     this.game.addEntity(new ChainBot(this.game, chainBot.x, chainBot.y));
+//                 }
+//             }
+
+//             if(level.Monster){
+//                 for (var i = 0; i < level.Monster.length; i++) {
+//                     let monster = level.Monster[i];
+//                     this.game.addEntity(new Monster(this.game, monster.x, monster.y));
+//                 }
+//             }
+
+//             if(level.ground){
+//                 for (var i = 0; i < level.ground.length; i++) {
+//                     let ground = level.ground[i];
+//                     this.game.addEntity(new Ground(this.game, ground.x, ground.y, ground.width, ground.height, ground.div, level));
+//                 }
+//             }
+//             if(level.platforms){
+//                 for (var i = 0; i < level.platforms.length; i++) {
+//                     let platform = level.platforms[i];
+//                     this.game.addEntity(new Platform(this.game, platform.x, platform.y, platform.width, platform.height, platform.divisorPlatforms, level));
+//                 }
+//             }
+//             if(level.movingPlatforms){
+//                 for (var i = 0; i < level.movingPlatforms.length; i++) {
+//                     let wall = level.movingPlatforms[i];
+//                     this.game.addEntity(new movingPlatforms(this.game, wall.x, wall.y, wall.width, wall.height, wall.divisorPlatforms, wall.direction, wall.distance));
+//                 }
+//             }
+//             if(level.verticalWall){
+//                 for (var i = 0; i < level.verticalWall.length; i++) {
+//                     let tiles = level.verticalWall[i];
+//                     this.game.addEntity(new verticalWall(this.game, tiles.x, tiles.y, tiles.width, tiles.height, tiles.div));
+//                 }
+//             }
+//             if(level.smallPlatforms){
+//                 for (var i = 0; i < level.smallPlatforms.length; i++) {
+//                     let tiles = level.smallPlatforms[i];
+//                     this.game.addEntity(new smallPlatforms(this.game, tiles.x, tiles.y, tiles.width, tiles.height, tiles.div));
+//                 }
+//             }
+//             if(level.wall){
+//                 for (var i = 0; i < level.wall.length; i++) {
+//                     let wall = level.wall[i];
+//                     this.game.addEntity(new Wall(this.game, wall.x, wall.y, wall.width, wall.height, wall.div));
+//                 }
+//             }
+//             if(level.tiles){
+//                 for (var i = 0; i < level.tiles.length; i++) {
+//                     let tiles = level.tiles[i];
+//                     this.game.addEntity(new Tiles(this.game, tiles.x, tiles.y, tiles.width, tiles.height, tiles.div));
+//                 }
+//             }
+//             if(level.gate){
+//                 for (var i = 0; i < level.gate.length; i++) {
+//                     let gate = level.gate[i];
+//                     this.game.addEntity(new Gate(this.game, gate.x, gate.y, gate.wallX, gate.wallY, gate.wallWidth, gate.wallHeight, gate.div));
+//                 }
+
+//             }
+            
+//             this.game.addEntity(new LevelOneBackGround(this.game, 0, 0, 1800, 800));        
+//             // this.mage = new Mage(this.game, 662, 488);
+//             // this.game.addEntity(this.mage);
+            
+//             this.mage.velocity = { x: 0, y: 0 };
+
+//         } else if( level === levelTwo) {
+//             this.clearEntities();
+//             this.mage = new Mage(this.game, 200, 488);
+//             this.game.addEntity(this.mage);
+//             this.heartMana = new HeartManaHQ(this.game, this.mage);
+
+//             this.game.addEntity(new Cave(this.game, 11030, 363, 1031, 439));
+//             // this.game.addEntity(new SeaMonster(this.game, 690, 250));
+
+//             this.game.addEntity(new WaterBoss(this.game,1150, 150));
+            
+//             if(level.ChainBot){
+//                 for (var i = 0; i < level.ChainBot.length; i++) {
+//                     let chainBot = level.ChainBot[i];
+//                     this.game.addEntity(new ChainBot(this.game, chainBot.x, chainBot.y));
+//                 }
+//             }
+            
+//             if(level.ground){
+//                 for (var i = 0; i < level.ground.length; i++) {
+//                     let ground = level.ground[i];
+//                     this.game.addEntity(new Ground(this.game, ground.x, ground.y, ground.width, ground.height, ground.div, level));
+//                 }
+//             }
+//             if(level.platforms){
+//                 for (var i = 0; i < level.platforms.length; i++) {
+//                     let platform = level.platforms[i];
+//                     this.game.addEntity(new Platform(this.game, platform.x, platform.y, platform.width, platform.height, platform.divisorPlatforms, level));
+//                 }
+//             }
+
+//             if(level.bomb){
+//                 for (var i = 0; i < level.bomb.length; i++) {
+//                     let bomb = level.bomb[i];
+//                     this.game.addEntity(new Bomb(this.game, bomb.x, bomb.y));
+//                 }
+//             }
+
+//             if(level.SeaMonster){
+//                 for (var i = 1; i < level.SeaMonster.length; i++) {
+//                     let seaMonster = level.SeaMonster[i];
+//                     this.game.addEntity(new SeaMonster(this.game, seaMonster.x, seaMonster.y));
+//                 }
+//             }
+
+
+            
+//             if(level.movingPlatforms){
+//                 for (var i = 0; i < level.movingPlatforms.length; i++) {
+//                     let wall = level.movingPlatforms[i];
+//                     this.game.addEntity(new movingPlatforms(this.game, wall.x, wall.y, wall.width, wall.height, wall.divisorPlatforms, wall.direction, wall.distance));
+//                 }
+//             }
+//             if(level.verticalWall){
+//                 for (var i = 0; i < level.verticalWall.length; i++) {
+//                     let tiles = level.verticalWall[i];
+//                     this.game.addEntity(new verticalWall(this.game, tiles.x, tiles.y, tiles.width, tiles.height, tiles.div));
+//                 }
+//             }
+//             if(level.smallPlatforms){
+//                 for (var i = 0; i < level.smallPlatforms.length; i++) {
+//                     let tiles = level.smallPlatforms[i];
+//                     this.game.addEntity(new smallPlatforms(this.game, tiles.x, tiles.y, tiles.width, tiles.height, tiles.div));
+//                 }
+//             }
+//             if(level.wall){
+//                 for (var i = 0; i < level.wall.length; i++) {
+//                     let wall = level.wall[i];
+//                     this.game.addEntity(new Wall(this.game, wall.x, wall.y, wall.width, wall.height, wall.div));
+//                 }
+//             }
+//             if(level.tiles){
+//                 for (var i = 0; i < level.tiles.length; i++) {
+//                     let tiles = level.tiles[i];
+//                     this.game.addEntity(new Tiles(this.game, tiles.x, tiles.y, tiles.width, tiles.height, tiles.div));
+//                 }
+//             }
+            
+            
+//             this.game.addEntity(new LevelTwoBackGround(this.game, 0, 0, 1800, 800));
+            
+
+//             // this.mage = new Mage(this.game, 662, 488);
+//             // this.game.addEntity(this.mage);
+            
+//             // this.mage.velocity = { x: 0, y: 0 };
+            
+//         }
+//         this.heartMana = new HeartManaHQ(this.game, this.mage); 
+        
+//         this.mage.velocity = { x: 0, y: 0 };
+// } 
+//     }
     updateAudio() {
         var mute = document.getElementById("mute").checked;
         var volume = document.getElementById("volume").value;
@@ -249,6 +511,7 @@ class SceneManager {
             this.game.addEntityToBegin(new Potion(this.game, x, y, typeRan));
         }
     }
+    
     update() {
         // console.log(this.heartMana.cur_Hearts, this.mage.hp);
         if(this.title){
