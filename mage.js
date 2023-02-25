@@ -31,7 +31,6 @@ class Mage {
         // this.manaBar = new ManaBar(game, this);
         this.doubleJump = false;
         this.playerJump = false;
-        this.jumpItem = false;
         this.air = false;
         this.shoot = false;
         this.timetoShoot = 0;
@@ -112,6 +111,7 @@ class Mage {
         if(this.dead){
             this.deadPlayer(TICK, DE_ACC);
             if(this.animations[this.states.death][this.facing].isAlmostDone(TICK)){
+                this.game.camera.mageDead = true;
                 this.removeFromWorld = true;
                 if(this.game.camera.level === levelOne){
                 this.game.camera.loadLevel(levelOne, false);
@@ -162,8 +162,8 @@ class Mage {
             }
              else {
                 // console.log(this.game.jump, this.playerJump, this.doubleJump);
-                    if(this.jumpItem && this.game.jump && this.doubleJump){  
-                        console.log(this.doubleJump)
+                    if(this.game.camera.jumpItem && this.game.jump && this.doubleJump){  
+                        // console.log(this.doubleJump)
                         this.velocity.y = -150;
                         this.animations[this.state][this.facing].elapsedTime = 0;
                         this.doubleJump = false;
@@ -386,7 +386,7 @@ class Mage {
         }
     }
     removeHealth(damageRecieved){
-        assetMangager.playAsset("./sounds/sfx/playerhit.mp3");
+        assetMangager.playAsset("./sounds/sfx/zombiehit.wav");
         this.hp -= damageRecieved;
     }
     

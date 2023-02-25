@@ -638,14 +638,16 @@ class mudGuard{
 
         Object.assign(this, { game, x, y });
         this.velocity = { x: 0, y: 0 };
-
-        this.spritesheetAttack = assetMangager.getAsset("./sprites/enemies/mudGuard/attack1.png");
+        this.game = game;
+        // this.spritesheetAttack = assetMangager.getAsset("./sprites/enemies/mudGuard/attack1.png");
         this.spritesheetIdle = assetMangager.getAsset("./sprites/enemies/mudGuard/idle.png");
-        this.spritesheetRun = assetMangager.getAsset("./sprites/enemies/mudGuard/run.png");
-        this.spritesheetDeath = assetMangager.getAsset("./sprites/enemies/mudGuard/death.png");
+        // this.spritesheetRun = assetMangager.getAsset("./sprites/enemies/mudGuard/run.png");
+        // this.spritesheetDeath = assetMangager.getAsset("./sprites/enemies/mudGuard/death.png");
         this.state = 0;
         this.facing = 0;
         this.animations = [];
+        this.ctx;
+        this.animator = new Animator(this.spritesheetIdle, 0, 0, 36, 23, 5, 0.20, 0, 0, false, true, true);
 
     };
     loadAnimations() {
@@ -655,19 +657,19 @@ class mudGuard{
                 this.animations[i].push([]);
             }
         }
-        this.animations[0][0] = new Animator(this.spritesheetIdle, 0, 0, 36, 23, 5, 0.20, 0, 0, false, true, true);
         // this.animations[0][1] = new Animator(this.spritesheetRun, 0, 0, 126, 39, 4, 0.20, 0, 0, false, true, true);
         // this.animations[0][2] = new Animator(this.spritesheetAttack, 0, 0, 126, 39, 4, 0.20, 0, 0, false, true, true);
         // this.animations[0][3] = new Animator(this.spritesheetDeath, 0, 0, 126, 39, 4, 0.20, 0, 0, false, true, true); 
         
     }; 
 
+    update(){
+
+    };
     draw(ctx) {
-    
 
         
-            // this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x-390, this.y - this.game.camera.y, PARAMS.SCALE);
-
+        this.animator.drawFrame(this.game.clockTick, ctx,100,100, PARAMS.SCALE*1.5 );
         
         //     if(debug){
         //     ctx.strokeStyle = 'Red';

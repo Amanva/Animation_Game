@@ -22,6 +22,8 @@ assetMangager.queueDownload("./sprites/enemies/Walk-Base-Sheet.png");
 assetMangager.queueDownload("./sprites/icons.png");
 assetMangager.queueDownload("./sprites/enemies/earthslime.png");
 assetMangager.queueDownload("./sprites/enemies/slime.png");
+assetMangager.queueDownload("./sprites/enemies/mudGuard/idle.png");
+
 
 
 assetMangager.queueDownload(levelThree.background1);
@@ -49,6 +51,7 @@ assetMangager.queueDownload("./sprites/demon-idleRight.png");
 
 // sounds
 assetMangager.queueDownload("./sounds/sfx/playerhit.mp3");
+assetMangager.queueDownload("./sounds/sfx/zombiehit.wav");
 assetMangager.downloadAll(() => {
 var canvas = document.getElementById('gameWorld');
 var ctx = canvas.getContext('2d');
