@@ -34,7 +34,7 @@ class SceneManager {
 
             this.game.addEntity(this.mage);
             
-            // this.monster = new Monster(this.game, 650, 250); 
+             //this.monster = new Monster(this.game, 650, 250); 
             // this.game.addEntity(this.monster);
             this.portal = new Portal(this.game, 200, 430);
             this.game.addEntity(this.portal);
@@ -117,7 +117,8 @@ class SceneManager {
             this.heartMana = new HeartManaHQ(this.game, this.mage);
 
             this.game.addEntity(new Cave(this.game, 11030, 363, 1031, 439));
-            this.game.addEntity(new SeaMonster(this.game, 690, 250));
+            //this.game.addEntity(new SeaMonster(this.game, 690, 250));
+            this.game.addEntity(new SeaMonster(this.game, 690, 350));
             
             // this.fireBoss = new fireBoss(this.game, 9600, 300); 
             // this.game.addEntity(this.fireBoss);

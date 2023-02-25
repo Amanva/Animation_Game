@@ -13,7 +13,7 @@ class SeaMonster{
      this.spritesheetLeftFly = assetMangager.getAsset("./sprites/seaMonster/monster-Left-Swim.png");
      this.spritesheetIdle = assetMangager.getAsset("./sprites/seaMonster/monster-idle.png");
      this.spritesheetRightFly = assetMangager.getAsset("./sprites/seaMonster/monster-Right-Swim.png");
-     this.speed = 10;
+     this.speed = 100;
      this.state = 1;
      this.facing = 0;
      this.playerHit = false;
@@ -26,47 +26,48 @@ class SeaMonster{
  }; 
 
  loadAnimations() {
-     this.animations = [];
-     for (var i = 0; i < 5; i++) { 
-         this.animations.push([]);
-         for (var j = 0; j < 2; j++) { 
-            this.animations[i].push([]);
+    this.animations = [];
+
+    for (var i = 0; i < 5; i++) { 
+        this.animations.push([]);
+        for (var j = 0; j < 2; j++) { 
+           this.animations[i].push([]);
         }
-     }
+    }
 
-// idle
-this.animations[0][0] = new Animator(this.spritesheetIdle, 0, 0, 48, 47, 5, 0.10, 0, 0, false, true, false);
-// swim
-this.animations[1][0] = new Animator(this.spritesheetLeftFly, 0, 0, 48, 47, 15, 0.10, 0, 0, false, true, false);
-// left attack
-this.animations[2][0] = new Animator(this.spritesheetRightAttack, 0, 0, 54, 51, 5, 0.07, 0, 0, true, true, false);
-// idle
-this.animations[0][1] = new Animator(this.spritesheetIdle, 0, 0, 48, 47, 5, 0.10, 0, 0, false, true, false);
-// swim
-this.animations[1][1] = new Animator(this.spritesheetLeftFly, 0, 0, 48, 47, 15, 0.10, 0, 0, false, true, false);
-// left attack
-this.animations[2][1] = new Animator(this.spritesheetRightAttack, 0, 0, 54, 51, 5, 0.07, 0, 0, true, true, false);
+    // idle
+    this.animations[0][0] = new Animator(this.spritesheetIdle, 0, 0, 48, 47, 5, 0.10, 0, 0, false, true, false);
+    // swim
+    this.animations[1][0] = new Animator(this.spritesheetLeftFly, 0, 0, 48, 47, 15, 0.10, 0, 0, false, true, false);
+    // left attack
+    this.animations[2][0] = new Animator(this.spritesheetRightAttack, 0, 0, 54, 51, 5, 0.07, 0, 0, true, true, false);
+    // idle
+    this.animations[0][1] = new Animator(this.spritesheetIdle, 0, 0, 48, 47, 5, 0.10, 0, 0, false, true, false);
+    // swim
+    this.animations[1][1] = new Animator(this.spritesheetLeftFly, 0, 0, 48, 47, 15, 0.10, 0, 0, false, true, false);
+    // left attack
+    this.animations[2][1] = new Animator(this.spritesheetRightAttack, 0, 0, 54, 51, 5, 0.07, 0, 0, true, true, false);
 
-//death
-this.animations[3][0] = new Animator(this.spritesheetRightFly, 0, 0, 48, 47, 15, 0.1, 0, 0, true, true, false);
-          
-this.animations[3][1] = new Animator(this.spritesheetRightFly, 0, 0, 48, 47, 15, 0.1, 0, 0, true, true, false);
-for(var l = 0; l <= 3; l++){
-    this.animations[l][1].flipped = true;
-}
+    //death
+    this.animations[3][0] = new Animator(this.spritesheetRightFly, 0, 0, 48, 47, 15, 0.1, 0, 0, true, true, false);
+            
+    this.animations[3][1] = new Animator(this.spritesheetRightFly, 0, 0, 48, 47, 15, 0.1, 0, 0, true, true, false);
+
+    for(var l = 0; l <= 3; l++){
+        this.animations[l][1].flipped = true;
+    }
  }; 
 
    updateBB() {
       this.lastBB = this.BB;
-      //this.BB = new BoundingBox(this.x+140, this.y + 25, 50, 30 * 1.8); 
-     // this.BB = new BoundingBox(this.x+65, this.y+60, 60, 100);
-     this.BB = new BoundingBox(this.x+65, this.y+60, 60, 80);
+      //this.BB = new BoundingBox(this.x+65, this.y+60, 60, 80);
+      this.BB = new BoundingBox(this.x+65, this.y, 60, 100);
       this.MageDetection = new BoundingBox(this.x-500, this.y-200, 1300, 700);
       if(this.facing == 0){
-      this.AttackBB = new BoundingBox(this.x+125, this.y+60, 50, 80);
+      this.AttackBB = new BoundingBox(this.x+125, this.y, 50, 100);
       }
       else{
-      this.AttackBB = new BoundingBox(this.x+30, this.y+60, 50, 80);
+      this.AttackBB = new BoundingBox(this.x+30, this.y, 50, 100);
       }
      
                    
@@ -107,13 +108,13 @@ for(var l = 0; l <= 3; l++){
                 that.state = 3; // death
                 that.velocity.x = 0;
                 that.dead = true;
-                if(that.animations[3].isAlmostDone(TICK)){
+                // if(that.animations[3].isAlmostDone(TICK)){
                     // assetMangager.playAsset("sounds/blood_splash.wav");
                     that.dead = true;
                     that.removeFromWorld = true;
 
                     
-                }
+                // }
                                         
             }
         }
@@ -249,13 +250,13 @@ loseHealth(damageRecieved){
     this.healthBar.draw(ctx);
     }
     if(this.state === 2 && this.facing  === 1){
-    this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x-30, this.y-this.game.camera.y, 2 );
+    this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x-30, this.y-this.game.camera.y, 3 );
     }
     else if(this.facing  === 1){
-    this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x + 30, this.y-this.game.camera.y, 2 );
+    this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x + 30, this.y-this.game.camera.y, 3 );
     }
     else{
-    this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, 2 );
+    this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, 3);
     }
     // this.animations[0][0].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, 1 );
     // this.animations[0][1].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x+30, this.y-this.game.camera.y, 1 );
@@ -271,6 +272,22 @@ loseHealth(damageRecieved){
  
 
 }; 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
