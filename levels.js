@@ -236,7 +236,8 @@ var levelThree = {
 
     ],
     trigger: [
-        {x: 5931, y: 0 },
+        {x: 5931, y: 0, wallX: 3320, wallY: -600, wallWidth: 47*2, wallHeight:119*2, div:47*2 },
+        
     ],
     platforms: [
         //first area L1
@@ -381,7 +382,7 @@ var levelThree = {
         {x: 4300, y: -671, width: 47*3, height: 119*3   , div: 47*3 },
         {x: 4300, y: -314, width: 47*3, height: 119*3   , div: 47*3 },
         {x: 4300, y: 43, width: 47*3, height: 119*3   , div: 47*3 },
-        {x: 4300, y: 400, width: 47*3, height: 119*3   , div: 47*3 },
+        // {x: 4300, y: 400, width: 47*3, height: 119*3   , div: 47*3 },
 
         {x:6100, y:-1385, width: 47*3, height:119*3, div:47*3},
 

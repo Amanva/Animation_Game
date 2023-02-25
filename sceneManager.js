@@ -11,9 +11,9 @@ class SceneManager {
         this.loadAnimations();
         this.damage = 10;
         this.level = null;
-        this.mage = new Mage(this.game, 50,400);
+        this.mage = new Mage(this.game, 5400,-300);
         this.heartMana = new HeartManaHQ(this.game, this.mage); 
-        this.loadLevel(levelOne, this.title);
+        this.loadLevel(levelThree, this.title);
         this.myCursor = new Cursor(this.game);
         
     };
@@ -48,7 +48,6 @@ class SceneManager {
         this.manaPotion = 0;
         this.game.addEntity(new Item(this.game, 400, 400, 0));
         this.fireBoss = new fireBoss(this.game, 9600, 300); 
-        this.game.addEntityToBegin(new Portal(this.game, 500, 430, levelThree));
         //mobs
         //chainbot
         this.game.addEntity(new ChainBot(this.game, 2629,507));
@@ -195,7 +194,7 @@ class SceneManager {
         if(level.trigger){
             for (var i = 0; i < level.trigger.length; i++) {
                 let triggers = level.trigger[i];
-                this.game.addEntity(new trigger(this.game, triggers.x, triggers.y));
+                this.game.addEntity(new trigger(this.game, triggers.x, triggers.y, triggers.wallX, triggers.wallY, triggers.wallWidth,triggers.wallHeight, triggers.div));
             }
         }
       
