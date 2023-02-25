@@ -210,7 +210,7 @@ class ChainBot {
         if(this.hp >= 0) this.enemHealthBar.draw(ctx);
         this.animations[this.state].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, PARAMS.SCALE);
             if(debug){
-                // //draw the boundingBox
+                //draw the boundingBox
                 ctx.strokeStyle = 'Red';
                 ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y-this.game.camera.y, this.BB.width , this.BB.height);
                 ctx.strokeStyle = 'yellow';

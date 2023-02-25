@@ -203,7 +203,6 @@ class Mage {
              if(this.specialAttack3){
                 this.state = this.states.skullAttack;
                 this.velocity.x = 0;
-                console.log("step in");
                 if(this.animations[this.states.skullAttack][this.facing].isAlmostDone(TICK)){
                     if(this.facing == 0){
                     this.game.addEntityToBegin(new Earth(this.game, this.x+100, this.y+140));
@@ -221,7 +220,6 @@ class Mage {
             }
             else if(this.shoot && (this.timetoShoot > 0.5) && (!this.specialAttack1)){
                 this.state = this.states.normAttack;
-                
                 if(this.animations[this.state][this.facing].isAlmostDone(TICK)){
                     if(this.facing == 0){
                     this.game.addEntityToBegin(new Projectile(this.game, this.x+100, this.y+140));
