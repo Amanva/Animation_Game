@@ -73,12 +73,8 @@ class ChainBot {
                 if (entity instanceof Projectile  && that.hp > 0){
                     entity.removeFromWorld = true;
                     that.hp -= 20;
-                    that.state = 5
-                    // if(that.animations[5].isAlmostDone(TICK)){
-                    //     that.animations.elapsedTime = 2.7;
-                        
-                    // }
-                    
+                    that.state = 5;
+
                 } else if (that.hp <= 0) {
                     that.state = 6; // death
                     that.velocity.x = 0;
@@ -90,6 +86,7 @@ class ChainBot {
                     }
                                             
                 }
+
                 if (that.velocity.y > 0) { 
                     if (((entity instanceof Ground) || (entity instanceof Platform) 
                         || (entity instanceof Wall) || (entity instanceof Tiles))
@@ -124,7 +121,15 @@ class ChainBot {
                     }
 
                 }
-            } 
+            }
+            
+            // if (!that.animations[5].isAnimationDone()){  //TODO 
+            //     that.state = 5;
+            //     that.velocity.x = 0;
+            // } else {
+            //     that.state = 0;
+            //     that.velocity.x = 0;
+            // }
 
             // Decide to approach the mage
             if (entity instanceof Mage && Math.round(that.BB.bottom) === Math.round(entity.BB.bottom)){ // if both are on same surfase
@@ -182,7 +187,7 @@ class ChainBot {
             ctx.font = "20px Arial";
             ctx.fillStyle = "white";
             ctx.fillText("X: " + Math.round(this.x), 510, 50);
-            ctx.fillText("ChainBot BB Width: " + Math.round(this.BB.width), 660, 50);
+            ctx.fillText("Frame# : " + this.animations[5].currentFrame(), 660, 50);
             ctx.fillText("ChainBot BB bottom: " + Math.round(this.BB.bottom), 660, 70);
             
             ctx.fillText("Y: " + Math.round(this.y), 510, 70);

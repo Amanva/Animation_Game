@@ -60,8 +60,6 @@ class SeaMonster{
 
    updateBB() {
       this.lastBB = this.BB;
-      //this.BB = new BoundingBox(this.x+140, this.y + 25, 50, 30 * 1.8); 
-     // this.BB = new BoundingBox(this.x+65, this.y+60, 60, 100);
      this.BB = new BoundingBox(this.x+65, this.y+60, 60, 80);
       this.MageDetection = new BoundingBox(this.x-500, this.y-200, 1300, 700);
       if(this.facing == 0){
@@ -69,25 +67,10 @@ class SeaMonster{
       }
       else{
       this.AttackBB = new BoundingBox(this.x+30, this.y+60, 50, 80);
-      }
-     
-                   
- // };
- //updateBB() {
-   //  this.BB = new BoundingBox(this.x + 45-this.game.camera.x, this.y + 35, 70, 90, "red");
-     // this.BB = new BoundingBox(this.x + 60-this.game.camera.x, this.y + 35, 70, 110, "red");
-     
+      }          
+      
  }
-//  updateOffset(){
-//     if(this.facing  === 1){
-//     if((this.state === 0) || (this.state === 1)){
-//         this.xOff = 40;
-//     } 
-// }
-// else{
-//     this.xOff = 0;
-// }
-//  };
+
  update() {
     this.elapsedTime += this.game.clockTick;
     const TICK = this.game.clockTick;
@@ -102,48 +85,21 @@ class SeaMonster{
                 entity.removeFromWorld = true;
                 that.hp -= 10;
                 that.state = 2
-                
-               
-                
-             } else if (that.hp <= 0) {
-                that.state = 3; // death
-                that.velocity.x = 0;
-                that.dead = true;
-                // if(that.animations[3].isAlmostDone(TICK)){
-                    // assetMangager.playAsset("sounds/blood_splash.wav");
-                    that.dead = true;
-                    that.removeFromWorld = true;
-
-                    
-                // }
+            } else if (that.hp <= 0) {
+               that.state = 3; // death
+               that.velocity.x = 0;
+               that.dead = true;
+               that.dead = true;
+               that.removeFromWorld = true;
                                         
             }
         }
     })
 
-     
-
-     
-
-    // if(!this.dead){
-    // if(this.hp <= 0){
-    //     this.state = 3;
-    //     // this.animations[3][this.facing].elapsedTime = 7;
-    //     this.dead = true;
-       
-    // }
      this.PlatformCollision();
      this.mageCollide(TICK);
-//     }
-//     else{
-//         let frame = this.animations[3][this.facing].currentFrame();
-//         console.log(frame);
-//        if(frame >= 3){
-//         this.removeFromWorld = true;
-//        }
-//     }
-//      //console.log(this.velocity.x, this.velocity.y);
-       };
+};
+
  mageCollide(TICK){
     let that = this;
     this.game.entities.forEach(function (entity) {        
@@ -193,10 +149,11 @@ class SeaMonster{
                 }
             }
         };
-        });
+    });
+}
 
- }
- PlatformCollision(){
+
+PlatformCollision(){
     var that = this;
         this.game.entities.forEach(function (entity) {
             if (entity.BB && that.BB.collide(entity.BB)) {
@@ -240,13 +197,15 @@ class SeaMonster{
                         that.updateBB(); 
                     }
                 }
-                });
+            });
 }
+
 loseHealth(damageRecieved){
     this.hp -= damageRecieved;
 
 };
- draw(ctx) {
+
+draw(ctx) {
     if(this.hp >= 0){
     this.healthBar.draw(ctx);
     }
@@ -269,7 +228,7 @@ loseHealth(damageRecieved){
           ctx.strokeStyle = 'yellow';
           ctx.strokeRect(this.AttackBB.x - this.game.camera.x, this.AttackBB.y - this.game.camera.y, this.AttackBB.width, this.AttackBB.height);   
     }     
-       }; 3
+       };
  
 
 }; 

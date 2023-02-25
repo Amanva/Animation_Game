@@ -111,21 +111,15 @@ class SceneManager {
 
         } else if( level === levelTwo) {
             this.clearEntities();
-
             this.mage = new Mage(this.game, 200, 488);
             this.game.addEntity(this.mage);
             this.heartMana = new HeartManaHQ(this.game, this.mage);
 
             this.game.addEntity(new Cave(this.game, 11030, 363, 1031, 439));
-            this.game.addEntity(new SeaMonster(this.game, 690, 250));
-            
-            // this.fireBoss = new fireBoss(this.game, 9600, 300); 
-            // this.game.addEntity(this.fireBoss);
-            
-            //Level = levelTwo, the take assets fromthe levelTwo
+            // this.game.addEntity(new SeaMonster(this.game, 690, 250));
 
+            this.game.addEntity(new WaterBoss(this.game,1150, 150));
             
-
             if(level.ChainBot){
                 for (var i = 0; i < level.ChainBot.length; i++) {
                     let chainBot = level.ChainBot[i];

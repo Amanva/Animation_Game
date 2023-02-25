@@ -39,11 +39,13 @@ assetMangager.queueDownload("./sprites/seaMonster/monster-Left-Swim.png");
 assetMangager.queueDownload("./sprites/seaMonster/monster-idle.png");
 assetMangager.queueDownload("./sprites/seaMonster/monster-Right-Swim.png");
 
-//Load water levelassets
+//Load water level assets
 assetMangager.queueDownload("./sprites/waterLevel/underWater.png");
 assetMangager.queueDownload("./sprites/waterLevel/bomb.png");
-assetMangager.queueDownload("./sprites/waterLevel/bottomTile.png");
 assetMangager.queueDownload("./sprites/waterLevel/boulderTiles.png");
+assetMangager.queueDownload("./sprites/waterLevel/hydra_left.png");
+assetMangager.queueDownload("./sprites/waterLevel/hydra_right.png");
+assetMangager.queueDownload("./sprites/waterLevel/jellyfish.png");
 assetMangager.queueDownload("./sprites/waterLevel/cave.png");
 
 //sounds

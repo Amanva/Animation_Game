@@ -89,4 +89,8 @@ isDone() {
 isAlmostDone(TICK) {
         return ((this.elapsedTime + TICK) >= this.totalTime);
     }
+
+    isAnimationDone(){
+        return this.currentFrame() === 0;
+    }
 }
