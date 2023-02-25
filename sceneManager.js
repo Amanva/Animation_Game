@@ -8,7 +8,7 @@ class SceneManager {
         this.jumpItem = false;
         this.elapsedTime = 0;
         this.mageDead = false;
-        this.title = false;
+        this.title = true;
         this.animations = [];
         this.loadAnimations();
         this.damage = 10;
@@ -230,11 +230,13 @@ class SceneManager {
                 this.title = false;
             }
         }
+        if(!this.title){
         this.heartMana.update();
+        }
         this.myCursor.update();
         this.updateAudio();
         let midpoint = PARAMS.CANVAS_WIDTH/2 - PARAMS.PLAYERWIDTH / 2;
-        // // console.log(this.x,this.mage.x - midpoint);
+        // console.log(this.x,this.mage.x - midpoint);
 
         if ((this.mage.x > midpoint) && (this.mage.x + midpoint <= 12000)) this.x = this.mage.x - midpoint;
         if ((this.mage.x < midpoint) && (this.mage.x - midpoint >= 0)) this.x = this.mage.x - midpoint;
