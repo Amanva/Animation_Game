@@ -13,12 +13,9 @@ class GameEngine {
         this.down = false;
         this.E = false;
         this.digit1 = false;
-        this.digit2 = false;
-        this.digit3 = false;
-        this.digit4 = false;
         this.attack = false;
         this.jump = false;
-        this.Q = false;
+        this.c = false;
         this.click = null;
         this.mouse = null;
         this.wheel = null;
@@ -119,21 +116,6 @@ class GameEngine {
                 case "Digit1":
                     that.digit1 = true;
                     break;
-                case "KeyQ":
-                    that.Q = true;
-                    break;
-                case "Digit1":
-                    that.digit1 = true;
-                    break;
-                case "Digit2":
-                    that.digit2 = true;
-                    break;
-                case "Digit3":
-                    that.digit3 = true;
-                    break;
-                case "Digit4":
-                    that.digit4 = true;
-                    break;
                 case "Space":
                     that.jump= true;
                     break;
@@ -160,20 +142,8 @@ class GameEngine {
                 case "KeyE":
                     that.E = false;
                     break;
-                case "KeyQ":
-                    that.Q = false;
-                    break;
                 case "Digit1":
                     that.digit1 = false;
-                    break;
-                case "Digit2":
-                    that.digit2 = false;
-                    break;
-                case "Digit3":
-                    that.digit3 = false;
-                    break;
-                case "Digit4":
-                    that.digit4 = false;
                     break;
                 case "Space":
                     that.jump = false;
@@ -192,7 +162,6 @@ class GameEngine {
                 //console.log("focused lost")
                 that.inCanvas = false;
             }
-            // console.log(that.inCanvas);
         }
         setInterval(isFocused, 300);
     };

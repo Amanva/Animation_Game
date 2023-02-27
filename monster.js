@@ -85,40 +85,64 @@ for(var l = 0; l <= 3; l++){
 // }
 //  };
  update() {
+    this.elapsedTime += this.game.clockTick;
     const TICK = this.game.clockTick;
     this.x += this.velocity.x * TICK;
     this.y += this.velocity.y * TICK;
     this.updateBB();
-    if(!this.dead){
-    if(this.hp <= 0){
-        this.state = 3;
-        // this.animations[3][this.facing].elapsedTime = 7;
-        this.dead = true;
+   
+    var that = this;
+    that.game.entities.forEach(function (entity) {
+        if (entity.BB && that.BB.collide(entity.BB)) {
+            if (entity instanceof Projectile  && that.hp > 0){
+                entity.removeFromWorld = true;
+                that.hp -= 10;
+                that.state = 2
+                
+               
+                
+             } else if (that.hp <= 0) {
+                that.state = 3; // death
+                that.velocity.x = 0;
+                that.dead = true;
+                // if(that.animations[3].isAlmostDone(TICK)){
+                    // assetMangager.playAsset("sounds/blood_splash.wav");
+                    that.dead = true;
+                    that.removeFromWorld = true;
+     // }
+                                        
     }
+}
+})
+   
+   
+    // if(!this.dead){
+    // if(this.hp <= 0){
+    //     this.state = 3;
+    //     // this.animations[3][this.facing].elapsedTime = 7;
+    //     this.dead = true;
+    // }
     this.PlatformCollision();
     this.mageCollide(TICK);
-    }
-    else{
-        this.velocity.x = 0;
-        this.velocity.y = 0;
-        let frame = this.animations[3][this.facing].currentFrame();
-        console.log(frame);
-       if(frame >= 3){
-        this.removeFromWorld = true;
-       }
-    }
+   // }
+    // else{
+    //     let frame = this.animations[3][this.facing].currentFrame();
+    //     console.log(frame);
+    //    if(frame >= 3){
+    //     this.removeFromWorld = true;
+    //    }
+    //}
     // console.log(this.velocity.x, this.velocity.y);
  };
  mageCollide(TICK){
     let that = this;
-    this.game.entities.forEach(function (entity) {   
-        if(!that.dead){     
+    this.game.entities.forEach(function (entity) {        
         if (entity instanceof Mage) {
-            let middleMage = { x: entity.BB.left + entity.BB.width / 2, y: entity.BB.top + entity.BB.height / 2 };
-            let middleMonster = { x: that.BB.left + that.BB.width / 2, y: that.BB.top + that.BB.height / 2 };
-            let xDis = middleMage.x - middleMonster.x;
-            let yDis = middleMage.y - middleMonster.y;
-            let distance = distanceBetween(middleMage,middleMonster);
+            const middleMage = { x: entity.BB.left + entity.BB.width / 2, y: entity.BB.top + entity.BB.height / 2 };
+            const middleMonster = { x: that.BB.left + that.BB.width / 2, y: that.BB.top + that.BB.height / 2 };
+            const xDis = middleMage.x - middleMonster.x;
+            const yDis = middleMage.y - middleMonster.y;
+            const distance = distanceBetween(middleMage,middleMonster);
             let mageDB = entity.BB && that.MageDetection.collide(entity.BB);
             let mageAB = entity.BB && that.AttackBB.collide(entity.BB);
             let frame = that.animations[that.state][that.facing].currentFrame();
@@ -159,7 +183,6 @@ for(var l = 0; l <= 3; l++){
                 }
             }
         };
-    }
         });
 
  }
@@ -220,9 +243,6 @@ loseHealth(damageRecieved){
     if(this.state === 2 && this.facing  === 1){
     this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x-30, this.y-this.game.camera.y, 1 );
     }
-    else if(this.facing  === 1 && this.state === 3){
-        this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x-30, this.y-this.game.camera.y, 1 );
-        }
     else if(this.facing  === 1){
     this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x + 30, this.y-this.game.camera.y, 1 );
     }
@@ -239,7 +259,7 @@ loseHealth(damageRecieved){
           ctx.strokeStyle = 'yellow';
           ctx.strokeRect(this.AttackBB.x - this.game.camera.x, this.AttackBB.y - this.game.camera.y, this.AttackBB.width, this.AttackBB.height);   
     }     
-       }; 
+       }; 3
  
 
 }; 
