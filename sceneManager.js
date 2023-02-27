@@ -8,14 +8,15 @@ class SceneManager {
         this.jumpItem = false;
         this.elapsedTime = 0;
         this.mageDead = false;
-        this.title = true;
+        this.title = false;
         this.animations = [];
         this.loadAnimations();
         this.damage = 10;
+        this.specDamage = 50;
         this.level = null;
-        this.mage = new Mage(this.game, 2000,400);
+        this.mage = new Mage(this.game, 50,400);
         this.game.addEntityToBegin(this.mage);
-        this.loadLevel(levelOne, this.title);
+        this.loadLevel(levelThree, this.title);
         this.myCursor = new Cursor(this.game);
         
     };
@@ -41,13 +42,12 @@ class SceneManager {
             // this.lastMage = new Mage(this.game, 50,300);
         this.x = 0;
         this.y = 0;
-        // this.mage.x = 100;
-        // this.mage.y = 400;
+        this.mage.x = 9500;
+        this.mage.y = 300;
         this.healthPotion = 0;
         this.manaPotion = 0;
-        this.game.addEntity(new Item(this.game, 400, 400, 0));
         this.fireBoss = new fireBoss(this.game, 9600, 300); 
-        this.game.addEntityToBegin(new Portal(this.game, 500, 430, levelThree));
+        // this.game.addEntityToBegin(new Portal(this.game, 500, 430, levelThree));
         //mobs
         //chainbot
         this.game.addEntity(new ChainBot(this.game, 2629,507));
@@ -130,18 +130,27 @@ class SceneManager {
     else if(this.level === levelThree){
         this.x = 0;
         this.y = 0;
+        this.mage.x = 4497;
+        this.mage.y = 507;
+        this.game.addEntity(new EarthBoss(this.game, 4697,307));
         if(level.boar){
             for (var i = 0; i < level.boar.length; i++) {
                 let boar = level.boar[i];
                 this.game.addEntity(new Boar(this.game, boar.x, boar.y));
             }
         }
-        if(level.slimeEarth){
-            for (var i = 0; i < level.slimeEarth.length; i++) {
-                let slimeEarth = level.slimeEarth[i];
-                this.game.addEntity(new earthSlime(this.game, slimeEarth.x, slimeEarth.y));
+        if(level.bat){
+            for (var i = 0; i < level.bat.length; i++) {
+                let bat = level.bat[i];
+                this.game.addEntity(new Bat(this.game, bat.x, bat.y));
             }
         }
+        // if(level.slimeEarth){
+        //     for (var i = 0; i < level.slimeEarth.length; i++) {
+        //         let slimeEarth = level.slimeEarth[i];
+        //         this.game.addEntity(new earthSlime(this.game, slimeEarth.x, slimeEarth.y));
+        //     }
+        // }
         this.game.addEntity(new Item(this.game, 400, 400, 1));
         // this.game.addEntity(new earthSlime(this.game, 400, 500));
         if(level.ground){   
@@ -226,22 +235,24 @@ class SceneManager {
         // console.log(this.heartMana.cur_Hearts, this.mage.hp);
         if(this.title){
             if(this.game.click && (this.game.click.y > 224) && (this.game.click.y < 312) && (this.game.click.x > 733) && (this.game.click.x < 1056)){
-                this.loadLevel(levelThree, false);
+                this.loadLevel(levelOne, false);
                 this.title = false;
             }
         }
         if(!this.title){
         this.heartMana.update();
-        }
-        this.myCursor.update();
-        this.updateAudio();
         let midpoint = PARAMS.CANVAS_WIDTH/2 - PARAMS.PLAYERWIDTH / 2;
-        // console.log(this.x,this.mage.x - midpoint);
-
         if ((this.mage.x > midpoint) && (this.mage.x + midpoint <= 12000)) this.x = this.mage.x - midpoint;
         if ((this.mage.x < midpoint) && (this.mage.x - midpoint >= 0)) this.x = this.mage.x - midpoint;
         if ((this.mage.y < 200) && (this.mage.y + 200 >= -3000)) this.y = this.mage.y - 200;
         if ((this.mage.y > 600) && (this.mage.y - 600 <= 0)) this.y = this.mage.y - 600;
+        }
+        this.myCursor.update();
+        this.updateAudio();
+        
+        // console.log(this.x,this.mage.x - midpoint);
+
+       
     };
 
     loadAnimations(){

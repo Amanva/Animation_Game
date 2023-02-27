@@ -14,9 +14,9 @@ class fireBoss{
         this.facing = 0; //0=left, 1 = right
         this.state = 1; // 0 = idle, 1 = walking , 2 = attacking, 3 = hit, 4 = death, 5 = spawn, 6 = jump, 7 = fire attack, 8 = magic attack
         this.dead = false;
-        this.hp = 300;
-        this.healthbar = new HealthBar(game, this);
-        this.maxHP = 300;
+        this.hp = 30;
+        this.healthbar = new HealthBar(this.game, this);
+        this.maxHP = 30;
         this.hit = false;
         this.attackCoolDown = 0;
         this.attackFrameCD = 0;
@@ -118,6 +118,7 @@ class fireBoss{
     }
 
     update() {
+        const TICK = this.game.clockTick;
         this.velocity.y += 200 * this.game.clockTick;
         
 
@@ -125,8 +126,7 @@ class fireBoss{
         this.updateBB();
         if(!this.dead){
         if(this.attackFrameFinished){
-            console.log("FINISHED FRAME");
-            this.animations[this.state][this.facing].elapsedTime =0;
+            this.animations[this.state][this.facing].elapsedTime = 0;
             this.moveBoss = true;
             this.attackBoss = false;
             this.attackFrameFinished = false;
@@ -152,6 +152,7 @@ class fireBoss{
                 //If move 
                 
                 if(that.moveBoss && !that.dead){
+                    // console.log(that.dead);
                     that.state = 1;
                     if(that.BB.left > entity.BB.right){
                     
@@ -208,7 +209,6 @@ class fireBoss{
                     if(that.randomSelectCD <= 0){
                         that.rand = randomInt(3);
                         that.randomSelectCD = 4;
-                        console.log("TEST2");
                     }
                     // that.rand = 0;
                     if(that.state === 2){
@@ -229,11 +229,9 @@ class fireBoss{
                                 that.hit = true;
                                 entity.removeHealth(10);
                                 that.updateBB();
-                                console.log("MAGE HIT");
                             }
                         
                         if(that.animations[that.state][that.facing].currentFrame() >= 17){
-                            console.log("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
                             that.attackFrameFinished = true; 
                             that.updateBB();
                         }
@@ -245,9 +243,8 @@ class fireBoss{
                         if(that.rand === 1){
                             
                             if(that.AttackDetectionBB.collide(entity.BB) && (that.AttackDetectionBB.right > entity.BB.left-200)){
-                                console.log(that.AttackDetectionBB.right, entity.BB.left);
+                                // console.log(that.AttackDetectionBB.right, entity.BB.left);
                                 that.state = that.attackList[that.rand];
-                                console.log("In Attacking Range");
                                 that.updateBB();
                             }
                             
@@ -260,16 +257,14 @@ class fireBoss{
                             }
                             
                             if(that.animations[that.state][that.facing].currentFrame() >= 20){
-                                console.log("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
                                 that.attackFrameFinished = true; 
                                 that.updateBB();
                             }
                         }
                         else if(that.rand === 0 ){
                             if(that.AttackDetectionBB.collide(entity.BB) && (that.AttackDetectionBB.right > entity.BB.left-200)){
-                                console.log(that.AttackDetectionBB.right, entity.BB.left);
+                                // console.log(that.AttackDetectionBB.right, entity.BB.left);
                                 that.state = that.attackList[that.rand];
-                                console.log("In Attacking Range");
                                 that.updateBB();
                             }
             
@@ -280,7 +275,6 @@ class fireBoss{
                             }
                                   
                             if(that.animations[that.state][that.facing].currentFrame() >= 15){
-                                console.log("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
                                 that.attackFrameFinished = true; 
                                 that.updateBB();
   
@@ -288,9 +282,8 @@ class fireBoss{
                         }
                         else if(that.rand === 2){
                             if(that.AttackDetectionBB.collide(entity.BB) && (that.AttackDetectionBB.right > entity.BB.left-200)){
-                                console.log(that.AttackDetectionBB.right, entity.BB.left);
+                                // console.log(that.AttackDetectionBB.right, entity.BB.left);
                                 that.state = that.attackList[that.rand];
-                                console.log("In Attacking Range");
                                 that.updateBB();
                             }
             
@@ -300,7 +293,6 @@ class fireBoss{
                                     that.updateBB();
                             }
                             if(that.animations[that.state][that.facing].currentFrame() >= 16){
-                                console.log("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
                                 that.attackFrameFinished = true; 
                                 that.updateBB();
   
@@ -336,24 +328,22 @@ class fireBoss{
             this.randomSelectCD -= this.game.clockTick;
         }
 
-        if(this.hp <= 0 && !this.dead){
+        if(this.hp <= 0){
             this.velocity.x = 0;
             this.velocity.y = 0;
-            console.log("Dead");
+            this.dead = true;
             this.state = 4;
-            this.updateBB();
-
-            if(this.animations[4][this.facing].isAlmostDone(this.game.clockTick)){
+            if(this.animations[4][this.facing].isAlmostDone(TICK)){
+                this.game.addEntityToBegin(new Item(this.game, this.x+300, this.y+100, 0));
                 this.removeFromWorld = true;
-                this.dead = true;
+
             }
         }
-        if(this.dead){
-            this.velocity.x = 0;
-            this.velocity.y = 0;
-            // this.game.addEntityToBegin(new Portal(this.game, this.x, 430));
-            // this.game.addEntityToBegin(new Item(this.game,8000,500))
-        }
+        // if(this.dead){
+        //     this.velocity.x = 0;
+        //     this.velocity.y = 0;
+        //     console.log(this.dead);
+        // }
         // console.log(this.state);
     };
     updateBB() {

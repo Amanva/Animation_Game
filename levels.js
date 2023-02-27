@@ -395,7 +395,7 @@ var levelThree = {
     slimeEarth: [
         {x: 700, y: 400}
     ],
-    Monster: [
-        {x: 690, y: 250},
+    bat: [
+        {x: 500, y: 300},
     ]
 };
