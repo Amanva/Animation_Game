@@ -29,6 +29,7 @@ assetMangager.queueDownload("./sprites/enemies/Flight.png");
 assetMangager.queueDownload("./sprites/enemies/Min.png");
 
 
+
 assetMangager.queueDownload(levelThree.background1);
 assetMangager.queueDownload(levelThree.background2);
 assetMangager.queueDownload(levelThree.background3 );
@@ -51,7 +52,11 @@ assetMangager.queueDownload("./sprites/monster-idle.png");
 assetMangager.queueDownload("./sprites/monster-Right-Fly.png");
 assetMangager.queueDownload("./sprites/portal.png");
 assetMangager.queueDownload("./sprites/demon-idleRight.png");
-
+assetMangager.queueDownload("./sprites/seaMonster/monsterLeft.png");
+assetMangager.queueDownload("./sprites/seaMonster/monster-Riight-Attack.png");
+assetMangager.queueDownload("./sprites/seaMonster/monster-Left-Swim.png");
+assetMangager.queueDownload("./sprites/seaMonster/monster-idle.png");
+assetMangager.queueDownload("./sprites/seaMonster/monster-Right-Swim.png");
 // sounds
 assetMangager.queueDownload("./sounds/sfx/playerhit.mp3");
 assetMangager.queueDownload("./sounds/sfx/zombiehit.wav");

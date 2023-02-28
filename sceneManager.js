@@ -134,6 +134,7 @@ class SceneManager {
         this.mage.x = 5097;
         this.mage.y = -707;
         this.game.addEntity(new EarthBoss(this.game, 4697,307));
+        this.game.addEntity(new SeaMonster(this.game, 5681, 507));
         if(level.boar){
             for (var i = 0; i < level.boar.length; i++) {
                 let boar = level.boar[i];

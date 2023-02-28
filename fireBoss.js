@@ -250,7 +250,7 @@ class fireBoss{
                             
                             if(that.AttackBB.collide(entity.BB) && that.state === 7 && that.animations[that.state][that.facing].currentFrame() >= 10 && that.animations[that.state][that.facing].currentFrame() <= 16 && !that.hit){
                                     that.hit = true;
-                                    entity.removeHealth(10);
+                                    entity.removeHealth(25);
                                     // that.state = 1;
                                     that.updateBB();
             
@@ -270,7 +270,7 @@ class fireBoss{
             
                             if(that.AttackBB.collide(entity.BB) && that.state === 2 && that.animations[that.state][that.facing].currentFrame() >= 10 && that.animations[that.state][that.facing].currentFrame() <= 12 && !that.hit){
                                     that.hit = true;
-                                    entity.removeHealth(10);
+                                    entity.removeHealth(15);
                                     that.updateBB();
                             }
                                   
@@ -289,7 +289,7 @@ class fireBoss{
             
                             if(that.AttackBB.collide(entity.BB) && that.state === 8 && that.animations[that.state][that.facing].currentFrame() >= 5 && that.animations[that.state][that.facing].currentFrame() <= 11 && !that.hit){
                                     that.hit = true;
-                                    entity.removeHealth(10);
+                                    entity.removeHealth(15);
                                     that.updateBB();
                             }
                             if(that.animations[that.state][that.facing].currentFrame() >= 16){
