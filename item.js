@@ -40,7 +40,7 @@ class Item {
                     }
             if (entity instanceof Mage) {
                 if(that.type === 0){
-                that.game.camera.damage *= 1.3;
+                that.game.camera.damage *= 1.4;
                 that.removeFromWorld = true;
                 }
                 else if(that.type === 1){

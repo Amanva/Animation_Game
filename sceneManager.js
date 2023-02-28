@@ -8,15 +8,15 @@ class SceneManager {
         this.jumpItem = false;
         this.elapsedTime = 0;
         this.mageDead = false;
-        this.title = false;
+        this.title = true;
         this.animations = [];
         this.loadAnimations();
-        this.damage = 100;
+        this.damage = 10;
         this.specDamage = 50;
         this.level = null;
         this.mage = new Mage(this.game, 50,400);
         this.game.addEntityToBegin(this.mage);
-        this.loadLevel(levelThree, this.title);
+        this.loadLevel(levelOne, this.title);
         this.myCursor = new Cursor(this.game);
         
     };
@@ -40,17 +40,17 @@ class SceneManager {
         
         if(this.level === levelOne){
             // this.lastMage = new Mage(this.game, 50,300);
-        this.damage = 10;
+        // this.damage = 10;
         this.jumpItem = false;
         this.x = 0;
         this.y = 0;
-        this.mage.x = 9500;
+        this.mage.x = 500;
         this.mage.y = 300;
         this.healthPotion = 0;
         this.manaPotion = 0;
         this.fireBoss = new fireBoss(this.game, 9600, 300);
         this.game.addEntity(this.fireBoss);
-        this.game.addEntityToBegin(new Item(this.game, 9500, 300, 0)); 
+        this.game.addEntityToBegin(new Item(this.game, 500, 300, 0));
         // this.game.addEntityToBegin(new Portal(this.game, 500, 430, levelThree));
         //mobs
         //chainbot
@@ -131,7 +131,7 @@ class SceneManager {
         this.x = 0;
         this.y = 0;
         this.jumpItem = true;
-        this.mage.x = 5097;
+        this.mage.x = 497;
         this.mage.y = -707;
         this.game.addEntity(new EarthBoss(this.game, 4697,307));
         this.game.addEntity(new SeaMonster(this.game, 5681, 507));
@@ -212,6 +212,11 @@ class SceneManager {
             this.mage = new Mage(this.game, 50,400);
             this.mageDead = false;
             this.game.addEntityToBegin(this.mage);
+        }
+        if (level.music && !this.title) {
+            console.log("playing");
+            assetMangager.pauseBackgroundMusic();
+            assetMangager.playAsset(level.music);
         }
         this.heartMana = new HeartManaHQ(this.game, this.mage); 
         

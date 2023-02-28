@@ -58,9 +58,11 @@ assetMangager.queueDownload("./sprites/seaMonster/monster-Left-Swim.png");
 assetMangager.queueDownload("./sprites/seaMonster/monster-idle.png");
 assetMangager.queueDownload("./sprites/seaMonster/monster-Right-Swim.png");
 // sounds
+assetMangager.queueDownload("./sounds/music/background.wav");
 assetMangager.queueDownload("./sounds/sfx/playerhit.mp3");
 assetMangager.queueDownload("./sounds/sfx/zombiehit.wav");
 assetMangager.downloadAll(() => {
+assetMangager.autoRepeat("./sounds/music/background.wav");
 var canvas = document.getElementById('gameWorld');
 var ctx = canvas.getContext('2d');
 ctx.imageSmoothingEnabled = false;

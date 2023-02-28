@@ -1,6 +1,7 @@
 // const divisorPlatforms = 256;
 var levelOne = {
     background: "./sprites/Background.png",
+    music: "./sounds/music/background.wav",
     ground: [
         { x: 0, y: 750, width: 3072, height:64, div: 256},
         { x: 3456, y: 750, width: 2560, height:64, div: 256},
