@@ -76,10 +76,9 @@ class WaterBoss{
                     that.state = 1; // death
                     that.velocity.x = 0;
                     that.dead = true;
-                    if(that.animations[1].isAlmostDone(TICK)){
-                        // assetMangager.playAsset("sounds/blood_splash.wav");
-                        that.dead = true;
+                    if(this.animations[1].isAlmostDone(TICK)){
                         that.removeFromWorld = true;
+                        
                     }
                                             
                 }
@@ -225,8 +224,6 @@ class WaterBoss{
 };
 
 
-
-
 class Wave {
     constructor(game, x , y){
         Object.assign(this, { game, x, y });
@@ -276,10 +273,7 @@ class Wave {
                     that.removeFromWorld = true;
                 }
             }
-
-        
         });
-       
     };
 
     draw(ctx){
@@ -300,7 +294,7 @@ class Wave {
 }
 
 
-
+//******************                        very angry squid leaves no chance to survive                **********************************
 
 class Squid {
     constructor(game, x, y){
@@ -308,7 +302,13 @@ class Squid {
         this.game.squid = this;
         this.velocity = { x: 0, y: 0 };
         this.squid = assetMangager.getAsset("./sprites/waterLevel/squid.png");
+        this.squidRight = assetMangager.getAsset("./sprites/waterLevel/squidRight.png");
         this.scale = 1;
+        this.dead = false;
+        // this.fallAcc = 200;        
+        // this.speed = 100;
+        this.state = 2;
+        this.facing = 0;
         this.updateBB();
         this.loadAnimations();
 
@@ -324,49 +324,207 @@ class Squid {
         this.animations = [];
         for (var i = 0; i < 3; i++) { 
             this.animations.push([]);
-            this.animations[i].columnNum = 4;
+                for (var j = 0; j < 2; j++) { 
+                    this.animations[i].push([]);
+                }
             
         }
-        this.animations[0] = new Animator(this.squid, 0, 0, 80, 60, 7, 0.12, 0, 0, false, true, false); //attack
-        this.animations[1] = new Animator(this.squid, 0, 60, 80, 60, 4 , 0.30, 0, 0, false, true, false); //dead
-        this.animations[2] = new Animator(this.squid, 0, 60, 80, 60, 4 , 0.30, 0, 0, true, true, false); //born
+        //Left
+        this.animations[0][0] = new Animator(this.squid, 0, 0, 80, 60, 7, 0.12, 0, 0, false, true, false); // Run Left/attack
+        this.animations[1][0] = new Animator(this.squid, 0, 60, 80, 60, 4 , 0.30, 0, 0, false, false, false); //dead
+        this.animations[2][0] = new Animator(this.squid, 0, 60, 80, 60, 4 , 0.30, 0, 0, true, false, false); //born
+        //Right
+        this.animations[0][1] = new Animator(this.squidRight, 0, 0, 80, 60, 7, 0.12, 0, 0, true, true, false); // Run Right/attack
+        this.animations[1][1] = new Animator(this.squidRight, 0, 60, 80, 60, 4 , 0.30, 0, 0, true, false, false); //dead
+        this.animations[2][1] = new Animator(this.squidRight, 0, 60, 80, 60, 4 , 0.30, 0, 0, false, false, false); //born
     }
     
-
-
     updateBB() {
         this.lastBB = this.BB;
         this.BB = new BoundingBox(this.x+10, this.y+10, 60, 40); 
+        this.MageDetection = new BoundingBox(this.x-500, this.y-200, 1300, 700);
     };
     
     update() {
-        // let curFrame = this.animations.currentFrame();
+        const TICK = this.game.clockTick;
+        const RUN = 50;
+        this.x += this.velocity.x * TICK;
+        this.y += this.velocity.y * TICK;
         this.updateBB();
-        var that = this;
-        that.game.entities.forEach(function (entity) {
-            if (entity instanceof Mage  && entity.BB && that.BB.collide(entity.BB)) {
 
-            }
+        // this.game.entities.forEach(function (entity) {
+        //     if (entity.BB && this.BB.collide(entity.BB)) {
+                
+        //         if(entity instanceof Mage){
+        //             this.removeFromWorld = true;
+        //             entity.removeHealth(20);
+
+        //         }
+
+                
+        //     }
+        // });
         
-           
-        }); //end of forEach
-              
-    };//end update() chainBot behavior and collisions
+        
+        // if(this.dead) {
+        //     // this.state = 1;
+        //     // this.velocity.x = 0;
+        //     // this.velocity.y = 0;
+        //     // if (this.animations[1][this.facing].isAlmostDone(TICK)){
+        //         this.removeFromWorld = true;
+                
+        //     }
+
+        if (this.animations[2][this.facing].isAlmostDone(TICK)){
+            this.state =0;
+            this.dead = false;
+            this.updateBB();
+            this.mageCollide(TICK);
+
+        } else if (this.animations[1][this.facing].isAlmostDone(TICK)){
+            // entity.removeHealth(20);
+            this.dead = true;
+            this.removeFromWorld = true;
+        }
+
+        this.updateBB();
+        this.mageCollide(TICK);
+        
+    }
+
+    mageCollide(TICK){
+        const RUN = 350;
+        this.updateBB();
+        let that = this;
+        this.game.entities.forEach(function (entity) {   
+            if(!that.dead){     
+            if (entity instanceof Mage) {
+                let middleMage = { x: entity.BB.left + entity.BB.width / 2, y: entity.BB.top + entity.BB.height / 2 };
+                let middleMonster = { x: that.BB.left + that.BB.width / 2, y: that.BB.top + that.BB.height / 2 };
+                let xDis = middleMage.x - middleMonster.x;
+                let yDis = middleMage.y - middleMonster.y;
+                let distance = distanceBetween(middleMage,middleMonster);
+                let mageDetected = entity.BB && that.MageDetection.collide(entity.BB);
+                let mageAttacked = entity.BB && that.BB.collide(entity.BB);
+                let frame = that.animations[that.state][that.facing].currentFrame();
+
+                //Chase the Mage
+                if(mageDetected && !(that.state === 1  || that.state === 2)){
+                    if(mageDetected) {
+                        that.state = 0;
+                        
+                        if (xDis > 0 ) { //On the Right
+                            that.facing = 1;
+                            that.velocity.x = RUN;
+
+                        } else if (xDis < 0) { //On the Left
+                            that.facing = 0;
+                            that.velocity.x = -RUN;
+                        }
+
+                        if(yDis > 0) { //mage is below
+                            that.velocity.y = RUN;
+
+                        } else if(yDis < 0) { //Mage is above
+                            that.velocity.y = -RUN;
+
+                        } 
+                    }
+
+                } else if (!mageDetected) {
+                    that.velocity.x = 0
+                    that.velocity.y = 0;
+
+                }//end if detected Chase
+
+                if(mageAttacked) {
+                    that.state = 1;
+                    that.velocity.y = -RUN;
+                    entity.removeHealth(0.75);
+                      
+                }
+                if (entity instanceof Projectile) {
+                    entity.removeFromWorld = true;
+                }
+            };
+        }
+    });
+
+    that.updateBB();
+    
+}
+    // PlatformCollision(){
+    //     var that = this;
+    //         this.game.entities.forEach(function (entity) {
+    //             if (entity.BB && that.BB.collide(entity.BB)) {
+    //                 if (that.velocity.y > 0) { 
+    //                     if (((entity instanceof Ground) || (entity instanceof Platform) || (entity instanceof Wall) || (entity instanceof Tiles || (entity instanceof smallPlatforms) || (entity instanceof verticalWall))) && (that.lastBB.bottom <= entity.BB.top)){
+    //                         that.velocity.y = 0;
+    //                         that.y = entity.BB.top - that.BB.height-130;
+    //                         that.updateBB();
+    //                     }
+    //                     if ((entity instanceof movingPlatforms) && (that.lastBB.bottom < entity.BB.top+6)){
+    //                         that.y = entity.BB.top - that.BB.height-130;
+    //                         that.velocity.y = 0;
+    //                         that.updateBB();
+    //                     }
+    //                     } 
+    //                     if(that.velocity.y < 0){
+    //                         if ((entity instanceof Ground || entity instanceof Wall || entity instanceof Platform || entity instanceof movingPlatforms || (entity instanceof Tiles) || entity instanceof smallPlatforms) && (that.lastBB.top >= entity.BB.bottom)){
+    //                             that.velocity.y = 0;
+    //                             that.y = entity.BB.bottom-130;
+    //                             that.updateBB();
+    //                         }
+    //                     }
+    //                     if (((entity instanceof Wall) || (entity instanceof Ground) || (entity instanceof Platform) || (entity instanceof smallPlatforms) || (entity instanceof verticalWall)) && that.BB.collide(entity.leftBB) && (that.lastBB.top < entity.BB.bottom-5)){
+    //                                 that.x = entity.leftBB.left - that.BB.width-115;
+    //                                 that.velocity.x = 0;
+    //                                 that.updateBB();
+    //                     }
+    //                     if (((entity instanceof Wall) || (entity instanceof Ground) || (entity instanceof Platform) || (entity instanceof Tiles) || (entity instanceof smallPlatforms) || (entity instanceof verticalWall)) && that.BB.collide(entity.rightBB) && (that.lastBB.top < entity.BB.bottom-5)){               
+    //                                 that.x = entity.rightBB.right-115;
+    //                                 that.velocity.x = 0; 
+    //                                 that.updateBB(); 
+    //                     }
+    //                     if (((entity instanceof movingPlatforms)) && (that.lastBB.left >= entity.BB.right) && (that.lastBB.top < entity.BB.bottom-5)){               
+    //                         that.x = entity.rightBB.right - that.xBBOffset;
+    //                         that.velocity.x = 0; 
+    //                         that.updateBB(); 
+    //                     }
+    //                     if (((entity instanceof movingPlatforms)) && (that.lastBB.right <= entity.BB.left) && (that.lastBB.top < entity.BB.bottom-5)){               
+    //                         that.x = entity.leftBB.left - PARAMS.PLAYERWIDTH-that.xBBOffset;
+    //                         that.velocity.x = 0; 
+    //                         that.updateBB(); 
+    //                     }
+    //                 }
+    //             });
+    // }
+
+    // loseHealth(damageRecieved){
+    //     this.hp -= damageRecieved;
+    
+    // };
 
     draw(ctx) {
                    
-        this.animations[0].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, this.scale);
-        this.animations[1].drawFrame(this.game.clockTick, ctx, this.x+150-this.game.camera.x, this.y-this.game.camera.y, this.scale);
-        this.animations[2].drawFrame(this.game.clockTick, ctx, this.x+300-this.game.camera.x, this.y-this.game.camera.y, this.scale);
+        // this.animations[0][0].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, this.scale);
+        // this.animations[1][1].drawFrame(this.game.clockTick, ctx, this.x+150-this.game.camera.x, this.y-this.game.camera.y, this.scale);
+        // this.animations[2][0].drawFrame(this.game.clockTick, ctx, this.x+300-this.game.camera.x, this.y-this.game.camera.y, this.scale);
+
+         this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, this.scale);
+
         if (debug) {
         //draw the boundingBox
             ctx.strokeStyle = 'white';
             ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y-this.game.camera.y, this.BB.width , this.BB.height);
-            ctx.strokeRect(this.BB.x +150- this.game.camera.x, this.BB.y-this.game.camera.y, this.BB.width , this.BB.height);
-            ctx.strokeRect(this.BB.x +300- this.game.camera.x, this.BB.y-this.game.camera.y, this.BB.width , this.BB.height);
+            // ctx.strokeRect(this.BB.x +150- this.game.camera.x, this.BB.y-this.game.camera.y, this.BB.width , this.BB.height);
+            // ctx.strokeRect(this.BB.x +300- this.game.camera.x, this.BB.y-this.game.camera.y, this.BB.width , this.BB.height);
+
+            ctx.strokeStyle = 'red';
+            ctx.strokeRect(this.MageDetection.x - this.game.camera.x, this.MageDetection.y - this.game.camera.y, this.MageDetection.width, this.MageDetection.height);
+            
         }
         
-                                
     }; // End draw method
 
 }; // End of squid

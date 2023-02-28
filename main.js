@@ -21,6 +21,7 @@ assetMangager.queueDownload("./sprites/enemies/chain_bot_attack_right.png");
 assetMangager.queueDownload("./sprites/enemies/chain_bot_attack_left.png");
 assetMangager.queueDownload("./sprites/enemies/chain_bot_hit.png");
 assetMangager.queueDownload("./sprites/enemies/chain_bot_death.png");
+assetMangager.queueDownload("./sprites/enemies/slime.png")
 assetMangager.queueDownload("./sprites/Lava64.png");
 assetMangager.queueDownload("./sprites/Background.png");
 assetMangager.queueDownload("./sprites/demon-idleRight.png");
@@ -46,6 +47,7 @@ assetMangager.queueDownload("./sprites/waterLevel/boulderTiles.png");
 assetMangager.queueDownload("./sprites/waterLevel/hydra_left.png");
 assetMangager.queueDownload("./sprites/waterLevel/hydra_right.png");
 assetMangager.queueDownload("./sprites/waterLevel/squid.png");
+assetMangager.queueDownload("./sprites/waterLevel/squidRight.png");
 assetMangager.queueDownload("./sprites/waterLevel/cave.png");
 
 //sounds

@@ -118,6 +118,8 @@ class SceneManager {
             this.game.addEntity(new Cave(this.game, 11030, 363, 1031, 439));
             //  this.game.addEntity(new SeaMonster(this.game, 690, 250));
 
+            // this.game.addEntity(new Slime(this.game, 690, 250));
+
             this.game.addEntity(new Squid(this.game, 690, 250));
 
             this.game.addEntity(new WaterBoss(this.game,1580, 450));
