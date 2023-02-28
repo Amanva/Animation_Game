@@ -51,7 +51,7 @@ class Projectile{
             
             });
             // console.log(this.dist);
-            // console.log(this.shot.x, this.shot.y);
+            console.log(this.shot.x, this.shot.y);
     };
     getDmg() {
         let dmg = this.game.camera.damage;
@@ -101,16 +101,16 @@ class FireBall{
         if(this.y < -3000){
             this.removeFromWorld = true; 
         }
-        if(this.x < 12000){
+        if(this.x > 12000){
             this.removeFromWorld = true; 
         }
-        if(this.y > 0){
+        if(this.y > 800){
             this.removeFromWorld = true; 
         }
         var that = this;
         this.game.entities.forEach(function (entity) {
             if (entity.BB && that.BB.collide(entity.BB)) {
-                if ((entity instanceof Ground || entity instanceof Wall || entity instanceof Platform || entity instanceof movingPlatforms) && that.BB.collide(entity.BB)) {
+                if ((entity instanceof Ground || entity instanceof Wall || entity instanceof Platform || entity instanceof movingPlatforms)) {
                    that.removeFromWorld = true;
                 }
                 if((entity instanceof fireBoss) || (entity instanceof Monster) || (entity instanceof Slime) || (entity instanceof Boar) || (entity instanceof earthSlime) || (entity instanceof ChainBot) || (entity instanceof Bat)){
@@ -167,7 +167,7 @@ class Earth{
         var that = this;
         this.game.entities.forEach(function (entity) {
             if (entity.BB && that.BB.collide(entity.BB)) {
-                if ((entity instanceof Ground || entity instanceof Wall || entity instanceof Platform || entity instanceof movingPlatforms) && that.BB.collide(entity.BB)) {
+                if ((entity instanceof Ground || entity instanceof Wall || entity instanceof Platform || entity instanceof movingPlatforms)) {
                    that.removeFromWorld = true;
                 }
                 if((entity instanceof fireBoss) || (entity instanceof Monster) || (entity instanceof Slime) || (entity instanceof Boar) || (entity instanceof earthSlime) || (entity instanceof ChainBot) || (entity instanceof Bat)){

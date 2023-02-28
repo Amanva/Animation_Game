@@ -104,7 +104,8 @@ for(var l = 0; l <= 3; l++){
         this.velocity.y = 0;
         let frame = this.animations[3][this.facing].currentFrame();
         if(this.animations[3][this.facing].isAlmostDone(TICK)){
-            this.game.camera.potionDrop(this.x, this.y);
+        this.game.mage.getMana();
+        this.game.camera.potionDrop(this.BB.x+this.BB.width/2, this.BB.y);
             this.removeFromWorld = true;
         }
         
@@ -584,6 +585,8 @@ class earthSlime{
             this.updateBB;
 
             if(this.animations[that.state][that.facing].isAlmostDone(that.game.clockTick)){
+                this.game.mage.getMana();
+                this.game.camera.potionDrop(this.x, this.y);
                 this.removeFromWorld = true;
                 this.isDead = true;
             }
@@ -676,7 +679,7 @@ this.animations[1][0] = new Animator(assetMangager.getAsset("./sprites/enemies/A
 // fly
 this.animations[2][0] = new Animator(assetMangager.getAsset("./sprites/enemies/Flight.png"), 0, 0, 150, 150, 8, 0.10, 0, 0, false, true, false);
 // death
-this.animations[3][0] = new Animator(assetMangager.getAsset("./sprites/enemies/Death.png"), 0, 0, 150, 150, 4, 0.10, 0, 0, false, true, false);
+this.animations[3][0] = new Animator(assetMangager.getAsset("./sprites/enemies/Death.png"), 0, 0, 150, 150, 4, 0.15, 0, 0, false, true, false);
 
 //left
 // attack
@@ -686,7 +689,7 @@ this.animations[1][1] = new Animator(assetMangager.getAsset("./sprites/enemies/A
 // fly
 this.animations[2][1] = new Animator(assetMangager.getAsset("./sprites/enemies/Flight.png"), 0, 0, 150, 150, 8, 0.10, 0, 0, false, true, false);
 // death
-this.animations[3][1] = new Animator(assetMangager.getAsset("./sprites/enemies/Death.png"), 0, 0, 150, 150, 4, 0.10, 0, 0, false, true, false);
+this.animations[3][1] = new Animator(assetMangager.getAsset("./sprites/enemies/Death.png"), 0, 0, 150, 150, 4, 0.15, 0, 0, false, true, false);
 
 for(var l = 0; l <= 2; l++){
     this.animations[l][1].flipped = true;
@@ -739,7 +742,10 @@ for(var l = 0; l <= 2; l++){
         this.velocity.x = 0;
         this.velocity.y = 0;
         let frame = this.animations[3][this.facing].currentFrame();
-       if(frame >= 4){
+        console.log(frame);
+       if(frame >= 3){
+        this.game.mage.getMana();
+        this.game.camera.potionDrop(this.BB.x+this.BB.width/2, this.BB.y);
         this.removeFromWorld = true;
        }
     }
@@ -857,7 +863,7 @@ loseHealth(damageRecieved){
 
 };
  draw(ctx) {
-    if(this.hp >= 0){
+    if(this.hp > 0){
     this.healthBar.draw(ctx);
     }
     this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, 2);

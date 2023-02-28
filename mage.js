@@ -54,9 +54,9 @@ class Mage {
         // right run
         this.animations[1][0] = new Animator(this.spritesheet, 65, 150, 39, 105, 8, 0.10, 121, 0, false, true, false);
         // right attack
-        this.animations[2][0] = new Animator(this.spritesheet, 61, 269, 70, 105, 13, 0.05, 90,0, false, false, false); 
+        this.animations[2][0] = new Animator(this.spritesheet, 61, 269, 70, 105, 13, 0.03, 90,0, false, false, false); 
         // skull attack
-        this.animations[3][0] = new Animator(this.spritesheet, 57, 527, 50, 105, 17, 0.10, 110, 0, false, false, false);
+        this.animations[3][0] = new Animator(this.spritesheet, 57, 527, 50, 105, 17, 0.05, 110, 0, false, false, false);
         // hit
         this.animations[4][0] = new Animator(this.spritesheet, 57, 655, 50, 105, 5, 0.20, 110, 0, false, true, false);
         // death
@@ -72,10 +72,10 @@ class Mage {
 
         // left attack
 
-        this.animations[2][1] = new Animator(this.spritesheetLeft, 692, 269, 70, 105, 13, 0.05, 90, 0, true, true, false);
+        this.animations[2][1] = new Animator(this.spritesheetLeft, 692, 269, 70, 105, 13, 0.03, 90, 0, true, true, false);
 
         // left skull attack
-        this.animations[3][1] = new Animator(this.spritesheetLeft, 55, 527, 50, 105, 17, 0.10, 110, 0, true, true, false);
+        this.animations[3][1] = new Animator(this.spritesheetLeft, 55, 527, 50, 105, 17, 0.05, 110, 0, true, true, false);
 
         // left hit
         this.animations[4][1] = new Animator(this.spritesheetLeft, 1976, 655, 50, 105, 5, 0.20, 110, 0, true, true, false);
@@ -175,10 +175,13 @@ class Mage {
                 else if(this.game.digit1 && (this.curMana >= 50)){       
                     this.specialAttack1 = true;
                 }
+                else if(this.game.digit3 && (this.curMana >= 50)){       
+                    this.specialAttack3 = true;
+                }
                 if (this.game.right && !this.game.left) {
-                    this.velocity.x += 0.8;
+                    this.velocity.x += 1.5;
                 } else if (this.game.left && !this.game.right) {
-                    this.velocity.x -= 0.8;
+                    this.velocity.x -= 1.5;
                 } else {
                 }
             }
@@ -349,6 +352,11 @@ class Mage {
                 this.drinkMana(30);
                 this.game.camera.manaPotion--;
             }
+        }
+    }
+    getMana(){
+        if (this.curMana < this.maxMana) {
+        this.curMana += 5;
         }
     }
     deadPlayer(TICK, DE_ACC){

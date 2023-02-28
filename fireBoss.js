@@ -334,6 +334,7 @@ class fireBoss{
             this.dead = true;
             this.state = 4;
             if(this.animations[4][this.facing].isAlmostDone(TICK)){
+                this.game.addEntityToBegin(new Portal(this.game, 10500, 430, levelThree));
                 this.game.addEntityToBegin(new Item(this.game, this.x+300, this.y+100, 0));
                 this.removeFromWorld = true;
 
@@ -618,11 +619,12 @@ class Slime{
         if(this.hp <= 0){
             this.velocity.x = 0;
             this.velocity.y = 0;
-            console.log("Dead");
             this.state = 2;
             this.updateBB;
 
             if(this.animations[that.state][that.facing].isAlmostDone(that.game.clockTick)){
+                this.game.mage.getMana();
+                this.game.camera.potionDrop(this.BB.x+this.BB.width/2, this.BB.y);
                 this.removeFromWorld = true;
                 this.isDead = true;
             }
@@ -632,7 +634,7 @@ class Slime{
     updateBB(){
         this.lastBB = this.BB;
         this.lastMageDetection =  this.MageDetection;
-        this.MageDetection = new BoundingBox(this.x-300,this.y,700,110);
+        this.MageDetection = new BoundingBox(this.x-350,this.y-150,700,300);
         if(this.state === 0){
             this.BB = new BoundingBox(this.x+30,this.y+50,50,55);
         }
@@ -649,10 +651,18 @@ class Slime{
         this.hp -= damage;
     }
      draw(ctx) {
-        if(this.hp >= 0){
+        if(this.hp > 0){
             this.healthbar.draw(ctx);
         }
-
+        if(this.state === 2){
+            if(this.facing === 1){
+            this.animations[2][this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x-390, this.y - this.game.camera.y, PARAMS.SCALE);
+            }
+            else{
+            this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x-70, this.y - this.game.camera.y, PARAMS.SCALE);
+            }
+        }
+        else {
         if(this.facing === 1){
             this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x-390, this.y - this.game.camera.y, PARAMS.SCALE);
 
@@ -660,6 +670,7 @@ class Slime{
         else{
             this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, PARAMS.SCALE);
         }
+    }
             if(debug){
             ctx.strokeStyle = 'Red';
             ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y - this.game.camera.y, this.BB.width, this.BB.height);

@@ -11,7 +11,7 @@ class SceneManager {
         this.title = false;
         this.animations = [];
         this.loadAnimations();
-        this.damage = 10;
+        this.damage = 100;
         this.specDamage = 50;
         this.level = null;
         this.mage = new Mage(this.game, 50,400);
@@ -40,13 +40,17 @@ class SceneManager {
         
         if(this.level === levelOne){
             // this.lastMage = new Mage(this.game, 50,300);
+        this.damage = 10;
+        this.jumpItem = false;
         this.x = 0;
         this.y = 0;
         this.mage.x = 9500;
         this.mage.y = 300;
         this.healthPotion = 0;
         this.manaPotion = 0;
-        this.fireBoss = new fireBoss(this.game, 9600, 300); 
+        this.fireBoss = new fireBoss(this.game, 9600, 300);
+        this.game.addEntity(this.fireBoss);
+        this.game.addEntityToBegin(new Item(this.game, 9500, 300, 0)); 
         // this.game.addEntityToBegin(new Portal(this.game, 500, 430, levelThree));
         //mobs
         //chainbot
@@ -66,10 +70,6 @@ class SceneManager {
         this.game.addEntity(new Slime(this.game, 1400, 250));
         this.game.addEntity(new Slime(this.game, 1800, 50));
         this.game.addEntity(new Slime(this.game, 4000, 500));
-
-
-
-        this.game.addEntity(this.fireBoss);
         // this.game.addEntity(new Slime(this.game, 400, 400));
         
         if(level.ground){   
@@ -130,8 +130,9 @@ class SceneManager {
     else if(this.level === levelThree){
         this.x = 0;
         this.y = 0;
-        this.mage.x = 4497;
-        this.mage.y = 507;
+        this.jumpItem = true;
+        this.mage.x = 5097;
+        this.mage.y = -707;
         this.game.addEntity(new EarthBoss(this.game, 4697,307));
         if(level.boar){
             for (var i = 0; i < level.boar.length; i++) {
@@ -225,9 +226,9 @@ class SceneManager {
 
     };
     potionDrop(x, y){
-        const ran = randomInt(11); 
+        const ran = randomInt(0); 
         const typeRan = randomInt(2);
-        if( ran >= 8){
+        if(ran >= 0){
             this.game.addEntityToBegin(new Potion(this.game, x, y, typeRan));
         }
     }
@@ -242,7 +243,7 @@ class SceneManager {
         if(!this.title){
         this.heartMana.update();
         let midpoint = PARAMS.CANVAS_WIDTH/2 - PARAMS.PLAYERWIDTH / 2;
-        if ((this.mage.x > midpoint) && (this.mage.x + midpoint <= 12000)) this.x = this.mage.x - midpoint;
+        if ((this.mage.x > midpoint) && (this.mage.x + midpoint <= 11000)) this.x = this.mage.x - midpoint;
         if ((this.mage.x < midpoint) && (this.mage.x - midpoint >= 0)) this.x = this.mage.x - midpoint;
         if ((this.mage.y < 200) && (this.mage.y + 200 >= -3000)) this.y = this.mage.y - 200;
         if ((this.mage.y > 600) && (this.mage.y - 600 <= 0)) this.y = this.mage.y - 600;

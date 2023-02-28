@@ -3,8 +3,8 @@ class Monster{
     constructor(game, x, y){
      Object.assign(this, { game, x, y });
      this.velocity = { x: 0, y: 0 };
-     this.hp = 100;
-     this.maxHP = 100;
+     this.hp = 70;
+     this.maxHP = 70;
      this.healthBar = new HealthBar(this.game, this);
      this.fallAcc = 200;        
      this.spritesheetLeftAttack = assetMangager.getAsset("./sprites/monsterLeft.png");
@@ -104,6 +104,8 @@ for(var l = 0; l <= 3; l++){
         let frame = this.animations[3][this.facing].currentFrame();
         console.log(frame);
        if(frame >= 3){
+        this.game.mage.getMana();
+        this.game.camera.potionDrop(this.BB.x+this.BB.width/2, this.BB.y);
         this.removeFromWorld = true;
        }
     }
