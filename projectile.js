@@ -32,10 +32,10 @@ class Projectile{
                 if ((entity instanceof Ground || entity instanceof Wall || entity instanceof Platform || entity instanceof movingPlatforms || entity instanceof verticalWall || entity instanceof smallPlatforms) && that.BB.collide(entity.BB)) {
                    that.removeFromWorld = true;
                 }
-                if((entity instanceof fireBoss) || (entity instanceof Monster) || (entity instanceof Slime) || (entity instanceof Boar) || (entity instanceof earthSlime) || (entity instanceof ChainBot)){
+                if((entity instanceof fireBoss) || (entity instanceof Monster) || (entity instanceof Slime) || (entity instanceof Boar) || (entity instanceof earthSlime) || (entity instanceof ChainBot) || (entity instanceof Bat) || (entity instanceof SeaMonster)){
                     that.removeFromWorld = true;
                     entity.loseHealth(that.getDmg());
-                    console.log("HIT2");
+                    // console.log("HIT2");
                 }
                 // if(entity instanceof Monster){
                 //     that.removeFromWorld = true;
@@ -98,27 +98,25 @@ class FireBall{
         if(this.x < -10){
             this.removeFromWorld = true; 
         }
+        if(this.y < -3000){
+            this.removeFromWorld = true; 
+        }
+        if(this.x > 12000){
+            this.removeFromWorld = true; 
+        }
+        if(this.y > 800){
+            this.removeFromWorld = true; 
+        }
         var that = this;
         this.game.entities.forEach(function (entity) {
             if (entity.BB && that.BB.collide(entity.BB)) {
                 if ((entity instanceof Ground || entity instanceof Wall || entity instanceof Platform || entity instanceof movingPlatforms || entity instanceof verticalWall || entity instanceof smallPlatforms) && that.BB.collide(entity.BB)) {
                    that.removeFromWorld = true;
                 }
-                if(entity instanceof fireBoss){
+                if((entity instanceof fireBoss) || (entity instanceof Monster) || (entity instanceof Slime) || (entity instanceof Boar) || (entity instanceof earthSlime) || (entity instanceof ChainBot) || (entity instanceof Bat)){
                     that.removeFromWorld = true;
-                    entity.loseHealth(50);
-                }
-                if(entity instanceof ChainBot){
-                    that.removeFromWorld = true;
-                    entity.hp -= 100;
-                }
-                if(entity instanceof Monster){
-                    that.removeFromWorld = true;
-                    entity.loseHealth(100);
-                }
-                if(entity instanceof Slime){
-                    that.removeFromWorld = true;
-                    entity.loseHealth(100);
+                    entity.loseHealth(that.getSpecDmg());
+                    // console.log("HIT2");
                 }
                 if(entity instanceof earthSlime){
                     that.removeFromWorld = true;
@@ -128,7 +126,11 @@ class FireBall{
             
             });
     };
-
+    getSpecDmg() {
+        let specDmg = this.game.camera.specDamage;
+        assetMangager.playAsset("./sounds/sfx/playerhit.mp3");
+        return specDmg;
+    }
     draw(ctx){
         this.animations[0].drawAngle(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, 2, this.angle);
         if(debug){
@@ -172,21 +174,10 @@ class Earth{
                 if ((entity instanceof Ground || entity instanceof Wall || entity instanceof Platform || entity instanceof movingPlatforms || entity instanceof verticalWall || entity instanceof smallPlatforms) && that.BB.collide(entity.BB)) {
                    that.removeFromWorld = true;
                 }
-                if(entity instanceof fireBoss){
+                if((entity instanceof fireBoss) || (entity instanceof Monster) || (entity instanceof Slime) || (entity instanceof Boar) || (entity instanceof earthSlime) || (entity instanceof ChainBot) || (entity instanceof Bat)){
                     that.removeFromWorld = true;
-                    entity.loseHealth(50);
-                }
-                if(entity instanceof ChainBot){
-                    that.removeFromWorld = true;
-                    entity.hp -= 100;
-                }
-                if(entity instanceof Monster){
-                    that.removeFromWorld = true;
-                    entity.loseHealth(100);
-                }
-                if(entity instanceof Slime){
-                    that.removeFromWorld = true;
-                    entity.loseHealth(100);
+                    entity.loseHealth(that.getSpecDmg());
+                    // console.log("HIT2");
                 }
                 if(entity instanceof Slime){
                     that.removeFromWorld = true;
@@ -197,7 +188,11 @@ class Earth{
             });
     };
 
-    
+    getSpecDmg() {
+        let specDmg = this.game.camera.specDamage;
+        assetMangager.playAsset("./sounds/sfx/playerhit.mp3");
+        return specDmg;
+    }
     draw(ctx){
         this.animations[0].drawAngle(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, 3, this.angle);
         if(debug){

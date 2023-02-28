@@ -3,8 +3,8 @@ class ChainBot {
     constructor(game, x, y){
         Object.assign(this, { game, x, y });
         this.velocity = { x: 0, y: 0 };
-        this.hp = 120;
-        this.maxHP = 120;
+        this.hp = 80;
+        this.maxHP = 80;
         this.botIdle = assetMangager.getAsset("./sprites/enemies/chain_bot_idle.png");
         this.botRunRight = assetMangager.getAsset("./sprites/enemies/chain_bot_run_right.png");
         this.botRunLeft = assetMangager.getAsset("./sprites/enemies/chain_bot_run_left.png");
@@ -42,7 +42,7 @@ class ChainBot {
         // hit
         this.animations[5] = new Animator(this.botHit, 0, 0, 126, 39, 2, 0.20, 0, 0, false, true, true);
         // death
-        this.animations[6] = new Animator(this.botDeath, 0, 0, 126, 39, 5, 0.20, 0, 0, false, true, true);
+        this.animations[6] = new Animator(this.botDeath, 0, 0, 126, 39, 5, 0.20, 0, 0, false, false, true);
       
     }; // End load animation
 
@@ -87,7 +87,10 @@ class ChainBot {
             }
             else{
                 this.velocity.x = 0;
-               if(this.animations[3].isAlmostDone(TICK)){
+                this.velocity.y = 0;;
+               if(this.animations[6].isAlmostDone(TICK)){
+                this.game.mage.getMana();
+                this.game.camera.potionDrop(this.BB.x+this.BB.width/2, this.BB.y);
                 this.removeFromWorld = true;
                }
             }
@@ -205,7 +208,7 @@ class ChainBot {
         if(this.hp >= 0) this.enemHealthBar.draw(ctx);
         this.animations[this.state].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, PARAMS.SCALE);
             if(debug){
-                // //draw the boundingBox
+                //draw the boundingBox
                 ctx.strokeStyle = 'Red';
                 ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y-this.game.camera.y, this.BB.width , this.BB.height);
                 ctx.strokeStyle = 'yellow';

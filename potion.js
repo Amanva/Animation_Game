@@ -12,7 +12,7 @@ class Potion{
     };
     updateBB() {
         this.lastBB = this.BB;
-        this.BB = new BoundingBox(this.x, this.y, 40, 40); 
+        this.BB = new BoundingBox(this.x, this.y, 30, 30); 
     };
     update(){
         const TICK = this.game.clockTick;
@@ -59,15 +59,15 @@ class Potion{
         // this.animations[1].drawFrame(this.game.clockTick, ctx, 5, 130, PARAMS.SCALE);
     // }
         if(this.type == 0){
-            this.animations[0].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, PARAMS.SCALE);
+            this.animations[0].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, 2);
         }
         else if(this.type == 1){
-            this.animations[1].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, PARAMS.SCALE);
+            this.animations[1].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, 2);
         }
-    }
     if(debug){
         ctx.strokeStyle = 'Red';
         ctx.strokeRect(this.BB.x-this.game.camera.x, this.BB.y-this.game.camera.y, this.BB.width, this.BB.height);
 
     };
 }
+};

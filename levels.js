@@ -210,7 +210,7 @@ var levelThree = {
     ground: [
         // { x: 0, y: 750, width: 73*191, height:25*3, div: 73*3},
         { x: 0, y: 750, width: 219*6, height:25*3, div: 73*3},
-        { x: 4300, y: 750, width: 219*8, height:25*3, div: 73*3.7},
+        { x: 4300, y: 750, width: 219*9, height:25*3, div: 73*3.7},
    
     ],
     // halfGround: [
@@ -284,12 +284,8 @@ var levelThree = {
         {x:5292, y:-0, width: 71*3, height:23*3, divisorPlatforms:71*3},
         {x:5505, y:-0, width: 71*3, height:23*3, divisorPlatforms:71*3},
         {x:5718, y:-0, width: 71*3, height:23*3, divisorPlatforms:71*3},
-
-
-        //platform for shrine
-        {x:4440, y:240, width: 71*3, height:23*3, divisorPlatforms:71*3},
-
-
+        //gate platform
+        {x:4440 ,y:250, width: 71*3, height:23*3, divisorPlatforms:71*3},
     ],
 
     smallPlatforms: [
@@ -320,7 +316,7 @@ var levelThree = {
 
          {x:4120 ,y:-115, width: 23*3 , height: 23*3, div: 23*3},
 
-
+        
          {x:3960 ,y:-335, width: 23*3 , height: 23*3, div: 23*3},
 
 
@@ -328,7 +324,7 @@ var levelThree = {
 
          {x:3960 ,y:-525, width: 23*3 , height: 23*3, div: 23*3},
 
-
+        //gate platform
          
 
         //  {x:3500, y:-671, width: 71*3, height:23*3, divisorPlatforms:71*3},
@@ -383,16 +379,17 @@ var levelThree = {
         // {x: 4300, y: 400, width: 47*3, height: 119*3   , div: 47*3 },
 
         {x:6050, y:-1385, width: 47*3, height:119*3, div:47*3},
-
         {x:6050, y:-1028, width: 47*3, height:119*3, div:47*3},
         {x:6050, y:-671, width: 47*3, height:119*3, div:47*3},
         {x: 6050, y: -314, width: 47*3, height: 119*3   , div: 47*3 },
         {x: 6050, y: 43, width: 47*3, height: 119*3   , div: 47*3 },
-        {x: 6050, y: 400, width: 47*3, height: 119*3   , div: 47*3 },
-
-
+        // {x: 6050, y: 400, width: 47*3, height: 119*3   , div: 47*3 },
     ],
-
+    gate: [
+        // {x:3450 ,y:-525, wallX: 3320, wallY:-605, wallWidth: 47*2, wallHeight: 119*2, div:47*2}
+        {x:3450 ,y:-525, wallX: 6050, wallY:400, wallWidth: 47*3, wallHeight: 119*3, div:47*3},
+        {x:4440 , y:100, wallX: 3320, wallY:-605, wallWidth: 47*2, wallHeight: 119*2, div:47*2}
+    ],
     ChainBot: [
         {x: 2629, y:507 },
         {x: 2586, y:207 },
@@ -404,7 +401,7 @@ var levelThree = {
     slimeEarth: [
         {x: 700, y: 400}
     ],
-    Monster: [
-        {x: 690, y: 250},
+    bat: [
+        {x: 500, y: 300},
     ]
 };

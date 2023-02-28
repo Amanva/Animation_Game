@@ -1,17 +1,17 @@
-class Monster{ 
+class SeaMonster{ 
 
     constructor(game, x, y){
      Object.assign(this, { game, x, y });
      this.velocity = { x: 0, y: 0 };
-     this.hp = 70;
-     this.maxHP = 70;
+     this.hp = 100;
+     this.maxHP = 100;
      this.healthBar = new HealthBar(this.game, this);
      this.fallAcc = 200;        
-     this.spritesheetLeftAttack = assetMangager.getAsset("./sprites/monsterLeft.png");
-     this.spritesheetRightAttack = assetMangager.getAsset("./sprites/monster-Riight-Attack.png");
-     this.spritesheetLeftFly = assetMangager.getAsset("./sprites/monster-Left-Fly.png");
-     this.spritesheetIdle = assetMangager.getAsset("./sprites/monster-idle.png");
-     this.spritesheetRightFly = assetMangager.getAsset("./sprites/monster-Right-Fly.png");
+     this.spritesheetLeftAttack = assetMangager.getAsset("./sprites/seaMonster/monsterLeft.png");
+     this.spritesheetRightAttack = assetMangager.getAsset("./sprites/seaMonster/monster-Riight-Attack.png");
+     this.spritesheetLeftFly = assetMangager.getAsset("./sprites/seaMonster/monster-Left-Swim.png");
+     this.spritesheetIdle = assetMangager.getAsset("./sprites/seaMonster/monster-idle.png");
+     this.spritesheetRightFly = assetMangager.getAsset("./sprites/seaMonster/monster-Right-Swim.png");
      this.speed = 100;
      this.state = 1;
      this.facing = 0;
@@ -21,50 +21,52 @@ class Monster{
      this.yOff = 0;
      this.updateBB();
      this.loadAnimations();
-     
+     this.attackCoolDown =0;
  }; 
 
  loadAnimations() {
-     this.animations = [];
-     for (var i = 0; i < 5; i++) { 
-         this.animations.push([]);
-         for (var j = 0; j < 2; j++) { 
-            this.animations[i].push([]);
+    this.animations = [];
+
+    for (var i = 0; i < 5; i++) { 
+        this.animations.push([]);
+        for (var j = 0; j < 2; j++) { 
+           this.animations[i].push([]);
         }
-     }
+    }
 
-// idle
-this.animations[0][0] = new Animator(this.spritesheetIdle, 0, -30, 159, 177, 6, 0.10, 0, 0, false, true, false);
-// fly
-this.animations[1][0] = new Animator(this.spritesheetIdle, 0, -30, 159, 177, 6, 0.10, 0, 0, false, true, false);
-// left attack
-this.animations[2][0] = new Animator(this.spritesheetLeftAttack, 0, 0, 246, 177, 11, 0.07, -6, 0, true, true, false);
-// idle
-this.animations[0][1] = new Animator(this.spritesheetIdle, 0, -30, 159, 177, 6, 0.10, 0, 0, false, true, false);
-// fly
-this.animations[1][1] = new Animator(this.spritesheetIdle, 0, -30, 159, 177, 6, 0.10, 0, 0, false, true, false);
-// left attack
-this.animations[2][1] = new Animator(this.spritesheetLeftAttack, 0, 0, 246, 177, 11, 0.07, -6, 0, true, true, false);
+    // idle
+    this.animations[0][0] = new Animator(this.spritesheetIdle, 0, 0, 48, 47, 5, 0.10, 0, 0, false, true, false);
+    // swim
+    this.animations[1][0] = new Animator(this.spritesheetLeftFly, 0, 0, 48, 47, 15, 0.10, 0, 0, false, true, false);
+    // left attack
+    this.animations[2][0] = new Animator(this.spritesheetRightAttack, 0, 0, 49, 51, 5, 0.07, 3, 0, true, true, false);
+    // idle
+    this.animations[0][1] = new Animator(this.spritesheetIdle, 0, 0, 48, 47, 5, 0.10, 0, 0, false, true, false);
+    // swim
+    this.animations[1][1] = new Animator(this.spritesheetLeftFly, 0, 0, 48, 47, 15, 0.10, 0, 0, false, true, false);
+    // left attack
+    this.animations[2][1] = new Animator(this.spritesheetRightAttack, 0, 0, 52, 51, 5, 0.07, 3, 0, true, true, false);
 
-//death
-this.animations[3][0] = new Animator(this.spritesheetLeftAttack, 0, 0, 246, 177, 11, 0.1, -6, 0, true, true, false);
-          
-this.animations[3][1] = new Animator(this.spritesheetLeftAttack, 0, 0, 246, 177, 11, 0.1, -6, 0, true, true, false);
-for(var l = 0; l <= 3; l++){
-    this.animations[l][1].flipped = true;
-}
+    //death
+    this.animations[3][0] = new Animator(this.spritesheetRightFly, 0, 0, 48, 47, 15, 0.1, 0, 0, true, true, false);
+            
+    this.animations[3][1] = new Animator(this.spritesheetRightFly, 0, 0, 48, 47, 15, 0.1, 0, 0, true, true, false);
+
+    for(var l = 0; l <= 3; l++){
+        this.animations[l][1].flipped = true;
+    }
  }; 
 
    updateBB() {
       this.lastBB = this.BB;
-      //this.BB = new BoundingBox(this.x+140, this.y + 25, 50, 30 * 1.8); 
-      this.BB = new BoundingBox(this.x+65, this.y+60, 60, 100);
+      //this.BB = new BoundingBox(this.x+65, this.y+60, 60, 100);
+      this.BB = new BoundingBox(this.x+55, this.y+30, 80, 110);
       this.MageDetection = new BoundingBox(this.x-500, this.y-200, 1300, 700);
       if(this.facing == 0){
-      this.AttackBB = new BoundingBox(this.x+125, this.y+60, 50, 100);
+      this.AttackBB = new BoundingBox(this.x+125, this.y+30, 50, 110);
       }
       else{
-      this.AttackBB = new BoundingBox(this.x+30, this.y+60, 50, 100);
+      this.AttackBB = new BoundingBox(this.x+10, this.y+30, 70, 110);
       }
      
                    
@@ -85,42 +87,60 @@ for(var l = 0; l <= 3; l++){
 // }
 //  };
  update() {
+    this.elapsedTime += this.game.clockTick;
     const TICK = this.game.clockTick;
     this.x += this.velocity.x * TICK;
     this.y += this.velocity.y * TICK;
     this.updateBB();
-    if(!this.dead){
-    if(this.hp <= 0){
-        this.state = 3;
-        // this.animations[3][this.facing].elapsedTime = 7;
-        this.dead = true;
-    }
-    this.PlatformCollision();
-    this.mageCollide(TICK);
-    }
-    else{
-        this.velocity.x = 0;
-        this.velocity.y = 0;
-        let frame = this.animations[3][this.facing].currentFrame();
-        console.log(frame);
-       if(frame >= 3){
-        this.game.mage.getMana();
-        this.game.camera.potionDrop(this.BB.x+this.BB.width/2, this.BB.y);
-        this.removeFromWorld = true;
-       }
-    }
-    // console.log(this.velocity.x, this.velocity.y);
- };
+
+        if (this.hp <= 0) {
+            this.state = 3; // death
+            this.velocity.x = 0;
+            this.dead = true;
+            this.removeFromWorld = true;                      
+        }
+  
+
+    // if(!this.dead){
+    // if(this.hp <= 0){
+    //     this.state = 3;
+    //     // this.animations[3][this.facing].elapsedTime = 7;
+    //     this.dead = true;
+       
+    // }
+     this.PlatformCollision();
+     this.mageCollide(TICK);
+//     }
+//     else{
+//         let frame = this.animations[3][this.facing].currentFrame();
+//         console.log(frame);
+//        if(frame >= 3){
+//         this.removeFromWorld = true;
+//        }
+//     }
+//      //console.log(this.velocity.x, this.velocity.y);
+       };
  mageCollide(TICK){
     let that = this;
     this.game.entities.forEach(function (entity) {   
-        if(!that.dead){     
+            
+        if(entity instanceof Mage && that.state !== 3 && !entity.dead){// added cooldown
+            if(that.hit){
+                that.attackCoolDown += TICK; //that.game.clockTick; // i may change this to +=TICK
+            }
+            if(that.attackCoolDown >= 1){
+                console.log("Reset");
+                that.hit = false;
+                that.attackCoolDown = 0;
+            }// cooldown
+        }
+        
         if (entity instanceof Mage) {
-            let middleMage = { x: entity.BB.left + entity.BB.width / 2, y: entity.BB.top + entity.BB.height / 2 };
-            let middleMonster = { x: that.BB.left + that.BB.width / 2, y: that.BB.top + that.BB.height / 2 };
-            let xDis = middleMage.x - middleMonster.x;
-            let yDis = middleMage.y - middleMonster.y;
-            let distance = distanceBetween(middleMage,middleMonster);
+            const middleMage = { x: entity.BB.left + entity.BB.width / 2, y: entity.BB.top + entity.BB.height / 2 };
+            const middleMonster = { x: that.BB.left + that.BB.width / 2, y: that.BB.top + that.BB.height / 2 };
+            const xDis = middleMage.x - middleMonster.x;
+            const yDis = middleMage.y - middleMonster.y;
+            const distance = distanceBetween(middleMage,middleMonster);
             let mageDB = entity.BB && that.MageDetection.collide(entity.BB);
             let mageAB = entity.BB && that.AttackBB.collide(entity.BB);
             let frame = that.animations[that.state][that.facing].currentFrame();
@@ -145,14 +165,15 @@ for(var l = 0; l <= 3; l++){
                     that.velocity.y = 0;
                 }
             }
+        
             else if(!mageDB){
                 that.velocity.x = 0
                 that.velocity.y = 0;
             }
             if(that.state === 2){
-                if(mageAB && ((frame >= 8) && (frame <= 11)) && !that.playerHit){
+                if(mageAB && ((frame >= 8) && (frame <= 15)) && !that.playerHit){
                     that.playerHit = true;
-                    entity.removeHealth(10); 
+                    entity.removeHealth(5); 
                 }
                 if(that.animations[2][that.facing].isAlmostDone(TICK)){
                     that.state = 1;
@@ -161,9 +182,8 @@ for(var l = 0; l <= 3; l++){
                 }
             }
         };
-    }
         });
-
+    
  }
  PlatformCollision(){
     var that = this;
@@ -172,7 +192,7 @@ for(var l = 0; l <= 3; l++){
                 if (that.velocity.y > 0) { 
                     if (((entity instanceof Ground) || (entity instanceof Platform) || (entity instanceof Wall) || (entity instanceof Tiles || (entity instanceof smallPlatforms))) && (that.lastBB.bottom <= entity.BB.top)){
                         that.velocity.y = 0;
-                        that.y = entity.BB.top - that.BB.height-60;
+                        that.y = entity.BB.top - that.BB.height -60;
                         that.updateBB();
                     }
                     if ((entity instanceof movingPlatforms) && (that.lastBB.bottom < entity.BB.top+6)){
@@ -220,16 +240,13 @@ loseHealth(damageRecieved){
     this.healthBar.draw(ctx);
     }
     if(this.state === 2 && this.facing  === 1){
-    this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x-30, this.y-this.game.camera.y, 1 );
+    this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x-30, this.y-this.game.camera.y, 3);
     }
-    else if(this.facing  === 1 && this.state === 3){
-        this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x-30, this.y-this.game.camera.y, 1 );
-        }
     else if(this.facing  === 1){
-    this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x + 30, this.y-this.game.camera.y, 1 );
+    this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x + 30, this.y-this.game.camera.y, 3);
     }
     else{
-    this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, 1 );
+    this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, 3);
     }
     // this.animations[0][0].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, 1 );
     // this.animations[0][1].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x+30, this.y-this.game.camera.y, 1 );
@@ -241,7 +258,7 @@ loseHealth(damageRecieved){
           ctx.strokeStyle = 'yellow';
           ctx.strokeRect(this.AttackBB.x - this.game.camera.x, this.AttackBB.y - this.game.camera.y, this.AttackBB.width, this.AttackBB.height);   
     }     
-       }; 
+       }; 3
  
 
 }; 

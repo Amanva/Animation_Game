@@ -60,13 +60,15 @@ class Item {
 
     draw(ctx){
         if(this.type === 0){
-        ctx.strokeStyle = "White";
-        ctx.fillStyle = ctx.strokeStyle; 
+        ctx.fillStyle = "white"; 
         ctx.font = '8px "Press Start 2P"';
-        ctx.fillText("Book of strength", this.x-50, this.y-10);
+        ctx.fillText("Book of strength", this.x-this.game.camera.x-50, this.y-this.game.camera.y-10);
         this.animations[0].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, 1);
         }
         else if(this.type === 1){
+        ctx.fillStyle = "white"; 
+        ctx.font = '8px "Press Start 2P"';
+        ctx.fillText("double jump", this.x-this.game.camera.x-20, this.y-this.game.camera.y-10);
             this.animations[1].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, 3); 
         }
         if (debug) {
