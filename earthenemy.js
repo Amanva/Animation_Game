@@ -636,63 +636,62 @@ class earthSlime{
     };
 }
 
-class mudGuard{
-    constructor(game, x , y){
+// class mudGuard{
+//     constructor(game, x , y){
 
-        Object.assign(this, { game, x, y });
-        this.velocity = { x: 0, y: 0 };
-        this.game = game;
-        this.spritesheetAttack = assetMangager.getAsset("./sprites/enemies/mudGuard/attack1.png");
-        this.spritesheetAttack2 = assetMangager.getAsset("./sprites/enemies/mudGuard/attack2.png");
-        this.spritesheetIdle = assetMangager.getAsset("./sprites/enemies/mudGuard/idle.png");
-        this.spritesheetRun = assetMangager.getAsset("./sprites/enemies/mudGuard/run.png");
-        this.spritesheetDeath = assetMangager.getAsset("./sprites/enemies/mudGuard/death.png");
-        // this.state = 1;
-        // this.facing = 0;
-        this.animations = [];
-        this.ctx;
-        // this.animator = new Animator(this.spritesheetIdle, 0, 0, 36, 23, 5, 0.20, 0, 0, false, true, true);
-        this.loadAnimations();
+//         Object.assign(this, { game, x, y });
+//         this.velocity = { x: 0, y: 0 };
+//         this.game = game;
+//         this.spritesheetAttack = assetMangager.getAsset("./sprites/enemies/mudGuard/attack1.png");
+//         this.spritesheetAttack2 = assetMangager.getAsset("./sprites/enemies/mudGuard/attack2.png");
+//         this.spritesheetIdle = assetMangager.getAsset("./sprites/enemies/mudGuard/idle.png");
+//         this.spritesheetRun = assetMangager.getAsset("./sprites/enemies/mudGuard/run.png");
+//         this.spritesheetDeath = assetMangager.getAsset("./sprites/enemies/mudGuard/death.png");
+//         // this.state = 1;
+//         // this.facing = 0;
+//         this.animations = [];
+//         // this.animator = new Animator(this.spritesheetIdle, 0, 0, 36, 23, 5, 0.20, 0, 0, false, true, true);
+//         this.loadAnimations();
 
-    };
-    loadAnimations() {
-        for (var i = 0; i < 4; i++) {
-            this.animations.push([]);
-            for (var j = 0; j < 2; j++) {
-                this.animations[i].push([]);
-            }
-        }
-        this.animations[0][0] = new Animator(this.spritesheetIdle, 0, 0, 36, 23, 5, 0.20, 0, 0, false, true, true);
-        //attack 1
-        this.animations[1][0] = new Animator(this.spritesheetAttack, 0, 0, 45, 39, 7, 0.20, 0, 0, false, true, true);
-        // this.animations[0][2] = new Animator(this.spritesheetAttack, 0, 0, 126, 39, 4, 0.20, 0, 0, false, true, true);
-        // this.animations[0][3] = new Animator(this.spritesheetDeath, 0, 0, 126, 39, 4, 0.20, 0, 0, false, true, true); 
+//     };
+//     loadAnimations() {
+//         for (var i = 0; i < 4; i++) {
+//             this.animations.push([]);
+//             for (var j = 0; j < 2; j++) {
+//                 this.animations[i].push([]);
+//             }
+//         }
+//         this.animations[0][0] = new Animator(this.spritesheetIdle, 0, 0, 36, 23, 5, 0.20, 0, 0, false, true, true);
+//         //attack 1
+//         this.animations[1][0] = new Animator(this.spritesheetAttack, 0, 0, 45, 39, 7, 0.20, 0, 0, false, true, true);
+//         // this.animations[0][2] = new Animator(this.spritesheetAttack, 0, 0, 126, 39, 4, 0.20, 0, 0, false, true, true);
+//         // this.animations[0][3] = new Animator(this.spritesheetDeath, 0, 0, 126, 39, 4, 0.20, 0, 0, false, true, true); 
         
-    }; 
+//     }; 
 
-    update(){
+//     update(){
 
-    };
-    draw(ctx) {
-
-        this.animations[1][0].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, PARAMS.SCALE*1.5);
+//     };
+//     draw(ctx) {
+//         console.log(this.spritesheetAttack);
+//         this.animations[1][0].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, PARAMS.SCALE*1.5);
 
         
-        //     if(debug){
-        //     ctx.strokeStyle = 'Red';
-        //     ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y - this.game.camera.y, this.BB.width, this.BB.height);
-        // //     ctx.strokeStyle = 'Green';
-        // //     ctx.strokeRect(this.AttackBB.x- this.game.camera.x, this.AttackBB.y - this.game.camera.y, this.AttackBB.width, this.AttackBB.height);
-        //     ctx.strokeStyle = 'blue';
-        //     ctx.strokeRect(this.MageDetection.x - this.game.camera.x, this.MageDetection.y - this.game.camera.y, this.MageDetection.width, this.MageDetection.height);
-        // //     ctx.strokeStyle = 'yellow';
-        // //     ctx.strokeRect(this.AttackDetectionBB.x - this.game.camera.x, this.AttackDetectionBB.y - this.game.camera.y, this.AttackDetectionBB.width, this.AttackDetectionBB.height);
-        // //     ctx.strokeStyle = 'purple';
-        // //     ctx.strokeRect(this.JumpBB.x - this.game.camera.x, this.JumpBB.y - this.game.camera.y, this.JumpBB.width, this.JumpBB.height);
+//         //     if(debug){
+//         //     ctx.strokeStyle = 'Red';
+//         //     ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y - this.game.camera.y, this.BB.width, this.BB.height);
+//         // //     ctx.strokeStyle = 'Green';
+//         // //     ctx.strokeRect(this.AttackBB.x- this.game.camera.x, this.AttackBB.y - this.game.camera.y, this.AttackBB.width, this.AttackBB.height);
+//         //     ctx.strokeStyle = 'blue';
+//         //     ctx.strokeRect(this.MageDetection.x - this.game.camera.x, this.MageDetection.y - this.game.camera.y, this.MageDetection.width, this.MageDetection.height);
+//         // //     ctx.strokeStyle = 'yellow';
+//         // //     ctx.strokeRect(this.AttackDetectionBB.x - this.game.camera.x, this.AttackDetectionBB.y - this.game.camera.y, this.AttackDetectionBB.width, this.AttackDetectionBB.height);
+//         // //     ctx.strokeStyle = 'purple';
+//         // //     ctx.strokeRect(this.JumpBB.x - this.game.camera.x, this.JumpBB.y - this.game.camera.y, this.JumpBB.width, this.JumpBB.height);
 
-        // }
-    };
-}
+//         // }
+//     };
+// }
 class Bat{ 
 
     constructor(game, x, y){

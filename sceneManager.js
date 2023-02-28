@@ -155,7 +155,7 @@ class SceneManager {
         this.game.addEntity(new Item(this.game, 400, 400, 1));
         // this.game.addEntity(new Boar(this.game, 400, 500));
         // this.game.addEntity(new earthSlime(this.game, 5400, 500));
-        this.game.addEntity(new mudGuard(this.game, 2400,400,1));
+        // this.game.addEntity(new mudGuard(this.game, 2400,400,1));
         this.game.addEntity(new Boar(this.game, 400, 500));
         this.game.addEntity(new earthSlime(this.game, 400, 500));
 
