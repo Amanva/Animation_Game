@@ -45,7 +45,7 @@ assetMangager.queueDownload("./sprites/waterLevel/bomb.png");
 assetMangager.queueDownload("./sprites/waterLevel/boulderTiles.png");
 assetMangager.queueDownload("./sprites/waterLevel/hydra_left.png");
 assetMangager.queueDownload("./sprites/waterLevel/hydra_right.png");
-assetMangager.queueDownload("./sprites/waterLevel/jellyfish.png");
+assetMangager.queueDownload("./sprites/waterLevel/squid.png");
 assetMangager.queueDownload("./sprites/waterLevel/cave.png");
 
 //sounds

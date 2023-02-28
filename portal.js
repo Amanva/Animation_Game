@@ -11,6 +11,8 @@ class Portal {
         this.scale = 1;
         this.animations = new Animator(this.portal, 0, 0, 320, 320, 41, 0.07, 0, 0, false, false, undefined);
         this.updateBB();
+        this.columnNum = 6;
+        this.rowNum = 6;
         
     }; // end of constructor
 

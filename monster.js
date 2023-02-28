@@ -1,5 +1,3 @@
-
-
 class Monster{ 
 
     constructor(game, x, y){
@@ -69,23 +67,8 @@ for(var l = 0; l <= 3; l++){
       this.AttackBB = new BoundingBox(this.x+30, this.y+60, 50, 100);
       }
      
-                   
- // };
- //updateBB() {
-   //  this.BB = new BoundingBox(this.x + 45-this.game.camera.x, this.y + 35, 70, 90, "red");
-     // this.BB = new BoundingBox(this.x + 60-this.game.camera.x, this.y + 35, 70, 110, "red");
-     
  }
-//  updateOffset(){
-//     if(this.facing  === 1){
-//     if((this.state === 0) || (this.state === 1)){
-//         this.xOff = 40;
-//     } 
-// }
-// else{
-//     this.xOff = 0;
-// }
-//  };
+
  update() {
     const TICK = this.game.clockTick;
     this.x += this.velocity.x * TICK;
@@ -101,6 +84,8 @@ for(var l = 0; l <= 3; l++){
     this.mageCollide(TICK);
     }
     else{
+        this.velocity.x = 0;
+        this.velocity.y = 0;
         let frame = this.animations[3][this.facing].currentFrame();
         console.log(frame);
        if(frame >= 3){
@@ -111,13 +96,14 @@ for(var l = 0; l <= 3; l++){
  };
  mageCollide(TICK){
     let that = this;
-    this.game.entities.forEach(function (entity) {        
+    this.game.entities.forEach(function (entity) {   
+        if(!that.dead){     
         if (entity instanceof Mage) {
-            const middleMage = { x: entity.BB.left + entity.BB.width / 2, y: entity.BB.top + entity.BB.height / 2 };
-            const middleMonster = { x: that.BB.left + that.BB.width / 2, y: that.BB.top + that.BB.height / 2 };
-            const xDis = middleMage.x - middleMonster.x;
-            const yDis = middleMage.y - middleMonster.y;
-            const distance = distanceBetween(middleMage,middleMonster);
+            let middleMage = { x: entity.BB.left + entity.BB.width / 2, y: entity.BB.top + entity.BB.height / 2 };
+            let middleMonster = { x: that.BB.left + that.BB.width / 2, y: that.BB.top + that.BB.height / 2 };
+            let xDis = middleMage.x - middleMonster.x;
+            let yDis = middleMage.y - middleMonster.y;
+            let distance = distanceBetween(middleMage,middleMonster);
             let mageDB = entity.BB && that.MageDetection.collide(entity.BB);
             let mageAB = entity.BB && that.AttackBB.collide(entity.BB);
             let frame = that.animations[that.state][that.facing].currentFrame();
@@ -158,6 +144,7 @@ for(var l = 0; l <= 3; l++){
                 }
             }
         };
+    }
         });
 
  }
@@ -218,6 +205,9 @@ loseHealth(damageRecieved){
     if(this.state === 2 && this.facing  === 1){
     this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x-30, this.y-this.game.camera.y, 1 );
     }
+    else if(this.facing  === 1 && this.state === 3){
+        this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x-30, this.y-this.game.camera.y, 1 );
+        }
     else if(this.facing  === 1){
     this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x + 30, this.y-this.game.camera.y, 1 );
     }
@@ -234,7 +224,7 @@ loseHealth(damageRecieved){
           ctx.strokeStyle = 'yellow';
           ctx.strokeRect(this.AttackBB.x - this.game.camera.x, this.AttackBB.y - this.game.camera.y, this.AttackBB.width, this.AttackBB.height);   
     }     
-       }; 3
+       }; 
  
 
 }; 

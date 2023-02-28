@@ -111,8 +111,7 @@ class Mage {
                 this.hp = 100;
                 this.curMana = 100;
             } 
-        }
-        else{
+        } else{
             if(this.state != this.states.jump){
                 if (this.game.left) {
                     this.velocity.x -= RUN;
