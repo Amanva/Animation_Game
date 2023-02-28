@@ -23,6 +23,13 @@ assetMangager.queueDownload("./sprites/icons.png");
 assetMangager.queueDownload("./sprites/enemies/earthslime.png");
 assetMangager.queueDownload("./sprites/enemies/slime.png");
 assetMangager.queueDownload("./sprites/enemies/mudGuard/idle.png");
+assetMangager.queueDownload("./sprites/enemies/mudGuard/atttack1.png");
+assetMangager.queueDownload("./sprites/enemies/mudGuard/attack2.png");
+assetMangager.queueDownload("./sprites/enemies/mudGuard/death.png");
+assetMangager.queueDownload("./sprites/enemies/mudGuard/run.png");
+
+
+
 assetMangager.queueDownload("./sprites/enemies/Attack.png");
 assetMangager.queueDownload("./sprites/enemies/Attack2.png");
 assetMangager.queueDownload("./sprites/enemies/Death.png");

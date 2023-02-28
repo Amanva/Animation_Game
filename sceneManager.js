@@ -14,7 +14,7 @@ class SceneManager {
         this.damage = 100;
         this.specDamage = 50;
         this.level = null;
-        this.mage = new Mage(this.game, 50,400);
+        this.mage = new Mage(this.game, 500,400);
         this.game.addEntityToBegin(this.mage);
         this.loadLevel(levelThree, this.title);
         this.myCursor = new Cursor(this.game);
@@ -45,7 +45,7 @@ class SceneManager {
         this.jumpItem = false;
         this.x = 0;
         this.y = 0;
-        this.mage.x = 9500;
+        this.mage.x = 500;
         this.mage.y = 300;
         this.healthPotion = 0;
         this.manaPotion = 0;
@@ -130,7 +130,7 @@ class SceneManager {
         this.x = 0;
         this.y = 0;
         this.jumpItem = true;
-        this.mage.x = 5097;
+        this.mage.x = 2500;
         this.mage.y = -707;
         this.game.addEntity(new EarthBoss(this.game, 4697,307));
         this.game.addEntity(new SeaMonster(this.game, 5681, 507));
@@ -155,7 +155,7 @@ class SceneManager {
         this.game.addEntity(new Item(this.game, 400, 400, 1));
         // this.game.addEntity(new Boar(this.game, 400, 500));
         // this.game.addEntity(new earthSlime(this.game, 5400, 500));
-        // this.game.addEntity(new mudGuard(this.game, 400,400,1));
+        this.game.addEntity(new mudGuard(this.game, 2400,400,1));
         this.game.addEntity(new Boar(this.game, 400, 500));
         this.game.addEntity(new earthSlime(this.game, 400, 500));
 
