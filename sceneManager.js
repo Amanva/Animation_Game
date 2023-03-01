@@ -388,7 +388,9 @@ class SceneManager {
         ctx.font = '60px "Press Start 2P"';
         ctx.fillStyle = "White"
         ctx.fillText("The Last Magus", 487,  97);
-        ctx.fillText("Restart", 750,  300);
+        ctx.fillText("You defeated", 500,  300);
+        ctx.fillText("The Evil", 500,  500);
+
         // ctx.fillText("Start", 487,  97);
         ctx.fillStyle = "Red"
         ctx.fillText("The Last Magus", 490, 100);
@@ -399,7 +401,11 @@ class SceneManager {
         else{
             ctx.fillStyle = "Red";
         }
-        ctx.fillText("Restart", 747,  297);
+        ctx.fillText("You Defeated", 520,  297);
+        ctx.fillText("The Evil", 520,  497);
+
+        // ctx.fillText("all the elements ", 700,  327);
+
         this.gameOver = true;
         this.initialSpawn = false;
     };
