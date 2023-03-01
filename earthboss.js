@@ -36,8 +36,7 @@ class EarthBoss{
         this.lastMageDetection;
         this.loadAnimations();
         this.updateBB();
-        this.ctx;
-
+        this.showTime = 0;
         //if move or attack
         this.moveBoss = false;
         this.attackBoss = true;
@@ -430,8 +429,17 @@ class EarthBoss{
             this.animations[l][1].flipped = true;
         }
     }
+    playText(ctx){
+        this.showTime += this.game.clockTick;
+        if(this.showTime <= 3){
+        ctx.fillStyle = this.color;
+        ctx.font = '10px "Press Start 2P"';
+        ctx.fillText("Prepare to die!",this.x - this.game.camera.x,this.y - this.game.camera.y);
+        }
+    }
     draw(ctx) {
         this.healthbar.draw(ctx);
+        this.playText(ctx);
         if(this.facing === 0){
         this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, 4);
         }

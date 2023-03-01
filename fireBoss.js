@@ -119,12 +119,13 @@ class fireBoss{
 
     update() {
         const TICK = this.game.clockTick;
+        if(!this.dead){
         this.velocity.y += 200 * this.game.clockTick;
         
 
         this.y += this.velocity.y * this.game.clockTick * PARAMS.SCALE;
         this.updateBB();
-        if(!this.dead){
+        
         if(this.attackFrameFinished){
             this.animations[this.state][this.facing].elapsedTime = 0;
             this.moveBoss = true;
@@ -222,7 +223,10 @@ class fireBoss{
                             that.moveBoss = true;
                             that.attackBoss = false;
                         }
-                        else if(that.JumpBB.collide(entity.BB) && that.state != 2 && that.state != 7 && that.state != 8){
+                        
+                        
+                        else{
+                            if(that.JumpBB.collide(entity.BB) && that.state != 2 && that.state != 7 && that.state != 8){
                             
                             that.state = 6;
                             if(that.AttackBB.collide(entity.BB) && that.state === 6 && that.animations[that.state][that.facing].currentFrame() >= 11 && that.animations[that.state][that.facing].currentFrame() <= 15 && !that.hit){
@@ -237,10 +241,8 @@ class fireBoss{
                         }
 
                         }
-                        
-                        else {
                             
-                        if(that.rand === 1){
+                        else if(that.rand === 1){
                             
                             if(that.AttackDetectionBB.collide(entity.BB) && (that.AttackDetectionBB.right > entity.BB.left-200)){
                                 // console.log(that.AttackDetectionBB.right, entity.BB.left);
@@ -334,6 +336,8 @@ class fireBoss{
             this.dead = true;
             this.state = 4;
             if(this.animations[4][this.facing].isAlmostDone(TICK)){
+                this.velocity.x = 0;
+                this.velocity.y = 0;
                 this.game.addEntityToBegin(new Portal(this.game, 10500, 430, levelThree));
                 this.game.addEntityToBegin(new Item(this.game, this.x+300, this.y+100, 0));
                 this.removeFromWorld = true;

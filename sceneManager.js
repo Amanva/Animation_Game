@@ -9,13 +9,13 @@ class SceneManager {
         this.elapsedTime = 0;
         this.mageDead = false;
         this.title = true;
+        this.initialCutSceen = true;
         this.animations = [];
         this.loadAnimations();
         this.damage = 10;
         this.specDamage = 50;
         this.level = null;
-        this.mage = new Mage(this.game, 50,400);
-        this.game.addEntityToBegin(this.mage);
+        this.initialSpawn = false;
         this.loadLevel(levelOne, this.title);
         this.myCursor = new Cursor(this.game);
         
@@ -30,21 +30,27 @@ class SceneManager {
     };
     loadLevel(level, title){
         this.title = title;
-        if(!this.title){
+        if(!this.title && !this.initialCutSceen){
         this.level = level;
         // this.lastHP = this.mage.hp;
         // this.lastMana = this.mage.curMana;
         // this.lastJumpItem = this.mage.jumpItem;
         
         this.clearEntities();
-        
+        if(!this.initialSpawn){
+            this.mage = new Mage(this.game, 50,400);
+            this.game.addEntity(this.mage);
+            this.initialSpawn = true;
+        }
         if(this.level === levelOne){
             // this.lastMage = new Mage(this.game, 50,300);
         // this.damage = 10;
         this.jumpItem = false;
+        this.game.mage.level2Ready = false;
+        this.game.mage.level3Ready = false;
         this.x = 0;
         this.y = 0;
-        this.mage.x = 500;
+        this.mage.x = 9500;
         this.mage.y = 300;
         this.healthPotion = 0;
         this.manaPotion = 0;
@@ -131,10 +137,11 @@ class SceneManager {
         this.x = 0;
         this.y = 0;
         this.jumpItem = true;
-        this.mage.x = 497;
-        this.mage.y = -707;
+        this.game.mage.level3Ready = true;
+        this.mage.x = 6007;
+        this.mage.y = -407;
         this.game.addEntity(new EarthBoss(this.game, 4697,307));
-        this.game.addEntity(new SeaMonster(this.game, 5681, 507));
+        // this.game.addEntity(new SeaMonster(this.game, 5681, 507));
         if(level.boar){
             for (var i = 0; i < level.boar.length; i++) {
                 let boar = level.boar[i];
@@ -232,9 +239,9 @@ class SceneManager {
 
     };
     potionDrop(x, y){
-        const ran = randomInt(0); 
+        const ran = randomInt(11); 
         const typeRan = randomInt(2);
-        if(ran >= 0){
+        if(ran >= 8){
             this.game.addEntityToBegin(new Potion(this.game, x, y, typeRan));
         }
     }
@@ -242,11 +249,22 @@ class SceneManager {
         // console.log(this.heartMana.cur_Hearts, this.mage.hp);
         if(this.title){
             if(this.game.click && (this.game.click.y > 224) && (this.game.click.y < 312) && (this.game.click.x > 733) && (this.game.click.x < 1056)){
-                this.loadLevel(levelOne, false);
+                // this.loadLevel(levelOne, false);
+                this.game.click = false;
+                let cutText = [["The world is in ruin, you are the only one that can stop the darkness."], ["Go forth The Last Magus and defeat the evil"]];
+                this.game.addEntity(new CutScene(this.game, cutText, 0, 0, "red"))
                 this.title = false;
             }
         }
-        if(!this.title){
+        if(!this.title && this.initialCutSceen){
+            if(this.game.click){
+                CutScene.removeFromWorld = true;
+                this.initialCutSceen = false;
+                this.game.click = false;
+                this.loadLevel(levelOne, false);
+            }
+        }
+        if(!this.title && !this.initialCutSceen){
         this.heartMana.update();
         let midpoint = PARAMS.CANVAS_WIDTH/2 - PARAMS.PLAYERWIDTH / 2;
         if ((this.mage.x > midpoint) && (this.mage.x + midpoint <= 11000)) this.x = this.mage.x - midpoint;
@@ -316,7 +334,7 @@ class SceneManager {
         if(this.title){
             this.makeTitle(ctx);
         }
-        else{
+        else if(!this.title && !this.initialCutSceen){
         this.heartMana.draw(ctx);
         ctx.font = '15px "Press Start 2P"';
         ctx.fillStyle = "White";

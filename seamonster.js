@@ -21,7 +21,7 @@ class SeaMonster{
      this.yOff = 0;
      this.updateBB();
      this.loadAnimations();
-     this.attackCoolDown =0;
+     this.attackCoolDown = 0;
  }; 
 
  loadAnimations() {
@@ -63,13 +63,11 @@ class SeaMonster{
       this.BB = new BoundingBox(this.x+55, this.y+30, 80, 110);
       this.MageDetection = new BoundingBox(this.x-500, this.y-200, 1300, 700);
       if(this.facing == 0){
-      this.AttackBB = new BoundingBox(this.x+125, this.y+30, 50, 110);
+      this.AttackBB = new BoundingBox(this.x+90, this.y+30, 50, 110);
       }
       else{
       this.AttackBB = new BoundingBox(this.x+10, this.y+30, 70, 110);
       }
-     
-                   
  // };
  //updateBB() {
    //  this.BB = new BoundingBox(this.x + 45-this.game.camera.x, this.y + 35, 70, 90, "red");
@@ -93,24 +91,17 @@ class SeaMonster{
     this.y += this.velocity.y * TICK;
     this.updateBB();
 
+
+    if(!this.dead){
         if (this.hp <= 0) {
             this.state = 3; // death
             this.velocity.x = 0;
             this.dead = true;
             this.removeFromWorld = true;                      
         }
-  
-
-    // if(!this.dead){
-    // if(this.hp <= 0){
-    //     this.state = 3;
-    //     // this.animations[3][this.facing].elapsedTime = 7;
-    //     this.dead = true;
-       
-    // }
      this.PlatformCollision();
      this.mageCollide(TICK);
-//     }
+    }
 //     else{
 //         let frame = this.animations[3][this.facing].currentFrame();
 //         console.log(frame);
@@ -123,17 +114,6 @@ class SeaMonster{
  mageCollide(TICK){
     let that = this;
     this.game.entities.forEach(function (entity) {   
-            
-        if(entity instanceof Mage && that.state !== 3 && !entity.dead){// added cooldown
-            if(that.hit){
-                that.attackCoolDown += TICK; //that.game.clockTick; // i may change this to +=TICK
-            }
-            if(that.attackCoolDown >= 1){
-                console.log("Reset");
-                that.hit = false;
-                that.attackCoolDown = 0;
-            }// cooldown
-        }
         
         if (entity instanceof Mage) {
             const middleMage = { x: entity.BB.left + entity.BB.width / 2, y: entity.BB.top + entity.BB.height / 2 };
@@ -144,6 +124,7 @@ class SeaMonster{
             let mageDB = entity.BB && that.MageDetection.collide(entity.BB);
             let mageAB = entity.BB && that.AttackBB.collide(entity.BB);
             let frame = that.animations[that.state][that.facing].currentFrame();
+            that.attackCoolDown += TICK;
             if(mageDB){
                 if(that.state !== 2){
                 if(mageDB && !mageAB)
@@ -160,7 +141,9 @@ class SeaMonster{
                 }
             }
                 if(mageDB && mageAB){
+                    if((that.attackCoolDown >= 2)){
                     that.state = 2;
+                }
                     that.velocity.x = 0;
                     that.velocity.y = 0;
                 }
@@ -171,14 +154,15 @@ class SeaMonster{
                 that.velocity.y = 0;
             }
             if(that.state === 2){
-                if(mageAB && ((frame >= 8) && (frame <= 15)) && !that.playerHit){
+                if(mageAB && !that.playerHit){
                     that.playerHit = true;
-                    entity.removeHealth(5); 
+                    entity.removeHealth(10); 
                 }
                 if(that.animations[2][that.facing].isAlmostDone(TICK)){
                     that.state = 1;
                     that.animations[2][that.facing].elapsedTime = 0;
                     that.playerHit = false;
+                    that.attackCoolDown = 0;
                 }
             }
         };
@@ -190,7 +174,7 @@ class SeaMonster{
         this.game.entities.forEach(function (entity) {
             if (entity.BB && that.BB.collide(entity.BB)) {
                 if (that.velocity.y > 0) { 
-                    if (((entity instanceof Ground) || (entity instanceof Platform) || (entity instanceof Wall) || (entity instanceof Tiles || (entity instanceof smallPlatforms))) && (that.lastBB.bottom <= entity.BB.top)){
+                    if (((entity instanceof Ground) || (entity instanceof Platform) || (entity instanceof Wall) || (entity instanceof Tiles || (entity instanceof smallPlatforms) || (entity instanceof verticalWall))) && (that.lastBB.bottom <= entity.BB.top)){
                         that.velocity.y = 0;
                         that.y = entity.BB.top - that.BB.height -60;
                         that.updateBB();
@@ -202,19 +186,19 @@ class SeaMonster{
                     }
                     } 
                     if(that.velocity.y < 0){
-                        if ((entity instanceof Ground || entity instanceof Wall || entity instanceof Platform || entity instanceof movingPlatforms || (entity instanceof Tiles) || entity instanceof smallPlatforms) && (that.lastBB.top >= entity.BB.bottom)){
+                        if ((entity instanceof Ground || entity instanceof Wall || entity instanceof Platform || entity instanceof movingPlatforms || (entity instanceof Tiles) || entity instanceof smallPlatforms || (entity instanceof verticalWall)) && (that.lastBB.top >= entity.BB.bottom)){
                             that.velocity.y = 0;
                             that.y = entity.BB.bottom-60;
                             that.updateBB();
                         }
                     }
-                    if (((entity instanceof Wall) || (entity instanceof Ground) || (entity instanceof Platform) || (entity instanceof smallPlatforms)) && that.BB.collide(entity.leftBB) && (that.lastBB.top < entity.BB.bottom-5)){
-                                that.x = entity.leftBB.left - that.BB.width-65;
+                    if (((entity instanceof Wall) || (entity instanceof Ground) || (entity instanceof Platform) || (entity instanceof smallPlatforms) || (entity instanceof verticalWall)) && that.BB.collide(entity.leftBB) && (that.lastBB.top < entity.BB.bottom-5)){
+                                that.x = entity.leftBB.left - that.BB.width-55;
                                 that.velocity.x = 0;
                                 that.updateBB();
                     }
-                    if (((entity instanceof Wall) || (entity instanceof Ground) || (entity instanceof Platform) || (entity instanceof Tiles) || (entity instanceof smallPlatforms)) && that.BB.collide(entity.rightBB) && (that.lastBB.top < entity.BB.bottom-5)){               
-                                that.x = entity.rightBB.right-65;
+                    if (((entity instanceof Wall) || (entity instanceof Ground) || (entity instanceof Platform) || (entity instanceof Tiles) || (entity instanceof smallPlatforms) || (entity instanceof verticalWall)) && that.BB.collide(entity.rightBB) && (that.lastBB.top < entity.BB.bottom-5)){               
+                                that.x = entity.rightBB.right-55;
                                 that.velocity.x = 0; 
                                 that.updateBB(); 
                     }

@@ -211,8 +211,7 @@ var levelThree = {
     ground: [
         // { x: 0, y: 750, width: 73*191, height:25*3, div: 73*3},
         { x: 0, y: 750, width: 219*6, height:25*3, div: 73*3},
-        { x: 4300, y: 750, width: 219*9, height:25*3, div: 73*3.7},
-   
+        { x: 4300, y: 750, width: 219*22, height:25*3, div: 73*3.7},
     ],
     // halfGround: [
     //     { x: 500, y: 670, width: 120*5, height:23*5, div: 120*5},
@@ -373,9 +372,12 @@ var levelThree = {
         {x:6050, y:-1385, width: 47*3, height:119*3, div:47*3},
         {x:6050, y:-1028, width: 47*3, height:119*3, div:47*3},
         {x:6050, y:-671, width: 47*3, height:119*3, div:47*3},
-        {x: 6050, y: -314, width: 47*3, height: 119*3   , div: 47*3 },
-        {x: 6050, y: 43, width: 47*3, height: 119*3   , div: 47*3 },
+        {x: 6050, y: -314, width: 47*3, height: 119*3, div: 47*3 },
+        // {x: 6050, y: 43, width: 47*3, height: 119*3   , div: 47*3 },
         // {x: 6050, y: 400, width: 47*3, height: 119*3   , div: 47*3 },
+        {x: 9000, y: 400, width: 47*3, height: 119*3, div: 47*3 },
+        {x: 8999, y: 43, width: 47*3, height: 119*3   , div: 47*3 },
+        // {x: 6050, y: -314, width: 47*3, height: 119*3, div: 47*3 },
     ],
     gate: [
         // {x:3450 ,y:-525, wallX: 3320, wallY:-605, wallWidth: 47*2, wallHeight: 119*2, div:47*2}

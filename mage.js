@@ -21,6 +21,8 @@ class Mage {
         }
         this.specialAttack1 = false;
         this.specialAttack2 = false;
+        this.level2Ready = false;
+        this.level3Ready = false;
         this.specialAttack3 = false;
         this.hp= 100;
         this.maxHP = 100;
@@ -40,6 +42,7 @@ class Mage {
         this.updateBB();
         this.animations = [];
         this.loadAnimations();
+        // this.animations[2][0].elapsedTime = 0;
     };
     loadAnimations() {
         for (var i = 0; i < 7; i++) { 
@@ -149,7 +152,7 @@ class Mage {
                 else if(this.game.digit1 && (this.curMana >= 50)){       
                     this.specialAttack1 = true;
                 }
-                else if(this.game.digit3 && (this.curMana >= 50)){       
+                else if(this.game.digit3 && (this.curMana >= 50) && (this.level3Ready)){       
                     this.specialAttack3 = true;
                 }
                 if(this.game.jump && (this.playerJump)){
