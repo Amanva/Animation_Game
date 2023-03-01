@@ -110,6 +110,9 @@ for(var l = 0; l <= 3; l++){
         }
         
     }
+    if(this.x <= 0){
+        this.x = 0;
+    }
     // console.log(this.velocity.x, this.velocity.y);
  };
  mageCollide(TICK){
@@ -615,10 +618,18 @@ class earthSlime{
         this.hp -= damage;
     }
      draw(ctx) {
-        if(this.hp >= 0){
+        if(this.hp > 0){
             this.healthbar.draw(ctx);
         }
-
+        if(this.state === 2){
+            if(this.facing === 1){
+            this.animations[2][this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x-390, this.y - this.game.camera.y, PARAMS.SCALE);
+            }
+            else{
+            this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x-70, this.y - this.game.camera.y, PARAMS.SCALE);
+            }
+        }
+        else {
         if(this.facing === 1){
             this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x-390, this.y - this.game.camera.y, PARAMS.SCALE);
 
@@ -626,6 +637,7 @@ class earthSlime{
         else{
             this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, PARAMS.SCALE);
         }
+    }
             if(debug){
                 ctx.strokeStyle = 'Red';
                 ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y - this.game.camera.y, this.BB.width , this.BB.height);
@@ -751,12 +763,14 @@ for(var l = 0; l <= 2; l++){
    updateBB() {
       this.lastBB = this.BB;
       //this.BB = new BoundingBox(this.x+140, this.y + 25, 50, 30 * 1.8); 
-      this.BB = new BoundingBox(this.x+115, this.y+130, 50, 50);
+      
       this.MageDetection = new BoundingBox(this.x-500, this.y-200, 1300, 700);
       if(this.facing == 1){
+        this.BB = new BoundingBox(this.x+115, this.y+130, 50, 50);
         this.AttackBB = new BoundingBox(this.x+100, this.y+110, 70, 70);
       }
       else{
+        this.BB = new BoundingBox(this.x+130, this.y+130, 50, 50);
         this.AttackBB = new BoundingBox(this.x+120, this.y+110, 70, 70);
       }
      
@@ -845,6 +859,7 @@ for(var l = 0; l <= 2; l++){
                 }
             }
             else if(!mageDB){
+                that.state = 2;
                 that.velocity.x = 0
                 that.velocity.y = 0;
             }

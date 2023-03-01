@@ -3,10 +3,9 @@ class Sign {
         Object.assign(this, {game, x, y, xOff, yOff, lines, text});
         this.spritesheet = assetMangager.getAsset("./sprites/04.png");
         this.scale = 2;
-        this.textSize = 15;
+        this.textSize = 10;
         this.showText = false;
-        this.style = 'px ""';
-        this.opacity = 100;
+        this.style = 'px "Press Start 2P"';
         this.canvas = document.createElement("canvas");
         this.ctx = this.canvas.getContext("2d");
         this.updateBB();
@@ -46,8 +45,8 @@ updateBB(){
           if(write.length  > 0) sentence.push(write);
           if(write.length > maxlen) maxlen = write.length;
         //   console.log(sentence.length);
-          let boxWidth = (this.textSize * maxlen) / 2;
-          let boxHeight =  this.textSize + (this.textSize * sentence.length); 
+          let boxWidth = (this.textSize * maxlen);
+          let boxHeight =  this.textSize*2 + (this.textSize*2 * sentence.length); 
           ctx.fillStyle = "gray";
           ctx.strokeStyle = "black";
           ctx.fillRect(this.BB.x - this.game.camera.x - boxWidth/2 + this.BB.width/2, this.BB.y - this.game.camera.y - boxHeight, boxWidth, boxHeight);
@@ -55,7 +54,7 @@ updateBB(){
           ctx.font = this.textSize + this.style;
           ctx.fillStyle = "Black";
             for(let i = 0; i < sentence.length; i++){
-                ctx.fillText(sentence[i],this.BB.x - this.game.camera.x - this.BB.width + this.xOff, this.BB.y - (boxHeight/2) - this.game.camera.y - boxHeight + (this.textSize * sentence.length) + (this.textSize * i) - this.textSize/2 + this.yOff);
+                ctx.fillText(sentence[i],this.BB.x - this.game.camera.x - this.BB.width + this.xOff, this.BB.y - (boxHeight/2) - this.game.camera.y - boxHeight + (this.textSize * sentence.length) + (this.textSize * i*2) - this.textSize/2 + this.yOff);
             }
     }
     draw(ctx) {

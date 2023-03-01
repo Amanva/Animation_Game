@@ -57,7 +57,7 @@ class Mage {
         // right run
         this.animations[1][0] = new Animator(this.spritesheet, 65, 150, 39, 105, 8, 0.10, 121, 0, false, true, false);
         // right attack
-        this.animations[2][0] = new Animator(this.spritesheet, 61, 269, 70, 105, 13, 0.03, 90,0, false, false, false); 
+        this.animations[2][0] = new Animator(this.spritesheet, 61, 269, 70, 105, 13, 0.3, 90,0, false, false, false); 
         // skull attack
         this.animations[3][0] = new Animator(this.spritesheet, 57, 527, 50, 105, 17, 0.05, 110, 0, false, false, false);
         // hit
@@ -75,7 +75,7 @@ class Mage {
 
         // left attack
 
-        this.animations[2][1] = new Animator(this.spritesheetLeft, 692, 269, 70, 105, 13, 0.03, 90, 0, true, true, false);
+        this.animations[2][1] = new Animator(this.spritesheetLeft, 692, 269, 70, 105, 13, 0.3, 90, 0, true, true, false);
 
         // left skull attack
         this.animations[3][1] = new Animator(this.spritesheetLeft, 55, 527, 50, 105, 17, 0.05, 110, 0, true, true, false);
@@ -147,7 +147,9 @@ class Mage {
                 }     
                 if(this.game.attack && !this.specialAttack1 && !this.specialAttack3){
                     this.shoot = true;
-                    this.velocity.x = 0;
+                    // if(this.playerJump){
+                    // this.velocity.x = 0;
+                    // }
                 }
                 else if(this.game.digit1 && (this.curMana >= 50)){       
                     this.specialAttack1 = true;
@@ -224,8 +226,19 @@ class Mage {
                     this.state = this.states.idle;
                 } 
             }
-            else if(this.shoot && (this.timetoShoot > 0.5) && (!this.specialAttack1)){
+            else if(this.shoot && (this.timetoShoot > 0.5) && (!this.specialAttack1) && (!this.specialAttack3)){
                 this.state = this.states.normAttack;
+                if(this.facing === 0){
+                    if(this.animations[this.state][0].elapsedTime != 0){
+                        this.animations[this.state][1].elapsedTime = this.animations[this.state][0].elapsedTime;
+                    }
+                    else if(this.facing === 1){
+                        console.log(this.animations[this.state][0].elapsedTime, this.animations[this.state][1].elapsedTime);
+                        if(this.animations[this.state][1].elapsedTime != 0){
+                            this.animations[this.state][0].elapsedTime = this.animations[this.state][1].elapsedTime;
+                        }
+                    }
+                }
                 if(this.animations[this.state][this.facing].isAlmostDone(TICK)){
                     if(this.facing == 0){
                     this.game.addEntityToBegin(new Projectile(this.game, this.x+100, this.y+140));
@@ -233,7 +246,8 @@ class Mage {
                      if(this.facing == 1){
                     this.game.addEntityToBegin(new Projectile(this.game, this.x, this.y+140));
                     }
-                    this.animations[this.state][this.facing].elapsedTime = 0;
+                    this.animations[this.state][0].elapsedTime = 0;
+                    this.animations[this.state][1].elapsedTime = 0;
                     this.timetoShoot = 0;
                     this.shoot = false;
                     this.game.attack = false;
@@ -247,6 +261,8 @@ class Mage {
 
             if (this.velocity.x >= RUN) this.velocity.x = RUN;
             if (this.velocity.x <= -RUN) this.velocity.x = -RUN;
+            if (this.velocity.x >= 150 && (this.shoot || !this.playerJump)) this.velocity.x = 150;
+            if (this.velocity.x <= -150 && (this.shoot || !this.playerJump)) this.velocity.x = -150;
             
             // update position
             this.x += this.velocity.x * TICK * PARAMS.SCALE;
