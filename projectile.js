@@ -32,7 +32,7 @@ class Projectile{
                 if ((entity instanceof Ground || entity instanceof Wall || entity instanceof Platform || entity instanceof movingPlatforms || (entity instanceof Tiles) || entity instanceof smallPlatforms || (entity instanceof verticalWall)) && that.BB.collide(entity.BB)) {
                    that.removeFromWorld = true;
                 }
-                if(((entity instanceof fireBoss) || (entity instanceof Monster) || (entity instanceof Slime) || (entity instanceof Boar) || (entity instanceof earthSlime) || (entity instanceof ChainBot) || (entity instanceof Bat) || (entity instanceof SeaMonster)) && !that.removeFromWorld){
+                if(((entity instanceof fireBoss) || (entity instanceof Monster) || (entity instanceof Slime) || (entity instanceof Boar) || (entity instanceof earthSlime) || (entity instanceof ChainBot) || (entity instanceof Bat) || (entity instanceof SeaMonster) || (entity instanceof EarthBoss)) && !that.removeFromWorld){
                     if(entity.hp > 0){
                     entity.loseHealth(that.getDmg());
                     that.game.addEntityToBegin(new DamageText(that.game, that.getDmg(), entity.BB.x+(entity.BB.width/2), entity.BB.y, "red"));
@@ -107,7 +107,7 @@ class FireBall{
             if (entity.BB && that.BB.collide(entity.BB)) {
                 if ((entity instanceof Ground || entity instanceof Wall || entity instanceof Platform || entity instanceof movingPlatforms || (entity instanceof Tiles) || entity instanceof smallPlatforms || (entity instanceof verticalWall)) && that.BB.collide(entity.BB)) {                   that.removeFromWorld = true;
                 }
-                if(((entity instanceof fireBoss) || (entity instanceof Monster) || (entity instanceof Slime) || (entity instanceof Boar) || (entity instanceof earthSlime) || (entity instanceof ChainBot) || (entity instanceof Bat) || (entity instanceof SeaMonster)) && !that.removeFromWorld){
+                if(((entity instanceof fireBoss) || (entity instanceof Monster) || (entity instanceof Slime) || (entity instanceof Boar) || (entity instanceof earthSlime) || (entity instanceof ChainBot) || (entity instanceof Bat) || (entity instanceof SeaMonster) || (entity instanceof EarthBoss)) && !that.removeFromWorld){
                     if(entity.hp > 0){
                     entity.loseHealth(that.getSpecDmg());
                     that.game.addEntityToBegin(new DamageText(that.game, that.getSpecDmg(), entity.BB.x+(entity.BB.width/2), entity.BB.y, "red"));
@@ -171,7 +171,7 @@ class Earth{
                 if ((entity instanceof Ground || entity instanceof Wall || entity instanceof Platform || entity instanceof movingPlatforms || (entity instanceof Tiles) || entity instanceof smallPlatforms || (entity instanceof verticalWall)) && that.BB.collide(entity.BB)) {
                    that.removeFromWorld = true;
                 }
-                if(((entity instanceof fireBoss) || (entity instanceof Monster) || (entity instanceof Slime) || (entity instanceof Boar) || (entity instanceof earthSlime) || (entity instanceof ChainBot) || (entity instanceof Bat) || (entity instanceof SeaMonster)) && !that.removeFromWorld){
+                if(((entity instanceof fireBoss) || (entity instanceof Monster) || (entity instanceof Slime) || (entity instanceof Boar) || (entity instanceof earthSlime) || (entity instanceof ChainBot) || (entity instanceof Bat) || (entity instanceof SeaMonster) || (entity instanceof EarthBoss)) && !that.removeFromWorld){
                     if(entity.hp > 0){
                     entity.loseHealth(that.getSpecDmg());
                     that.game.addEntityToBegin(new DamageText(that.game, that.getSpecDmg(), entity.BB.x+(entity.BB.width/2), entity.BB.y, "red"));

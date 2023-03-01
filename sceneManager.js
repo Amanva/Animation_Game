@@ -18,7 +18,7 @@ class SceneManager {
         this.initialSpawn = false;
         this.loadLevel(levelThree, this.title);
         this.myCursor = new Cursor(this.game);
-        this.earthBoss;
+        this.gameOver = false;
     };
     clearEntities() {
         this.game.entities.forEach(function (entity) {
@@ -31,7 +31,7 @@ class SceneManager {
     loadLevel(level, title){
         this.title = title;
         if(!this.title && !this.initialCutSceen){
-        this.level = level;
+            this.level = level;
         // this.lastHP = this.mage.hp;
         // this.lastMana = this.mage.curMana;
         // this.lastJumpItem = this.mage.jumpItem;
@@ -138,7 +138,7 @@ class SceneManager {
         this.y = 0;
         this.jumpItem = true;
         this.game.mage.level3Ready = true;
-        this.mage.x = 100;
+        this.mage.x = 5000;
         this.mage.y = 400;
         this.earthBoss = new EarthBoss(this.game, 4697, 607);
         this.game.addEntity(this.earthBoss);
@@ -282,6 +282,16 @@ class SceneManager {
                 this.title = false;
             }
         }
+        if(this.gameOver){
+            if(this.game.click && (this.game.click.y > 224) && (this.game.click.y < 312) && (this.game.click.x > 733) && (this.game.click.x < 1056)){
+                this.loadLevel(levelOne, false);
+                this.game.click = false;
+                // let cutText = [["The world is in ruin, you are the only one that can stop the darkness."], ["Go forth The Last Magus and defeat the evil"]];
+                // this.game.addEntity(new CutScene(this.game, cutText, 0, 0, "red"))
+                this.gameOver = false;
+                
+            }
+        }
         if(!this.title && this.initialCutSceen){
             if(this.game.click){
                 CutScene.removeFromWorld = true;
@@ -295,10 +305,7 @@ class SceneManager {
         if(!this.title && !this.initialCutSceen){
             // if(this.earthBoss.dead === true){
             //     console.log("GAME OVER");
-            //     if(this.game.click && (this.game.click.y > 224) && (this.game.click.y < 312) && (this.game.click.x > 733) && (this.game.click.x < 1056)){
-            //         this.loadLevel(levelOne, false);
-            //         this.title = false;
-            //     }
+                
             // }
         this.heartMana.update();
         let midpoint = PARAMS.CANVAS_WIDTH/2 - PARAMS.PLAYERWIDTH / 2;
@@ -363,8 +370,38 @@ class SceneManager {
         ctx.fillText("Start", 747,  297);
     }
     
-    makeDeath(ctx){
-
+    winGame(ctx){            
+        this.clearEntities();
+        this.mage.removeFromWorld = true;
+        // background level 1
+        ctx.drawImage(assetMangager.getAsset(levelOne.background), 0, 0, 450, 400);
+        // placeholder level 2
+        ctx.drawImage(assetMangager.getAsset(levelOne.background), 0, 400, 450, 400);
+        // background level 3
+        ctx.drawImage(assetMangager.getAsset(levelThree.background1), 1350, 0, 450, 400);
+        ctx.drawImage(assetMangager.getAsset(levelThree.background2), 1350, 0, 450, 400);
+        ctx.drawImage(assetMangager.getAsset(levelThree.background3), 1350, 0, 450, 400);
+        // placeholder level 4
+        ctx.drawImage(assetMangager.getAsset(levelOne.background), 1350, 400, 450, 400);
+        ctx.fillStyle = 'Black';
+        ctx.fillRect(450, 0, 900, 800);
+        ctx.font = '60px "Press Start 2P"';
+        ctx.fillStyle = "White"
+        ctx.fillText("The Last Magus", 487,  97);
+        ctx.fillText("Restart", 750,  300);
+        // ctx.fillText("Start", 487,  97);
+        ctx.fillStyle = "Red"
+        ctx.fillText("The Last Magus", 490, 100);
+        if(this.game.mouse && (this.game.mouse.y > 224) && (this.game.mouse.y < 312) && (this.game.mouse.x > 733) && (this.game.mouse.x < 1056)){
+            this.animations[0][0].drawFrame(this.game.clockTick, ctx, 600, 150, 2);
+            ctx.fillStyle = "White";
+        }
+        else{
+            ctx.fillStyle = "Red";
+        }
+        ctx.fillText("Restart", 747,  297);
+        this.gameOver = true;
+        this.initialSpawn = false;
     };
 
     draw(ctx) {
@@ -375,12 +412,12 @@ class SceneManager {
             this.makeTitle(ctx);
         }
         else if(!this.title && !this.initialCutSceen){
-        // ctx.font = "50px Arial";
-        // if(this.earthBoss.dead){
-        //     ctx.fillText("You Win", 380, 300);
-        //     ctx.fillText("GAME OVER!", 320, 350);
-        //     ctx.fillText("Press R to restart", 280, 420);
-        // }
+        ctx.font = "50px Arial";
+        if(this.level === levelThree){
+        if(this.earthBoss.dead){
+           this.winGame(ctx);
+        }
+        }
         this.heartMana.draw(ctx);
         ctx.font = '15px "Press Start 2P"';
         ctx.fillStyle = "White";

@@ -394,10 +394,10 @@ class EarthBoss {
         this.healthbar.draw(ctx);
         // this.playText(ctx);
         if(this.facing === 0){
-        this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, 4);
+        this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, 5);
         }
         else {
-            this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x - 27, this.y - this.game.camera.y, 4);
+            this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x - 27, this.y - this.game.camera.y, 5);
         }
         if (debug) {
             ctx.strokeStyle = 'Red';
