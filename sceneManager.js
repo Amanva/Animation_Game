@@ -14,11 +14,11 @@ class SceneManager {
         this.damage = 100;
         this.specDamage = 50;
         this.level = null;
-        this.mage = new Mage(this.game, 500,400);
+        this.mage = new Mage(this.game, 500,-307);
         this.game.addEntityToBegin(this.mage);
         this.loadLevel(levelThree, this.title);
         this.myCursor = new Cursor(this.game);
-        
+        this.earthBoss;
     };
     clearEntities() {
         this.game.entities.forEach(function (entity) {
@@ -130,22 +130,23 @@ class SceneManager {
         this.x = 0;
         this.y = 0;
         this.jumpItem = true;
-        this.mage.x = 2500;
-        this.mage.y = -707;
-        this.game.addEntity(new EarthBoss(this.game, 4697,307));
-        this.game.addEntity(new SeaMonster(this.game, 5681, 507));
-        if(level.boar){
-            for (var i = 0; i < level.boar.length; i++) {
-                let boar = level.boar[i];
-                this.game.addEntity(new Boar(this.game, boar.x, boar.y));
-            }
-        }
-        if(level.bat){
-            for (var i = 0; i < level.bat.length; i++) {
-                let bat = level.bat[i];
-                this.game.addEntity(new Bat(this.game, bat.x, bat.y));
-            }
-        }
+        this.mage.x = 5000;
+        this.mage.y = -307;
+        this.earthBoss = new EarthBoss(this.game, 4697, 607);
+        this.game.addEntity(this.earthBoss);
+        // this.game.addEntity(new SeaMonster(this.game, 5681, 507));
+        // if(level.boar){
+        //     for (var i = 0; i < level.boar.length; i++) {
+        //         let boar = level.boar[i];
+        //         this.game.addEntity(new Boar(this.game, boar.x, boar.y));
+        //     }
+        // }
+        // if(level.bat){
+        //     for (var i = 0; i < level.bat.length; i++) {
+        //         let bat = level.bat[i];
+        //         this.game.addEntity(new Bat(this.game, bat.x, bat.y));
+        //     }
+        // }
         // if(level.slimeEarth){
         //     for (var i = 0; i < level.slimeEarth.length; i++) {
         //         let slimeEarth = level.slimeEarth[i];
@@ -156,8 +157,8 @@ class SceneManager {
         // this.game.addEntity(new Boar(this.game, 400, 500));
         // this.game.addEntity(new earthSlime(this.game, 5400, 500));
         // this.game.addEntity(new mudGuard(this.game, 2400,400,1));
-        this.game.addEntity(new Boar(this.game, 400, 500));
-        this.game.addEntity(new earthSlime(this.game, 400, 500));
+        // this.game.addEntity(new Boar(this.game, 400, 500));
+        // this.game.addEntity(new earthSlime(this.game, 400, 500));
 
 
         // if(level.dirt){   
@@ -265,6 +266,13 @@ class SceneManager {
                 this.title = false;
             }
         }
+        if(this.earthBoss.dead === true){
+            console.log("GAME OVER");
+            if(this.game.click && (this.game.click.y > 224) && (this.game.click.y < 312) && (this.game.click.x > 733) && (this.game.click.x < 1056)){
+                this.loadLevel(levelOne, false);
+                this.title = false;
+            }
+        }
         if(!this.title){
         this.heartMana.update();
         let midpoint = PARAMS.CANVAS_WIDTH/2 - PARAMS.PLAYERWIDTH / 2;
@@ -328,12 +336,23 @@ class SceneManager {
         }
         ctx.fillText("Start", 747,  297);
     }
+    
+    makeDeath(ctx){
+
+    };
+
     draw(ctx) {
         // if(this.game.inCanvas){
         //     this.myCursor.draw(ctx); 
         // }       
         if(this.title){
             this.makeTitle(ctx);
+        }
+        ctx.font = "50px Arial";
+        if(this.earthBoss.dead){
+            ctx.fillText("You Win", 380, 300);
+            ctx.fillText("GAME OVER!", 320, 350);
+            ctx.fillText("Press R to restart", 280, 420);
         }
         else{
         this.heartMana.draw(ctx);

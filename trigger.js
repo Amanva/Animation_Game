@@ -28,11 +28,11 @@ class trigger{
             if (entity instanceof Mage){
                 
                 if(entity.BB.collide(that.BB) && !that.collision){
-                    console.log("spawn mobs");
+                    // console.log("spawn mobs");
                     that.collision = true;
                 }
                 if(that.collision && !that.spawned){
-                    console.log("SPAWNED")
+                    // console.log("SPAWNED")
                     that.game.addEntityToBegin(that.boarOne); 
                     that.spawned = true;
                 }
@@ -41,11 +41,12 @@ class trigger{
             }
             if(( entity instanceof Boar) && that.spawned){
                 if(that.AreaBB.collide(that.boarOne.BB) && !that.boarOne.dead){
-                    console.log("MONSTERS in area");
+                    // console.log("MONSTERS in area");
                 }
                 else if(that.boarOne.dead){
-                    console.log("NO MONSTERS IN AREA");
+                    // console.log("NO MONSTERS IN AREA");
                     that.wall2.removeFromWorld = true;
+                    that.wall.removeFromWorld = true;
                 }
             }
 

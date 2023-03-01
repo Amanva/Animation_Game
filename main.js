@@ -68,6 +68,7 @@ assetMangager.queueDownload("./sprites/seaMonster/monster-idle.png");
 assetMangager.queueDownload("./sprites/seaMonster/monster-Right-Swim.png");
 // sounds
 assetMangager.queueDownload("./sounds/sfx/playerhit.mp3");
+assetMangager.queueDownload("./sounds/sfx/minAttack.mp3");
 assetMangager.queueDownload("./sounds/sfx/zombiehit.wav");
 assetMangager.downloadAll(() => {
 var canvas = document.getElementById('gameWorld');

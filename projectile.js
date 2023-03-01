@@ -32,7 +32,7 @@ class Projectile{
                 if ((entity instanceof Ground || entity instanceof Wall || entity instanceof Platform || entity instanceof movingPlatforms || entity instanceof verticalWall || entity instanceof smallPlatforms) && that.BB.collide(entity.BB)) {
                    that.removeFromWorld = true;
                 }
-                if((entity instanceof fireBoss) || (entity instanceof Monster) || (entity instanceof Slime) || (entity instanceof Boar) || (entity instanceof earthSlime) || (entity instanceof ChainBot) || (entity instanceof Bat) || (entity instanceof SeaMonster)){
+                if((entity instanceof fireBoss) || (entity instanceof Monster) || (entity instanceof Slime) || (entity instanceof Boar) || (entity instanceof earthSlime) || (entity instanceof ChainBot) || (entity instanceof Bat) || (entity instanceof SeaMonster) || (entity instanceof EarthBoss)){
                     that.removeFromWorld = true;
                     entity.loseHealth(that.getDmg());
                     // console.log("HIT2");
@@ -55,6 +55,7 @@ class Projectile{
     };
     getDmg() {
         let dmg = this.game.camera.damage;
+        console.log(dmg);
         assetMangager.playAsset("./sounds/sfx/playerhit.mp3");
         return dmg;
     }

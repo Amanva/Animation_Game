@@ -230,7 +230,7 @@ var levelThree = {
     // ],
     gate: [
         {x:3450 ,y:-525, wallX: 4655, wallY:70, wallWidth: 47*2, wallHeight: 119*2, div:47*2},
-        {x:4490 ,y:90, wallX: 6100, wallY:400, wallWidth: 47*3, wallHeight: 119*3, div:47*3}
+        {x:4490 ,y:90, wallX: 6050, wallY:400, wallWidth: 47*3, wallHeight: 119*3, div:47*3}
 
     ],
     trigger: [
@@ -385,11 +385,7 @@ var levelThree = {
         {x: 6050, y: 43, width: 47*3, height: 119*3   , div: 47*3 },
         // {x: 6050, y: 400, width: 47*3, height: 119*3   , div: 47*3 },
     ],
-    gate: [
-        // {x:3450 ,y:-525, wallX: 3320, wallY:-605, wallWidth: 47*2, wallHeight: 119*2, div:47*2}
-        {x:3450 ,y:-525, wallX: 6050, wallY:400, wallWidth: 47*3, wallHeight: 119*3, div:47*3},
-        {x:4440 , y:100, wallX: 3320, wallY:-605, wallWidth: 47*2, wallHeight: 119*2, div:47*2}
-    ],
+    
     ChainBot: [
         {x: 2629, y:507 },
         {x: 2586, y:207 },
