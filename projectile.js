@@ -110,4 +110,71 @@ class FireBall{
 
 }
 
-// class 
+class WaterBall{
+    constructor(game, x, y) {
+        Object.assign(this, { game, x, y});
+
+        this.spritesheet = assetMangager.getAsset("./sprites/waterBall.png");
+        this.animations = [];
+        this.speed = 500;
+        this.dead = false;
+        this.animations.push(new Animator(this.spritesheet, 20, 5, 27, 20, 5, 0.2, 31, 0, false, true, false));
+        this.shot = {x: this.game.mouse.x + this.game.camera.x, y: this.game.mouse.y + this.game.camera.y};
+        var dist = distanceBetween(this, this.shot);
+        this.velocity = { x: (this.shot.x - this.x) / dist * this.speed, y: (this.shot.y - this.y) / dist * this.speed};
+        this.angle = getAngle(this.velocity);
+        this.updateBB();
+    };
+    updateBB() {
+        this.lastBB = this.BB;
+        this.BB = new BoundingBox(this.x-20, this.y-20, 30*2, 13*2);
+    };
+    update(){
+        const TICK = this.game.clockTick;
+        this.x += this.velocity.x * TICK;
+        this.y += this.velocity.y * TICK;
+        this.updateBB();
+        if(this.x < -10){
+            this.removeFromWorld = true; 
+        }
+        var that = this;
+        this.game.entities.forEach(function (entity) {
+            if (entity.BB && that.BB.collide(entity.BB)) {
+                if ((entity instanceof Ground || entity instanceof Wall || entity instanceof Platform || entity instanceof movingPlatforms || entity instanceof verticalWall || entity instanceof smallPlatforms) && that.BB.collide(entity.BB)) {
+                   that.removeFromWorld = true;
+                }
+                if(entity instanceof WaterBoss){
+                    that.removeFromWorld = true;
+                    entity.loseHealth(50);
+                }
+                if(entity instanceof ChainBot){
+                    that.removeFromWorld = true;
+                    entity.hp -= 100;
+                }
+                if(entity instanceof SeaMonster){
+                    that.removeFromWorld = true;
+                    entity.loseHealth(100);
+                }
+                if(entity instanceof Bomb){
+                    that.removeFromWorld = true;
+                    entity.loseHealth(100);
+                }
+                if(entity instanceof Squid){
+                    that.removeFromWorld = true;
+                    entity.loseHealth(100);
+                }
+            }
+            
+            });
+    };
+
+    draw(ctx){
+        this.animations[0].drawAngle(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, 2, this.angle);
+        if(debug){
+            ctx.strokeStyle = 'Red';
+            ctx.strokeRect(this.BB.x-this.game.camera.x, this.BB.y-this.game.camera.y, this.BB.width, this.BB.height);
+            }
+    };
+
+}
+

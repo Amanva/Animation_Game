@@ -35,7 +35,7 @@ class SceneManager {
             this.game.addEntity(this.mage);
             
             // this.monster = new Monster(this.game, 650, 250); 
-             //this.game.addEntity(this.monster);
+            // this.game.addEntity(this.monster);
             this.portal = new Portal(this.game, 200, 430);
             this.game.addEntity(this.portal);
 
@@ -111,28 +111,25 @@ class SceneManager {
 
         } else if( level === levelTwo) {
             this.clearEntities();
-
             this.mage = new Mage(this.game, 200, 488);
             this.game.addEntity(this.mage);
             this.heartMana = new HeartManaHQ(this.game, this.mage);
 
             this.game.addEntity(new Cave(this.game, 11030, 363, 1031, 439));
-           this.game.addEntity(new SeaMonster(this.game, 690, 250));
-           // this.game.addEntity(new SeaMonster(this.game, 690, 350));
-            
-            // this.fireBoss = new fireBoss(this.game, 9600, 300); 
-            // this.game.addEntity(this.fireBoss);
-            
-            //Level = levelTwo, the take assets fromthe levelTwo
+              this.game.addEntity(new SeaMonster(this.game, 690, 250));
 
-            
+            // this.game.addEntity(new Slime(this.game, 690, 250));
 
-        //     if(level.ChainBot){
-        //         for (var i = 0; i < level.ChainBot.length; i++) {
-        //             let chainBot = level.ChainBot[i];
-        //             this.game.addEntity(new ChainBot(this.game, chainBot.x, chainBot.y));
-        //         }
-        //    }
+            this.game.addEntity(new Squid(this.game, 690, 250));
+
+            this.game.addEntity(new WaterBoss(this.game,1580, 450));
+            
+            if(level.ChainBot){
+                for (var i = 0; i < level.ChainBot.length; i++) {
+                    let chainBot = level.ChainBot[i];
+                    this.game.addEntity(new ChainBot(this.game, chainBot.x, chainBot.y));
+                }
+            }
             
             if(level.ground){
                 for (var i = 0; i < level.ground.length; i++) {
