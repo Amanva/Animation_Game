@@ -49,6 +49,7 @@ class Projectile{
     };
     getDmg() {
         let dmg = this.game.camera.damage;
+        console.log(dmg);
         assetMangager.playAsset("./sounds/sfx/playerhit.mp3");
         return dmg;
     }
@@ -114,6 +115,10 @@ class FireBall{
                     that.removeFromWorld = true;
                     console.log("HIT2");
                 }
+                if(entity instanceof earthSlime){
+                    that.removeFromWorld = true;
+                    entity.loseHealth(100);
+                }
             }
             
             });
@@ -173,6 +178,10 @@ class Earth{
                     }
                     that.removeFromWorld = true;
                     console.log("HIT2");
+                }
+                if(entity instanceof Slime){
+                    that.removeFromWorld = true;
+                    entity.loseHealth(100);
                 }
             }
             

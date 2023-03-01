@@ -18,7 +18,7 @@ class SceneManager {
         this.initialSpawn = false;
         this.loadLevel(levelOne, this.title);
         this.myCursor = new Cursor(this.game);
-        
+        this.earthBoss;
     };
     clearEntities() {
         this.game.entities.forEach(function (entity) {
@@ -50,7 +50,7 @@ class SceneManager {
         this.game.mage.level3Ready = false;
         this.x = 0;
         this.y = 0;
-        this.mage.x = 9500;
+        this.mage.x = 500;
         this.mage.y = 300;
         this.healthPotion = 0;
         this.manaPotion = 0;
@@ -140,7 +140,8 @@ class SceneManager {
         this.game.mage.level3Ready = true;
         this.mage.x = 6007;
         this.mage.y = -407;
-        this.game.addEntity(new EarthBoss(this.game, 4697,307));
+        this.earthBoss = new EarthBoss(this.game, 4697, 607);
+        this.game.addEntity(this.earthBoss);
         // this.game.addEntity(new SeaMonster(this.game, 5681, 507));
         if(level.boar){
             for (var i = 0; i < level.boar.length; i++) {
@@ -161,7 +162,25 @@ class SceneManager {
         //     }
         // }
         this.game.addEntity(new Item(this.game, 400, 400, 1));
+        // this.game.addEntity(new Boar(this.game, 400, 500));
+        // this.game.addEntity(new earthSlime(this.game, 5400, 500));
+        // this.game.addEntity(new mudGuard(this.game, 2400,400,1));
+        // this.game.addEntity(new Boar(this.game, 400, 500));
         // this.game.addEntity(new earthSlime(this.game, 400, 500));
+
+
+        // if(level.dirt){   
+        //     for (var i = 0; i < level.dirt.length; i++) {
+        //         let dirt = level.dirt[i];
+        //         this.game.addEntity(new Dirt(this.game, dirt.x, dirt.y, dirt.width, dirt.height, dirt.div));
+        //     }
+        // }
+        // if(level.halfGround){   
+        //     for (var i = 0; i < level.halfGround.length; i++) {
+        //         let halfGround = level.halfGround[i];
+        //         this.game.addEntity(new HalfGround(this.game, halfGround.x, halfGround.y, halfGround.width, halfGround.height, halfGround.div));
+        //     }
+        // }
         if(level.ground){   
             for (var i = 0; i < level.ground.length; i++) {
                 let ground = level.ground[i];
@@ -192,7 +211,14 @@ class SceneManager {
                 this.game.addEntity(new Gate(this.game, gate.x, gate.y, gate.wallX, gate.wallY, gate.wallWidth, gate.wallHeight, gate.div));
             }
         }
-        
+        if(level.trigger){
+            for (var i = 0; i < level.trigger.length; i++) {
+                let triggers = level.trigger[i];
+                this.game.addEntity(new trigger(this.game, triggers.x, triggers.y, triggers.wallX, triggers.wallY, triggers.wallWidth,triggers.wallHeight, triggers.div));
+            }
+        }
+      
+
         this.game.addEntity(new Sign(this.game, 3200, -377, 45, 10 , 3, "Defeat the monsters near the other shrine and come back"));
 
         this.game.addEntity(new BackGround(this.game, 0, 0, 1800, 800, this.level));
@@ -264,7 +290,15 @@ class SceneManager {
                 this.loadLevel(levelOne, false);
             }
         }
-        if(!this.title && !this.initialCutSceen){
+
+        if(this.earthBoss.dead === true){
+            console.log("GAME OVER");
+            if(this.game.click && (this.game.click.y > 224) && (this.game.click.y < 312) && (this.game.click.x > 733) && (this.game.click.x < 1056)){
+                this.loadLevel(levelOne, false);
+                this.title = false;
+            }
+        }
+        if(!this.title){
         this.heartMana.update();
         let midpoint = PARAMS.CANVAS_WIDTH/2 - PARAMS.PLAYERWIDTH / 2;
         if ((this.mage.x > midpoint) && (this.mage.x + midpoint <= 11000)) this.x = this.mage.x - midpoint;
@@ -327,6 +361,11 @@ class SceneManager {
         }
         ctx.fillText("Start", 747,  297);
     }
+    
+    makeDeath(ctx){
+
+    };
+
     draw(ctx) {
         // if(this.game.inCanvas){
         //     this.myCursor.draw(ctx); 
@@ -335,6 +374,12 @@ class SceneManager {
             this.makeTitle(ctx);
         }
         else if(!this.title && !this.initialCutSceen){
+        ctx.font = "50px Arial";
+        if(this.earthBoss.dead){
+            ctx.fillText("You Win", 380, 300);
+            ctx.fillText("GAME OVER!", 320, 350);
+            ctx.fillText("Press R to restart", 280, 420);
+        }
         this.heartMana.draw(ctx);
         ctx.font = '15px "Press Start 2P"';
         ctx.fillStyle = "White";
@@ -352,10 +397,10 @@ class SceneManager {
             ctx.fillText(yV, 200, 140);
             ctx.fillText("xV=" + Math.floor(this.game.mage.velocity.x), 200, 180);
             ctx.fillText("yV="+ Math.floor(this.game.mage.velocity.y), 200, 220);
-        }
     }
     this.myCursor.draw(ctx);
     };
     
+};
 };
 
