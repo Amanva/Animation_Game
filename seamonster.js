@@ -68,6 +68,8 @@ class SeaMonster{
       else{
       this.AttackBB = new BoundingBox(this.x+10, this.y+30, 70, 110);
       }
+     
+                   
  // };
  //updateBB() {
    //  this.BB = new BoundingBox(this.x + 45-this.game.camera.x, this.y + 35, 70, 90, "red");
@@ -174,7 +176,7 @@ class SeaMonster{
         this.game.entities.forEach(function (entity) {
             if (entity.BB && that.BB.collide(entity.BB)) {
                 if (that.velocity.y > 0) { 
-                    if (((entity instanceof Ground) || (entity instanceof Platform) || (entity instanceof Wall) || (entity instanceof Tiles || (entity instanceof smallPlatforms) || (entity instanceof verticalWall))) && (that.lastBB.bottom <= entity.BB.top)){
+                    if (((entity instanceof Ground) || (entity instanceof Platform) || (entity instanceof Wall) || (entity instanceof Tiles || (entity instanceof smallPlatforms))) && (that.lastBB.bottom <= entity.BB.top)){
                         that.velocity.y = 0;
                         that.y = entity.BB.top - that.BB.height -60;
                         that.updateBB();
@@ -186,19 +188,19 @@ class SeaMonster{
                     }
                     } 
                     if(that.velocity.y < 0){
-                        if ((entity instanceof Ground || entity instanceof Wall || entity instanceof Platform || entity instanceof movingPlatforms || (entity instanceof Tiles) || entity instanceof smallPlatforms || (entity instanceof verticalWall)) && (that.lastBB.top >= entity.BB.bottom)){
+                        if ((entity instanceof Ground || entity instanceof Wall || entity instanceof Platform || entity instanceof movingPlatforms || (entity instanceof Tiles) || entity instanceof smallPlatforms) && (that.lastBB.top >= entity.BB.bottom)){
                             that.velocity.y = 0;
                             that.y = entity.BB.bottom-60;
                             that.updateBB();
                         }
                     }
-                    if (((entity instanceof Wall) || (entity instanceof Ground) || (entity instanceof Platform) || (entity instanceof smallPlatforms) || (entity instanceof verticalWall)) && that.BB.collide(entity.leftBB) && (that.lastBB.top < entity.BB.bottom-5)){
-                                that.x = entity.leftBB.left - that.BB.width-55;
+                    if (((entity instanceof Wall) || (entity instanceof Ground) || (entity instanceof Platform) || (entity instanceof smallPlatforms)) && that.BB.collide(entity.leftBB) && (that.lastBB.top < entity.BB.bottom-5)){
+                                that.x = entity.leftBB.left - that.BB.width-65;
                                 that.velocity.x = 0;
                                 that.updateBB();
                     }
-                    if (((entity instanceof Wall) || (entity instanceof Ground) || (entity instanceof Platform) || (entity instanceof Tiles) || (entity instanceof smallPlatforms) || (entity instanceof verticalWall)) && that.BB.collide(entity.rightBB) && (that.lastBB.top < entity.BB.bottom-5)){               
-                                that.x = entity.rightBB.right-55;
+                    if (((entity instanceof Wall) || (entity instanceof Ground) || (entity instanceof Platform) || (entity instanceof Tiles) || (entity instanceof smallPlatforms)) && that.BB.collide(entity.rightBB) && (that.lastBB.top < entity.BB.bottom-5)){               
+                                that.x = entity.rightBB.right-65;
                                 that.velocity.x = 0; 
                                 that.updateBB(); 
                     }

@@ -240,9 +240,6 @@ var levelTwo = {
         // {x:10500, y:500}
     ],
 
-    lava: [
-        {x: 600, y: 300, width: 200, height: 10  }
-    ]
 };
 
 var levelThree = {

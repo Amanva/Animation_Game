@@ -16,7 +16,7 @@ class SceneManager {
         this.specDamage = 50;
         this.level = null;
         this.initialSpawn = false;
-        this.loadLevel(levelThree, this.title);
+        this.loadLevel(levelTwo, this.title);
         this.myCursor = new Cursor(this.game);
         this.earthBoss;
     };
@@ -117,6 +117,7 @@ class SceneManager {
                 let wall = level.wall[i];
                 this.game.addEntity(new Wall(this.game, wall.x, wall.y, wall.width, wall.height, wall.div));
             }
+        }
             if(level.smallPlatforms){
                 for (var i = 0; i < level.smallPlatforms.length; i++) {
                     let tiles = level.smallPlatforms[i];
@@ -145,19 +146,18 @@ class SceneManager {
                     
             // this.mage = new Mage(this.game, 662, 488);
             // this.game.addEntity(this.mage);
+            this.mage.velocity = { x: 0, y: 0 };
         this.game.addEntity(new Sign(this.game, 700, 670, 15, 45, 10, "Controls: A-left, D-right, click-Basic attack, Num1-special attack, E-health potion, Q-mana potion"));
         this.game.addEntity(new Sign(this.game, 2700, 70, 6, 40, 1, "How do I go through?"));
         this.game.addEntity(new Sign(this.game, 302, -288, 10, 40, 1, "What does this do?"));
         this.game.addEntity(new Sign(this.game, 7300, 670, 43, 40, 1, "Up I must go"));
         this.game.addEntity(new BackGround(this.game, 0, 0, 1800, 800, this.level));
-            this.mage.velocity = { x: 0, y: 0 };
 
-        } else if( level === levelTwo) {
-            this.clearEntities();
-            this.mage = new Mage(this.game, 200, 488);
-            this.game.addEntity(this.mage);
-            this.heartMana = new HeartManaHQ(this.game, this.mage);
-
+        
+    }
+        else if(this.level === levelTwo) {
+            this.x = 0;
+            this.y = 0;
             this.game.addEntity(new Cave(this.game, 11030, 363, 1031, 439));
             //  this.game.addEntity(new SeaMonster(this.game, 690, 250));
 
@@ -245,7 +245,6 @@ class SceneManager {
             
         }
         
-    }
     else if(this.level === levelThree){
         this.x = 0;
         this.y = 0;

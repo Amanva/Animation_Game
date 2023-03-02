@@ -7,7 +7,7 @@ class Ground {
         this.spritesheet = assetMangager.getAsset("./sprites/Lava64.png");
         }
         else if(this.game.camera.level === levelTwo){
-            this.spritesheet = assetMangager.getAsset(level.floor);
+            this.spritesheet = assetMangager.getAsset(levelTwo.floor);
         }
         else if(this.game.camera.level === levelThree){
         this.spritesheet = assetMangager.getAsset("./sprites/earthlevel.png");
@@ -32,7 +32,7 @@ class Ground {
             if(this.game.camera.level === levelOne){
                 ctx.drawImage(this.spritesheet, 0, 255, 256, 64, this.x + i * (this.div)-this.game.camera.x, this.y-this.game.camera.y, this.div, this.height);
             }
-            else if(this.level === levelTwo){
+            else if(this.game.camera.level === levelTwo){
                 ctx.drawImage(this.spritesheet, 689, 624, 110, 110, this.x + i * (this.div)-this.game.camera.x, this.y-this.game.camera.y, this.div, this.height);
             }
             else if(this.game.camera.level === levelThree){
@@ -199,7 +199,7 @@ class Platform {
             this.spritesheet = assetMangager.getAsset("./sprites/Lava64.png");
         }
         else if(this.game.camera.level === levelTwo){
-            this.spritesheet = assetMangager.getAsset(level.floor);
+            this.spritesheet = assetMangager.getAsset(levelTwo.floor);
         }
         else if(this.game.camera.level === levelThree){
 
