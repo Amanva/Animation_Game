@@ -209,6 +209,9 @@ class GameEngine {
         // Draw latest things first
         for (let i = this.entities.length - 1; i >= 0; i--) {
             this.entities[i].draw(this.ctx, this);
+            // console.log(this.entities[i]); //TODO  remove test
+            // console.log('i = ' , +i);
+            // console.log(this.entities.length);
         }
         this.camera.draw(this.ctx);
     };

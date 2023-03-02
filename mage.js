@@ -228,11 +228,13 @@ class Mage {
             }
             else if(this.shoot && (this.timetoShoot > 0.5) && (!this.specialAttack1) && (!this.specialAttack3)){
                 this.state = this.states.normAttack;
+                // console.log("ste");
                 if(this.facing === 0){
+                    console.log(this.animations[this.state][0].elapsedTime, this.animations[this.state][1].elapsedTime);
                     if(this.animations[this.state][0].elapsedTime != 0){
                         this.animations[this.state][1].elapsedTime = this.animations[this.state][0].elapsedTime;
                     }
-                    else if(this.facing === 1){
+                     if(this.facing === 1){
                         console.log(this.animations[this.state][0].elapsedTime, this.animations[this.state][1].elapsedTime);
                         if(this.animations[this.state][1].elapsedTime != 0){
                             this.animations[this.state][0].elapsedTime = this.animations[this.state][1].elapsedTime;

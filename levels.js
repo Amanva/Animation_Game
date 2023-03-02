@@ -1,7 +1,9 @@
-// const divisorPlatforms = 256;
+// const divisorPlatforms = 256; //divizor = size of the one platform
 var levelOne = {
     background: "./sprites/Background.png",
     music: "./sounds/music/background.wav",
+    floor: "./sprites/Lava64.png",
+
     ground: [
         { x: 0, y: 750, width: 3072, height:64, div: 256},
         { x: 3456, y: 750, width: 2560, height:64, div: 256},
@@ -13,7 +15,8 @@ var levelOne = {
         {x:3072 , y:-100, width:192*2, height: 308, div: 308},
         {x:3072 , y:500, width:192*2, height: 308, div: 308},
         {x:2000 , y:-158, width:192, height: 308, div: 308},
-        {x:3264 , y:-400, width:192, height: 308, div: 308}
+        {x:3264 , y:-400, width:192, height: 308, div: 308},
+        {x:800 , y:500, width:192, height: 308, div: 308} //test wall
         
     ],
     gate: [
@@ -53,10 +56,6 @@ var levelOne = {
         {x:7750 ,y:150, width: 63 , height:17, div: 63},
         {x:7200 ,y:100, width: 63 , height:17, div: 63},
 
-
-
-
-        
         {x:7600 ,y:700, width: 63 , height:17, div: 63},
         {x:7450 ,y:700, width: 63 , height:17, div: 63},
         {x:7300 ,y:-300, width: 63 , height:17, div: 63},
@@ -161,6 +160,14 @@ var levelOne = {
         
 
 
+    // ChainBot: [
+    //     // {x: 50, y: 300},
+    //     // {x: 350, y: 300},
+    //     {x: 1000, y: 400},
+    //     // {x: 1500, y: 0},
+    //     // {x:2000, y: 0},
+    //     // {x: 2300, y: 0},
+    // ],
 
 
     ],
@@ -177,31 +184,62 @@ var levelOne = {
 };
 
 var levelTwo = {
-    background: "./sprites/Background.png",
+    background: "./sprites/waterLevel/underWater.png",
+    floor: "./sprites/waterLevel/boulderTiles.png",
+
     ground: [
-        { x: 0, y: 750, width: 3072, height:64, div: 256},
-        { x: 3456, y: 750, width: 2560, height:64, div: 256},
-        { x: 6400, y: 750, width: 2560, height:64, div: 256},
-        { x: 9100, y: 750, width: 3328, height:64, div: 256},
+        { x: 0, y: 750, width: 3080, height:110, div: 110},
+        { x: 3456, y: 750, width: 2530, height:110, div: 110},
+        { x: 6400, y: 750, width: 2530, height:110, div: 110},
+        { x: 9100, y: 750, width: 3300, height:110, div: 110},
     ],
-    wall: [
-        {x:3072 , y:-100, width:192*2, height: 308, div: 308},
-        {x:3072 , y:500, width:192*2, height: 308, div: 308},
+    // wall: [
+    //     {x:3072 , y:-100, width:192*2, height: 308, div: 308},
+    //     {x:3072 , y:500, width:192*2, height: 308, div: 308},
+        
+    // ],
+    platforms: [
+        {x:100 ,y:500, width: 220, height:64, divisorPlatforms:110}, 
+        {x:490, y:400, width: 220, height:64, divisorPlatforms:110},
+        {x:900, y:300, width: 220, height:64, divisorPlatforms:110},
+        // {x:1500, y:400, width: 256, height:64, divisorPlatforms:256},
+        {x:1500, y:300, width: 770, height:64, divisorPlatforms:110},
+        {x:2500, y:450, width: 880, height:64, divisorPlatforms:110},
+        {x:4000, y:300, width: 550, height:64, divisorPlatforms:110},
+        {x:5300, y:350, width: 220, height:64, divisorPlatforms:110},
+        {x:5700 ,y:500, width: 220, height:64, divisorPlatforms:110}, 
+        {x:6200, y:400, width: 220, height:64, divisorPlatforms:110},
+        {x:8500, y:450, width: 770, height:64, divisorPlatforms:110},
+        {x:9200, y:250, width: 660, height:64, divisorPlatforms:110},
+        {x:10000, y:450, width: 880, height:64, divisorPlatforms:110},
         
     ],
-    platforms: [
-        {x:100 ,y:500, width: 256, height:0}, 
-        {x:400, y:400, width: 256, height:0},
-        {x:900, y:200, width: 256, height:0},
-        {x:1500, y:400, width: 256, height:0},
-        {x:2000, y:400, width: 1024, height:0},
-        // {x:2020, y:200, width: 1024, height:0},
-        {x:2000, y:150, width: 768, height:0},
+
+    ChainBot: [
+        // {x: 50, y: 300},
+        // {x: 440, y: 300},
+        // {x: 600, y: 500},
+        // {x: 800, y: 400},
+        // {x: 850, y: 200},
+        // {x: 1500, y: 0},
+        // {x:2000, y: 0},
+        // {x: 2300, y: 0},
+        // {x:1200, y:300},
+        // {x:2700, y:450},
+        // {x:3900, y:300},
+        // {x:4300, y:300},
+        // {x:4600, y:300},
+        // {x:5600 ,y:350}, 
+        // {x:5700, y:550},
+        // {x:6500, y:400},
+        // {x:8700, y:450},
+        // {x:8700, y:500},
+        // {x:9200, y:250},
+        // {x:9600, y:250},
+        // {x:10200, y:500},
+        // {x:10500, y:500}
     ],
 
-    lava: [
-        {x: 600, y: 300, width: 200, height: 10  }
-    ]
 };
 
 var levelThree = {
