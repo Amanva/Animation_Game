@@ -283,7 +283,7 @@ class SceneManager {
             }
         }
         if(this.gameOver){
-            if(this.game.click && (this.game.click.y > 624) && (this.game.clic.y < 712) && (this.game.click.x > 500) && (this.game.click.x < 1200)){
+            if(this.game.click && (this.game.click.y > 624) && (this.game.click.y < 712) && (this.game.click.x > 500) && (this.game.click.x < 1200)){
                 this.loadLevel(levelOne, false);
                 this.game.click = false;
                 // let cutText = [["The world is in ruin, you are the only one that can stop the darkness."], ["Go forth The Last Magus and defeat the evil"]];

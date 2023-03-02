@@ -184,9 +184,9 @@ class Mage {
                     this.specialAttack3 = true;
                 }
                 if (this.game.right && !this.game.left) {
-                    this.velocity.x += 1.66;
+                    this.velocity.x += 1.70;
                 } else if (this.game.left && !this.game.right) {
-                    this.velocity.x -= 1.66;
+                    this.velocity.x -= 1.70;
                 } else {
                 }
             }
