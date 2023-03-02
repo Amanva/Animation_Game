@@ -98,7 +98,6 @@ class WaterBoss{
                 
                 } 
                 
-                
             } 
 
             // Decide to approach the mage
@@ -159,7 +158,7 @@ class WaterBoss{
                 that.velocity.x = 0;
                 if (that.animations[2].isAlmostDone(TICK)){ //IF animation is done and attack_timing is done then shoot
                     that.attackCoolDown = 0;
-                    that.game.addEntityToBegin(new Wave(that.game, that.x, that.y));
+                    that.game.addEntityToBegin(new Wave(that.game, that.x, that.y-35));
                     that.animations[2].elapsedTime = 0;
                 
                 } 
@@ -192,10 +191,7 @@ class WaterBoss{
     draw(ctx) {
         this.enemHealthBar.draw(ctx);
         this.animations[this.state].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, 2.2);
-        // this.animations[1].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x+600, this.y-this.game.camera.y, 1);
-        // this.animations[2].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x+900, this.y-this.game.camera.y, 1);
            
-              
         if(debug){
             //draw the boundingBox
             ctx.strokeStyle = 'Red';
@@ -239,7 +235,7 @@ class Wave {
     };
     updateBB() {
         this.lastBB = this.BB;
-        this.BB = new BoundingBox(this.x, this.y, 104, 155);
+        this.BB = new BoundingBox(this.x+50, this.y+70, 154, 185);
     };
     update(){
         const TICK = this.game.clockTick;
@@ -274,7 +270,7 @@ class Wave {
 
     draw(ctx){
         // this.animations[0].drawAngle(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, 2, this.angle);
-        this.animations[0].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, 1.5);
+        this.animations[0].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, 2.5);
         if(debug){
             ctx.strokeStyle = 'Red';
             ctx.strokeRect(this.BB.x-this.game.camera.x, this.BB.y-this.game.camera.y, this.BB.width, this.BB.height);
@@ -347,24 +343,25 @@ class Squid {
         this.x += this.velocity.x * TICK;
         this.y += this.velocity.y * TICK;
         this.updateBB();
+        var that = this;
 
-        // this.game.entities.forEach(function (entity) {
-        //     if (entity instanceof Projectile && this.BB.collide(entity.BB)){
-        //         entity.removeFromWorld = true;
-        //         this.dead = true;
-        //         this.state = 1;
-        //     } 
-        // });
+        that.game.entities.forEach(function (entity) {
+            if (entity instanceof Projectile && that.BB.collide(entity.BB)){
+                entity.removeFromWorld = true;
+                that.dead = true;
+                that.state = 1;
+            } 
+        });
         
         
-        // if(this.dead) {
-        //     // this.state = 1;
-        //     // this.velocity.x = 0;
-        //     // this.velocity.y = 0;
-        //     // if (this.animations[1][this.facing].isAlmostDone(TICK)){
-        //         this.removeFromWorld = true;
+        if(this.dead) {
+            // this.state = 1;
+            // this.velocity.x = 0;
+            // this.velocity.y = 0;
+            // if (this.animations[1][this.facing].isAlmostDone(TICK)){
+                this.removeFromWorld = true;
                 
-        //     }
+            }
 
         if (this.animations[2][this.facing].isAlmostDone(TICK)){
             this.state =0;
@@ -387,7 +384,7 @@ class Squid {
         const RUN = 350;
         this.updateBB();
         let that = this;
-        this.game.entities.forEach(function (entity) {   
+        this.game.entities.forEach(function (entity) {
             if(!that.dead){     
             if (entity instanceof Mage) {
                 let middleMage = { x: entity.BB.left + entity.BB.width / 2, y: entity.BB.top + entity.BB.height / 2 };
