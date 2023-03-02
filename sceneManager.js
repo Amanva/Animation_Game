@@ -283,7 +283,7 @@ class SceneManager {
             }
         }
         if(this.gameOver){
-            if(this.game.click && (this.game.click.y > 224) && (this.game.click.y < 312) && (this.game.click.x > 733) && (this.game.click.x < 1056)){
+            if(this.game.click && (this.game.click.y > 624) && (this.game.clic.y < 712) && (this.game.click.x > 500) && (this.game.click.x < 1200)){
                 this.loadLevel(levelOne, false);
                 this.game.click = false;
                 // let cutText = [["The world is in ruin, you are the only one that can stop the darkness."], ["Go forth The Last Magus and defeat the evil"]];
@@ -388,21 +388,22 @@ class SceneManager {
         ctx.font = '60px "Press Start 2P"';
         ctx.fillStyle = "White"
         ctx.fillText("The Last Magus", 487,  97);
-        ctx.fillText("You defeated", 500,  300);
-        ctx.fillText("The Evil", 500,  500);
-
+        ctx.fillText("You Defeated", 500,  300);
+        ctx.fillText("The Evil", 600,  500);
+        ctx.fillText("Play Again",600,700);
         // ctx.fillText("Start", 487,  97);
         ctx.fillStyle = "Red"
         ctx.fillText("The Last Magus", 490, 100);
-        if(this.game.mouse && (this.game.mouse.y > 224) && (this.game.mouse.y < 312) && (this.game.mouse.x > 733) && (this.game.mouse.x < 1056)){
-            this.animations[0][0].drawFrame(this.game.clockTick, ctx, 600, 150, 2);
+        ctx.fillText("You Defeated", 503,  303);
+        ctx.fillText("The Evil", 603,  503);
+        if(this.game.mouse && (this.game.mouse.y > 624) && (this.game.mouse.y < 712) && (this.game.mouse.x > 500) && (this.game.mouse.x < 1200)){
+            // this.animations[0][0].drawFrame(this.game.clockTick, ctx, 600, 150, 2);
             ctx.fillStyle = "White";
         }
         else{
             ctx.fillStyle = "Red";
         }
-        ctx.fillText("You Defeated", 520,  297);
-        ctx.fillText("The Evil", 520,  497);
+        ctx.fillText("Play Again",603,703);
 
         // ctx.fillText("all the elements ", 700,  327);
 
