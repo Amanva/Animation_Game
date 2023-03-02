@@ -29,13 +29,13 @@ class WaterBoss{
 //(spritesheet, xStart, yStart, width, height, frameCount, frameDuration, framePaddingX, framePaddingY, reverse, loop, verticalSprite)
 
 // Left run/idle
-this.animations[0] = new Animator(this.spritesheetLeft, 0, 0, 22, 15, 4, 0.2, 0, 0, true, true, false);
+this.animations[0] = new Animator(this.spritesheetLeft, 94, 0, 31, 15, 4, 0.2, 0, 0, true, true, false);
 // left dead
-this.animations[1] = new Animator(this.spritesheetLeft, 0, 15, 22, 15, 6, 0.2, 0, 0, true, true, false);
-// vawe attack
-this.animations[2] = new Animator(this.spritesheetLeft, 0, 30, 22, 15, 6, 0.2, 0, 0, true, true, false);
-
-this.animations[3] = new Animator(this.spritesheetLeft, 0, 30, 22, 15, 6, 0.2, 0, 0, true, true, false);
+this.animations[1] = new Animator(this.spritesheetLeft, 0, 15, 31, 15, 6, 0.15, 0, 0, true, true, false);
+//squid attack
+this.animations[2] = new Animator(this.spritesheetLeft, 32, 45, 31, 15, 6, 0.15, 0, 0, true, true, false);
+// sword attack
+this.animations[3] = new Animator(this.spritesheetLeft, 32, 30, 31, 15, 6, 0.1, 0, 0, true, true, false);
 
         // // Left run/idle
         // this.animations[0] = new Animator(this.spritesheetLeft, 5, 262, 126, 131, 12, 0.15, 0, 0, true, true, false);
@@ -56,7 +56,7 @@ this.animations[3] = new Animator(this.spritesheetLeft, 0, 30, 22, 15, 6, 0.2, 0
 
     updateBB() {
         this.lastBB = this.BB;
-        this.BB = new BoundingBox(this.x+40, this.y+70, 180, 172);
+        this.BB = new BoundingBox(this.x+30, this.y+10, 70, 60);
     };
 
     update() {
@@ -102,7 +102,7 @@ this.animations[3] = new Animator(this.spritesheetLeft, 0, 30, 22, 15, 6, 0.2, 0
                                  && (that.lastBB.bottom >= entity.BB.top)){
                   
                         that.velocity.y = 0;
-                        that.y = entity.BB.top - that.BB.height-70;
+                        that.y = entity.BB.top - that.BB.height-10;
                         // that.updateBB();
                     } 
                 
@@ -111,7 +111,7 @@ this.animations[3] = new Animator(this.spritesheetLeft, 0, 30, 22, 15, 6, 0.2, 0
             } 
 
             // Decide to approach the mage
-            if (entity instanceof Mage && Math.round(that.BB.bottom) === Math.round(entity.BB.bottom)) { // if both are on same surfase
+            if (entity instanceof Mage && Math.floor(that.BB.bottom) === Math.floor(entity.BB.bottom)) { // if both are on same surfase
                 if (LOWER_BOUND <= Math.abs(that.BB.distance(entity.BB)) 
                         && Math.abs(that.BB.distance(entity.BB)) <= UPPER_BOUND) { //Mage is close and on the floor, then vawe attack
                     if (that.BB && that.BB.distance(entity.BB) < 0) { // Mage is on the Right side
@@ -168,17 +168,17 @@ this.animations[3] = new Animator(this.spritesheetLeft, 0, 30, 22, 15, 6, 0.2, 0
                 that.velocity.x = 0;
                 if (that.animations[2].isAlmostDone(TICK)){ //IF animation is done and attack_timing is done then shoot
                     that.attackCoolDown = 0;
-                    that.game.addEntityToBegin(new Wave(that.game, that.x, that.y-35));
+                    that.game.addEntityToBegin(new Wave(that.game, that.x-100, that.y-5));
                     that.animations[2].elapsedTime = 0;
                 
-                } 
+                }
 
             } else if (!that.animations[3].isAnimationDone()){ //wait until animation is finished here.
                 that.state = 3;
                 that.velocity.x = 0;
                 if (that.animations[3].isAlmostDone(TICK)){ //IF animation is done and attack_timing is done then shoot
                     that.attackCoolDown = 0;
-                    that.game.addEntityToBegin(new Squid(that.game, that.x-20, that.y-100));
+                    that.game.addEntityToBegin(new Squid(that.game, that.x-50, that.y-5));
                     that.animations[3].elapsedTime = 0;
                     console.log('Im here');
                 }
@@ -200,7 +200,7 @@ this.animations[3] = new Animator(this.spritesheetLeft, 0, 30, 22, 15, 6, 0.2, 0
 
     draw(ctx) {
         this.enemHealthBar.draw(ctx);
-        this.animations[1].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, 6);
+        this.animations[this.state].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, 5);
            
         if(debug){
             //draw the boundingBox
@@ -214,7 +214,7 @@ this.animations[3] = new Animator(this.spritesheetLeft, 0, 30, 22, 15, 6, 0.2, 0
             // ctx.fillText("fr2: " + this.animations[2].currentFrame(), this.x+120, this.y);
             // ctx.fillText("fr2: " + this.animations[2].isAnimationDone(), this.x+120, this.y+25);
             // ctx.fillText("fr0: " + this.animations[0].isAnimationDone(), this.x, this.y+25);
-            // ctx.fillText("game.clockTick: " + this.attackCoolDown, 660, 90);
+            // // ctx.fillText("game.clockTick: " + this.attackCoolDown, 660, 90);
 
         }
                          
@@ -223,7 +223,7 @@ this.animations[3] = new Animator(this.spritesheetLeft, 0, 30, 22, 15, 6, 0.2, 0
 };
 
 
-//********************                                 Vawe object forthe vawe attack                   *******************************        
+//********************                                 Wave object forthe vawe attack    (SWORD FOR PIRATE)               *******************************        
 
 
 class Wave {
@@ -231,21 +231,22 @@ class Wave {
         Object.assign(this, { game, x, y });
         this.velocity = { x: 0, y: 0 };
         this.game.wave = this;
-        this.spritesheetLeft = assetMangager.getAsset("./sprites/waterLevel/hydra_left.png");
+        this.spritesheetLeft = assetMangager.getAsset("./sprites/waterLevel/pirate.png");
         this.velocity = { x: 0, y: 0 };
         this.animations = [];
         this.speed = 500;
         this.dead = false;
-        this.animations.push(new Animator(this.spritesheetLeft, 0, 0, 104, 155, 14, 0.20, 0, 0, true, false, false));
+        this.animations.push(new Animator(this.spritesheetLeft, 0, 45, 31, 15, 1, 0.3, 0, 0, true, true, false));
         this.initailX = this.x;
 
-        this.shot = {x: this.game.mouse.x + this.game.camera.x, y: this.game.mouse.y + this.game.camera.y};
-        this.velocity.x = -600;
+        // this.shot = {x: this.game.mouse.x + this.game.camera.x, y: this.game.mouse.y + this.game.camera.y};
+        this.velocity.x = -900;
+        // this.velocity.x = 0;
         this.updateBB();
     };
     updateBB() {
         this.lastBB = this.BB;
-        this.BB = new BoundingBox(this.x+50, this.y+70, 154, 185);
+        this.BB = new BoundingBox(this.x+15, this.y+50, 50, 15);
     };
     update(){
         const TICK = this.game.clockTick;
@@ -280,7 +281,7 @@ class Wave {
 
     draw(ctx){
         // this.animations[0].drawAngle(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, 2, this.angle);
-        this.animations[0].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, 2.5);
+        this.animations[0].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, 5);
         if(debug){
             ctx.strokeStyle = 'Red';
             ctx.strokeRect(this.BB.x-this.game.camera.x, this.BB.y-this.game.camera.y, this.BB.width, this.BB.height);
@@ -419,7 +420,15 @@ class Squid {
 
                         } else if(yDis < 0) { //Mage is above
                             that.velocity.y = -RUN;
+                        
+                        } else if( Math.round(yDis) === 0 && xDis < 0){
+                            that.velocity.x = -RUN;
+
+                        }else if( Math.round(yDis) === 0 && xDis > 0){
+                            that.velocity.x = RUN;
                         }
+
+                        
                     }
 
                 } else if (!mageDetected) {

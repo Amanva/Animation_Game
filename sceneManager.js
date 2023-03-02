@@ -122,6 +122,8 @@ class SceneManager {
 
             // this.game.addEntity(new Squid(this.game, 690, 250));
 
+            // this.game.addEntity(new Wave(this.game, 690, 250));
+
             this.game.addEntity(new WaterBoss(this.game, 1580, 400));
             
             if(level.ChainBot){
