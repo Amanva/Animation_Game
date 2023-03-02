@@ -4,8 +4,8 @@ class WaterBoss{
         Object.assign(this, { game, x, y });
         this.velocity = { x: 0, y: 0 };
         this.game.waterBoss = this;
-        this.spritesheetLeft = assetMangager.getAsset("./sprites/waterLevel/hydra_left.png");
-        // this.spritesheetRight = assetMangager.getAsset("./sprites/waterLevel/hydra_right.png");
+        // this.spritesheetLeft = assetMangager.getAsset("./sprites/waterLevel/hydra_left.png");
+        this.spritesheetLeft = assetMangager.getAsset("./sprites/waterLevel/pirate.png");
         this.velocity = { x: 0, y: 0 };
         this.hp = 400;
         this.maxHP = 400;
@@ -27,14 +27,24 @@ class WaterBoss{
             
         }
 //(spritesheet, xStart, yStart, width, height, frameCount, frameDuration, framePaddingX, framePaddingY, reverse, loop, verticalSprite)
-        // Left run/idle
-        this.animations[0] = new Animator(this.spritesheetLeft, 5, 262, 126, 131, 12, 0.15, 0, 0, true, true, false);
-        // left dead
-        this.animations[1] = new Animator(this.spritesheetLeft, 5, 131, 126, 131, 12, 0.10, 0, 0, true, false, false);
-        // vawe attack
-        this.animations[2] = new Animator(this.spritesheetLeft, 619, 393, 126, 131, 7, 0.15, 0, 0, true, true, false);
-        // squid attack
-        this.animations[3] = new Animator(this.spritesheetLeft, 619, 524, 126, 131, 7, 0.15, 0, 0, true, true, false);
+
+// Left run/idle
+this.animations[0] = new Animator(this.spritesheetLeft, 0, 0, 22, 15, 4, 0.2, 0, 0, true, true, false);
+// left dead
+this.animations[1] = new Animator(this.spritesheetLeft, 0, 15, 22, 15, 6, 0.2, 0, 0, true, true, false);
+// vawe attack
+this.animations[2] = new Animator(this.spritesheetLeft, 0, 30, 22, 15, 6, 0.2, 0, 0, true, true, false);
+
+this.animations[3] = new Animator(this.spritesheetLeft, 0, 30, 22, 15, 6, 0.2, 0, 0, true, true, false);
+
+        // // Left run/idle
+        // this.animations[0] = new Animator(this.spritesheetLeft, 5, 262, 126, 131, 12, 0.15, 0, 0, true, true, false);
+        // // left dead
+        // this.animations[1] = new Animator(this.spritesheetLeft, 5, 131, 126, 131, 12, 0.10, 0, 0, true, false, false);
+        // // vawe attack
+        // this.animations[2] = new Animator(this.spritesheetLeft, 619, 393, 126, 131, 7, 0.15, 0, 0, true, true, false);
+        // // squid attack
+        // this.animations[3] = new Animator(this.spritesheetLeft, 619, 524, 126, 131, 7, 0.15, 0, 0, true, true, false);
         // // left wave attack
         // this.animations[3] = new Animator(this.spritesheetLeft, 0, 0, 104, 155, 14, 0.20, 0, 0, true, true, false);
         // // hit
@@ -190,21 +200,21 @@ class WaterBoss{
 
     draw(ctx) {
         this.enemHealthBar.draw(ctx);
-        this.animations[this.state].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, 2.2);
+        this.animations[1].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, 6);
            
         if(debug){
             //draw the boundingBox
             ctx.strokeStyle = 'Red';
             ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y-this.game.camera.y, this.BB.width , this.BB.height);
             // TEST draw text to canvas
-            ctx.font = "20px Arial";
-            ctx.fillStyle = "white";
-            ctx.fillText("fr0: " + this.animations[0].currentFrame(), this.x, this.y);
-            ctx.fillText("fr1: " + this.animations[1].currentFrame(), this.x+60, this.y);
-            ctx.fillText("fr2: " + this.animations[2].currentFrame(), this.x+120, this.y);
-            ctx.fillText("fr2: " + this.animations[2].isAnimationDone(), this.x+120, this.y+25);
-            ctx.fillText("fr0: " + this.animations[0].isAnimationDone(), this.x, this.y+25);
-            ctx.fillText("game.clockTick: " + this.attackCoolDown, 660, 90);
+            // ctx.font = "20px Arial";
+            // ctx.fillStyle = "white";
+            // ctx.fillText("fr0: " + this.animations[0].currentFrame(), this.x, this.y);
+            // ctx.fillText("fr1: " + this.animations[1].currentFrame(), this.x+60, this.y);
+            // ctx.fillText("fr2: " + this.animations[2].currentFrame(), this.x+120, this.y);
+            // ctx.fillText("fr2: " + this.animations[2].isAnimationDone(), this.x+120, this.y+25);
+            // ctx.fillText("fr0: " + this.animations[0].isAnimationDone(), this.x, this.y+25);
+            // ctx.fillText("game.clockTick: " + this.attackCoolDown, 660, 90);
 
         }
                          
@@ -355,10 +365,6 @@ class Squid {
         
         
         if(this.dead) {
-            // this.state = 1;
-            // this.velocity.x = 0;
-            // this.velocity.y = 0;
-            // if (this.animations[1][this.facing].isAlmostDone(TICK)){
                 this.removeFromWorld = true;
                 
             }
