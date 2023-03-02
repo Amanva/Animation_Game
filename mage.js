@@ -362,6 +362,7 @@ class Mage {
     healthPotion() {
         if (this.hp < this.maxHP) {
             if (this.game.camera.healthPotion > 0) {
+                assetMangager.playAsset("./sounds/sfx/drink.mp3");
                 this.heal(50);
                 this.game.camera.healthPotion--;
             } 
@@ -370,6 +371,7 @@ class Mage {
     manaPotion() {
         if (this.curMana < this.maxMana) {
             if (this.game.camera.manaPotion > 0) {
+                assetMangager.playAsset("./sounds/sfx/drink.mp3");
                 this.drinkMana(30);
                 this.game.camera.manaPotion--;
             }

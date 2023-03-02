@@ -22,12 +22,7 @@ assetMangager.queueDownload("./sprites/enemies/Walk-Base-Sheet.png");
 assetMangager.queueDownload("./sprites/icons.png");
 assetMangager.queueDownload("./sprites/enemies/earthslime.png");
 assetMangager.queueDownload("./sprites/enemies/slime.png");
-assetMangager.queueDownload("./sprites/enemies/mudGuard/atttack1.png");
 
-assetMangager.queueDownload("./sprites/enemies/mudGuard/idle.png");
-assetMangager.queueDownload("./sprites/enemies/mudGuard/attack2.png");
-assetMangager.queueDownload("./sprites/enemies/mudGuard/death.png");
-assetMangager.queueDownload("./sprites/enemies/mudGuard/run.png");
 
 
 
@@ -71,6 +66,9 @@ assetMangager.queueDownload("./sprites/seaMonster/monster-Right-Swim.png");
 assetMangager.queueDownload("./sounds/music/background.wav");
 assetMangager.queueDownload("./sounds/sfx/playerhit.mp3");
 assetMangager.queueDownload("./sounds/sfx/minAttack.mp3");
+assetMangager.queueDownload("./sounds/sfx/minRage.mp3");
+assetMangager.queueDownload("./sounds/sfx/drink.mp3");
+
 assetMangager.queueDownload("./sounds/sfx/zombiehit.wav");
 
 //Load water level assets

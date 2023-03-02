@@ -11,9 +11,9 @@ class EarthBoss {
         this.facing = 0; //0=left, 1 = right
         this.state = 1; // 0 = idle, 1 = walking , 2 = dash, 3 = slash, 4 = stab, 5 = spin
         this.dead = false;
-        this.hp = 1;
+        this.hp = 150;
         this.healthbar = new HealthBar(this.game, this);
-        this.maxHP = 1;
+        this.maxHP = 150;
         this.hit = false;
         this.attackCoolDown = 0;
         this.attackFrameCD = 0;
@@ -28,6 +28,7 @@ class EarthBoss {
         this.jumpAttack = 50;
         this.offsetX = 0;
         this.offsetY = 0;
+        this.rageSet = false;
         //animations
         this.animations = [];
         this.BB;
@@ -227,8 +228,12 @@ class EarthBoss {
         if (this.randomSelectCD > 0) {
             this.randomSelectCD -= this.game.clockTick;
         }
-        if (this.hp <= 50) {
+        if (this.hp <= 100 && !this.rageSet) {
+            console.log("LOW");
             this.speedMult = 400;
+            this.rageSet = true;
+            assetMangager.playAsset("./sounds/sfx/minRage.mp3");
+
         }
         if (this.hp <= 0) {
             this.velocity.x = 0;

@@ -9,6 +9,10 @@ class trigger{
         this.spawned = false;
         this.enemiesDead = false;
         this.boarOne = new Boar(this.game, 6000,680);
+        this.bat = new Bat(this.game, 5200,400);
+        this.earthSlime = new earthSlime(this.game, 5300,680);
+
+
         this.wall = new verticalWall(this.game, this.wallX, this.wallY, this.wallWidth, this.wallHeight, this.div);
         this.wall2 = new verticalWall(this.game, 4300, 400, 47*3, 119*3, 47*3);
 
@@ -34,6 +38,9 @@ class trigger{
                 if(that.collision && !that.spawned){
                     // console.log("SPAWNED")
                     that.game.addEntityToBegin(that.boarOne); 
+                    that.game.addEntityToBegin(that.bat); 
+                    that.game.addEntityToBegin(that.earthSlime); 
+
                     that.spawned = true;
                 }
 

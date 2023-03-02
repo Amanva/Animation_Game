@@ -16,7 +16,7 @@ class SceneManager {
         this.specDamage = 50;
         this.level = null;
         this.initialSpawn = false;
-        this.loadLevel(levelTwo, this.title);
+        this.loadLevel(levelThree, this.title);
         this.myCursor = new Cursor(this.game);
         this.gameOver = false;
     };
@@ -250,11 +250,10 @@ class SceneManager {
         this.y = 0;
         this.jumpItem = true;
         this.game.mage.level3Ready = true;
-        this.mage.x = 5000;
-        this.mage.y = 400;
-        this.earthBoss = new EarthBoss(this.game, 4697, 607);
+        this.mage.x = 6200;
+        this.mage.y = -600;
+        this.earthBoss = new EarthBoss(this.game, 7500, 607);
         this.game.addEntity(this.earthBoss);
-        // this.game.addEntity(new SeaMonster(this.game, 5681, 507));
         if(level.boar){
             for (var i = 0; i < level.boar.length; i++) {
                 let boar = level.boar[i];
@@ -330,10 +329,17 @@ class SceneManager {
             }
         }
       
+        this.game.addEntity(new Sign(this.game, 100, 670, 75, 45, 10, "Welcome to Earth Biome"));
 
         this.game.addEntity(new Sign(this.game, 2920, -387, 11, 30, 3, "Defeat the monsters near the other shrine and come back"));
+        this.game.addEntity(new Sign(this.game, 1000, 330, 60, 45, 10, "Carefull!!"));
+
+        this.game.addEntity(new Sign(this.game, 6500, 670, 80, 45, 9, "The Wind Minatour awaits you!!"));
+        this.game.addEntity(new Sign(this.game, 6600, 670, 60, 50, 5, "Your gonna need this potion"));
+        this.game.addEntity(new Potion(this.game, 6700, 670, 0));
 
         this.game.addEntity(new BackGround(this.game, 0, 0, 1800, 800, this.level));
+        
     }
         // if(level.lava){
         //     for (var i = 0; i < level.lava.length; i++) {
