@@ -14,6 +14,7 @@ class WaterBoss{
         this.state = 0;
         this.dead = false;
         this.readyToAttack = false;
+        this.squidIsReady = true;
         this.attackCoolDown = 0;
         this.updateBB();
         this.loadAnimations();
@@ -21,7 +22,7 @@ class WaterBoss{
 
     loadAnimations() {
         this.animations = [];
-        for (var i = 0; i < 3; i++) { 
+        for (var i = 0; i < 4; i++) { 
             this.animations.push([]);
             
         }
@@ -30,8 +31,10 @@ class WaterBoss{
         this.animations[0] = new Animator(this.spritesheetLeft, 5, 262, 126, 131, 12, 0.15, 0, 0, true, true, false);
         // left dead
         this.animations[1] = new Animator(this.spritesheetLeft, 5, 131, 126, 131, 12, 0.10, 0, 0, true, false, false);
-        // left attack
+        // vawe attack
         this.animations[2] = new Animator(this.spritesheetLeft, 619, 393, 126, 131, 7, 0.15, 0, 0, true, true, false);
+        // squid attack
+        this.animations[3] = new Animator(this.spritesheetLeft, 619, 524, 126, 131, 7, 0.15, 0, 0, true, true, false);
         // // left wave attack
         // this.animations[3] = new Animator(this.spritesheetLeft, 0, 0, 104, 155, 14, 0.20, 0, 0, true, true, false);
         // // hit
@@ -43,16 +46,17 @@ class WaterBoss{
 
     updateBB() {
         this.lastBB = this.BB;
-        this.BB = new BoundingBox(this.x, this.y, 124*1.5, 110*1.5);
+        this.BB = new BoundingBox(this.x+40, this.y+70, 180, 172);
     };
 
     update() {
         this.elapsedTime += this.game.clockTick;
         const TICK = this.game.clockTick;
-        const RUN = 110; //change the speed
+        // const RUN = 110; //change the speed
         const LOWER_BOUND = 95;
         const UPPER_BOUND = 1000;
         const ATTACK_TIMING = 3.5;
+        const SQUID_ATTACK_TIMING = 2.5;
         this.velocity.y += this.fallAcc * TICK;
         this.attackCoolDown += this.game.clockTick;
         
@@ -60,12 +64,11 @@ class WaterBoss{
         this.x += this.velocity.x * TICK;
         this.y += this.velocity.y * TICK;
         this.updateBB();
-        let currentState = this.state;
+        // let currentState = this.state;
                      
         var that = this;
 
-        /** chainBot behaviour and collisions */ 
-        // TODO this works, but need to ajust duration for the hit state.
+        /** Behaviour and collisions */ 
         that.game.entities.forEach(function (entity) {
             if (entity.BB && that.BB.collide(entity.BB)) {
                 if (entity instanceof Projectile  && that.hp > 0){
@@ -76,7 +79,7 @@ class WaterBoss{
                     that.state = 1; // death
                     that.velocity.x = 0;
                     that.dead = true;
-                    if(this.animations[1].isAlmostDone(TICK)){
+                    if(that.animations[1].isAlmostDone(TICK)){
                         that.removeFromWorld = true;
                         
                     }
@@ -89,60 +92,39 @@ class WaterBoss{
                                  && (that.lastBB.bottom >= entity.BB.top)){
                   
                         that.velocity.y = 0;
-                        that.y = entity.BB.top - that.BB.height;
+                        that.y = entity.BB.top - that.BB.height-70;
                         // that.updateBB();
                     } 
                 
-                } else if (that.velocity.y === 0){ //side collision
-
-                    if (((entity instanceof Platform) 
-                            || (entity instanceof Wall) || (entity instanceof Tiles))
-                                && (that.BB.collide(entity.rightBB))) { //enemy on the right
-
-                        that.velocity.x = 0;
-                        that.velocity.y = 0;
-                        that.state = 0;
-                        
-                    } 
-                    
-                    if (((entity instanceof Platform)  //side collision
-                            || (entity instanceof Wall) || (entity instanceof Tiles))
-                                && ( that.BB.collide(entity.leftBB))) { //enemy on the left
-
-                        that.velocity.x = 0;
-                        that.velocity.y = 0;
-                        that.state = 0;
-                        
-                        // that.updateBB();
-                    }
-
-                }
+                } 
+                
+                
             } 
 
             // Decide to approach the mage
-            if (entity instanceof Mage && Math.round(that.BB.bottom) === Math.round(entity.BB.bottom) ){ // if both are on same surfase
+            if (entity instanceof Mage && Math.round(that.BB.bottom) === Math.round(entity.BB.bottom)) { // if both are on same surfase
                 if (LOWER_BOUND <= Math.abs(that.BB.distance(entity.BB)) 
-                        && Math.abs(that.BB.distance(entity.BB)) <= UPPER_BOUND) { //Mage is close, then go to Mage
+                        && Math.abs(that.BB.distance(entity.BB)) <= UPPER_BOUND) { //Mage is close and on the floor, then vawe attack
                     if (that.BB && that.BB.distance(entity.BB) < 0) { // Mage is on the Right side
                         // that.state = 1; //state runRight
                         // that.velocity.x = RUN; //speed of RUN
                         
                     } else { 
-                        that.state = 2; //state runLeft otherwise
+                        that.state = 2; //attack
                         // that.velocity.x = -RUN;
                         
                     } 
-                    //Mage is not in range then stop and wait. Default state.        
+                    // Mage is not in range then stop and wait. Default state.        
                     } else if (Math.abs( that.BB.distance(entity.BB)) >= UPPER_BOUND) {
                         that.state = 0; //state idle
                         that.velocity.x = 0;
                         
-                    // Mage is close enough to attack, then attack.                        
+                    //TODO approach and attack maybe? Mage is close enough to attack, then attack.                        
                     } else if (Math.abs(that.BB.distance(entity.BB)) <= LOWER_BOUND ) {
                     // if (-LOWER_BOUND <= (that.BB.distance(entity.BB)) && (that.BB.distance(entity.BB)) < 0 ) {
                         
-                        that.state = 2; //state attackRight
-                        that.velocity.x = 0;
+                        // that.state = 2; //state attackRight
+                        // that.velocity.x = 0;
                         
                         // assetMangager.playAsset("sounds/slash_swoosh.wav");
                         // entity.removeHealth(0.075);
@@ -158,25 +140,48 @@ class WaterBoss{
                 }
 
                  // Holds current animation until the end of the animation.
-                if (!that.animations[2].isAnimationDone()){ //wait until animation is finished here.
-                    // that.game.addEntityToBegin(new Wave(this.game,this.x, this.y));
-                    that.state = 2;
-                    that.velocity.x = 0;
-                    // that.attackCoolDown = 0;
-                    if (that.animations[2].isAlmostDone(TICK)){ //IF animation is done and attack_timing is done then shoot
-                        that.attackCoolDown = 0;
-                        that.game.addEntityToBegin(new Wave(that.game, that.x, that.y));
-                        that.animations[2].elapsedTime = 0;
-                    
-                    }
-
-                }
+                
                 
 
-            } else if (entity instanceof Mage && Math.round(that.BB.bottom) !== Math.round(entity.BB.bottom) || that.attackCoolDown < ATTACK_TIMING) {
+            } else if (that.attackCoolDown < ATTACK_TIMING) {
                 that.state = 0;
                 that.velocity.x = 0;
+
+            } else if (entity instanceof Mage && Math.round(that.BB.bottom) > Math.round(entity.BB.bottom)
+                        && that.attackCoolDown >= SQUID_ATTACK_TIMING && that.squidIsReady) {
+                that.state = 3;
+                that.squidIsReady = false;
+
             }// end attack logic
+
+            if (!that.animations[2].isAnimationDone()){ //wait until animation is finished here.
+                that.state = 2;
+                that.velocity.x = 0;
+                if (that.animations[2].isAlmostDone(TICK)){ //IF animation is done and attack_timing is done then shoot
+                    that.attackCoolDown = 0;
+                    that.game.addEntityToBegin(new Wave(that.game, that.x, that.y));
+                    that.animations[2].elapsedTime = 0;
+                
+                } 
+
+            } else if (!that.animations[3].isAnimationDone()){ //wait until animation is finished here.
+                that.state = 3;
+                that.velocity.x = 0;
+                if (that.animations[3].isAlmostDone(TICK)){ //IF animation is done and attack_timing is done then shoot
+                    that.attackCoolDown = 0;
+                    that.game.addEntityToBegin(new Squid(that.game, that.x-20, that.y-100));
+                    that.animations[3].elapsedTime = 0;
+                    console.log('Im here');
+                }
+            }
+
+            //Can't create another squid until first is in game
+            if (entity instanceof Squid){ 
+                that.squidIsReady = false;
+
+            }else {
+                that.squidIsReady = true;
+            }
             
         }); //end of forEach
 
@@ -186,7 +191,7 @@ class WaterBoss{
 
     draw(ctx) {
         this.enemHealthBar.draw(ctx);
-        this.animations[this.state].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, 1.5);
+        this.animations[this.state].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, 2.2);
         // this.animations[1].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x+600, this.y-this.game.camera.y, 1);
         // this.animations[2].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x+900, this.y-this.game.camera.y, 1);
            
@@ -205,23 +210,14 @@ class WaterBoss{
             ctx.fillText("fr0: " + this.animations[0].isAnimationDone(), this.x, this.y+25);
             ctx.fillText("game.clockTick: " + this.attackCoolDown, 660, 90);
 
-
-            // ctx.fillText("ChainBot BB Width: " + Math.round(this.BB.width), 660, 50);
-            // ctx.fillText("ChainBot BB bottom: " + Math.round(this.BB.bottom), 660, 70);
-            
-            // ctx.fillText("Y: " + Math.round(this.y), 510, 70);
-            // ctx.fillText("Speed: " + this.velocity.x, 510, 90);
-            // ctx.fillText("State: " + this.state, 510, 110);
-            // ctx.fillText("hitPoints: " + this.hp, 510, 130);
-
         }
-            
-
-
                          
     }; // End draw method
 
 };
+
+
+//********************                                 Vawe object forthe vawe attack                   *******************************        
 
 
 class Wave {
@@ -342,7 +338,7 @@ class Squid {
     updateBB() {
         this.lastBB = this.BB;
         this.BB = new BoundingBox(this.x+10, this.y+10, 60, 40); 
-        this.MageDetection = new BoundingBox(this.x-500, this.y-200, 1300, 700);
+        this.MageDetection = new BoundingBox(this.x-800, this.y-200, 1800, 700);
     };
     
     update() {
@@ -353,16 +349,11 @@ class Squid {
         this.updateBB();
 
         // this.game.entities.forEach(function (entity) {
-        //     if (entity.BB && this.BB.collide(entity.BB)) {
-                
-        //         if(entity instanceof Mage){
-        //             this.removeFromWorld = true;
-        //             entity.removeHealth(20);
-
-        //         }
-
-                
-        //     }
+        //     if (entity instanceof Projectile && this.BB.collide(entity.BB)){
+        //         entity.removeFromWorld = true;
+        //         this.dead = true;
+        //         this.state = 1;
+        //     } 
         // });
         
         
@@ -403,10 +394,8 @@ class Squid {
                 let middleMonster = { x: that.BB.left + that.BB.width / 2, y: that.BB.top + that.BB.height / 2 };
                 let xDis = middleMage.x - middleMonster.x;
                 let yDis = middleMage.y - middleMonster.y;
-                let distance = distanceBetween(middleMage,middleMonster);
                 let mageDetected = entity.BB && that.MageDetection.collide(entity.BB);
                 let mageAttacked = entity.BB && that.BB.collide(entity.BB);
-                let frame = that.animations[that.state][that.facing].currentFrame();
 
                 //Chase the Mage
                 if(mageDetected && !(that.state === 1  || that.state === 2)){
@@ -427,14 +416,12 @@ class Squid {
 
                         } else if(yDis < 0) { //Mage is above
                             that.velocity.y = -RUN;
-
-                        } 
+                        }
                     }
 
                 } else if (!mageDetected) {
                     that.velocity.x = 0
                     that.velocity.y = 0;
-
                 }//end if detected Chase
 
                 if(mageAttacked) {
@@ -443,11 +430,9 @@ class Squid {
                     entity.removeHealth(0.75);
                       
                 }
-                if (entity instanceof Projectile) {
-                    entity.removeFromWorld = true;
-                }
-            };
-        }
+                
+            } 
+        };
     });
 
     that.updateBB();
@@ -506,25 +491,14 @@ class Squid {
     // };
 
     draw(ctx) {
-                   
-        // this.animations[0][0].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, this.scale);
-        // this.animations[1][1].drawFrame(this.game.clockTick, ctx, this.x+150-this.game.camera.x, this.y-this.game.camera.y, this.scale);
-        // this.animations[2][0].drawFrame(this.game.clockTick, ctx, this.x+300-this.game.camera.x, this.y-this.game.camera.y, this.scale);
-
-         this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, this.scale);
+        this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, this.scale);
 
         if (debug) {
         //draw the boundingBox
             ctx.strokeStyle = 'white';
             ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y-this.game.camera.y, this.BB.width , this.BB.height);
-            // ctx.strokeRect(this.BB.x +150- this.game.camera.x, this.BB.y-this.game.camera.y, this.BB.width , this.BB.height);
-            // ctx.strokeRect(this.BB.x +300- this.game.camera.x, this.BB.y-this.game.camera.y, this.BB.width , this.BB.height);
-
             ctx.strokeStyle = 'red';
             ctx.strokeRect(this.MageDetection.x - this.game.camera.x, this.MageDetection.y - this.game.camera.y, this.MageDetection.width, this.MageDetection.height);
-            
         }
-        
     }; // End draw method
-
 }; // End of squid

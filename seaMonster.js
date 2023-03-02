@@ -1,4 +1,3 @@
-
 class SeaMonster{ 
 
     constructor(game, x, y){
@@ -22,7 +21,7 @@ class SeaMonster{
      this.yOff = 0;
      this.updateBB();
      this.loadAnimations();
-     this.attackCoolDown =0;
+     this.attackCoolDown = 0;
  }; 
 
  loadAnimations() {
@@ -64,14 +63,29 @@ class SeaMonster{
       this.BB = new BoundingBox(this.x+55, this.y+30, 80, 110);
       this.MageDetection = new BoundingBox(this.x-500, this.y-200, 1300, 700);
       if(this.facing == 0){
-      this.AttackBB = new BoundingBox(this.x+125, this.y+30, 50, 110);
+      this.AttackBB = new BoundingBox(this.x+90, this.y+30, 50, 110);
       }
       else{
       this.AttackBB = new BoundingBox(this.x+10, this.y+30, 70, 110);
       }
-
+     
+                   
+ // };
+ //updateBB() {
+   //  this.BB = new BoundingBox(this.x + 45-this.game.camera.x, this.y + 35, 70, 90, "red");
+     // this.BB = new BoundingBox(this.x + 60-this.game.camera.x, this.y + 35, 70, 110, "red");
+     
  }
-
+//  updateOffset(){
+//     if(this.facing  === 1){
+//     if((this.state === 0) || (this.state === 1)){
+//         this.xOff = 40;
+//     } 
+// }
+// else{
+//     this.xOff = 0;
+// }
+//  };
  update() {
     this.elapsedTime += this.game.clockTick;
     const TICK = this.game.clockTick;
@@ -79,55 +93,29 @@ class SeaMonster{
     this.y += this.velocity.y * TICK;
     this.updateBB();
 
-    var that = this;
-    that.game.entities.forEach(function (entity) {
 
-
-
-
-        
-        if (entity.BB && that.BB.collide(entity.BB)) {
-            if (entity instanceof Projectile  && that.hp > 0){
-                entity.removeFromWorld = true;
-                that.hp -= 10;
-                that.state = 2
-                
-               
-                
-             } else if (that.hp <= 0) {
-                that.state = 3; // death
-                that.velocity.x = 0;
-                that.dead = true;
-                // if(that.animations[3].isAlmostDone(TICK)){
-                    // assetMangager.playAsset("sounds/blood_splash.wav");
-                    that.dead = true;
-                    that.removeFromWorld = true;
-
-                    
-                // }
-                                        
-            }
+    if(!this.dead){
+        if (this.hp <= 0) {
+            this.state = 3; // death
+            this.velocity.x = 0;
+            this.dead = true;
+            this.removeFromWorld = true;                      
         }
-    })
-
      this.PlatformCollision();
      this.mageCollide(TICK);
-
+    }
+//     else{
+//         let frame = this.animations[3][this.facing].currentFrame();
+//         console.log(frame);
+//        if(frame >= 3){
+//         this.removeFromWorld = true;
+//        }
+//     }
+//      //console.log(this.velocity.x, this.velocity.y);
        };
  mageCollide(TICK){
     let that = this;
     this.game.entities.forEach(function (entity) {   
-            
-        if(entity instanceof Mage && that.state !== 3 && !entity.dead){// added cooldown
-            if(that.hit){
-                that.attackCoolDown += TICK; //that.game.clockTick; // i may change this to +=TICK
-            }
-            if(that.attackCoolDown >= 1){
-                console.log("Reset");
-                that.hit = false;
-                that.attackCoolDown = 0;
-            }// cooldown
-        }
         
         if (entity instanceof Mage) {
             const middleMage = { x: entity.BB.left + entity.BB.width / 2, y: entity.BB.top + entity.BB.height / 2 };
@@ -138,6 +126,7 @@ class SeaMonster{
             let mageDB = entity.BB && that.MageDetection.collide(entity.BB);
             let mageAB = entity.BB && that.AttackBB.collide(entity.BB);
             let frame = that.animations[that.state][that.facing].currentFrame();
+            that.attackCoolDown += TICK;
             if(mageDB){
                 if(that.state !== 2){
                 if(mageDB && !mageAB)
@@ -154,7 +143,9 @@ class SeaMonster{
                 }
             }
                 if(mageDB && mageAB){
+                    if((that.attackCoolDown >= 2)){
                     that.state = 2;
+                }
                     that.velocity.x = 0;
                     that.velocity.y = 0;
                 }
@@ -165,14 +156,15 @@ class SeaMonster{
                 that.velocity.y = 0;
             }
             if(that.state === 2){
-                if(mageAB && ((frame >= 8) && (frame <= 15)) && !that.playerHit){
+                if(mageAB && !that.playerHit){
                     that.playerHit = true;
-                    entity.removeHealth(5); 
+                    entity.removeHealth(10); 
                 }
                 if(that.animations[2][that.facing].isAlmostDone(TICK)){
                     that.state = 1;
                     that.animations[2][that.facing].elapsedTime = 0;
                     that.playerHit = false;
+                    that.attackCoolDown = 0;
                 }
             }
         };
@@ -256,36 +248,3 @@ loseHealth(damageRecieved){
  
 
 }; 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

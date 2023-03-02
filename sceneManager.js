@@ -120,9 +120,9 @@ class SceneManager {
 
             // this.game.addEntity(new Slime(this.game, 690, 250));
 
-            this.game.addEntity(new Squid(this.game, 690, 250));
+            // this.game.addEntity(new Squid(this.game, 690, 250));
 
-            this.game.addEntity(new WaterBoss(this.game,1580, 450));
+            this.game.addEntity(new WaterBoss(this.game, 1580, 400));
             
             if(level.ChainBot){
                 for (var i = 0; i < level.ChainBot.length; i++) {
