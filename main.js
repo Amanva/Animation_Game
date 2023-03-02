@@ -52,6 +52,7 @@ assetMangager.queueDownload("./sprites/enemies/chain_bot_attack_right.png");
 assetMangager.queueDownload("./sprites/enemies/chain_bot_attack_left.png");
 assetMangager.queueDownload("./sprites/enemies/chain_bot_hit.png");
 assetMangager.queueDownload("./sprites/enemies/chain_bot_death.png");
+assetMangager.queueDownload("./sprites/enemies/slime.png")
 assetMangager.queueDownload("./sprites/Lava64.png");
 assetMangager.queueDownload("./sprites/Background.png");
 assetMangager.queueDownload("./sprites/monsterLeft.png");
@@ -71,6 +72,23 @@ assetMangager.queueDownload("./sounds/music/background.wav");
 assetMangager.queueDownload("./sounds/sfx/playerhit.mp3");
 assetMangager.queueDownload("./sounds/sfx/minAttack.mp3");
 assetMangager.queueDownload("./sounds/sfx/zombiehit.wav");
+
+//Load water level assets
+assetMangager.queueDownload("./sprites/waterLevel/underWater.png");
+assetMangager.queueDownload("./sprites/waterLevel/bomb.png");
+assetMangager.queueDownload("./sprites/waterLevel/boulderTiles.png");
+assetMangager.queueDownload("./sprites/waterLevel/hydra_left.png");
+assetMangager.queueDownload("./sprites/waterLevel/hydra_right.png");
+assetMangager.queueDownload("./sprites/waterLevel/squid.png");
+assetMangager.queueDownload("./sprites/waterLevel/squidRight.png");
+assetMangager.queueDownload("./sprites/waterLevel/cave.png");
+
+//sounds
+assetMangager.queueDownload("./sounds/blood_splash.wav");
+assetMangager.queueDownload("./sounds/slash_swoosh.mp3");
+assetMangager.queueDownload("./sounds/metal_hit_woosh.wav");
+
+
 assetMangager.downloadAll(() => {
 assetMangager.autoRepeat("./sounds/music/background.wav");
 var canvas = document.getElementById('gameWorld');
