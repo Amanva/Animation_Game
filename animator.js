@@ -5,7 +5,8 @@ class Animator {
         this.elapsedTime = 0;
         this.totalTime = this.frameCount * this.frameDuration;
         this.flipped = false;
-        this.columnNum;
+        this.columnNum = 0;
+        this.rowNum = 0;
     };
 
     drawFrame(tick, ctx, x, y, scale) {
@@ -23,7 +24,7 @@ class Animator {
         if(this.elapsedTime > this.totalTime) this.elapsedTime -= this.totalTime;
         
         let frame = this.currentFrame();
-        let row = Math.floor(frame / this.columnNum);
+        let row = Math.floor(frame / this.rowNum);
         let column = frame % this.columnNum;
 
         if (this.reverse) {
@@ -73,7 +74,6 @@ class Animator {
         
             
     };
-    
     drawAngle(tick, ctx, x, y, scale, degree){
         ctx.save();
         ctx.translate(x, y);
@@ -90,7 +90,6 @@ isDone() {
 isAlmostDone(TICK) {
         return ((this.elapsedTime + TICK) >= this.totalTime);
     }
-
     isAnimationDone(){
         return this.currentFrame() === 0;
     }

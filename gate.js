@@ -2,7 +2,15 @@ class Gate {
     constructor(game, x, y, wallX, wallY, wallWidth, wallHeight, div, show = true, repeat = false) {
         Object.assign(this, { game, x, y, wallX, wallY, wallWidth, wallHeight, div, show, repeat});
         this.spritesheet = assetMangager.getAsset("./sprites/gate.png");
-        this.wall = new Wall(this.game, this.wallX, this.wallY, this.wallWidth, this.wallHeight, this.div);
+
+        if(this.game.camera.level === levelOne){
+            this.wall = new Wall(this.game, this.wallX, this.wallY, this.wallWidth, this.wallHeight, this.div);
+        }
+        else if(this.game.camera.level === levelThree){
+            this.wall = new verticalWall(this.game, this.wallX, this.wallY, this.wallWidth, this.wallHeight, this.div);
+
+        }
+
         this.show = show;
         this.states = { dark: 0, lit: 1, full: 2};
         this.state = this.states.dark;

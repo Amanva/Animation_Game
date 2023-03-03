@@ -2,39 +2,50 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Game Project Title Goes Here</title>
-    <!-- <style>
-        /* body {
+    <title>The Last Magus</title>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Press+Start+2P">
+     <style>
+        body {
             font-family: 'Press Start 2P', serif;
-            font-size: 24px;
-        } */
-        /* canvas {
+            /* font-size: 24px; */
+        }
+        canvas {
             padding-left: 0;
             padding-right: 0;
             margin-left: auto;
             margin-right: auto;
             display: block;
             font-size: 20px;
-        } */
+        }
         /* div {
             text-align: center;
         } */
-    </style> -->
+    </style>
     <script type = "text/javascript" src="./assetmanager.js"></script>
     <script type = "text/javascript" src="./timer.js"></script>
     <script type = "text/javascript" src="./gameengine.js"></script>
     <script type = "text/javascript" src="./animator.js"></script>
     <script type = "text/javascript" src="./levels.js"></script>
-    <script type="text/javascript" src="./cursor.js"></script>
+    <script type = "text/javascript" src="./cursor.js"></script>
     <script type = "text/javascript" src="./ground.js"></script>
-    <script type="text/javascript" src="./gate.js"></script>
+    <script type = "text/javascript" src="./gate.js"></script>
+    <script type = "text/javascript" src="./cutscene.js"></script>
+    <script type = "text/javascript" src="./damagetext.js"></script>
+    <script type = "text/javascript" src="./potion.js"></script>
+    <script type = "text/javascript" src="./textbox.js"></script>
+    <script type = "text/javascript" src="./sign.js"></script>
     <script type = "text/javascript" src="./projectile.js"></script>
     <script type = "text/javascript" src="./mage.js"></script>
     <script type = "text/javascript" src="./healthbar.js"></script>
+    <script type = "text/javascript" src="./seamonster.js"></script>
+    <script type = "text/javascript" src="./earthenemy.js"></script>
     <script type = "text/javascript" src="./enemies.js"></script>
     <script type = "text/javascript" src="./portal.js"></script>
+    <script type = "text/javascript" src="./earthboss.js"></script>
     <script type = "text/javascript" src="./fireBoss.js"></script>
-    <script type = "text/javascript" src="./seaMonster.js"></script>
+    <script type = "text/javascript" src="./item.js"></script>
+    <script type = "text/javascript" src="./trigger.js"></script>
     <script type = "text/javascript" src="./waterBoss.js"></script>
     <script type = "text/javascript" src="./bomb.js"></script>
     
@@ -43,12 +54,10 @@
     <script type=  "text/javascript" src="./boundingbox.js"></script>
     <script type=  "text/javascript" src="./monster.js"></script>
     <script type = "text/javascript" src="./main.js"></script>
-    
 </head>
 <body>
-    
     <canvas id="gameWorld" width="1800" height="800" style="background-color: white"  tabindex="0" autofocus></canvas>
-    <h1> A-Left D-Right Space-Jump click-attack</h1>
+    <!-- <h1> A-Left D-Right Space-Jump click-attack</h1> -->
     <div>
         <br />
        <input type="checkbox" id="debug" onchange=debugOn()> Debug <input type="checkbox" id="mute" > Mute <input type="range" id="volume" min="0" max="1" value="0.1" step="0.05" > Volume

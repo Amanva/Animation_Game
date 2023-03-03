@@ -1,18 +1,14 @@
-/**
- * @class Portal animation
- * @author Uladzimir Hanevich
- * @version  TCSS491 winter 2023
- */
 class Portal {
-    constructor(game, x, y){
-        Object.assign(this, { game, x, y });
+    constructor(game, x, y, level){
+        Object.assign(this, { game, x, y, level});
         this.game.portal = this;
+        this.velocity = { x: 0, y: 0 };
         this.portal = assetMangager.getAsset("./sprites/portal.png");
         this.scale = 1;
         this.animations = new Animator(this.portal, 0, 0, 320, 320, 41, 0.07, 0, 0, false, false, undefined);
+        this.animations.columnNum = 6;
+        this.animations.rowNum = 6;
         this.updateBB();
-        this.columnNum = 6;
-        this.rowNum = 6;
         
     }; // end of constructor
 
@@ -23,18 +19,22 @@ class Portal {
     };
     
     update() {
+        let curFrame = this.animations.currentFrame();
         this.updateBB();
         var that = this;
         that.game.entities.forEach(function (entity) {
             if (entity instanceof Mage  && entity.BB && that.BB.collide(entity.BB)) {
-                that.game.camera.loadLevel(levelTwo);
+                that.game.camera.loadLevel(that.level, false);
+                // this.game.startInput();
             }
+        
+           
         }); //end of forEach
               
-        if(that.animations.isAlmostDone(that.game.clockTick)){
-            that.animations.elapsedTime = 2.7;
+        if(this.animations.isAlmostDone(this.game.clockTick)){
+            this.animations.elapsedTime = 2.7;
         }
-    };
+    };//end update() chainBot behavior and collisions
 
     draw(ctx) {
                    
@@ -46,6 +46,6 @@ class Portal {
         }    
         
                                 
-    };
+    }; // End draw method
 
-}; 
+}; // End of chain_bot
