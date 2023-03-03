@@ -28,6 +28,7 @@ class Mage {
         this.maxHP = 100;
         this.curMana = 100;
         this.maxMana = 100;
+        this.takeMana = 0;
         this.manaTime = 0;
         // this.healthbar = new HealthBar(game, this);
         // this.manaBar = new ManaBar(game, this);
@@ -106,6 +107,7 @@ class Mage {
         // console.log(this.state);
         this.timetoShoot += this.game.clockTick;
         this.manaTime += this.game.clockTick;
+        this.takeMana = 50;
         const TICK = this.game.clockTick;
         const DE_ACC = 200;
         const RUN = 200;
@@ -118,6 +120,9 @@ class Mage {
                 this.removeFromWorld = true;
                 if(this.game.camera.level === levelOne){
                 this.game.camera.loadLevel(levelOne, false);
+                }
+                else if(this.game.camera.level === levelTwo){
+                    this.game.camera.loadLevel(levelTwo, false);
                 }
                 else if(this.game.camera.level === levelThree){
                     this.game.camera.loadLevel(levelThree, false);
@@ -151,11 +156,30 @@ class Mage {
                     // this.velocity.x = 0;
                     // }
                 }
-                else if(this.game.digit1 && (this.curMana >= 50)){       
+                else if(this.game.digit1){ 
+                    if((this.game.camera.level === levelTwo)){
+                        if((this.curMana >= 30)){
+                            this.specialAttack1 = true;
+                        }
+                    }
+                    else if((this.game.camera.level === levelThree)){
+                        if((this.curMana >= 40)){
+                            this.specialAttack1 = true;
+                        }
+                    }
+                    else if((this.curMana >= 50)){       
                     this.specialAttack1 = true;
+                    }
                 }
-                else if(this.game.digit2 && (this.curMana >= 50) && (this.level2Ready)){       
+                else if(this.game.digit2 && (this.level2Ready)){       
+                    if((this.game.camera.level === levelThree)){
+                        if((this.curMana >= 30)){
+                            this.specialAttack2 = true;
+                        }
+                    }
+                    else if((this.curMana >= 50)){       
                     this.specialAttack2 = true;
+                    }
                 }
                 else if(this.game.digit3 && (this.curMana >= 50) && (this.level3Ready)){       
                     this.specialAttack3 = true;
@@ -180,8 +204,22 @@ class Mage {
                     this.shoot = true;
                     this.velocity.y = 0;
                 }
-                else if(this.game.digit1 && (this.curMana >= 50)){       
+                else if(this.game.digit1 && (this.curMana >= this.takeMana)){ 
+                    if((this.game.camera.level === levelTwo)){
+                        this.takeMana = 30;
+                        if((this.curMana >= this.takeMana)){
+                            this.specialAttack1 = true;
+                        }
+                    }
+                    else if((this.game.camera.level === levelThree)){
+                        this.takeMana = 40;
+                        if((this.curMana >= this.takeMana)){
+                            this.specialAttack1 = true;
+                        }
+                    }
+                    else{       
                     this.specialAttack1 = true;
+                    }
                 }
                 else if(this.game.digit3 && (this.curMana >= 50)){       
                     this.specialAttack3 = true;
@@ -197,13 +235,19 @@ class Mage {
                 this.state = this.states.skullAttack;
                 this.velocity.x = 0;
                 if(this.animations[this.states.skullAttack][this.facing].isAlmostDone(TICK)){
+                    if((this.game.camera.level === levelTwo)){
+                        this.takeMana = 30;
+                    }
+                    else if((this.game.camera.level === levelThree)){
+                        this.takeMana = 40;
+                    }
                     if(this.facing == 0){
                     this.game.addEntityToBegin(new FireBall(this.game, this.x+100, this.y+140));
                     }
                      if(this.facing == 1){
                     this.game.addEntityToBegin(new FireBall(this.game, this.x, this.y+140));
                     }
-                    this.curMana -= 50;
+                    this.curMana -= this.takeMana;
                     this.animations[this.state][this.facing].elapsedTime = 0;
                     this.timetoShoot = 0;
                     this.specialAttack1 = false;
@@ -215,13 +259,16 @@ class Mage {
                 this.state = this.states.skullAttack;
                 this.velocity.x = 0;
                 if(this.animations[this.states.skullAttack][this.facing].isAlmostDone(TICK)){
+                    if((this.game.camera.level === levelThree)){
+                        this.takeMana = 40;
+                    }
                     if(this.facing == 0){
                     this.game.addEntityToBegin(new WaterTornado(this.game, this.x+100, this.y+10));
                     }
                      if(this.facing == 1){
                     this.game.addEntityToBegin(new WaterTornado(this.game, this.x, this.y+10));
                     }
-                    this.curMana -= 50;
+                    this.curMana -= this.takeMana;
                     this.animations[this.state][this.facing].elapsedTime = 0;
                     this.timetoShoot = 0;
                     this.specialAttack2 = false;
@@ -251,17 +298,17 @@ class Mage {
                 this.state = this.states.normAttack;
                 // console.log("ste");
                 if(this.facing === 0){
-                    console.log(this.animations[this.state][0].elapsedTime, this.animations[this.state][1].elapsedTime);
+                    // console.log(this.animations[this.state][0].elapsedTime, this.animations[this.state][1].elapsedTime);
                     if(this.animations[this.state][0].elapsedTime != 0){
                         this.animations[this.state][1].elapsedTime = this.animations[this.state][0].elapsedTime;
                     }
+                }
                      if(this.facing === 1){
-                        console.log(this.animations[this.state][0].elapsedTime, this.animations[this.state][1].elapsedTime);
+                        // console.log(this.animations[this.state][0].elapsedTime, this.animations[this.state][1].elapsedTime);
                         if(this.animations[this.state][1].elapsedTime != 0){
                             this.animations[this.state][0].elapsedTime = this.animations[this.state][1].elapsedTime;
                         }
                     }
-                }
                 if(this.animations[this.state][this.facing].isAlmostDone(TICK)){
                     if(this.facing == 0){
                     this.game.addEntityToBegin(new Projectile(this.game, this.x+100, this.y+140));

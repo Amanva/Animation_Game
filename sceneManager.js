@@ -8,8 +8,8 @@ class SceneManager {
         this.jumpItem = false;
         this.elapsedTime = 0;
         this.mageDead = false;
-        this.title = true;
-        this.initialCutSceen = true;
+        this.title = false;
+        this.initialCutSceen = false;
         this.animations = [];
         this.loadAnimations();
         this.damage = 10;
@@ -155,13 +155,13 @@ class SceneManager {
         this.game.addEntity(new Sign(this.game, 2700, 70, 6, 40, 1, "How do I go through?"));
         this.game.addEntity(new Sign(this.game, 302, -288, 10, 40, 1, "What does this do?"));
         this.game.addEntity(new Sign(this.game, 7300, 670, 43, 40, 1, "Up I must go"));
-        this.game.addEntity(new BackGround(this.game, 0, 0, 1800, 800, this.level));
-
-        
+        this.game.addEntity(new BackGround(this.game, 0, 0, 1800, 800, this.level));       
     }
         else if(this.level === levelTwo) {
             this.x = 0;
             this.y = 0;
+            this.mage.x = 50;
+            this.mage.y = 400;
             this.game.mage.level2Ready = true;
             // this.game.addEntity(new Cave(this.game, 11030, 363, 1031, 439));
             //  this.game.addEntity(new SeaMonster(this.game, 690, 250));
@@ -254,9 +254,12 @@ class SceneManager {
         this.x = 0;
         this.y = 0;
         this.jumpItem = true;
+        this.game.mage.level2Ready = true;
         this.game.mage.level3Ready = true;
         this.mage.x = 6200;
         this.mage.y = -600;
+        // this.mage.x = 50;
+        // this.mage.y = 400;
         this.earthBoss = new EarthBoss(this.game, 7500, 607);
         this.game.addEntity(this.earthBoss);
         if(level.boar){
@@ -334,14 +337,14 @@ class SceneManager {
             }
         }
       
-        this.game.addEntity(new Sign(this.game, 100, 670, 75, 45, 10, "Welcome to Earth Biome"));
+        this.game.addEntity(new Sign(this.game, 100, 670, 55, 35, 2, "Num3-Earth  special"));
 
         this.game.addEntity(new Sign(this.game, 2920, -387, 11, 30, 3, "Defeat the monsters near the other shrine and come back"));
-        this.game.addEntity(new Sign(this.game, 1000, 330, 60, 45, 10, "Carefull!!"));
+        this.game.addEntity(new Sign(this.game, 1000, 330, 60, 45, 10, "Carefull!"));
 
-        this.game.addEntity(new Sign(this.game, 6500, 670, 80, 45, 9, "The Wind Minatour awaits you!!"));
-        this.game.addEntity(new Sign(this.game, 6600, 670, 60, 50, 5, "Your gonna need this potion"));
-        this.game.addEntity(new Potion(this.game, 6700, 670, 0));
+        this.game.addEntity(new Sign(this.game, 6500, 670, 43, 35, 3, "The Minatour  awaits you!"));
+        this.game.addEntity(new Sign(this.game, 6700, 670, 55, 30, 4, "Your gonna  need this  potion"));
+        this.game.addEntity(new Potion(this.game, 6800, 670, 0));
 
         this.game.addEntity(new BackGround(this.game, 0, 0, 1800, 800, this.level));
         

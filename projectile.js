@@ -125,6 +125,12 @@ class FireBall{
     };
     getSpecDmg() {
         let specDmg = this.game.camera.specDamage;
+        if(this.game.camera.level === levelThree){
+            specDmg = 42;
+        }
+        else if(this.game.camera.level === levelTwo){
+            specDmg = 25;
+        }
         assetMangager.playAsset("./sounds/sfx/playerhit.mp3");
         return specDmg;
     }
@@ -286,6 +292,9 @@ class WaterTornado{
     };
     getSpecDmg() {
         let specDmg = this.game.camera.specDamage;
+        if(this.game.camera.level === levelThree){
+            specDmg = 35;
+        }
         assetMangager.playAsset("./sounds/sfx/playerhit.mp3");
         return specDmg;
     }
