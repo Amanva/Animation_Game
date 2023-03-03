@@ -16,7 +16,7 @@ var levelOne = {
         {x:3072 , y:500, width:192*2, height: 308, div: 308},
         {x:2000 , y:-158, width:192, height: 308, div: 308},
         {x:3264 , y:-400, width:192, height: 308, div: 308},
-        {x:800 , y:500, width:192, height: 308, div: 308} //test wall
+        // {x:800 , y:500, width:192, height: 308, div: 308} //test wall
         
     ],
     gate: [

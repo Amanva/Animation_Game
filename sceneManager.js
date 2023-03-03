@@ -8,15 +8,15 @@ class SceneManager {
         this.jumpItem = false;
         this.elapsedTime = 0;
         this.mageDead = false;
-        this.title = false;
-        this.initialCutSceen = false;
+        this.title = true;
+        this.initialCutSceen = true;
         this.animations = [];
         this.loadAnimations();
         this.damage = 10;
         this.specDamage = 50;
         this.level = null;
         this.initialSpawn = false;
-        this.loadLevel(levelThree, this.title);
+        this.loadLevel(levelOne, this.title);
         this.myCursor = new Cursor(this.game);
         this.gameOver = false;
         this.timer = 0;
@@ -55,7 +55,7 @@ class SceneManager {
         this.game.mage.level3Ready = false;
         this.x = 0;
         this.y = 0;
-        this.mage.x = 7080;
+        this.mage.x = 50;
         this.mage.y = 507;
         this.healthPotion = 0;
         this.manaPotion = 0;
@@ -83,24 +83,28 @@ class SceneManager {
         this.game.addEntity(new Slime(this.game, 4000, 500));
         // this.game.addEntity(new Slime(this.game, 400, 400));
         
+        // if(level.ground){   
+        //     for (var i = 0; i < level.ground.length; i++) {
+        //         let ground = level.ground[i];
+        //         this.game.addEntity(new Ground(this.game, ground.x, ground.y, ground.width, ground.height, ground.div));
+        //     }
+
         if(level.ground){   
             for (var i = 0; i < level.ground.length; i++) {
                 let ground = level.ground[i];
                 this.game.addEntity(new Ground(this.game, ground.x, ground.y, ground.width, ground.height, ground.div));
             }
-
-            if(level.Monster){
-                for (var i = 0; i < level.Monster.length; i++) {
-                    let monster = level.Monster[i];
-                    this.game.addEntity(new Monster(this.game, monster.x, monster.y));
-                }
+        }
+        if(level.platforms){
+            for (var i = 0; i < level.platforms.length; i++) {
+                let platform = level.platforms[i];
+                this.game.addEntity(new Platform(this.game, platform.x, platform.y, platform.width, platform.height, platform.divisorPlatforms));
             }
-
-            if(level.ground){
-                for (var i = 0; i < level.ground.length; i++) {
-                    let ground = level.ground[i];
-                    this.game.addEntity(new Ground(this.game, ground.x, ground.y, ground.width, ground.height, ground.div, level));
-                }
+        }
+        if(level.movingPlatforms){
+            for (var i = 0; i < level.movingPlatforms.length; i++) {
+                let wall = level.movingPlatforms[i];
+                this.game.addEntity(new movingPlatforms(this.game, wall.x, wall.y, wall.width, wall.height, wall.divisorPlatforms, wall.direction, wall.distance));
             }
         }
         if(level.smallPlatforms){
@@ -122,31 +126,18 @@ class SceneManager {
                 this.game.addEntity(new Wall(this.game, wall.x, wall.y, wall.width, wall.height, wall.div));
             }
         }
-            if(level.smallPlatforms){
-                for (var i = 0; i < level.smallPlatforms.length; i++) {
-                    let tiles = level.smallPlatforms[i];
-                    this.game.addEntity(new smallPlatforms(this.game, tiles.x, tiles.y, tiles.width, tiles.height, tiles.div));
-                }
+        if(level.tiles){
+            for (var i = 0; i < level.tiles.length; i++) {
+                let tiles = level.tiles[i];
+                this.game.addEntity(new Tiles(this.game, tiles.x, tiles.y, tiles.width, tiles.height, tiles.div));
             }
-            if(level.wall){
-                for (var i = 0; i < level.wall.length; i++) {
-                    let wall = level.wall[i];
-                    this.game.addEntity(new Wall(this.game, wall.x, wall.y, wall.width, wall.height, wall.div));
-                }
+        }
+        if(level.gate){
+            for (var i = 0; i < level.gate.length; i++) {
+                let gate = level.gate[i];
+                this.game.addEntity(new Gate(this.game, gate.x, gate.y, gate.wallX, gate.wallY, gate.wallWidth, gate.wallHeight, gate.div));
             }
-            if(level.tiles){
-                for (var i = 0; i < level.tiles.length; i++) {
-                    let tiles = level.tiles[i];
-                    this.game.addEntity(new Tiles(this.game, tiles.x, tiles.y, tiles.width, tiles.height, tiles.div));
-                }
-            }
-            if(level.gate){
-                for (var i = 0; i < level.gate.length; i++) {
-                    let gate = level.gate[i];
-                    this.game.addEntity(new Gate(this.game, gate.x, gate.y, gate.wallX, gate.wallY, gate.wallWidth, gate.wallHeight, gate.div));
-                }
-
-            }
+        }
                     
             // this.mage = new Mage(this.game, 662, 488);
             // this.game.addEntity(this.mage);
@@ -410,9 +401,11 @@ class SceneManager {
             if(this.game.click && (this.game.click.y > 224) && (this.game.click.y < 312) && (this.game.click.x > 733) && (this.game.click.x < 1056)){
                 // this.loadLevel(levelOne, false);
                 this.game.click = false;
-                let cutText = [["Long ago existed humans and a temple of mages."],["But then the forces of darkness invaded and destroyed the temple."]]
-                // let cutText = [["The world is in ruin, you are the only one that can stop the darkness."], ["Go forth The Last Magus and defeat the evil"]];
-                this.CutSceneIntro1 = new CutScene(this.game, cutText, 0, 0, "red",0,0);
+                // let cutText = [["Long ago existed humans and a temple of mages."],["But then the forces of darkness invaded and destroyed the temple."]]
+                // // let cutText = [["The world is in ruin, you are the only one that can stop the darkness."], ["Go forth The Last Magus and defeat the evil"]];
+                // this.CutSceneIntro1 = new CutScene(this.game, cutText, 0, 0, "red",0,0);
+                let cutText = [["This is a story about a mage"]]
+                this.CutSceneIntro1 = new CutScene2(this.game, cutText, 0, 0, "red",0,0);
                 this.game.addEntity(this.CutSceneIntro1);
                 this.title = false;
             }
@@ -450,7 +443,7 @@ class SceneManager {
                 this.game.click = false;
                 // console.log("go in");
                 this.initialCutSceen = false;
-                this.loadLevel(levelTwo, false)
+                this.loadLevel(levelOne, false)
             }
         }
         if(this.credit){
