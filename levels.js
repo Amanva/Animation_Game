@@ -184,7 +184,12 @@ var levelOne = {
 };
 
 var levelTwo = {
-    background: "./sprites/waterLevel/underWater.png",
+    background1: "./sprites/Background layers/water/sand.png",
+    background2: "./sprites/Background layers/water/far.png",
+    background3: "./sprites/Background layers/water/foregound-merged.png",
+    
+
+
     floor: "./sprites/waterLevel/boulderTiles.png",
 
     ground: [

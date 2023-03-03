@@ -8,8 +8,8 @@ class SceneManager {
         this.jumpItem = false;
         this.elapsedTime = 0;
         this.mageDead = false;
-        this.title = false;
-        this.initialCutSceen = false;
+        this.title = true;
+        this.initialCutSceen = true;
         this.animations = [];
         this.loadAnimations();
         this.damage = 10;
@@ -19,6 +19,10 @@ class SceneManager {
         this.loadLevel(levelThree, this.title);
         this.myCursor = new Cursor(this.game);
         this.gameOver = false;
+        this.timer = 0;
+        this.credit = false;
+        this.clicks = 0;
+
     };
 
     clearEntities() {
@@ -235,8 +239,8 @@ class SceneManager {
             }
             
             
-            this.game.addEntity(new LevelTwoBackGround(this.game, 0, 0, 1800, 800));
-            
+            this.game.addEntity(new BackGround(this.game, 0, 0, 1800, 800, this.level));
+
 
             // this.mage = new Mage(this.game, 662, 488);
             // this.game.addEntity(this.mage);
@@ -395,13 +399,27 @@ class SceneManager {
     
     update() {
         // console.log(this.heartMana.cur_Hearts, this.mage.hp);
+        this.timer += this.game.clockTick;
         if(this.title){
+            // console.log(this.timer);
+
             if(this.game.click && (this.game.click.y > 224) && (this.game.click.y < 312) && (this.game.click.x > 733) && (this.game.click.x < 1056)){
                 // this.loadLevel(levelOne, false);
                 this.game.click = false;
-                let cutText = [["The world is in ruin, you are the only one that can stop the darkness."], ["Go forth The Last Magus and defeat the evil"]];
-                this.game.addEntity(new CutScene(this.game, cutText, 0, 0, "red"))
+                let cutText = [["Long ago existed humans and a temple of mages."],["But then the forces of darkness invaded and destroyed the temple."]]
+                // let cutText = [["The world is in ruin, you are the only one that can stop the darkness."], ["Go forth The Last Magus and defeat the evil"]];
+                this.CutSceneIntro1 = new CutScene(this.game, cutText, 0, 0, "red",0,0);
+                this.game.addEntity(this.CutSceneIntro1);
                 this.title = false;
+            }
+            else if(this.game.click && (this.game.click.y > 324) && (this.game.click.y < 412) && (this.game.click.x > 733) && (this.game.click.x < 1056)){
+                // this.loadLevel(levelOne, false);
+                this.game.click = false;
+                let cutText = [["Credits: "], ["Aman Vahora"], ["Arashpreet S. Pandher"], ["Kemeria Mustfa"], ["Uladzimir Hanevich"]];
+                this.creditScene = new CutScene(this.game, cutText, 0, 0, "red",0,-150);
+                this.game.addEntity(this.creditScene);
+                this.title = false;
+                this.credit = true;
             }
         }
         if(this.gameOver){
@@ -414,12 +432,29 @@ class SceneManager {
                 
             }
         }
-        if(!this.title && this.initialCutSceen){
-            if(this.game.click){
-                CutScene.removeFromWorld = true;
-                this.initialCutSceen = false;
+        if(!this.title && this.initialCutSceen && !this.credit){
+            if(this.game.click && this.clicks === 0){
+                this.CutSceneIntro1.removeFromWorld = true;
+                // this.initialCutSceen = false;
                 this.game.click = false;
-                this.loadLevel(levelOne, false);
+                let cutText = [["The mages have been defeated and the world is now in ruins."],["You are the only one that can stop the darkness."],["Go forth The Last Magus and defeat the evil."]];
+                this.CutSceneIntro2 = new CutScene(this.game, cutText, 0, 0, "red",0,-150);
+                this.game.addEntity(this.CutSceneIntro2);
+                this.clicks=1;
+            }
+            else if(this.game.click && this.clicks === 1){
+                this.game.click = false;
+                // console.log("go in");
+                this.initialCutSceen = false;
+                this.loadLevel(levelTwo, false)
+            }
+        }
+        if(this.credit){
+            if(this.game.click){
+                this.creditScene.removeFromWorld = true;
+                this.game.click = false;
+                this.title = true;
+                this.credit = false;
             }
         }
 
@@ -479,17 +514,31 @@ class SceneManager {
         ctx.fillStyle = "White"
         ctx.fillText("The Last Magus", 487,  97);
         ctx.fillText("Start", 750,  300);
+        ctx.fillText("Credits",750,400)
         // ctx.fillText("Start", 487,  97);
         ctx.fillStyle = "Red"
         ctx.fillText("The Last Magus", 490, 100);
         if(this.game.mouse && (this.game.mouse.y > 224) && (this.game.mouse.y < 312) && (this.game.mouse.x > 733) && (this.game.mouse.x < 1056)){
-            this.animations[0][0].drawFrame(this.game.clockTick, ctx, 600, 150, 2);
+            this.animations[0][0].drawFrame(this.game.clockTick, ctx, 600, 150, 2); 
             ctx.fillStyle = "White";
+            ctx.fillText("Start", 747,  297);
+
         }
         else{
             ctx.fillStyle = "Red";
+            ctx.fillText("Start", 747,  297);
         }
-        ctx.fillText("Start", 747,  297);
+        if(this.game.mouse && (this.game.mouse.y > 324) && (this.game.mouse.y < 412) && (this.game.mouse.x > 733) && (this.game.mouse.x < 1056)){
+            this.animations[0][0].drawFrame(this.game.clockTick, ctx, 600, 250, 2); 
+            ctx.fillStyle = "White";
+            ctx.fillText("Credits", 747,  397);
+        }
+        else{
+            ctx.fillStyle = "Red";
+            ctx.fillText("Credits", 747,  397);
+
+        }
+
     }
     
     winGame(ctx){            

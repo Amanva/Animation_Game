@@ -33,10 +33,18 @@ assetMangager.queueDownload("./sprites/enemies/Flight.png");
 assetMangager.queueDownload("./sprites/enemies/Min.png");
 
 
+assetMangager.queueDownload(levelTwo.background1);
+assetMangager.queueDownload(levelTwo.background2);
+assetMangager.queueDownload(levelTwo.background3);
+
+
+
 
 assetMangager.queueDownload(levelThree.background1);
 assetMangager.queueDownload(levelThree.background2);
 assetMangager.queueDownload(levelThree.background3 );
+
+
 
 assetMangager.queueDownload("./sprites/potion.png");
 // Load chain_bot sprites.
