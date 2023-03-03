@@ -191,7 +191,7 @@ class WaterBoss{
 
     draw(ctx) {
         this.enemHealthBar.draw(ctx);
-        this.animations[this.state].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, 2.2);
+        this.animations[this.state].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, 1.5);
         // this.animations[1].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x+600, this.y-this.game.camera.y, 1);
         // this.animations[2].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x+900, this.y-this.game.camera.y, 1);
            
@@ -201,14 +201,14 @@ class WaterBoss{
             ctx.strokeStyle = 'Red';
             ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y-this.game.camera.y, this.BB.width , this.BB.height);
             // TEST draw text to canvas
-            ctx.font = "20px Arial";
-            ctx.fillStyle = "white";
-            ctx.fillText("fr0: " + this.animations[0].currentFrame(), this.x, this.y);
-            ctx.fillText("fr1: " + this.animations[1].currentFrame(), this.x+60, this.y);
-            ctx.fillText("fr2: " + this.animations[2].currentFrame(), this.x+120, this.y);
-            ctx.fillText("fr2: " + this.animations[2].isAnimationDone(), this.x+120, this.y+25);
-            ctx.fillText("fr0: " + this.animations[0].isAnimationDone(), this.x, this.y+25);
-            ctx.fillText("game.clockTick: " + this.attackCoolDown, 660, 90);
+            // ctx.font = "20px Arial";
+            // ctx.fillStyle = "white";
+            // ctx.fillText("fr0: " + this.animations[0].currentFrame(), this.x, this.y);
+            // ctx.fillText("fr1: " + this.animations[1].currentFrame(), this.x+60, this.y);
+            // ctx.fillText("fr2: " + this.animations[2].currentFrame(), this.x+120, this.y);
+            // ctx.fillText("fr2: " + this.animations[2].isAnimationDone(), this.x+120, this.y+25);
+            // ctx.fillText("fr0: " + this.animations[0].isAnimationDone(), this.x, this.y+25);
+            // ctx.fillText("game.clockTick: " + this.attackCoolDown, 660, 90);
 
         }
                          

@@ -57,7 +57,7 @@ class Mage {
         // right run
         this.animations[1][0] = new Animator(this.spritesheet, 65, 150, 39, 105, 8, 0.10, 121, 0, false, true, false);
         // right attack
-        this.animations[2][0] = new Animator(this.spritesheet, 61, 269, 70, 105, 13, 0.3, 90,0, false, false, false); 
+        this.animations[2][0] = new Animator(this.spritesheet, 61, 269, 70, 105, 13, 0.03, 90,0, false, false, false); 
         // skull attack
         this.animations[3][0] = new Animator(this.spritesheet, 57, 527, 50, 105, 17, 0.05, 110, 0, false, false, false);
         // hit
@@ -75,7 +75,7 @@ class Mage {
 
         // left attack
 
-        this.animations[2][1] = new Animator(this.spritesheetLeft, 692, 269, 70, 105, 13, 0.3, 90, 0, true, true, false);
+        this.animations[2][1] = new Animator(this.spritesheetLeft, 692, 269, 70, 105, 13, 0.03, 90, 0, true, true, false);
 
         // left skull attack
         this.animations[3][1] = new Animator(this.spritesheetLeft, 55, 527, 50, 105, 17, 0.05, 110, 0, true, true, false);
@@ -154,6 +154,9 @@ class Mage {
                 else if(this.game.digit1 && (this.curMana >= 50)){       
                     this.specialAttack1 = true;
                 }
+                else if(this.game.digit2 && (this.curMana >= 50) && (this.level2Ready)){       
+                    this.specialAttack2 = true;
+                }
                 else if(this.game.digit3 && (this.curMana >= 50) && (this.level3Ready)){       
                     this.specialAttack3 = true;
                 }
@@ -208,7 +211,25 @@ class Mage {
                     this.state = this.states.idle;
                 } 
             }
-             if(this.specialAttack3){
+            if(this.specialAttack2){
+                this.state = this.states.skullAttack;
+                this.velocity.x = 0;
+                if(this.animations[this.states.skullAttack][this.facing].isAlmostDone(TICK)){
+                    if(this.facing == 0){
+                    this.game.addEntityToBegin(new WaterTornado(this.game, this.x+100, this.y+10));
+                    }
+                     if(this.facing == 1){
+                    this.game.addEntityToBegin(new WaterTornado(this.game, this.x, this.y+10));
+                    }
+                    this.curMana -= 50;
+                    this.animations[this.state][this.facing].elapsedTime = 0;
+                    this.timetoShoot = 0;
+                    this.specialAttack2 = false;
+                    // this.game.E = false;
+                    this.state = this.states.idle;
+                } 
+            }
+            else if(this.specialAttack3){
                 this.state = this.states.skullAttack;
                 this.velocity.x = 0;
                 if(this.animations[this.states.skullAttack][this.facing].isAlmostDone(TICK)){
@@ -328,7 +349,7 @@ class Mage {
                 if(Math.abs(this.velocity.x) > 0 && (this.state != this.states.normAttack) && (this.state != this.states.skullAttack)){
                     this.state = this.states.run;
                 }
-                if(this.velocity.x == 0 && !this.shoot && !this.specialAttack1 && !this.specialAttack3){
+                if(this.velocity.x == 0 && !this.shoot && !this.specialAttack1 && !this.specialAttack2 && !this.specialAttack3){
                     this.state = this.states.idle;
                 }
                 // if(this.states.skullAttack){

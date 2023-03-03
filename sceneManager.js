@@ -158,7 +158,8 @@ class SceneManager {
         else if(this.level === levelTwo) {
             this.x = 0;
             this.y = 0;
-            this.game.addEntity(new Cave(this.game, 11030, 363, 1031, 439));
+            this.game.mage.level2Ready = true;
+            // this.game.addEntity(new Cave(this.game, 11030, 363, 1031, 439));
             //  this.game.addEntity(new SeaMonster(this.game, 690, 250));
 
             // this.game.addEntity(new Slime(this.game, 690, 250));
