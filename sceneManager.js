@@ -161,13 +161,14 @@ class SceneManager {
             this.game.addEntity(new Cave(this.game, 11030, 363, 1031, 439));
             //  this.game.addEntity(new SeaMonster(this.game, 690, 250));
 
-            // this.game.addEntity(new Slime(this.game, 690, 250));
+            this.game.addEntity(new Slime(this.game, 980, 50));
+            this.game.addEntity(new Slime(this.game, 1750, 50));
 
             // this.game.addEntity(new Squid(this.game, 690, 250));
 
             // this.game.addEntity(new Wave(this.game, 690, 250));
 
-            this.game.addEntity(new WaterBoss(this.game, 1580, 400));
+            this.game.addEntity(new WaterBoss(this.game, 10680, 550));
             
             if(level.ChainBot){
                 for (var i = 0; i < level.ChainBot.length; i++) {
@@ -208,7 +209,7 @@ class SceneManager {
             if(level.movingPlatforms){
                 for (var i = 0; i < level.movingPlatforms.length; i++) {
                     let wall = level.movingPlatforms[i];
-                    this.game.addEntity(new movingPlatforms(this.game, wall.x, wall.y, wall.width, wall.height, wall.divisorPlatforms, wall.direction, wall.distance));
+                    this.game.addEntity(new movingPlatforms(this.game, wall.x, wall.y, wall.width, wall.height, wall.divisorPlatforms, wall.direction, wall.distance, level));
                 }
             }
             if(level.verticalWall){
@@ -217,24 +218,14 @@ class SceneManager {
                     this.game.addEntity(new verticalWall(this.game, tiles.x, tiles.y, tiles.width, tiles.height, tiles.div));
                 }
             }
-            if(level.smallPlatforms){
-                for (var i = 0; i < level.smallPlatforms.length; i++) {
-                    let tiles = level.smallPlatforms[i];
-                    this.game.addEntity(new smallPlatforms(this.game, tiles.x, tiles.y, tiles.width, tiles.height, tiles.div));
-                }
-            }
+            
             if(level.wall){
                 for (var i = 0; i < level.wall.length; i++) {
                     let wall = level.wall[i];
                     this.game.addEntity(new Wall(this.game, wall.x, wall.y, wall.width, wall.height, wall.div));
                 }
             }
-            if(level.tiles){
-                for (var i = 0; i < level.tiles.length; i++) {
-                    let tiles = level.tiles[i];
-                    this.game.addEntity(new Tiles(this.game, tiles.x, tiles.y, tiles.width, tiles.height, tiles.div));
-                }
-            }
+            
             
             
             this.game.addEntity(new LevelTwoBackGround(this.game, 0, 0, 1800, 800));

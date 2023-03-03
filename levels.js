@@ -158,18 +158,6 @@ var levelOne = {
         {x: 11000, y: 635, width: 127, height: 127, div: 127 },
         {x: 11000, y: 762, width: 127, height: 127, div: 127 },
         
-
-
-    // ChainBot: [
-    //     // {x: 50, y: 300},
-    //     // {x: 350, y: 300},
-    //     {x: 1000, y: 400},
-    //     // {x: 1500, y: 0},
-    //     // {x:2000, y: 0},
-    //     // {x: 2300, y: 0},
-    // ],
-
-
     ],
 
     ChainBot: [
@@ -185,59 +173,62 @@ var levelOne = {
 
 var levelTwo = {
     background: "./sprites/waterLevel/underWater.png",
+    // music: "./sounds/music/background.wav",
     floor: "./sprites/waterLevel/boulderTiles.png",
 
     ground: [
         { x: 0, y: 750, width: 3080, height:110, div: 110},
         { x: 3456, y: 750, width: 2530, height:110, div: 110},
-        { x: 6400, y: 750, width: 2530, height:110, div: 110},
+        { x: 6400, y: 750, width: 1320, height:110, div: 110},
         { x: 9100, y: 750, width: 3300, height:110, div: 110},
     ],
-    // wall: [
-    //     {x:3072 , y:-100, width:192*2, height: 308, div: 308},
-    //     {x:3072 , y:500, width:192*2, height: 308, div: 308},
-        
-    // ],
+   
     platforms: [
         {x:100 ,y:500, width: 220, height:64, divisorPlatforms:110}, 
         {x:490, y:400, width: 220, height:64, divisorPlatforms:110},
         {x:900, y:300, width: 220, height:64, divisorPlatforms:110},
-        // {x:1500, y:400, width: 256, height:64, divisorPlatforms:256},
         {x:1500, y:300, width: 770, height:64, divisorPlatforms:110},
         {x:2500, y:450, width: 880, height:64, divisorPlatforms:110},
-        {x:4000, y:300, width: 550, height:64, divisorPlatforms:110},
+        {x:3700, y:300, width: 550, height:64, divisorPlatforms:110},
         {x:5300, y:350, width: 220, height:64, divisorPlatforms:110},
         {x:5700 ,y:500, width: 220, height:64, divisorPlatforms:110}, 
-        {x:6200, y:400, width: 220, height:64, divisorPlatforms:110},
-        {x:8500, y:450, width: 770, height:64, divisorPlatforms:110},
+        {x:6200 ,y:500, width: 110, height:64, divisorPlatforms:110}, 
+
+        {x:9000, y:450, width: 110, height:64, divisorPlatforms:110},
         {x:9200, y:250, width: 660, height:64, divisorPlatforms:110},
-        {x:10000, y:450, width: 880, height:64, divisorPlatforms:110},
+        {x:10000, y:450, width: 1100, height:64, divisorPlatforms:110},
         
     ],
 
+    movingPlatforms: [
+        {x:4600, y:150, width: 220, height: 64, divisorPlatforms: 110, direction: "x-axis", distance: 6500},
+        // {x:1200, y:400, width: 220, height:64, divisorPlatforms:110, direcction: "y-axis", distance: 800},
+        {x:7200, y:550, width: 220, height: 64, divisorPlatforms: 110, direction: "x-axis", distance: 8800},
+
+        {x:7200, y:-600, width: 220, height: 64, divisorPlatforms: 110, direction: "x-axis", distance: 8980},
+
+    ],
+
     ChainBot: [
-        // {x: 50, y: 300},
-        // {x: 440, y: 300},
-        // {x: 600, y: 500},
-        // {x: 800, y: 400},
-        // {x: 850, y: 200},
-        // {x: 1500, y: 0},
-        // {x:2000, y: 0},
-        // {x: 2300, y: 0},
-        // {x:1200, y:300},
-        // {x:2700, y:450},
-        // {x:3900, y:300},
-        // {x:4300, y:300},
-        // {x:4600, y:300},
-        // {x:5600 ,y:350}, 
-        // {x:5700, y:550},
-        // {x:6500, y:400},
-        // {x:8700, y:450},
-        // {x:8700, y:500},
-        // {x:9200, y:250},
-        // {x:9600, y:250},
-        // {x:10200, y:500},
-        // {x:10500, y:500}
+   
+        {x:850, y:50},
+        {x:2400, y:50},
+        {x:3900, y:300},
+        {x:5700, y:50},
+        {x:8500, y:450},
+        {x:9200, y:50},
+    ],
+
+   bomb: [
+        
+        {x: 540, y: 800},
+        {x: 1250, y: 800},
+        {x: 2300, y: 800},
+        {x:4300, y: 800},
+        {x:5600 ,y: 800}, 
+        {x:6300, y: 800},
+        {x:9100, y: 800},
+        {x:10200, y: 800},
     ],
 
 };
