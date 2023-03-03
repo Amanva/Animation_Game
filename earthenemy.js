@@ -574,7 +574,7 @@ class earthSlime{
             
             if (entity.BB && that.BB.collide(entity.BB)) {
                 if (that.velocity.y >= 0) { 
-                    if ((entity instanceof Ground) && (that.lastBB.bottom >= entity.BB.top) ){
+                    if ((entity instanceof Ground || (entity instanceof Platform) ) && (that.lastBB.bottom >= entity.BB.top) ){
                         that.y = entity.BB.top-105;
                         that.velocity.y = 0;
                         that.updateBB();

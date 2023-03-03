@@ -1,15 +1,23 @@
 class CutScene {
-    constructor(game, textArray, x, y, color) {
-        Object.assign(this, { game, textArray, x, y, color });
+    constructor(game, textArray, x, y, color, offsetX, offsetY) {
+        Object.assign(this, { game, textArray, x, y, color, offsetX, offsetY });
         this.font = '25px "Press Start 2P"'; // Font size and type
     this.padding = 10; // Padding around text
     this.boxWidth = 400; // Width of text box
     this.boxHeight = 100; // Height of text box
+    this.show = 0;
   }
 
-  update() {}
+  update() {
+  //   const TICK = this.game.clockTick;
+  //   show += TICK;
+  //   if(this.showTime > 5) {
+  //     this.removeFromWorld = true;
+  // }
+  }
 
   draw(ctx) {
+    
     ctx.font = this.font;
     ctx.fillStyle = "Black";
     ctx.fillRect(0, 0, 1800, 800);
@@ -24,13 +32,15 @@ class CutScene {
 
     ctx.fillStyle = this.color;
     // Draw box
+    ctx.fillText("Click To Continue",1370,800);
+
 
     // Draw each line of text
     for (let i = 0; i < this.textArray.length; i++) {
       const line = this.textArray[i];
       const textWidth = ctx.measureText(line).width;
       const lineX = textX + (this.boxWidth - this.padding * 2 - textWidth) / 2;
-      ctx.fillText(line, lineX, textY);
+      ctx.fillText(line, lineX+this.offsetX, textY+this.offsetY);
       textY += lineHeight;
     }
     // ctx.fillRect(boxX, boxY, this.boxWidth, this.boxHeight);

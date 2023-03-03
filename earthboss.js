@@ -28,6 +28,7 @@ class EarthBoss {
         this.jumpAttack = 50;
         this.offsetX = 0;
         this.offsetY = 0;
+        this.rageSet = false;
         //animations
         this.animations = [];
         this.BB;
@@ -212,7 +213,7 @@ class EarthBoss {
                     if (that.velocity.y >= 0) {
                         if ((entity instanceof Ground) && (that.lastBB.bottom >= entity.BB.top)) {
                             that.bossJump = true;
-                            that.y = entity.BB.top - 100 * PARAMS.SCALE;
+                            that.y = entity.BB.top - 125 * PARAMS.SCALE;
                             that.velocity.y = 0;
                             that.updateBB();
                         }
@@ -227,8 +228,12 @@ class EarthBoss {
         if (this.randomSelectCD > 0) {
             this.randomSelectCD -= this.game.clockTick;
         }
-        if (this.hp <= 50) {
+        if (this.hp <= 100 && !this.rageSet) {
+            console.log("LOW");
             this.speedMult = 400;
+            this.rageSet = true;
+            assetMangager.playAsset("./sounds/sfx/minRage.mp3");
+
         }
         if (this.hp <= 0) {
             this.velocity.x = 0;
@@ -252,10 +257,10 @@ class EarthBoss {
         this.lastAttackDetectionBB = this.AttackDetectionBB;
         this.lastJumpBB = this.JumpBB;
 
-        this.JumpBB = new BoundingBox(this.x + 135, this.y + 230, 90, 20)
+        this.JumpBB = new BoundingBox(this.x + 160, this.y + 280, 130, 20)
         this.MageDetection = new BoundingBox(this.x - 500, this.y - 400, 2000, 900);
-        this.AttackDetectionBB = new BoundingBox(this.x + 70, this.y + 90, 250, 160);
-        this.BB = new BoundingBox(this.x + 130, this.y + 90, 100, 160);
+        this.AttackDetectionBB = new BoundingBox(this.x+30 , this.y + 90, 390, 220);
+        this.BB = new BoundingBox(this.x + 150, this.y + 90, 150, 225);
         if (this.facing === 0) {
             if (this.state === 0) {
                 // this.BB = new BoundingBox(this.x+250, this.y+200, 205, 200);
@@ -268,21 +273,21 @@ class EarthBoss {
             }
             else if (this.state === 2) { // attack
                 // this.BB = new BoundingBox(this.x+260, this.y+200, 200, 200);
-                this.AttackBB = new BoundingBox(this.x + 70, this.y + 162, 200, 235);
+                this.AttackBB = new BoundingBox(0,0,0);
 
             }
             else if (this.state === 3) {
                 // this.BB = new BoundingBox(this.x+260, this.y+200, 230, 200);
-                this.AttackBB = new BoundingBox(this.x + 220, this.y + 50, 100, 200);
+                this.AttackBB = new BoundingBox(this.x + 320, this.y + 50, 100, 250);
             }
             else if (this.state === 4) {
                 // this.BB = new BoundingBox(this.x+260, this.y+200, 230, 200);
-                this.AttackBB = new BoundingBox(this.x + 260, this.y + 170, 90, 40);
+                this.AttackBB = new BoundingBox(this.x + 340, this.y + 210, 100, 55);
 
             }
             else if (this.state === 5) {
                 // this.BB = new BoundingBox(this.x+240, this.y+200, 250, 200);
-                this.AttackBB = new BoundingBox(this.x + 30, this.y + 200, 300, 40);
+                this.AttackBB = new BoundingBox(this.x + 30, this.y + 260, 390, 40);
 
             }
             else if (this.state === 6) {
@@ -304,22 +309,21 @@ class EarthBoss {
             }
             else if (this.state === 2) { // attack
                 // this.BB = new BoundingBox(this.x+260, this.y+200, 200, 200);
-
-                this.AttackBB = new BoundingBox(this.x + 450, this.y + 162, 200, 235);
+                this.AttackBB = new BoundingBox(dthis.x + 210, this.y + 162, 200, 235);
             }
             else if (this.state === 3) {
                 // this.BB = new BoundingBox(this.x+230, this.y+200, 230, 200);
-                this.AttackBB = new BoundingBox(this.x + 30, this.y + 50, 100, 200);
+                this.AttackBB = new BoundingBox(this.x + 40, this.y + 50, 90, 250);
 
             }
             else if (this.state === 4) {
                 // this.BB = new BoundingBox(this.x+240, this.y+200, 230, 200);
-                this.AttackBB = new BoundingBox(this.x, this.y + 170, 90, 40);
+                this.AttackBB = new BoundingBox(this.x +20, this.y + 210, 100, 55);
 
             }
             else if (this.state === 5) {
                 // this.BB = new BoundingBox(this.x+230, this.y+200, 250, 200);
-                this.AttackBB = new BoundingBox(this.x + 30, this.y + 200, 300, 40);
+                this.AttackBB = new BoundingBox(this.x + 30, this.y + 260, 390, 40);
 
             }
             else if (this.state === 6) {
@@ -394,10 +398,10 @@ class EarthBoss {
         this.healthbar.draw(ctx);
         // this.playText(ctx);
         if(this.facing === 0){
-        this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, 4);
+        this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, 5);
         }
         else {
-            this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x - 27, this.y - this.game.camera.y, 4);
+            this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x - this.game.camera.x - 27, this.y - this.game.camera.y, 5);
         }
         if (debug) {
             ctx.strokeStyle = 'Red';
@@ -413,6 +417,7 @@ class EarthBoss {
 
         }
     };
+
 
 
 }

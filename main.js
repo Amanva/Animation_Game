@@ -22,12 +22,7 @@ assetMangager.queueDownload("./sprites/enemies/Walk-Base-Sheet.png");
 assetMangager.queueDownload("./sprites/icons.png");
 assetMangager.queueDownload("./sprites/enemies/earthslime.png");
 assetMangager.queueDownload("./sprites/enemies/slime.png");
-assetMangager.queueDownload("./sprites/enemies/mudGuard/atttack1.png");
 
-assetMangager.queueDownload("./sprites/enemies/mudGuard/idle.png");
-assetMangager.queueDownload("./sprites/enemies/mudGuard/attack2.png");
-assetMangager.queueDownload("./sprites/enemies/mudGuard/death.png");
-assetMangager.queueDownload("./sprites/enemies/mudGuard/run.png");
 
 
 
@@ -38,10 +33,18 @@ assetMangager.queueDownload("./sprites/enemies/Flight.png");
 assetMangager.queueDownload("./sprites/enemies/Min.png");
 
 
+assetMangager.queueDownload(levelTwo.background1);
+assetMangager.queueDownload(levelTwo.background2);
+assetMangager.queueDownload(levelTwo.background3);
+
+
+
 
 assetMangager.queueDownload(levelThree.background1);
 assetMangager.queueDownload(levelThree.background2);
 assetMangager.queueDownload(levelThree.background3 );
+
+
 
 assetMangager.queueDownload("./sprites/potion.png");
 // Load chain_bot sprites.
@@ -72,6 +75,9 @@ assetMangager.queueDownload("./sprites/tornado.png");
 assetMangager.queueDownload("./sounds/music/background.wav");
 assetMangager.queueDownload("./sounds/sfx/playerhit.mp3");
 assetMangager.queueDownload("./sounds/sfx/minAttack.mp3");
+assetMangager.queueDownload("./sounds/sfx/minRage.mp3");
+assetMangager.queueDownload("./sounds/sfx/drink.mp3");
+
 assetMangager.queueDownload("./sounds/sfx/zombiehit.wav");
 
 //Load water level assets
