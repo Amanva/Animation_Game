@@ -8,8 +8,8 @@ class SceneManager {
         this.jumpItem = false;
         this.elapsedTime = 0;
         this.mageDead = false;
-        this.title = true;
-        this.initialCutSceen = true;
+        this.title = false;
+        this.initialCutSceen = false;
         this.animations = [];
         this.loadAnimations();
         this.damage = 10;
@@ -19,9 +19,12 @@ class SceneManager {
         this.loadLevel(levelOne, this.title);
         this.myCursor = new Cursor(this.game);
         this.gameOver = false;
+        this.checkpoint = false;
         this.timer = 0;
         this.credit = false;
         this.clicks = 0;
+        this.tempX = 0;
+        this.tempY = 0;
 
     };
 
@@ -55,8 +58,9 @@ class SceneManager {
         this.game.mage.level3Ready = false;
         this.x = 0;
         this.y = 0;
-        this.mage.x = 50;
-        this.mage.y = 507;
+        this.mage.x = 9082;
+        this.mage.y = -623;
+        this.game.addEntity(new Flag(this.game, 7610, -423));
         this.healthPotion = 0;
         this.manaPotion = 0;
         this.fireBoss = new fireBoss(this.game, 9600, 300);
@@ -83,11 +87,6 @@ class SceneManager {
         this.game.addEntity(new Slime(this.game, 4000, 500));
         // this.game.addEntity(new Slime(this.game, 400, 400));
         
-        // if(level.ground){   
-        //     for (var i = 0; i < level.ground.length; i++) {
-        //         let ground = level.ground[i];
-        //         this.game.addEntity(new Ground(this.game, ground.x, ground.y, ground.width, ground.height, ground.div));
-        //     }
 
         if(level.ground){   
             for (var i = 0; i < level.ground.length; i++) {
@@ -160,7 +159,7 @@ class SceneManager {
             // this.game.addEntity(new Slime(this.game, 690, 250));
 
             // this.game.addEntity(new Squid(this.game, 690, 250));
-
+            this.game.addEntity(new Flag(this.game, 400, 700));
             this.game.addEntity(new WaterBoss(this.game, 1580, 400));
             
             if(level.ChainBot){
@@ -230,7 +229,7 @@ class SceneManager {
                 }
             }
             
-            
+            this.game.addEntity(new Sign(this.game, 100, 670, 55, 35, 2, "Num2-Water  special"));
             this.game.addEntity(new BackGround(this.game, 0, 0, 1800, 800, this.level));
 
 
@@ -359,9 +358,21 @@ class SceneManager {
         // this.lastMage.curMana = this.lastMana;
         // this.mage = this.lastMage;
         if(this.mageDead){
+            // console.log(this.check.savePlayer())
+            if(this.checkpoint){
+                this.mage = new Mage(this.game, 50,400);
+                this.mage.x = this.tempX;
+                this.mage.y = this.tempY;
+                this.healthPotion = 2;
+                this.mageDead = false;
+                this.checkpoint = false;
+                this.game.addEntityToBegin(this.mage);
+            }
+            else{
             this.mage = new Mage(this.game, 50,400);
             this.mageDead = false;
             this.game.addEntityToBegin(this.mage);
+            }
         }
         if (level.music && !this.title) {
             console.log("playing");
@@ -388,7 +399,6 @@ class SceneManager {
             this.game.addEntityToBegin(new Potion(this.game, x, y, typeRan));
         }
     }
-
     
 
     
@@ -404,7 +414,7 @@ class SceneManager {
                 // let cutText = [["Long ago existed humans and a temple of mages."],["But then the forces of darkness invaded and destroyed the temple."]]
                 // // let cutText = [["The world is in ruin, you are the only one that can stop the darkness."], ["Go forth The Last Magus and defeat the evil"]];
                 // this.CutSceneIntro1 = new CutScene(this.game, cutText, 0, 0, "red",0,0);
-                let cutText = [["This is a story about a mage"]]
+                let cutText = [["Fighting to protect his world"], ["from being consumed"]]
                 this.CutSceneIntro1 = new CutScene2(this.game, cutText, 0, 0, "red",0,0);
                 this.game.addEntity(this.CutSceneIntro1);
                 this.title = false;
@@ -498,7 +508,9 @@ class SceneManager {
         // background level 1
         ctx.drawImage(assetMangager.getAsset(levelOne.background), 0, 0, 450, 400);
         // placeholder level 2
-        ctx.drawImage(assetMangager.getAsset(levelOne.background), 0, 400, 450, 400);
+        ctx.drawImage(assetMangager.getAsset(levelTwo.background1), 0, 400, 450, 400);
+        ctx.drawImage(assetMangager.getAsset(levelTwo.background2), 0, 400, 450, 400);
+        ctx.drawImage(assetMangager.getAsset(levelTwo.background3), 0, 400, 450, 400);
         // background level 3
         ctx.drawImage(assetMangager.getAsset(levelThree.background1), 1350, 0, 450, 400);
         ctx.drawImage(assetMangager.getAsset(levelThree.background2), 1350, 0, 450, 400);
@@ -544,13 +556,16 @@ class SceneManager {
         // background level 1
         ctx.drawImage(assetMangager.getAsset(levelOne.background), 0, 0, 450, 400);
         // placeholder level 2
-        ctx.drawImage(assetMangager.getAsset(levelOne.background), 0, 400, 450, 400);
+        ctx.drawImage(assetMangager.getAsset(levelTwo.background1), 0, 400, 450, 400);
+        ctx.drawImage(assetMangager.getAsset(levelTwo.background2), 0, 400, 450, 400);
+        ctx.drawImage(assetMangager.getAsset(levelTwo.background3), 0, 400, 450, 400);
         // background level 3
         ctx.drawImage(assetMangager.getAsset(levelThree.background1), 1350, 0, 450, 400);
         ctx.drawImage(assetMangager.getAsset(levelThree.background2), 1350, 0, 450, 400);
         ctx.drawImage(assetMangager.getAsset(levelThree.background3), 1350, 0, 450, 400);
         // placeholder level 4
         ctx.drawImage(assetMangager.getAsset(levelOne.background), 1350, 400, 450, 400);
+
         ctx.fillStyle = 'Black';
         ctx.fillRect(450, 0, 900, 800);
         ctx.font = '60px "Press Start 2P"';

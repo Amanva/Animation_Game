@@ -272,7 +272,7 @@ class fireBoss{
             
                             if(that.AttackBB.collide(entity.BB) && that.state === 2 && that.animations[that.state][that.facing].currentFrame() >= 10 && that.animations[that.state][that.facing].currentFrame() <= 12 && !that.hit){
                                     that.hit = true;
-                                    entity.removeHealth(15);
+                                    entity.removeHealth(100);
                                     that.updateBB();
                             }
                                   
@@ -530,9 +530,9 @@ class Slime{
 
 
         //death
-        this.animations[2][0] = new Animator(this.spritesheet, 90, 534, 230, 160, 9, 0.1, 58, 0, false, true, false);
+        this.animations[2][0] = new Animator(this.spritesheet, 90, 537, 230, 160, 9, 0.1, 58, 0, false, true, false);
 
-        this.animations[2][1] = new Animator(this.spritesheet, 90, 534, 230, 160, 9, 0.1, 58, 0, false, true, false);
+        this.animations[2][1] = new Animator(this.spritesheet, 90, 537, 230, 160, 9, 0.1, 58, 0, false, true, false);
 
 
 

@@ -53,7 +53,7 @@ var levelOne = {
         {x:7500 ,y:400, width: 63 , height:17, div: 63},
         {x:7127 ,y:200, width: 63 , height:17, div: 63},
         {x:7450 ,y:0, width: 63 , height:17, div: 63},
-        {x:7750 ,y:150, width: 63 , height:17, div: 63},
+        {x:7850 ,y:150, width: 63 , height:17, div: 63},
         {x:7200 ,y:100, width: 63 , height:17, div: 63},
 
         {x:7600 ,y:700, width: 63 , height:17, div: 63},
@@ -96,7 +96,7 @@ var levelOne = {
         {x:4700, y:150, width: 256, height: 64, divisorPlatforms: 256, direction: "x-axis", distance: 6500},
         {x:1500, y:200, width: 256, height:64, divisorPlatforms:256, direcction: "y-axis", distance: 400},
 
-        {x:7200, y:-600, width: 256, height: 64, divisorPlatforms: 256, direction: "x-axis", distance: 8980},
+        {x:7200, y:-700, width: 256, height: 64, divisorPlatforms: 256, direction: "x-axis", distance: 8980},
 
         //second stage/area
         // {x:7400, y:150, width: 256, height: 64, divisorPlatforms: 256, direction: "x-axis", distance: 8100},

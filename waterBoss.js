@@ -257,7 +257,7 @@ class Wave {
                 }
                 if(entity instanceof Mage){
                     that.removeFromWorld = true;
-                    entity.removeHealth(10);
+                    entity.removeHealth(100);
 
                 }
 
