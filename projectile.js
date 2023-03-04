@@ -32,20 +32,20 @@ class Projectile{
                 if ((entity instanceof Ground || entity instanceof Wall || entity instanceof Platform || entity instanceof movingPlatforms || (entity instanceof Tiles) || entity instanceof smallPlatforms || (entity instanceof verticalWall)) && that.BB.collide(entity.BB)) {
                    that.removeFromWorld = true;
                 }
-                if(((entity instanceof fireBoss) || (entity instanceof Monster) || (entity instanceof Slime) || (entity instanceof Boar) || (entity instanceof earthSlime) || (entity instanceof ChainBot) || (entity instanceof Bat) || (entity instanceof SeaMonster) || (entity instanceof EarthBoss)) && !that.removeFromWorld){
+                if(((entity instanceof fireBoss) || (entity instanceof Monster) || (entity instanceof Slime) || (entity instanceof Boar) || (entity instanceof earthSlime) || (entity instanceof ChainBot) || (entity instanceof Bat) || (entity instanceof SeaMonster) || (entity instanceof EarthBoss) || (entity instanceof Snake)) && !that.removeFromWorld){
                     if(entity.hp > 0){
                     entity.loseHealth(that.getDmg());
                     that.game.addEntityToBegin(new DamageText(that.game, that.getDmg(), entity.BB.x+(entity.BB.width/2), entity.BB.y, "red"));
                     }
                     that.removeFromWorld = true;
-                    console.log("HIT2");
+                    // console.log("HIT2");
                 }
                 
             }
             
             });
             // console.log(this.dist);
-            console.log(this.shot.x, this.shot.y);
+            // console.log(this.shot.x, this.shot.y);
     };
     getDmg() {
         let dmg = this.game.camera.damage;
@@ -107,7 +107,7 @@ class FireBall{
             if (entity.BB && that.BB.collide(entity.BB)) {
                 if ((entity instanceof Ground || entity instanceof Wall || entity instanceof Platform || entity instanceof movingPlatforms || (entity instanceof Tiles) || entity instanceof smallPlatforms || (entity instanceof verticalWall)) && that.BB.collide(entity.BB)) {                   that.removeFromWorld = true;
                 }
-                if(((entity instanceof fireBoss) || (entity instanceof Monster) || (entity instanceof Slime) || (entity instanceof Boar) || (entity instanceof earthSlime) || (entity instanceof ChainBot) || (entity instanceof Bat) || (entity instanceof SeaMonster) || (entity instanceof EarthBoss)) && !that.removeFromWorld){
+                if(((entity instanceof fireBoss) || (entity instanceof Monster) || (entity instanceof Slime) || (entity instanceof Boar) || (entity instanceof earthSlime) || (entity instanceof ChainBot) || (entity instanceof Bat) || (entity instanceof SeaMonster) || (entity instanceof EarthBoss) || (entity instanceof Snake)) && !that.removeFromWorld){
                     if(entity.hp > 0){
                     entity.loseHealth(that.getSpecDmg());
                     that.game.addEntityToBegin(new DamageText(that.game, that.getSpecDmg(), entity.BB.x+(entity.BB.width/2), entity.BB.y, "red"));
@@ -115,10 +115,7 @@ class FireBall{
                     that.removeFromWorld = true;
                     console.log("HIT2");
                 }
-                if(entity instanceof earthSlime){
-                    that.removeFromWorld = true;
-                    entity.loseHealth(100);
-                }
+
             }
             
             });
@@ -171,23 +168,28 @@ class Earth{
         if(this.x < -10){
             this.removeFromWorld = true; 
         }
+        if(this.y < -3000){
+            this.removeFromWorld = true; 
+        }
+        if(this.x > 12000){
+            this.removeFromWorld = true; 
+        }
+        if(this.y > 800){
+            this.removeFromWorld = true; 
+        }
         var that = this;
         this.game.entities.forEach(function (entity) {
             if (entity.BB && that.BB.collide(entity.BB)) {
                 if ((entity instanceof Ground || entity instanceof Wall || entity instanceof Platform || entity instanceof movingPlatforms || (entity instanceof Tiles) || entity instanceof smallPlatforms || (entity instanceof verticalWall)) && that.BB.collide(entity.BB)) {
                    that.removeFromWorld = true;
                 }
-                if(((entity instanceof fireBoss) || (entity instanceof Monster) || (entity instanceof Slime) || (entity instanceof Boar) || (entity instanceof earthSlime) || (entity instanceof ChainBot) || (entity instanceof Bat) || (entity instanceof SeaMonster) || (entity instanceof EarthBoss)) && !that.removeFromWorld){
+                if(((entity instanceof fireBoss) || (entity instanceof Monster) || (entity instanceof Slime) || (entity instanceof Boar) || (entity instanceof earthSlime) || (entity instanceof ChainBot) || (entity instanceof Bat) || (entity instanceof SeaMonster) || (entity instanceof EarthBoss) || (entity instanceof Snake)) && !that.removeFromWorld){
                     if(entity.hp > 0){
                     entity.loseHealth(that.getSpecDmg());
                     that.game.addEntityToBegin(new DamageText(that.game, that.getSpecDmg(), entity.BB.x+(entity.BB.width/2), entity.BB.y, "red"));
                     }
                     that.removeFromWorld = true;
                     console.log("HIT2");
-                }
-                if(entity instanceof Slime){
-                    that.removeFromWorld = true;
-                    entity.loseHealth(100);
                 }
             }
             
@@ -242,6 +244,18 @@ class WaterTornado{
         else if(this.facing === 1){
             this.move -= 200 * TICK;
         }
+        if(this.x < -10){
+            this.removeFromWorld = true; 
+        }
+        if(this.y < -3000){
+            this.removeFromWorld = true; 
+        }
+        if(this.x > 12000){
+            this.removeFromWorld = true; 
+        }
+        if(this.y > 800){
+            this.removeFromWorld = true; 
+        }
         this.updateBB();
         // if(this.x < -10){
         //     this.removeFromWorld = true; 
@@ -259,19 +273,16 @@ class WaterTornado{
         var that = this;
         this.game.entities.forEach(function (entity) {
             if (entity.BB && that.BB.collide(entity.BB)) {
-                if ((entity instanceof Ground || entity instanceof Wall || entity instanceof Platform || entity instanceof movingPlatforms || (entity instanceof Tiles) || entity instanceof smallPlatforms || (entity instanceof verticalWall)) && that.BB.collide(entity.BB)) {                   that.removeFromWorld = true;
+                if ((entity instanceof Ground || entity instanceof Wall || entity instanceof Platform || entity instanceof movingPlatforms || (entity instanceof Tiles) || entity instanceof smallPlatforms || (entity instanceof verticalWall)) && that.BB.collide(entity.BB)) { 
+                    that.removeFromWorld = true;
                 }
-                if(((entity instanceof fireBoss) || (entity instanceof Monster) || (entity instanceof Slime) || (entity instanceof Boar) || (entity instanceof earthSlime) || (entity instanceof ChainBot) || (entity instanceof Bat) || (entity instanceof SeaMonster)) && !that.removeFromWorld){
+                if(((entity instanceof fireBoss) || (entity instanceof Monster) || (entity instanceof Slime) || (entity instanceof Boar) || (entity instanceof earthSlime) || (entity instanceof ChainBot) || (entity instanceof Bat) || (entity instanceof SeaMonster) ||  (entity instanceof Snake) || (entity instanceof EarthBoss)) && !that.removeFromWorld){
                     if(entity.hp > 0){
                     entity.loseHealth(that.getSpecDmg());
                     that.game.addEntityToBegin(new DamageText(that.game, that.getSpecDmg(), entity.BB.x+(entity.BB.width/2), entity.BB.y, "red"));
                     }
                     that.removeFromWorld = true;
                     console.log("HIT2");
-                }
-                if(entity instanceof earthSlime){
-                    that.removeFromWorld = true;
-                    entity.loseHealth(100);
                 }
             }
             

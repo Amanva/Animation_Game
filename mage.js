@@ -24,8 +24,9 @@ class Mage {
         this.level2Ready = false;
         this.level3Ready = false;
         this.specialAttack3 = false;
+        this.deadOnce = false;
         // this.hp= 100;
-        this.hp= 100000;
+        this.hp= 100;
         this.maxHP = 100;
         this.curMana = 100;
         this.maxMana = 100;
@@ -116,6 +117,7 @@ class Mage {
         this.velocity.y += this.fallAcc * TICK;
         if(this.dead){
             this.deadPlayer(TICK, DE_ACC);
+            console.log(this.facing);
             if(this.animations[this.states.death][this.facing].isAlmostDone(TICK)){
                 this.game.camera.mageDead = true;
                 this.removeFromWorld = true;
@@ -131,8 +133,9 @@ class Mage {
                 this.hp = 100;
                 this.curMana = 100;
             } 
+            this.deadOnce = true
         }
-        else{
+        else {
             if(this.game.E){
                 this.healthPotion();
                 this.game.E = false;

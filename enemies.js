@@ -111,7 +111,7 @@ class ChainBot {
                 // let frame = that.animations[that.state][that.facing].currentFrame();
                 if(mageDB){
                     if((that.state !== 3) && (that.state !== 4)){
-                        console.log(that.velocity.x);
+                        // console.log(that.velocity.x);
                     if(mageDB && !mageAB){
                     if (xDis > 0 ) {
                         that.state = 1;

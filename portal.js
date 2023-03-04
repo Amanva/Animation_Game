@@ -83,7 +83,13 @@ class Flag {
                     that.game.camera.tempX = that.x;
                     that.game.camera.tempY = that.y-300;
                     that.removeFromWorld = true;
-                }    
+                }  
+                else if(that.game.camera.level === levelThree){
+                    that.game.camera.checkpoint = true;
+                    that.game.camera.tempX = that.x+50;
+                    that.game.camera.tempY = that.y-100;
+                    that.removeFromWorld = true;
+                }   
             }
         
            

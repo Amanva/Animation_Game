@@ -88,8 +88,9 @@ this.animations[3] = new Animator(this.spritesheetLeft, 32, 30, 31, 15, 6, 0.1, 
                 } else if (that.hp <= 0) {
                     that.state = 1; // death
                     that.velocity.x = 0;
-                    that.dead = true;
+                    // that.dead = true;
                     if(that.animations[1].isAlmostDone(TICK)){
+                        that.game.addEntityToBegin(new Item(that.game, 400, 400, 1));
                         that.removeFromWorld = true;
                         
                     }
@@ -180,7 +181,7 @@ this.animations[3] = new Animator(this.spritesheetLeft, 32, 30, 31, 15, 6, 0.1, 
                     that.attackCoolDown = 0;
                     that.game.addEntityToBegin(new Squid(that.game, that.x-50, that.y-5));
                     that.animations[3].elapsedTime = 0;
-                    console.log('Im here');
+                    // console.log('Im here');
                 }
             }
 

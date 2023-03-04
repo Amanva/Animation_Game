@@ -16,7 +16,7 @@ class SceneManager {
         this.specDamage = 50;
         this.level = null;
         this.initialSpawn = false;
-        this.loadLevel(levelOne, this.title);
+        this.loadLevel(levelTwo, this.title);
         this.myCursor = new Cursor(this.game);
         this.gameOver = false;
         this.checkpoint = false;
@@ -150,7 +150,7 @@ class SceneManager {
         else if(this.level === levelTwo) {
             this.x = 0;
             this.y = 0;
-            this.mage.x = 50;
+            this.mage.x = 9000;
             this.mage.y = 400;
             this.game.mage.level2Ready = true;
             // this.game.addEntity(new Cave(this.game, 11030, 363, 1031, 439));
@@ -158,9 +158,9 @@ class SceneManager {
 
             this.game.addEntity(new Slime(this.game, 980, 50));
             this.game.addEntity(new Slime(this.game, 1750, 50));
-
+            // this.game.addEntity(new Snake(this.game, 400, 400));
             // this.game.addEntity(new Squid(this.game, 690, 250));
-            this.game.addEntity(new Flag(this.game, 400, 700));
+            this.game.addEntity(new Flag(this.game, 9228, 700));
             this.game.addEntity(new WaterBoss(this.game, 10680, 550));
             
             if(level.ChainBot){
@@ -238,11 +238,12 @@ class SceneManager {
         this.game.mage.level2Ready = true;
         this.game.mage.level3Ready = true;
         this.mage.x = 6200;
-        this.mage.y = -600;
+        this.mage.y = 400;
         // this.mage.x = 50;
         // this.mage.y = 400;
         this.earthBoss = new EarthBoss(this.game, 7500, 607);
         this.game.addEntity(this.earthBoss);
+        this.game.addEntity(new Flag(this.game, 6300, 700));
         if(level.boar){
             for (var i = 0; i < level.boar.length; i++) {
                 let boar = level.boar[i];
@@ -261,7 +262,6 @@ class SceneManager {
                 this.game.addEntity(new earthSlime(this.game, slimeEarth.x, slimeEarth.y));
             }
         }
-        this.game.addEntity(new Item(this.game, 400, 400, 1));
         // this.game.addEntity(new Boar(this.game, 400, 500));
         // this.game.addEntity(new earthSlime(this.game, 5400, 500));
         // this.game.addEntity(new mudGuard(this.game, 2400,400,1));
@@ -358,6 +358,7 @@ class SceneManager {
                 this.mageDead = false;
                 this.checkpoint = false;
                 this.game.addEntityToBegin(this.mage);
+                console.log(this.mage.x, this.mage.y)
             }
             else{
             this.mage = new Mage(this.game, 50,400);

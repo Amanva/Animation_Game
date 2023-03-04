@@ -70,6 +70,7 @@ assetMangager.queueDownload("./sprites/seaMonster/monster-Riight-Attack.png");
 assetMangager.queueDownload("./sprites/seaMonster/monster-Left-Swim.png");
 assetMangager.queueDownload("./sprites/seaMonster/monster-idle.png");
 assetMangager.queueDownload("./sprites/seaMonster/monster-Right-Swim.png");
+assetMangager.queueDownload("./sprites/enemies/snake.png");
 assetMangager.queueDownload("./sprites/tornado.png");
 assetMangager.queueDownload("./sprites/save.png");
 // sounds

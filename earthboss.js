@@ -146,7 +146,7 @@ class EarthBoss {
                                 that.hit = true;
                                 assetMangager.playAsset("./sounds/sfx/minAttack.mp3");
 
-                                entity.removeHealth(10);
+                                entity.removeHealth(100);
                                 that.updateBB();
                             }
 
