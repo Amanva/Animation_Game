@@ -281,15 +281,19 @@ class Tiles {
             }
     };
 };
+
+
+
 class movingPlatforms {
     constructor(game, x, y, width, height, divisor, direction, distance, level) {
         Object.assign(this, { game, x, y, width, height, divisor, direction, distance, level});
+        this.velocity = { x: 0, y: 0 };
 
         if(this.game.camera.level === levelOne){
             this.spritesheet = assetMangager.getAsset("./sprites/Lava64.png");
         }
         else if(this.game.camera.level === levelTwo){
-            this.spritesheet = assetMangager.getAsset(levelTwo.floor);
+            this.spritesheet = assetMangager.getAsset("./sprites/waterLevel/boulderTiles.png");
         }
         else if(this.game.camera.level === levelThree){
 
@@ -297,9 +301,8 @@ class movingPlatforms {
         }
 
         this.updateBB();
-        this.originalX = x;
-        this.originalY = y;
-        this.reverse = false;
+        this.xStart = x;
+        this.yStart = y;
     };
     updateBB() {
         this.lastBB = this.BB;
@@ -310,50 +313,28 @@ class movingPlatforms {
         this.topBB = new BoundingBox(this.x, this.y, this.width, 0);
         
     };
+
     update() {
-        if(this.direction === "x-axis"){
-            if(this.x < this.distance && this.reverse === false){
-                this.x += 100* this.game.clockTick;
-                this.updateBB();
-                if(this.x >= this.distance){
-                    this.reverse = true;
-                }
-            }
-            else{
-                    
-                    this.x -= 250 * this.game.clockTick;
-                    if(this.x <= this.originalX){
-                        this.reverse = false;
-                    }
-                    this.updateBB();
-                    
-                
-            }
-    }
-    else {
-        if(this.y < this.distance && this.reverse === false){
+        // update position
+        this.x += this.velocity.x * this.game.clockTick;
+        this.y += this.velocity.y * this.game.clockTick;
+        this.updateBB();
 
-            this.y += 50* this.game.clockTick;
-            this.updateBB();
-            if(this.y >= 400){
-                this.reverse = true;
+        if(this.direction === "x-axis"){ // Horizontal
+            if(this.x <= this.xStart){
+                this.velocity.x = 100;
             }
-            // console.log(this.y + "testing");
-
-        }
-        else{
+            else if (this.x >=  this.distance){
+                this.velocity.x = - 100;
+            }
+        } else {                         // Vertical
+            if(this.y <= this.yStart){
+                this.velocity.y = 80;
                 
-                this.y -= 50 * this.game.clockTick;
-                if(this.y <= this.originalY){
-                    this.reverse = false;
-                }
-                this.updateBB();
-                
-            
+            } else if (this.y >=  this.distance){   
+                this.velocity.y = -80;                             
+            }
         }
-    }
-        
-        
 
     };
    
@@ -380,6 +361,116 @@ class movingPlatforms {
             }
     };
 };
+
+
+
+
+// class movingPlatforms {
+//     constructor(game, x, y, width, height, divisor, direction, distance, level) {
+//         Object.assign(this, { game, x, y, width, height, divisor, direction, distance, level});
+//         this.velocity = { x: 0, y: 0 };
+
+//         if(this.game.camera.level === levelOne){
+//             this.spritesheet = assetMangager.getAsset("./sprites/Lava64.png");
+//         }
+//         else if(this.game.camera.level === levelTwo){
+//             this.spritesheet = assetMangager.getAsset("./sprites/waterLevel/boulderTiles.png");
+//         }
+//         else if(this.game.camera.level === levelThree){
+
+//             this.spritesheet = assetMangager.getAsset("./sprites/earthlevel.png")
+//         }
+
+//         this.updateBB();
+//         this.x = x;
+//         this.y = y;
+//         this.reverse = false;
+//     };
+//     updateBB() {
+//         this.lastBB = this.BB;
+//         this.BB = new BoundingBox(this.x, this.y, this.width, this.height);
+//         this.leftBB = new BoundingBox(this.x, this.y, 0, this.height);
+//         this.rightBB = new BoundingBox(this.x + this.width, this.y, 0, this.height);
+//         this.bottomBB = new BoundingBox(this.x, this.y+this.height, this.width, 0);
+//         this.topBB = new BoundingBox(this.x, this.y, this.width, 0);
+        
+//     };
+//     update() {
+//         // update position
+//         this.x += this.velocity.x * this.game.clockTick;
+//         this.y += this.velocity.y * this.game.clockTick;
+//         this.updateBB();
+        
+//         if(this.direction === "x-axis"){
+//             if(this.x < this.distance ){
+//                 this.velocity.x = 100;
+//                 // this.updateBB();
+//                 if(this.x >= this.distance){
+//                     // this.reverse = true;
+//                 }
+//             }
+//             else if(this.x > this.distance ){    
+//                 this.velocity.x = -100;
+//                 if(this.x <= this.originalX){
+//                 this.reverse = false;
+//                 }
+//                 // this.updateBB();
+                    
+                
+//             }
+
+//     }
+//     else {
+//         if(this.y < this.distance && this.reverse === false){
+
+//             this.velocity.y = 50* this.game.clockTick;
+//             this.updateBB();
+//             if(this.y >= 400){
+//                 this.reverse = true;
+//             }
+//             // console.log(this.y + "testing");
+
+//         }
+//         else{
+                
+//             this.velocity.y = -(50* this.game.clockTick);
+//                 if(this.y <= this.originalY){
+//                     this.reverse = false;
+//                 }
+//                 this.updateBB();
+                
+            
+//         }
+//     }
+        
+        
+
+//     };
+   
+//     draw(ctx) {
+//         let brickWidth = this.width / (this.divisor);
+//         for (var i = 0; i < brickWidth; i++) {
+//             if(this.game.camera.level === levelOne){
+//                 ctx.drawImage(this.spritesheet, 322, 256, 127, 31, this.x + i * (this.divisor)-this.game.camera.x, this.y-this.game.camera.y, this.divisor, this.height);
+//             }
+//             else if (this.level === levelTwo){
+//                 ctx.drawImage(this.spritesheet, 689, 624, 110, 110, this.x + i * (this.divisor)-this.game.camera.x, this.y-this.game.camera.y, this.divisor, this.height);
+
+//             }
+//             else if(this.game.camera.level === levelThree){
+//                 ctx.drawImage(this.spritesheet, 120, 216, 71, 23, this.x + i * (this.divisor)-this.game.camera.x, this.y-this.game.camera.y, this.divisor, this.height);
+
+//             }
+//         }
+
+//         if(debug){
+//             ctx.strokeStyle = 'Red';
+//             ctx.strokeRect(this.BB.x-this.game.camera.x, this.BB.y-this.game.camera.y, this.BB.width, this.BB.height);
+//             // ctx.strokeRect(this.rightBB.x-this.game.camera.x, this.rightBB.y-this.game.camera.y, this.rightBB.width, this.rightBB.height);
+//             }
+//     };
+// };
+
 
 
 class lava {
@@ -507,112 +598,8 @@ class LevelTwoBackGround {
         ctx.drawImage(this.spritesheet,this.x ,this.y, this.w, this.h);
     };
 };
-class Cave {
-    constructor(game, x, y, width, height) {
-        Object.assign(this, { game, x, y, width, height});
-        this.game.cave = this;
-        this.spritesheet = assetMangager.getAsset("./sprites/waterLevel/cave.png");
-        this.updateBB();
-    };
-    
-    updateBB() {
-        this.lastBB = this.BB;
-        this.BB = new BoundingBox(this.x+510, this.y+200, 120, 70); 
-    };
-    
-    update() {
-        this.updateBB();
-        var that = this;
-        that.game.entities.forEach(function (entity) {
-            if (entity instanceof Mage  && entity.BB && that.BB.collide(entity.BB)) {
-                that.game.camera.loadLevel(levelTwo);
-            }
-        }); //end of forEach
-    }; //end update
-
-    draw(ctx) { //(this.spritesheet, 0, 0, width,height, this.x-this.game.camera.x, this.y, this.width, this.height);
-        ctx.drawImage(this.spritesheet, 0, 0, 1031,439, this.x-this.game.camera.x, this.y, this.width, this.height);
-        if(debug){
-            ctx.strokeStyle = 'Red';
-            ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y - this.game.camera.y, this.BB.width , this.BB.height);
-            
-        }
-    };
-
-};
 
 
-// class Bomb {
-//     constructor(game, x, y) {
-//         Object.assign(this, { game, x, y});
-//         this.game.bomb = this;
-//         this.state = 0;
-//         this.dead = false;
-//         this.spritesheet = assetMangager.getAsset("./sprites/waterLevel/bomb.png");
-//         this.updateBB();
-//         this.loadAnimations();
-//     };
-
-//     loadAnimations() {
-//         this.animations = [];
-//         for (var i = 0; i < 2; i++) { 
-//             this.animations.push([]);
-//         }
-// //(spritesheet, xStart, yStart, width, height, frameCount, frameDuration, framePaddingX, framePaddingY, reverse, loop, verticalSprite)
-//         // idle
-//         this.animations[0] = new Animator(this.spritesheet, 0, 0, 154, 768, 1, 0.30, 0, 0, false, true, false);
-//         // explosion
-//         this.animations[1] = new Animator(this.spritesheet, 0, 0, 154, 768, 5, 0.30, 0, 0, false, false, false);
-        
-//     };
-    
-//     updateBB() {
-//         this.lastBB = this.BB;
-//         this.BB =  new BoundingBox(this.x, this.y, 5, 138);
-//         this.explodeBB = new BoundingBox(this.x, this.y, 154, 154);
-//     };
-    
-//     update() {
-//         this.elapsedTime += this.game.clockTick;
-//         const TICK = this.game.clockTick;
-//         this.updateBB();
-//         var that = this;
-
-//         that.game.entities.forEach(function (entity) {
-//             if (entity instanceof Projectile && entity.BB && that.explodeBB.collide(entity.BB)) {
-//                 that.state = 0; // no explosion
-//                 entity.removeFromWorld = true;
-//                 if(that.animations[1].isAlmostDone(TICK)){
-//                     // assetMangager.playAsset("sounds/blood_splash.wav");
-//                     that.dead = true;
-//                     that.removeFromWorld = true;
-//                 }
-//             } else if (entity instanceof Mage && (entity.BB && that.explodeBB.collide(entity.BB)) 
-//                                                 || (entity.BB && that.BB.collide(entity.BB))) { //Kill the Mage
-//                 that.state = 1; // explosion
-//                 entity.removeFromWorld = true;
-//                 if(that.animations[1].isAlmostDone(TICK)){
-//                     // assetMangager.playAsset("sounds/blood_splash.wav");
-//                     that.dead = true;
-//                     that.removeFromWorld = true;
-//                     entity.removeHealth(0.5);
-//                 }
-//             }
-
-//         }); //end of forEach
-    
-//     }; //end update
-
-//     draw(ctx) { //(this.spritesheet, 0, 0, width,height, this.x-this.game.camera.x, this.y, this.width, this.height);
-//         this.animations[this.state].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, 0.25);
-//         if(debug){
-//             ctx.strokeStyle = 'Red';
-//             ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y - this.game.camera.y, this.BB.width , this.BB.height);
-            
-//         }
-//     };
-
-// };
 
 
 

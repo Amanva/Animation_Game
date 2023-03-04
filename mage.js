@@ -58,7 +58,7 @@ class Mage {
         // right run
         this.animations[1][0] = new Animator(this.spritesheet, 65, 150, 39, 105, 8, 0.10, 121, 0, false, true, false);
         // right attack
-        this.animations[2][0] = new Animator(this.spritesheet, 61, 269, 70, 105, 13, 0.3, 90,0, false, false, false); 
+        this.animations[2][0] = new Animator(this.spritesheet, 61, 269, 70, 105, 13, 0.03, 90,0, false, false, false); 
         // skull attack
         this.animations[3][0] = new Animator(this.spritesheet, 57, 527, 50, 105, 17, 0.05, 110, 0, false, false, false);
         // hit
@@ -76,7 +76,7 @@ class Mage {
 
         // left attack
 
-        this.animations[2][1] = new Animator(this.spritesheetLeft, 692, 269, 70, 105, 13, 0.3, 90, 0, true, true, false);
+        this.animations[2][1] = new Animator(this.spritesheetLeft, 692, 269, 70, 105, 13, 0.03, 90, 0, true, true, false);
 
         // left skull attack
         this.animations[3][1] = new Animator(this.spritesheetLeft, 55, 527, 50, 105, 17, 0.05, 110, 0, true, true, false);
@@ -287,14 +287,16 @@ class Mage {
                         }
                         if ((entity instanceof movingPlatforms) && (that.lastBB.bottom < entity.BB.top+6)){
                             // console.log(entity.BB.top);
-                       
+                            that.x += entity.velocity.x * that .game.clockTick;
+                            that.y += entity.velocity.y * that .game.clockTick;
                             that.playerJump = true;
                             that.y = entity.BB.top - PARAMS.PLAYERHEIGHT -129;
                             that.velocity.y = 0;
+                            
                             if(that.state == that.states.jump) that.state = that.states.idle;
                             that.updateBB();
                         }
-                        } 
+                    } 
 
                     if(that.velocity.y < 0){
                         if ((entity instanceof Ground || entity instanceof Wall || entity instanceof Platform || entity instanceof movingPlatforms || (entity instanceof Tiles) || entity instanceof smallPlatforms || (entity instanceof verticalWall)) && (that.lastBB.top >= entity.BB.bottom)){
