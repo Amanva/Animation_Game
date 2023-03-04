@@ -16,7 +16,7 @@ class SceneManager {
         this.specDamage = 50;
         this.level = null;
         this.initialSpawn = false;
-        this.loadLevel(levelOne, this.title);
+        this.loadLevel(levelTwo, this.title);
         this.myCursor = new Cursor(this.game);
         this.gameOver = false;
         this.checkpoint = false;
@@ -219,7 +219,9 @@ class SceneManager {
                 }
             }
             
-            
+            this.game.addEntity(new Cannon(this.game, 460, 250));
+            this.game.addEntity(new Cannon(this.game, 5270, 250));
+            this.game.addEntity(new Cannon(this.game, 9980, 250));
             this.game.addEntity(new Sign(this.game, 100, 670, 55, 35, 2, "Num2-Water  special"));
             this.game.addEntity(new BackGround(this.game, 0, 0, 1800, 800, this.level));
 

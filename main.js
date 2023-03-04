@@ -73,6 +73,8 @@ assetMangager.queueDownload("./sprites/seaMonster/monster-Right-Swim.png");
 assetMangager.queueDownload("./sprites/enemies/snake.png");
 assetMangager.queueDownload("./sprites/tornado.png");
 assetMangager.queueDownload("./sprites/save.png");
+assetMangager.queueDownload("./sprites/waterLevel/cannonBall.png");
+assetMangager.queueDownload("./sprites/waterLevel/cannon.png"); 
 // sounds
 assetMangager.queueDownload("./sounds/music/background.wav");
 assetMangager.queueDownload("./sounds/sfx/playerhit.mp3");
