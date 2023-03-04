@@ -81,7 +81,9 @@ assetMangager.queueDownload("./sprites/waterLevel/hydra_left.png");
 assetMangager.queueDownload("./sprites/waterLevel/pirate.png");
 assetMangager.queueDownload("./sprites/waterLevel/squid.png");
 assetMangager.queueDownload("./sprites/waterLevel/squidRight.png");
-assetMangager.queueDownload("./sprites/waterLevel/cave.png");
+assetMangager.queueDownload("./sprites/waterLevel/cannon.png");
+assetMangager.queueDownload("./sprites/waterLevel/cannonBall.png");
+assetMangager.queueDownload("./sprites/enemies/slime_blue.png");   
 
 //sounds
 assetMangager.queueDownload("./sounds/blood_splash.wav");

@@ -24,8 +24,8 @@ class Mage {
         this.level2Ready = false;
         this.level3Ready = false;
         this.specialAttack3 = false;
-        // this.hp= 100;
-        this.hp= 100000;
+        this.hp= 100;
+        // this.hp= 100000;
         this.maxHP = 100;
         this.curMana = 100;
         this.maxMana = 100;
@@ -287,8 +287,8 @@ class Mage {
                         }
                         if ((entity instanceof movingPlatforms) && (that.lastBB.bottom < entity.BB.top+6)){
                             // console.log(entity.BB.top);
-                            that.x += entity.velocity.x * that .game.clockTick;
-                            that.y += entity.velocity.y * that .game.clockTick;
+                            that.x += entity.velocity.x * that.game.clockTick;
+                            that.y += entity.velocity.y * that.game.clockTick;
                             that.playerJump = true;
                             that.y = entity.BB.top - PARAMS.PLAYERHEIGHT -129;
                             that.velocity.y = 0;

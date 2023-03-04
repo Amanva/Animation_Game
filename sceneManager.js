@@ -39,7 +39,7 @@ class SceneManager {
         
         this.clearEntities();
         if(!this.initialSpawn){
-            this.mage = new Mage(this.game, 50,400);
+            this.mage = new Mage(this.game,50,400);
             this.game.addEntity(this.mage);
             this.initialSpawn = true;
         }
@@ -74,9 +74,9 @@ class SceneManager {
 
          
         // slime
-        this.game.addEntity(new Slime(this.game, 1400, 250));
-        this.game.addEntity(new Slime(this.game, 1800, 50));
-        this.game.addEntity(new Slime(this.game, 4000, 500));
+        this.game.addEntity(new Slime(this.game, 1400, 250, level));
+        this.game.addEntity(new Slime(this.game, 1800, 50, level));
+        this.game.addEntity(new Slime(this.game, 4000, 500, level));
         // this.game.addEntity(new Slime(this.game, 400, 400));
         
         if(level.ground){   
@@ -158,13 +158,13 @@ class SceneManager {
         else if(this.level === levelTwo) {
             this.x = 0;
             this.y = 0;
-            this.game.addEntity(new Cave(this.game, 11030, 363, 1031, 439));
             //  this.game.addEntity(new SeaMonster(this.game, 690, 250));
 
             this.game.addEntity(new Slime(this.game, 980, 50));
             this.game.addEntity(new Slime(this.game, 1750, 50));
+            this.game.addEntity(new Slime(this.game, 7000, 50));
 
-            // this.game.addEntity(new Squid(this.game, 690, 250));
+            
 
             // this.game.addEntity(new Wave(this.game, 690, 250));
 
@@ -227,14 +227,10 @@ class SceneManager {
             }
             
             
-            
+            this.game.addEntity(new Cannon(this.game, 460, 250));
+            this.game.addEntity(new Cannon(this.game, 5270, 250));
+            this.game.addEntity(new Cannon(this.game, 9980, 250));
             this.game.addEntity(new LevelTwoBackGround(this.game, 0, 0, 1800, 800));
-            
-
-            // this.mage = new Mage(this.game, 662, 488);
-            // this.game.addEntity(this.mage);
-            
-            // this.mage.velocity = { x: 0, y: 0 };
             
         }
         

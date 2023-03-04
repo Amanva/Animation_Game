@@ -489,11 +489,18 @@ class fireBoss{
 
 }
 class Slime{
-    constructor(game, x , y){
-        Object.assign(this, { game, x, y });
+    constructor(game, x , y, level){
+        Object.assign(this, { game, x, y, level });
         this.velocity = { x: 0, y: 0 };
 
-        this.spritesheet = assetMangager.getAsset("./sprites/enemies/slime.png");
+        if (this.level = levelTwo){
+            this.spritesheet = assetMangager.getAsset("./sprites/enemies/slime_blue.png"); 
+        } else {
+            this.spritesheet = assetMangager.getAsset("./sprites/enemies/slime.png");
+
+        }
+
+       
         this.state = 1;
         this.facing = 0;
         this.animations = [];

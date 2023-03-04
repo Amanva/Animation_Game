@@ -4,11 +4,10 @@ class WaterBoss{
         Object.assign(this, { game, x, y });
         this.velocity = { x: 0, y: 0 };
         this.game.waterBoss = this;
-        // this.spritesheetLeft = assetMangager.getAsset("./sprites/waterLevel/hydra_left.png");
         this.spritesheetLeft = assetMangager.getAsset("./sprites/waterLevel/pirate.png");
         this.velocity = { x: 0, y: 0 };
-        this.hp = 400;
-        this.maxHP = 400;
+        this.hp = 200;
+        this.maxHP = 200;
         this.enemHealthBar = new HealthBar(this.game, this);
         this.fallAcc = 300;
         this.state = 0;
@@ -83,7 +82,7 @@ this.animations[3] = new Animator(this.spritesheetLeft, 32, 30, 31, 15, 6, 0.1, 
             if (entity.BB && that.BB.collide(entity.BB)) {
                 if (entity instanceof Projectile  && that.hp > 0){
                     entity.removeFromWorld = true;
-                    that.hp -= 200;
+                    that.hp -= 20;
                     
                 } else if (that.hp <= 0) {
                     that.state = 1; // death
@@ -287,9 +286,9 @@ class Wave {
             ctx.strokeRect(this.BB.x-this.game.camera.x, this.BB.y-this.game.camera.y, this.BB.width, this.BB.height);
 
 
-            ctx.font = "20px Arial";
-            ctx.fillStyle = "white";
-            ctx.fillText("vawe x : " + this.initailX, 500, 350);
+            // ctx.font = "20px Arial";
+            // ctx.fillStyle = "white";
+            // ctx.fillText("vawe x : " + this.initailX, 500, 350);
             // ctx.fillText("camera srtart-x : " + this.START_X, 500, 390);
             }
     };

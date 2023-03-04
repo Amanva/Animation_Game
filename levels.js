@@ -202,10 +202,12 @@ var levelTwo = {
 
     movingPlatforms: [
         {x:4600, y:150, width: 220, height: 64, divisorPlatforms: 110, direction: "x-axis", distance: 6500},
-        // {x:1200, y:400, width: 220, height:64, divisorPlatforms:110, direcction: "y-axis", distance: 800},
         {x:7200, y:550, width: 220, height: 64, divisorPlatforms: 110, direction: "x-axis", distance: 8800},
-
         {x:7200, y:-600, width: 220, height: 64, divisorPlatforms: 110, direction: "x-axis", distance: 8980},
+
+        
+        // {x:100, y:400, width: 220, height:64, divisorPlatforms:110, direcction: "y-axis", distance: 600},  // test platform
+
 
     ],
 
