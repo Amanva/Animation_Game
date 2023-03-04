@@ -301,7 +301,7 @@ class Tiles {
 class movingPlatforms {
     constructor(game, x, y, width, height, divisor, direction, distance, level) {
         Object.assign(this, { game, x, y, width, height, divisor, direction, distance, level});
-
+        this.velocity = { x: 0, y: 0 };
         if(this.game.camera.level === levelOne){
             this.spritesheet = assetMangager.getAsset("./sprites/Lava64.png");
         }
@@ -314,8 +314,8 @@ class movingPlatforms {
         }
 
         this.updateBB();
-        this.originalX = x;
-        this.originalY = y;
+        this.xStart = x;
+        this.yStart = y;
         this.reverse = false;
     };
     updateBB() {
@@ -328,47 +328,25 @@ class movingPlatforms {
         
     };
     update() {
-        if(this.direction === "x-axis"){
-            if(this.x < this.distance && this.reverse === false){
-                this.x += 100* this.game.clockTick;
-                this.updateBB();
-                if(this.x >= this.distance){
-                    this.reverse = true;
-                }
-            }
-            else{
-                    
-                    this.x -= 250 * this.game.clockTick;
-                    if(this.x <= this.originalX){
-                        this.reverse = false;
-                    }
-                    this.updateBB();
-                    
-                
-            }
-    }
-    else {
-        if(this.y < this.distance && this.reverse === false){
+        this.x += this.velocity.x * this.game.clockTick;
+        this.y += this.velocity.y * this.game.clockTick;
+        this.updateBB();
 
-            this.y += 50* this.game.clockTick;
-            this.updateBB();
-            if(this.y >= 400){
-                this.reverse = true;
+        if(this.direction === "x-axis"){ // Horizontal
+            if(this.x <= this.xStart){
+                this.velocity.x = 100;
             }
-            // console.log(this.y + "testing");
-
-        }
-        else{
+            else if (this.x >=  this.distance){
+                this.velocity.x = - 100;
+            }
+        } else {                         // Vertical
+            if(this.y <= this.yStart){
+                this.velocity.y = 80;
                 
-                this.y -= 50 * this.game.clockTick;
-                if(this.y <= this.originalY){
-                    this.reverse = false;
-                }
-                this.updateBB();
-                
-            
+            } else if (this.y >=  this.distance){   
+                this.velocity.y = -80;                             
+            }
         }
-    }
         
         
 

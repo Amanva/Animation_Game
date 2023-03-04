@@ -16,7 +16,7 @@ class SceneManager {
         this.specDamage = 50;
         this.level = null;
         this.initialSpawn = false;
-        this.loadLevel(levelTwo, this.title);
+        this.loadLevel(levelOne, this.title);
         this.myCursor = new Cursor(this.game);
         this.gameOver = false;
         this.checkpoint = false;
@@ -58,8 +58,8 @@ class SceneManager {
         this.game.mage.level3Ready = false;
         this.x = 0;
         this.y = 0;
-        this.mage.x = 9082;
-        this.mage.y = -623;
+        this.mage.x = 7000;
+        this.mage.y = 400;
         this.game.addEntity(new Flag(this.game, 7610, -423));
         this.healthPotion = 0;
         this.manaPotion = 0;
@@ -150,7 +150,7 @@ class SceneManager {
         else if(this.level === levelTwo) {
             this.x = 0;
             this.y = 0;
-            this.mage.x = 9000;
+            this.mage.x = 7000;
             this.mage.y = 400;
             this.game.mage.level2Ready = true;
             // this.game.addEntity(new Cave(this.game, 11030, 363, 1031, 439));

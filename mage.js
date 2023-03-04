@@ -358,7 +358,8 @@ class Mage {
                         }
                         if ((entity instanceof movingPlatforms) && (that.lastBB.bottom < entity.BB.top+6)){
                             // console.log(entity.BB.top);
-                       
+                            that.x += entity.velocity.x * TICK;
+                            that.y += entity.velocity.y * TICK;
                             that.playerJump = true;
                             that.y = entity.BB.top - PARAMS.PLAYERHEIGHT -129;
                             that.velocity.y = 0;
