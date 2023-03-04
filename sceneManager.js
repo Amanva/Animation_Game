@@ -8,8 +8,8 @@ class SceneManager {
         this.jumpItem = false;
         this.elapsedTime = 0;
         this.mageDead = false;
-        this.title = true;
-        this.initialCutSceen = true;
+        this.title = false;
+        this.initialCutSceen = false;
         this.animations = [];
         this.loadAnimations();
         this.damage = 10;
@@ -338,12 +338,29 @@ class SceneManager {
         this.game.addEntity(new Sign(this.game, 2920, -387, 11, 30, 3, "Defeat the monsters near the other shrine and come back"));
         this.game.addEntity(new Sign(this.game, 1000, 330, 60, 45, 10, "Carefull!!"));
 
-        this.game.addEntity(new Sign(this.game, 6500, 670, 80, 45, 9, "The Wind Minatour awaits you!!"));
+        this.game.addEntity(new Sign(this.game, 6500, 670, 80, 45, 9, "The Minatour awaits you!!"));
         this.game.addEntity(new Sign(this.game, 6600, 670, 60, 50, 5, "Your gonna need this potion"));
         this.game.addEntity(new Potion(this.game, 6700, 670, 0));
 
         this.game.addEntity(new BackGround(this.game, 0, 0, 1800, 800, this.level));
         
+    }
+    else if(this.level === levelFour){
+        this.x = 0;
+        this.y = 0;
+        // this.jumpItem = true;
+        // this.game.mage.level3Ready = true;
+        // this.mage.x = 6200;
+        // this.mage.y = -600;
+        if(level.platforms){
+            for (var i = 0; i < level.platforms.length; i++) {
+                let platform = level.platforms[i];
+                this.game.addEntity(new Platform(this.game, platform.x, platform.y, platform.width, platform.height, platform.divisorPlatforms));
+            }
+        }
+        this.game.addEntity(new BackGround(this.game, 0, 0, 1800, 800, this.level));
+
+
     }
         // if(level.lava){
         //     for (var i = 0; i < level.lava.length; i++) {

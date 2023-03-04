@@ -63,7 +63,7 @@ class EarthBoss {
                 this.moveBoss = true;
                 this.attackBoss = false;
                 this.attackFrameFinished = false;
-                
+                this.state = 1;
             }
             var that = this;
 
@@ -130,7 +130,7 @@ class EarthBoss {
                         //[3,4,5] random select. then remove
                         //if attack bb colliding with mage bb 
                         if (that.randomSelectCD <= 1) {
-                            that.rand = randomInt(3);
+                            that.rand = randomInt(2);
                             that.randomSelectCD = 4;
                         }
                         if (!that.AttackDetectionBB.collide(entity.BB)) {
@@ -146,7 +146,7 @@ class EarthBoss {
                                 that.hit = true;
                                 assetMangager.playAsset("./sounds/sfx/minAttack.mp3");
 
-                                entity.removeHealth(10);
+                                entity.removeHealth(20);
                                 that.updateBB();
                             }
 
@@ -167,7 +167,7 @@ class EarthBoss {
                                 console.log("Attack");
                                 that.hit = true;
                                 assetMangager.playAsset("./sounds/sfx/minAttack.mp3");
-                                entity.removeHealth(10);
+                                entity.removeHealth(15);
                                 // that.state = 1;
                                 that.updateBB();
 
@@ -313,7 +313,7 @@ class EarthBoss {
             }
             else if (this.state === 3) {
                 // this.BB = new BoundingBox(this.x+230, this.y+200, 230, 200);
-                this.AttackBB = new BoundingBox(this.x + 40, this.y + 50, 90, 250);
+                this.AttackBB = new BoundingBox(this.x + 30, this.y + 50, 90, 250);
 
             }
             else if (this.state === 4) {

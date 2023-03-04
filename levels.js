@@ -463,4 +463,17 @@ var levelThree = {
         {x:2500, y:100},
 
     ]
+    
+};
+
+var levelFour = {
+    background1: "./sprites/Background layers/sky/1.png",
+    background2: "./sprites/Background layers/sky/2.png",
+    background3: "./sprites/Background layers/sky/3.png",
+    background4: "./sprites/Background layers/sky/4.png",
+    
+    platforms: [
+        {x:100, y:500, width: 47*3, height:15*3, divisorPlatforms:47*3},
+    ]
+
 };

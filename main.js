@@ -32,7 +32,6 @@ assetMangager.queueDownload("./sprites/enemies/Death.png");
 assetMangager.queueDownload("./sprites/enemies/Flight.png");
 assetMangager.queueDownload("./sprites/enemies/Min.png");
 
-
 assetMangager.queueDownload(levelTwo.background1);
 assetMangager.queueDownload(levelTwo.background2);
 assetMangager.queueDownload(levelTwo.background3);
@@ -43,6 +42,11 @@ assetMangager.queueDownload(levelTwo.background3);
 assetMangager.queueDownload(levelThree.background1);
 assetMangager.queueDownload(levelThree.background2);
 assetMangager.queueDownload(levelThree.background3 );
+
+assetMangager.queueDownload(levelFour.background1);
+assetMangager.queueDownload(levelFour.background2);
+assetMangager.queueDownload(levelFour.background3);
+assetMangager.queueDownload(levelFour.background4);
 
 
 
@@ -56,6 +60,7 @@ assetMangager.queueDownload("./sprites/enemies/chain_bot_attack_left.png");
 assetMangager.queueDownload("./sprites/enemies/chain_bot_hit.png");
 assetMangager.queueDownload("./sprites/enemies/chain_bot_death.png");
 // assetMangager.queueDownload("./sprites/enemies/slime.png")
+assetMangager.queueDownload("./sprites/airLevel/air.png");
 assetMangager.queueDownload("./sprites/Lava64.png");
 assetMangager.queueDownload("./sprites/Background.png");
 assetMangager.queueDownload("./sprites/monsterLeft.png");
