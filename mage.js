@@ -24,7 +24,8 @@ class Mage {
         this.level2Ready = false;
         this.level3Ready = false;
         this.specialAttack3 = false;
-        this.hp= 100;
+        // this.hp= 100;
+        this.hp= 100000;
         this.maxHP = 100;
         this.curMana = 100;
         this.maxMana = 100;
