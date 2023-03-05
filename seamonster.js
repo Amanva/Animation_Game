@@ -107,7 +107,7 @@ class SeaMonster{
     else{
         this.velocity.x = 0;
         this.velocity.y = 0;;
-        if(this.animations[3].isAlmostDone(TICK)){
+        if(this.animations[3][this.facing].isAlmostDone(TICK)){
         this.game.mage.getMana();
         this.game.camera.potionDrop(this.BB.x+this.BB.width/2, this.BB.y);
         this.removeFromWorld = true;

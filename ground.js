@@ -180,6 +180,13 @@ class BackGround {
             this.background2 = assetMangager.getAsset(levelThree.background2);
             this.background3 = assetMangager.getAsset(levelThree.background3);
         }
+        else if(this.level === levelFour){
+            this.background1 = assetMangager.getAsset(levelFour.background1);
+            this.background2 = assetMangager.getAsset(levelFour.background2);
+            this.background3 = assetMangager.getAsset(levelFour.background3);
+            this.background4 = assetMangager.getAsset(levelFour.background4);
+
+        }
 
     };
 
@@ -204,6 +211,13 @@ class BackGround {
             ctx.drawImage(this.background3,this.x ,this.y, this.w, this.h);
            
         }
+        else if(this.level === levelFour){
+            ctx.drawImage(this.background1,this.x ,this.y, this.w, this.h);
+            ctx.drawImage(this.background2,this.x ,this.y, this.w, this.h);
+            ctx.drawImage(this.background3,this.x ,this.y, this.w, this.h);
+            ctx.drawImage(this.background4,this.x ,this.y, this.w, this.h);
+
+        }
     };
 };
 
@@ -219,8 +233,10 @@ class Platform {
             this.spritesheet = assetMangager.getAsset(levelTwo.floor);
         }
         else if(this.game.camera.level === levelThree){
-
             this.spritesheet = assetMangager.getAsset("./sprites/earthlevel.png")
+        }
+        else if(this.game.camera.level === levelFour){
+            this.spritesheet = assetMangager.getAsset("./sprites/airLevel/air.png");
         }
         this.updateBB();
     };
@@ -240,6 +256,7 @@ class Platform {
     
         let brickWidth = this.width / (this.divisor);
         for (var i = 0; i < brickWidth; i++) {
+
             if(this.game.camera.level === levelOne){
                 ctx.drawImage(this.spritesheet, 322, 256, 127, 31, this.x + i * (this.divisor)-this.game.camera.x, this.y-this.game.camera.y, this.divisor, this.height);
             }
@@ -249,7 +266,9 @@ class Platform {
             }
             else if(this.game.camera.level === levelThree){
                 ctx.drawImage(this.spritesheet, 120, 216, 71, 23, this.x + i * (this.divisor)-this.game.camera.x, this.y-this.game.camera.y, this.divisor, this.height);
-
+            }
+            else if(this.game.camera.level === levelFour){
+                ctx.drawImage(this.spritesheet, 32, 0, 47, 15, this.x + i * (this.divisor)-this.game.camera.x, this.y-this.game.camera.y, this.divisor, this.height);
             }
         }
 

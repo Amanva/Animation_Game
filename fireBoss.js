@@ -14,9 +14,9 @@ class fireBoss{
         this.facing = 0; //0=left, 1 = right
         this.state = 1; // 0 = idle, 1 = walking , 2 = attacking, 3 = hit, 4 = death, 5 = spawn, 6 = jump, 7 = fire attack, 8 = magic attack
         this.dead = false;
-        this.hp = 30;
+        this.hp = 250;
         this.healthbar = new HealthBar(this.game, this);
-        this.maxHP = 30;
+        this.maxHP = 250;
         this.hit = false;
         this.attackCoolDown = 0;
         this.attackFrameCD = 0;

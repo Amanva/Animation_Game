@@ -8,15 +8,15 @@ class SceneManager {
         this.jumpItem = false;
         this.elapsedTime = 0;
         this.mageDead = false;
-        this.title = false;
-        this.initialCutSceen = false;
+        this.title = true;
+        this.initialCutSceen = true;
         this.animations = [];
         this.loadAnimations();
         this.damage = 10;
         this.specDamage = 50;
         this.level = null;
         this.initialSpawn = false;
-        this.loadLevel(levelOne, this.title);
+        this.loadLevel(levelTwo, this.title);
         this.myCursor = new Cursor(this.game);
         this.gameOver = false;
         this.checkpoint = false;
@@ -58,8 +58,8 @@ class SceneManager {
         this.game.mage.level3Ready = false;
         this.x = 0;
         this.y = 0;
-        this.mage.x = 9003;
-        this.mage.y = -200;
+        this.mage.x = 50;
+        this.mage.y = 400;
         this.game.addEntity(new Flag(this.game, 7610, -423));
         this.healthPotion = 0;
         this.manaPotion = 0;
@@ -323,6 +323,12 @@ class SceneManager {
                 this.game.addEntity(new trigger(this.game, triggers.x, triggers.y, triggers.wallX, triggers.wallY, triggers.wallWidth,triggers.wallHeight, triggers.div));
             }
         }
+        if(level.triggerMusic){
+            for (var i = 0; i < level.triggerMusic.length; i++) {
+                let triggers = level.triggerMusic[i];
+                this.game.addEntity(new triggerMusic(this.game, triggers.x, triggers.y));
+            }
+        }
       
         this.game.addEntity(new Sign(this.game, 100, 670, 55, 35, 2, "Num3-Earth  special"));
 
@@ -330,11 +336,28 @@ class SceneManager {
         this.game.addEntity(new Sign(this.game, 1000, 330, 60, 45, 10, "Carefull!"));
 
         this.game.addEntity(new Sign(this.game, 6500, 670, 43, 35, 3, "The Minatour  awaits you!"));
-        this.game.addEntity(new Sign(this.game, 6700, 670, 55, 30, 4, "Your gonna  need this  potion"));
+        this.game.addEntity(new Sign(this.game, 6700, 670, 48, 30, 4, "You're gonna  need this  potion"));
         this.game.addEntity(new Potion(this.game, 6800, 670, 0));
 
         this.game.addEntity(new BackGround(this.game, 0, 0, 1800, 800, this.level));
         
+    }
+    else if(this.level === levelFour){
+        this.x = 0;
+        this.y = 0;
+        // this.jumpItem = true;
+        // this.game.mage.level3Ready = true;
+        // this.mage.x = 6200;
+        // this.mage.y = -600;
+        if(level.platforms){
+            for (var i = 0; i < level.platforms.length; i++) {
+                let platform = level.platforms[i];
+                this.game.addEntity(new Platform(this.game, platform.x, platform.y, platform.width, platform.height, platform.divisorPlatforms));
+            }
+        }
+        this.game.addEntity(new BackGround(this.game, 0, 0, 1800, 800, this.level));
+
+
     }
         // if(level.lava){
         //     for (var i = 0; i < level.lava.length; i++) {
@@ -409,11 +432,11 @@ class SceneManager {
             if(this.game.click && (this.game.click.y > 224) && (this.game.click.y < 312) && (this.game.click.x > 733) && (this.game.click.x < 1056)){
                 // this.loadLevel(levelOne, false);
                 this.game.click = false;
-                // let cutText = [["Long ago existed humans and a temple of mages."],["But then the forces of darkness invaded and destroyed the temple."]]
+                let cutText = [["Long ago existed humans and a temple of mages."],["But then the forces of darkness invaded and destroyed the temple."]]
                 // // let cutText = [["The world is in ruin, you are the only one that can stop the darkness."], ["Go forth The Last Magus and defeat the evil"]];
-                // this.CutSceneIntro1 = new CutScene(this.game, cutText, 0, 0, "red",0,0);
-                let cutText = [["Fighting to protect his world"], ["from being consumed"]]
-                this.CutSceneIntro1 = new CutScene2(this.game, cutText, 0, 0, "red",0,0);
+                this.CutSceneIntro1 = new CutScene(this.game, cutText, 0, 0, "red",0,0);
+                // let cutText = [["Fighting to protect his world"], ["from being consumed"]]
+                // this.CutSceneIntro1 = new CutScene2(this.game, cutText, 0, 0, "red",0,0);
                 this.game.addEntity(this.CutSceneIntro1);
                 this.title = false;
             }
@@ -514,7 +537,13 @@ class SceneManager {
         ctx.drawImage(assetMangager.getAsset(levelThree.background2), 1350, 0, 450, 400);
         ctx.drawImage(assetMangager.getAsset(levelThree.background3), 1350, 0, 450, 400);
         // placeholder level 4
-        ctx.drawImage(assetMangager.getAsset(levelOne.background), 1350, 400, 450, 400);
+        ctx.drawImage(assetMangager.getAsset(levelFour.background1), 1350, 400, 450, 400);
+        ctx.drawImage(assetMangager.getAsset(levelFour.background2), 1350, 400, 450, 400);
+        ctx.drawImage(assetMangager.getAsset(levelFour.background3), 1350, 400, 450, 400);
+        ctx.drawImage(assetMangager.getAsset(levelFour.background4), 1350, 400, 450, 400);
+
+
+        // ctx.drawImage(assetMangager.getAsset(levelOne.background), 1350, 400, 450, 400);
         ctx.fillStyle = 'Black';
         ctx.fillRect(450, 0, 900, 800);
         ctx.font = '60px "Press Start 2P"';

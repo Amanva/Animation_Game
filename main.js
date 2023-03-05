@@ -32,7 +32,6 @@ assetMangager.queueDownload("./sprites/enemies/Death.png");
 assetMangager.queueDownload("./sprites/enemies/Flight.png");
 assetMangager.queueDownload("./sprites/enemies/Min.png");
 
-
 assetMangager.queueDownload(levelTwo.background1);
 assetMangager.queueDownload(levelTwo.background2);
 assetMangager.queueDownload(levelTwo.background3);
@@ -42,7 +41,12 @@ assetMangager.queueDownload(levelTwo.background3);
 
 assetMangager.queueDownload(levelThree.background1);
 assetMangager.queueDownload(levelThree.background2);
-assetMangager.queueDownload(levelThree.background3 );
+assetMangager.queueDownload(levelThree.background3);
+
+assetMangager.queueDownload(levelFour.background1);
+assetMangager.queueDownload(levelFour.background2);
+assetMangager.queueDownload(levelFour.background3);
+assetMangager.queueDownload(levelFour.background4);
 
 
 
@@ -56,6 +60,7 @@ assetMangager.queueDownload("./sprites/enemies/chain_bot_attack_left.png");
 assetMangager.queueDownload("./sprites/enemies/chain_bot_hit.png");
 assetMangager.queueDownload("./sprites/enemies/chain_bot_death.png");
 // assetMangager.queueDownload("./sprites/enemies/slime.png")
+assetMangager.queueDownload("./sprites/airLevel/air.png");
 assetMangager.queueDownload("./sprites/Lava64.png");
 assetMangager.queueDownload("./sprites/Background.png");
 assetMangager.queueDownload("./sprites/monsterRight.png");
@@ -76,11 +81,14 @@ assetMangager.queueDownload("./sprites/save.png");
 assetMangager.queueDownload("./sprites/waterLevel/cannonBall.png");
 assetMangager.queueDownload("./sprites/waterLevel/cannon.png"); 
 // sounds
+assetMangager.queueDownload("./sounds/sfx/bossFight.mp3");
 assetMangager.queueDownload("./sounds/music/background.wav");
 assetMangager.queueDownload("./sounds/sfx/playerhit.mp3");
 assetMangager.queueDownload("./sounds/sfx/minAttack.mp3");
 assetMangager.queueDownload("./sounds/sfx/minRage.mp3");
 assetMangager.queueDownload("./sounds/sfx/drink.mp3");
+assetMangager.queueDownload("./sounds/sfx/fire.mp3");
+assetMangager.queueDownload("./sounds/sfx/earth.mp3");
 
 assetMangager.queueDownload("./sounds/sfx/zombiehit.wav");
 
@@ -103,6 +111,7 @@ assetMangager.queueDownload("./sounds/metal_hit_woosh.wav");
 
 assetMangager.downloadAll(() => {
 assetMangager.autoRepeat("./sounds/music/background.wav");
+assetMangager.autoRepeat("./sounds/sfx/bossFight.mp3");
 var canvas = document.getElementById('gameWorld');
 var ctx = canvas.getContext('2d');
 ctx.imageSmoothingEnabled = false;

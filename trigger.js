@@ -9,8 +9,8 @@ class trigger{
         this.spawned = false;
         this.enemiesDead = false;
         this.boarOne = new Boar(this.game, 6000,680);
-        this.bat = new Bat(this.game, 5200,400);
-        this.earthSlime = new earthSlime(this.game, 5300,680);
+        this.bat2 = new Bat(this.game, 5200,400);
+        this.earthSlime2 = new earthSlime(this.game, 5300,680);
 
 
         this.wall = new verticalWall(this.game, this.wallX, this.wallY, this.wallWidth, this.wallHeight, this.div);
@@ -38,8 +38,8 @@ class trigger{
                 if(that.collision && !that.spawned){
                     // console.log("SPAWNED")
                     that.game.addEntityToBegin(that.boarOne); 
-                    that.game.addEntityToBegin(that.bat); 
-                    that.game.addEntityToBegin(that.earthSlime); 
+                    that.game.addEntityToBegin(that.bat2); 
+                    that.game.addEntityToBegin(that.earthSlime2); 
 
                     that.spawned = true;
                 }
@@ -50,7 +50,7 @@ class trigger{
                 if(that.AreaBB.collide(that.boarOne.BB) && !that.boarOne.dead){
                     // console.log("MONSTERS in area");
                 }
-                else if(that.boarOne.dead){
+                else if(that.boarOne.dead && that.bat2.dead && that.earthSlime2.isDead){
                     // console.log("NO MONSTERS IN AREA");
                     that.wall2.removeFromWorld = true;
                     that.wall.removeFromWorld = true;

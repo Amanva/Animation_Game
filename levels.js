@@ -172,6 +172,8 @@ var levelOne = {
 };
 
 var levelTwo = {
+    music: "./sounds/music/background.wav",
+
     background1: "./sprites/Background layers/water/sand.png",
     background2: "./sprites/Background layers/water/far.png",
     background3: "./sprites/Background layers/water/foregound-merged.png",
@@ -238,9 +240,10 @@ var levelTwo = {
 };
 
 var levelThree = {
-    background1: "./sprites/Background layers/Background1.png",
-    background2: "./sprites/Background layers/Background2.png",
-    background3: "./sprites/Background layers/Background3.png",
+    music: "./sounds/music/background.wav",
+    background1: "./sprites/Background layers/background1.png",
+    background2: "./sprites/Background layers/background2.png",
+    background3: "./sprites/Background layers/background3.png",
     ground: [
         // { x: 0, y: 750, width: 73*191, height:25*3, div: 73*3},
         { x: 0, y: 750, width: 219*6, height:25*3, div: 73*3},
@@ -452,5 +455,22 @@ var levelThree = {
         {x:4000, y:-700},
         {x:2500, y:100},
 
+    ],
+
+    triggerMusic: [
+        {x:6190,y:450},
     ]
+    
+};
+
+var levelFour = {
+    background1: "./sprites/Background layers/sky/1.png",
+    background2: "./sprites/Background layers/sky/2.png",
+    background3: "./sprites/Background layers/sky/3.png",
+    background4: "./sprites/Background layers/sky/4.png",
+    
+    platforms: [
+        {x:100, y:500, width: 47*3, height:15*3, divisorPlatforms:47*3},
+    ]
+
 };

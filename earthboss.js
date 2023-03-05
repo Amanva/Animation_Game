@@ -11,9 +11,9 @@ class EarthBoss {
         this.facing = 0; //0=left, 1 = right
         this.state = 1; // 0 = idle, 1 = walking , 2 = dash, 3 = slash, 4 = stab, 5 = spin
         this.dead = false;
-        this.hp = 150;
+        this.hp = 250;
         this.healthbar = new HealthBar(this.game, this);
-        this.maxHP = 150;
+        this.maxHP = 250;
         this.hit = false;
         this.attackCoolDown = 0;
         this.attackFrameCD = 0;
@@ -63,7 +63,7 @@ class EarthBoss {
                 this.moveBoss = true;
                 this.attackBoss = false;
                 this.attackFrameFinished = false;
-                
+                this.state = 1;
             }
             var that = this;
 
@@ -130,7 +130,7 @@ class EarthBoss {
                         //[3,4,5] random select. then remove
                         //if attack bb colliding with mage bb 
                         if (that.randomSelectCD <= 1) {
-                            that.rand = randomInt(3);
+                            that.rand = randomInt(2);
                             that.randomSelectCD = 4;
                         }
                         if (!that.AttackDetectionBB.collide(entity.BB)) {
@@ -146,7 +146,7 @@ class EarthBoss {
                                 that.hit = true;
                                 assetMangager.playAsset("./sounds/sfx/minAttack.mp3");
 
-                                entity.removeHealth(100);
+                                entity.removeHealth(20);
                                 that.updateBB();
                             }
 
@@ -167,7 +167,7 @@ class EarthBoss {
                                 console.log("Attack");
                                 that.hit = true;
                                 assetMangager.playAsset("./sounds/sfx/minAttack.mp3");
-                                entity.removeHealth(10);
+                                entity.removeHealth(15);
                                 // that.state = 1;
                                 that.updateBB();
 
@@ -230,7 +230,7 @@ class EarthBoss {
         }
         if (this.hp <= 100 && !this.rageSet) {
             console.log("LOW");
-            this.speedMult = 400;
+            this.speedMult = 500;
             this.rageSet = true;
             assetMangager.playAsset("./sounds/sfx/minRage.mp3");
 
@@ -313,7 +313,7 @@ class EarthBoss {
             }
             else if (this.state === 3) {
                 // this.BB = new BoundingBox(this.x+230, this.y+200, 230, 200);
-                this.AttackBB = new BoundingBox(this.x + 40, this.y + 50, 90, 250);
+                this.AttackBB = new BoundingBox(this.x + 30, this.y + 50, 90, 250);
 
             }
             else if (this.state === 4) {
