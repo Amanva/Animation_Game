@@ -41,7 +41,7 @@ assetMangager.queueDownload(levelTwo.background3);
 
 assetMangager.queueDownload(levelThree.background1);
 assetMangager.queueDownload(levelThree.background2);
-assetMangager.queueDownload(levelThree.background3 );
+assetMangager.queueDownload(levelThree.background3);
 
 assetMangager.queueDownload(levelFour.background1);
 assetMangager.queueDownload(levelFour.background2);

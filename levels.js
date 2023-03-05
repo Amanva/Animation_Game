@@ -241,9 +241,9 @@ var levelTwo = {
 
 var levelThree = {
     music: "./sounds/music/background.wav",
-    background1: "./sprites/Background layers/Background1.png",
-    background2: "./sprites/Background layers/Background2.png",
-    background3: "./sprites/Background layers/Background3.png",
+    background1: "./sprites/Background layers/background1.png",
+    background2: "./sprites/Background layers/background2.png",
+    background3: "./sprites/Background layers/background3.png",
     ground: [
         // { x: 0, y: 750, width: 73*191, height:25*3, div: 73*3},
         { x: 0, y: 750, width: 219*6, height:25*3, div: 73*3},
