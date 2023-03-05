@@ -189,7 +189,7 @@ this.animations[3] = new Animator(this.spritesheetLeft, 32, 30, 31, 15, 6, 0.1, 
             
         }); //end of forEach
         if(this.animations[1].isAlmostDone(TICK)){
-            // console.log("print");
+            console.log("print");
             this.game.addEntityToBegin(new Item(this.game, this.x, this.y-30, 1));
             this.game.addEntityToBegin(new Portal(this.game, 10464, 130, levelThree));
             this.removeFromWorld = true; 

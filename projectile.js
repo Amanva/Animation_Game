@@ -45,7 +45,7 @@ class Projectile{
             
             });
             // console.log(this.dist);
-            console.log(this.shot.x, this.shot.y);
+            // console.log(this.shot.x, this.shot.y);
     };
     getDmg() {
         let dmg = this.game.camera.damage;
