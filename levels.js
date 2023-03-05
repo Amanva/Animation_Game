@@ -30,7 +30,7 @@ var levelOne = {
         {x:900, y:200, width: 256, height:64, divisorPlatforms:256},
         // {x:1500, y:400, width: 256, height:64, divisorPlatforms:256},
         {x:2000, y:400, width: 1024, height:64, divisorPlatforms:256},
-        {x:2000, y:150, width: 768, height:64, divisorPlatforms:256},
+        {x:2001, y:150, width: 768, height:64, divisorPlatforms:256},
 
         //second area L1
         {x:3600 ,y:500, width: 256, height:64, divisorPlatforms:256},

@@ -389,6 +389,17 @@ class Mage {
                                 that.velocity.x = 0; 
                                 that.updateBB(); 
                     }
+            //         if (((entity instanceof Wall) || (entity instanceof Ground) || (entity instanceof Platform) || (entity instanceof smallPlatforms) || (entity instanceof verticalWall)) && that.BB.collide(entity.leftBB) && (that.lastBB.top < entity.BB.bottom-5)){
+            //             console.log(that.lastBB.right <= entity.BB.left);
+            //             that.x = entity.leftBB.left - PARAMS.PLAYERWIDTH-that.xBBOffset;
+            //             that.velocity.x = 0;
+            //             that.updateBB();
+            // }
+            // if (((entity instanceof Wall) || (entity instanceof Ground) || (entity instanceof Platform) || (entity instanceof Tiles) || (entity instanceof smallPlatforms) || (entity instanceof verticalWall)) && (that.lastBB.left >= entity.BB.right) && (that.lastBB.top < entity.BB.bottom-5)){               
+            //             that.x = entity.BB.right - that.xBBOffset;
+            //             that.velocity.x = 0; 
+            //             that.updateBB(); 
+            // }
                     if (((entity instanceof movingPlatforms)) && (that.lastBB.left >= entity.BB.right-5) && (that.lastBB.top < entity.BB.bottom-5)){               
                         that.x = entity.rightBB.right - that.xBBOffset
                         that.velocity.x = 0; 

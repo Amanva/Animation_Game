@@ -144,6 +144,7 @@ class SceneManager {
             this.mage.velocity = { x: 0, y: 0 };
         this.game.addEntity(new Sign(this.game, 700, 670, 15, 45, 10, "Controls: A-left, D-right, click-Basic attack, Num1-special attack, E-health potion, Q-mana potion"));
         this.game.addEntity(new Sign(this.game, 2700, 70, 6, 40, 1, "How do I go through?"));
+        this.game.addEntity(new Sign(this.game, 3092, -170, 50, 40, 1, "Tricky Jump"));
         this.game.addEntity(new Sign(this.game, 302, -288, 10, 40, 1, "What does this do?"));
         this.game.addEntity(new Sign(this.game, 7300, 670, 43, 40, 1, "Up I must go"));
         this.game.addEntity(new BackGround(this.game, 0, 0, 1800, 800, this.level));       
@@ -453,9 +454,8 @@ class SceneManager {
                 // this.loadLevel(levelOne, false);
                 this.game.click = false;
                 let cutText = [["Long ago existed humans and a temple of mages."],["But then the forces of darkness invaded and destroyed the temple."]]
-                // // let cutText = [["The world is in ruin, you are the only one that can stop the darkness."], ["Go forth The Last Magus and defeat the evil"]];
                 this.CutSceneIntro1 = new CutScene(this.game, cutText, 0, 0, "red",0,0);
-                // let cutText = [["Fighting to protect his world"], ["from being consumed"]]
+                // let cutText = [["Drops"]]
                 // this.CutSceneIntro1 = new CutScene2(this.game, cutText, 0, 0, "red",0,0);
                 this.game.addEntity(this.CutSceneIntro1);
                 this.title = false;
