@@ -11,9 +11,9 @@ class EarthBoss {
         this.facing = 0; //0=left, 1 = right
         this.state = 1; // 0 = idle, 1 = walking , 2 = dash, 3 = slash, 4 = stab, 5 = spin
         this.dead = false;
-        this.hp = 200;
+        this.hp = 250;
         this.healthbar = new HealthBar(this.game, this);
-        this.maxHP = 200;
+        this.maxHP = 250;
         this.hit = false;
         this.attackCoolDown = 0;
         this.attackFrameCD = 0;
@@ -230,7 +230,7 @@ class EarthBoss {
         }
         if (this.hp <= 100 && !this.rageSet) {
             console.log("LOW");
-            this.speedMult = 400;
+            this.speedMult = 500;
             this.rageSet = true;
             assetMangager.playAsset("./sounds/sfx/minRage.mp3");
 

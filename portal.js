@@ -74,7 +74,7 @@ class Flag {
             if ((entity instanceof Mage) && (entity.BB && that.BB.collide(entity.BB))) {
                 if(that.game.camera.level === levelTwo){
                     that.game.camera.checkpoint = true;
-                    that.game.camera.tempX = that.x+50;
+                    that.game.camera.tempX = that.x;
                     that.game.camera.tempY = that.y;
                     that.removeFromWorld = true;
                 }
@@ -86,7 +86,7 @@ class Flag {
                 }  
                 else if(that.game.camera.level === levelThree){
                     that.game.camera.checkpoint = true;
-                    that.game.camera.tempX = that.x+50;
+                    that.game.camera.tempX = that.x;
                     that.game.camera.tempY = that.y-100;
                     that.removeFromWorld = true;
                 }   

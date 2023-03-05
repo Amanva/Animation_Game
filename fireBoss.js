@@ -14,9 +14,9 @@ class fireBoss{
         this.facing = 0; //0=left, 1 = right
         this.state = 1; // 0 = idle, 1 = walking , 2 = attacking, 3 = hit, 4 = death, 5 = spawn, 6 = jump, 7 = fire attack, 8 = magic attack
         this.dead = false;
-        this.hp = 30;
+        this.hp = 250;
         this.healthbar = new HealthBar(this.game, this);
-        this.maxHP = 30;
+        this.maxHP = 250;
         this.hit = false;
         this.attackCoolDown = 0;
         this.attackFrameCD = 0;
@@ -338,7 +338,7 @@ class fireBoss{
             if(this.animations[4][this.facing].isAlmostDone(TICK)){
                 this.velocity.x = 0;
                 this.velocity.y = 0;
-                this.game.addEntityToBegin(new Portal(this.game, 10500, 430, levelThree));
+                this.game.addEntityToBegin(new Portal(this.game, 10500, 430, levelTwo));
                 this.game.addEntityToBegin(new Item(this.game, this.x+300, this.y+100, 0));
                 this.removeFromWorld = true;
 
@@ -493,7 +493,7 @@ class Slime{
         Object.assign(this, { game, x, y });
         this.velocity = { x: 0, y: 0 };
 
-        if (this.level === levelTwo){
+        if (this.game.camera.level === levelTwo){
             this.spritesheet = assetMangager.getAsset("./sprites/enemies/slime_blue.png"); 
         } else {
             this.spritesheet = assetMangager.getAsset("./sprites/enemies/slime.png");
