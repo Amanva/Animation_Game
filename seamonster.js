@@ -134,7 +134,6 @@ class SeaMonster{
             const distance = distanceBetween(middleMage,middleMonster);
             let mageDB = entity.BB && that.MageDetection.collide(entity.BB);
             let mageAB = entity.BB && that.AttackBB.collide(entity.BB);
-            let frame = that.animations[that.state][that.facing].currentFrame();
             that.attackCoolDown += TICK;
             if(mageDB){
                 if(that.state !== 2){

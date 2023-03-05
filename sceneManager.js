@@ -58,7 +58,7 @@ class SceneManager {
         this.game.mage.level3Ready = false;
         this.x = 0;
         this.y = 0;
-        this.mage.x = 3303;
+        this.mage.x = 9003;
         this.mage.y = -200;
         this.game.addEntity(new Flag(this.game, 7610, -423));
         this.healthPotion = 0;

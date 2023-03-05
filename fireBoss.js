@@ -338,7 +338,7 @@ class fireBoss{
             if(this.animations[4][this.facing].isAlmostDone(TICK)){
                 this.velocity.x = 0;
                 this.velocity.y = 0;
-                this.game.addEntityToBegin(new Portal(this.game, 10500, 430, levelThree));
+                this.game.addEntityToBegin(new Portal(this.game, 10500, 430, levelTwo));
                 this.game.addEntityToBegin(new Item(this.game, this.x+300, this.y+100, 0));
                 this.removeFromWorld = true;
 
@@ -493,7 +493,7 @@ class Slime{
         Object.assign(this, { game, x, y });
         this.velocity = { x: 0, y: 0 };
 
-        if (this.level === levelTwo){
+        if (this.game.camera.level === levelTwo){
             this.spritesheet = assetMangager.getAsset("./sprites/enemies/slime_blue.png"); 
         } else {
             this.spritesheet = assetMangager.getAsset("./sprites/enemies/slime.png");
