@@ -3,11 +3,11 @@ class Monster{
     constructor(game, x, y){
      Object.assign(this, { game, x, y });
      this.velocity = { x: 0, y: 0 };
-     this.hp = 70;
-     this.maxHP = 70;
+     this.hp = 100;
+     this.maxHP = 100;
      this.healthBar = new HealthBar(this.game, this);
      this.fallAcc = 200;        
-     this.spritesheetLeftAttack = assetMangager.getAsset("./sprites/monsterLeft.png");
+     this.spritesheetLeftAttack = assetMangager.getAsset("./sprites/monsterRight.png");
      this.spritesheetRightAttack = assetMangager.getAsset("./sprites/monster-Riight-Attack.png");
      this.spritesheetLeftFly = assetMangager.getAsset("./sprites/monster-Left-Fly.png");
      this.spritesheetIdle = assetMangager.getAsset("./sprites/monster-idle.png");
@@ -216,6 +216,7 @@ loseHealth(damageRecieved){
 
 };
  draw(ctx) {
+    console.log(this.facing)
     if(this.hp >= 0){
     this.healthBar.draw(ctx);
     }
@@ -224,7 +225,7 @@ loseHealth(damageRecieved){
     }
     else if(this.facing  === 1 && this.state === 3){
         this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x-30, this.y-this.game.camera.y, 1 );
-        }
+    }
     else if(this.facing  === 1){
     this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x + 30, this.y-this.game.camera.y, 1 );
     }

@@ -272,7 +272,7 @@ class fireBoss{
             
                             if(that.AttackBB.collide(entity.BB) && that.state === 2 && that.animations[that.state][that.facing].currentFrame() >= 10 && that.animations[that.state][that.facing].currentFrame() <= 12 && !that.hit){
                                     that.hit = true;
-                                    entity.removeHealth(15);
+                                    entity.removeHealth(100);
                                     that.updateBB();
                             }
                                   
@@ -493,7 +493,12 @@ class Slime{
         Object.assign(this, { game, x, y });
         this.velocity = { x: 0, y: 0 };
 
-        this.spritesheet = assetMangager.getAsset("./sprites/enemies/slime.png");
+        if (this.level === levelTwo){
+            this.spritesheet = assetMangager.getAsset("./sprites/enemies/slime_blue.png"); 
+        } else {
+            this.spritesheet = assetMangager.getAsset("./sprites/enemies/slime.png");
+
+        }
         this.state = 1;
         this.facing = 0;
         this.animations = [];
@@ -501,9 +506,9 @@ class Slime{
         this.updateBB();
         this.lastMageDetection;
         this.dead = false;
-        this.hp = 50;
+        this.hp = 30;
         this.healthbar = new HealthBar(this.game, this);
-        this.maxHP = 50;
+        this.maxHP = 30;
         this.hit = false;
         this.attackCoolDown =0;
 
@@ -530,9 +535,9 @@ class Slime{
 
 
         //death
-        this.animations[2][0] = new Animator(this.spritesheet, 90, 534, 230, 160, 9, 0.1, 58, 0, false, true, false);
+        this.animations[2][0] = new Animator(this.spritesheet, 90, 537, 230, 160, 9, 0.1, 58, 0, false, true, false);
 
-        this.animations[2][1] = new Animator(this.spritesheet, 90, 534, 230, 160, 9, 0.1, 58, 0, false, true, false);
+        this.animations[2][1] = new Animator(this.spritesheet, 90, 537, 230, 160, 9, 0.1, 58, 0, false, true, false);
 
 
 

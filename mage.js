@@ -24,10 +24,13 @@ class Mage {
         this.level2Ready = false;
         this.level3Ready = false;
         this.specialAttack3 = false;
+        this.deadOnce = false;
+        // this.hp= 100;
         this.hp= 100;
         this.maxHP = 100;
         this.curMana = 100;
         this.maxMana = 100;
+        this.takeMana = 0;
         this.manaTime = 0;
         // this.healthbar = new HealthBar(game, this);
         // this.manaBar = new ManaBar(game, this);
@@ -106,6 +109,7 @@ class Mage {
         // console.log(this.state);
         this.timetoShoot += this.game.clockTick;
         this.manaTime += this.game.clockTick;
+        this.takeMana = 50;
         const TICK = this.game.clockTick;
         const DE_ACC = 200;
         const RUN = 200;
@@ -113,11 +117,15 @@ class Mage {
         this.velocity.y += this.fallAcc * TICK;
         if(this.dead){
             this.deadPlayer(TICK, DE_ACC);
+            console.log(this.facing);
             if(this.animations[this.states.death][this.facing].isAlmostDone(TICK)){
                 this.game.camera.mageDead = true;
                 this.removeFromWorld = true;
                 if(this.game.camera.level === levelOne){
                 this.game.camera.loadLevel(levelOne, false);
+                }
+                else if(this.game.camera.level === levelTwo){
+                    this.game.camera.loadLevel(levelTwo, false);
                 }
                 else if(this.game.camera.level === levelThree){
                     this.game.camera.loadLevel(levelThree, false);
@@ -125,8 +133,9 @@ class Mage {
                 this.hp = 100;
                 this.curMana = 100;
             } 
+            this.deadOnce = true
         }
-        else{
+        else {
             if(this.game.E){
                 this.healthPotion();
                 this.game.E = false;
@@ -151,8 +160,30 @@ class Mage {
                     // this.velocity.x = 0;
                     // }
                 }
-                else if(this.game.digit1 && (this.curMana >= 50)){       
+                else if(this.game.digit1){ 
+                    if((this.game.camera.level === levelTwo)){
+                        if((this.curMana >= 30)){
+                            this.specialAttack1 = true;
+                        }
+                    }
+                    else if((this.game.camera.level === levelThree)){
+                        if((this.curMana >= 40)){
+                            this.specialAttack1 = true;
+                        }
+                    }
+                    else if((this.curMana >= 50)){       
                     this.specialAttack1 = true;
+                    }
+                }
+                else if(this.game.digit2 && (this.level2Ready)){       
+                    if((this.game.camera.level === levelThree)){
+                        if((this.curMana >= 30)){
+                            this.specialAttack2 = true;
+                        }
+                    }
+                    else if((this.curMana >= 50)){       
+                    this.specialAttack2 = true;
+                    }
                 }
                 else if(this.game.digit3 && (this.curMana >= 50) && (this.level3Ready)){       
                     this.specialAttack3 = true;
@@ -177,8 +208,22 @@ class Mage {
                     this.shoot = true;
                     this.velocity.y = 0;
                 }
-                else if(this.game.digit1 && (this.curMana >= 50)){       
+                else if(this.game.digit1 && (this.curMana >= this.takeMana)){ 
+                    if((this.game.camera.level === levelTwo)){
+                        this.takeMana = 30;
+                        if((this.curMana >= this.takeMana)){
+                            this.specialAttack1 = true;
+                        }
+                    }
+                    else if((this.game.camera.level === levelThree)){
+                        this.takeMana = 40;
+                        if((this.curMana >= this.takeMana)){
+                            this.specialAttack1 = true;
+                        }
+                    }
+                    else{       
                     this.specialAttack1 = true;
+                    }
                 }
                 else if(this.game.digit3 && (this.curMana >= 50)){       
                     this.specialAttack3 = true;
@@ -196,13 +241,19 @@ class Mage {
                 this.state = this.states.skullAttack;
                 this.velocity.x = 0;
                 if(this.animations[this.states.skullAttack][this.facing].isAlmostDone(TICK)){
+                    if((this.game.camera.level === levelTwo)){
+                        this.takeMana = 30;
+                    }
+                    else if((this.game.camera.level === levelThree)){
+                        this.takeMana = 40;
+                    }
                     if(this.facing == 0){
                     this.game.addEntityToBegin(new FireBall(this.game, this.x+100, this.y+140));
                     }
                      if(this.facing == 1){
                     this.game.addEntityToBegin(new FireBall(this.game, this.x, this.y+140));
                     }
-                    this.curMana -= 50;
+                    this.curMana -= this.takeMana;
                     this.animations[this.state][this.facing].elapsedTime = 0;
                     this.timetoShoot = 0;
                     this.specialAttack1 = false;
@@ -210,7 +261,30 @@ class Mage {
                     this.state = this.states.idle;
                 } 
             }
-             if(this.specialAttack3){
+             
+               
+            if(this.specialAttack2){
+                this.state = this.states.skullAttack;
+                this.velocity.x = 0;
+                if(this.animations[this.states.skullAttack][this.facing].isAlmostDone(TICK)){
+                    if((this.game.camera.level === levelThree)){
+                        this.takeMana = 40;
+                    }
+                    if(this.facing == 0){
+                    this.game.addEntityToBegin(new WaterTornado(this.game, this.x+100, this.y+10));
+                    }
+                     if(this.facing == 1){
+                    this.game.addEntityToBegin(new WaterTornado(this.game, this.x, this.y+10));
+                    }
+                    this.curMana -= this.takeMana;
+                    this.animations[this.state][this.facing].elapsedTime = 0;
+                    this.timetoShoot = 0;
+                    this.specialAttack2 = false;
+                    // this.game.E = false;
+                    this.state = this.states.idle;
+                } 
+            }
+            else if(this.specialAttack3){
                 assetMangager.playAsset("./sounds/sfx/earth.mp3");
                 this.state = this.states.skullAttack;
                 this.velocity.x = 0;
@@ -233,17 +307,17 @@ class Mage {
                 this.state = this.states.normAttack;
                 // console.log("ste");
                 if(this.facing === 0){
-                    console.log(this.animations[this.state][0].elapsedTime, this.animations[this.state][1].elapsedTime);
+                    // console.log(this.animations[this.state][0].elapsedTime, this.animations[this.state][1].elapsedTime);
                     if(this.animations[this.state][0].elapsedTime != 0){
                         this.animations[this.state][1].elapsedTime = this.animations[this.state][0].elapsedTime;
                     }
+                }
                      if(this.facing === 1){
-                        console.log(this.animations[this.state][0].elapsedTime, this.animations[this.state][1].elapsedTime);
+                        // console.log(this.animations[this.state][0].elapsedTime, this.animations[this.state][1].elapsedTime);
                         if(this.animations[this.state][1].elapsedTime != 0){
                             this.animations[this.state][0].elapsedTime = this.animations[this.state][1].elapsedTime;
                         }
                     }
-                }
                 if(this.animations[this.state][this.facing].isAlmostDone(TICK)){
                     if(this.facing == 0){
                     this.game.addEntityToBegin(new Projectile(this.game, this.x+100, this.y+140));
@@ -289,7 +363,8 @@ class Mage {
                         }
                         if ((entity instanceof movingPlatforms) && (that.lastBB.bottom < entity.BB.top+6)){
                             // console.log(entity.BB.top);
-                       
+                            that.x += entity.velocity.x * TICK;
+                            that.y += entity.velocity.y * TICK;
                             that.playerJump = true;
                             that.y = entity.BB.top - PARAMS.PLAYERHEIGHT -129;
                             that.velocity.y = 0;
@@ -310,16 +385,16 @@ class Mage {
                                 that.updateBB();
                     }
                     if (((entity instanceof Wall) || (entity instanceof Ground) || (entity instanceof Platform) || (entity instanceof Tiles) || (entity instanceof smallPlatforms) || (entity instanceof verticalWall)) && that.BB.collide(entity.rightBB) && (that.lastBB.top < entity.BB.bottom-5)){               
-                                that.x = entity.rightBB.right - that.xBBOffset;
+                                that.x = entity.BB.right - that.xBBOffset;
                                 that.velocity.x = 0; 
                                 that.updateBB(); 
                     }
-                    if (((entity instanceof movingPlatforms)) && (that.lastBB.left >= entity.BB.right) && (that.lastBB.top < entity.BB.bottom-5)){               
-                        that.x = entity.rightBB.right - that.xBBOffset;
+                    if (((entity instanceof movingPlatforms)) && (that.lastBB.left >= entity.BB.right-5) && (that.lastBB.top < entity.BB.bottom-5)){               
+                        that.x = entity.rightBB.right - that.xBBOffset
                         that.velocity.x = 0; 
                         that.updateBB(); 
                     }
-                    if (((entity instanceof movingPlatforms)) && (that.lastBB.right <= entity.BB.left) && (that.lastBB.top < entity.BB.bottom-5)){               
+                    if (((entity instanceof movingPlatforms)) && (that.lastBB.right <= entity.BB.left+5) && (that.lastBB.top < entity.BB.bottom-5)){               
                         that.x = entity.leftBB.left - PARAMS.PLAYERWIDTH-that.xBBOffset;
                         that.velocity.x = 0; 
                         that.updateBB(); 
@@ -331,7 +406,7 @@ class Mage {
                 if(Math.abs(this.velocity.x) > 0 && (this.state != this.states.normAttack) && (this.state != this.states.skullAttack)){
                     this.state = this.states.run;
                 }
-                if(this.velocity.x == 0 && !this.shoot && !this.specialAttack1 && !this.specialAttack3){
+                if(this.velocity.x == 0 && !this.shoot && !this.specialAttack1 && !this.specialAttack2 && !this.specialAttack3){
                     this.state = this.states.idle;
                 }
                 // if(this.states.skullAttack){
@@ -344,10 +419,10 @@ class Mage {
             if(this.y >= 700){
                 this.dead = true;
             }
-             if(this.velocity.x < 0){
+             if(this.velocity.x < 0 && !this.dead){
                 this.facing = 1;
             }
-            if(this.velocity.x > 0){
+            if(this.velocity.x > 0 && !this.dead){
                 this.facing = 0;
             }
             if(this.x < -40){
@@ -382,7 +457,7 @@ class Mage {
     }
     getMana(){
         if (this.curMana < this.maxMana) {
-        this.curMana += 5;
+        this.curMana += 10;
         }
     }
     deadPlayer(TICK, DE_ACC){

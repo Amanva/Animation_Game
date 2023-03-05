@@ -318,15 +318,23 @@ class Tiles {
     };
 };
 class movingPlatforms {
-    constructor(game, x, y, width, height, divisor, direction, distance) {
-        Object.assign(this, { game, x, y, width, height, divisor, direction, distance});
+    constructor(game, x, y, width, height, divisor, direction, distance, level) {
+        Object.assign(this, { game, x, y, width, height, divisor, direction, distance, level});
+        this.velocity = { x: 0, y: 0 };
+        if(this.game.camera.level === levelOne){
+            this.spritesheet = assetMangager.getAsset("./sprites/Lava64.png");
+        }
+        else if(this.game.camera.level === levelTwo){
+            this.spritesheet = assetMangager.getAsset(levelTwo.floor);
+        }
+        else if(this.game.camera.level === levelThree){
 
-        this.spritesheet = assetMangager.getAsset("./sprites/Lava64.png");
-        // this.animations = [];
-        // this.animations.push(new Animator(this.spritesheet, 0, 0, 48, 48, 1, 0.1, 0,0,false, true, false));
+            this.spritesheet = assetMangager.getAsset("./sprites/earthlevel.png")
+        }
+
         this.updateBB();
-        this.originalX = x;
-        this.originalY = y;
+        this.xStart = x;
+        this.yStart = y;
         this.reverse = false;
     };
     updateBB() {
@@ -339,56 +347,44 @@ class movingPlatforms {
         
     };
     update() {
-        if(this.direction === "x-axis"){
-            if(this.x < this.distance && this.reverse === false){
-                this.x += 100* this.game.clockTick;
-                this.updateBB();
-                if(this.x >= this.distance){
-                    this.reverse = true;
-                }
-            }
-            else{
-                    
-                    this.x -= 250 * this.game.clockTick;
-                    if(this.x <= this.originalX){
-                        this.reverse = false;
-                    }
-                    this.updateBB();
-                    
-                
-            }
-    }
-    else {
-        if(this.y < this.distance && this.reverse === false){
+        this.x += this.velocity.x * this.game.clockTick;
+        this.y += this.velocity.y * this.game.clockTick;
+        this.updateBB();
 
-            this.y += 50* this.game.clockTick;
-            this.updateBB();
-            if(this.y >= 400){
-                this.reverse = true;
+        if(this.direction === "x-axis"){ // Horizontal
+            if(this.x <= this.xStart){
+                this.velocity.x = 100;
             }
-            // console.log(this.y + "testing");
-
-        }
-        else{
+            else if (this.x >=  this.distance){
+                this.velocity.x = - 100;
+            }
+        } else {                         // Vertical
+            if(this.y <= this.yStart){
+                this.velocity.y = 80;
                 
-                this.y -= 50 * this.game.clockTick;
-                if(this.y <= this.originalY){
-                    this.reverse = false;
-                }
-                this.updateBB();
-                
-            
+            } else if (this.y >=  this.distance){   
+                this.velocity.y = -80;                             
+            }
         }
-    }
         
         
 
     };
    
     draw(ctx) {
-        let brickWidth = this.width / (256);
+        let brickWidth = this.width / (this.divisor);
         for (var i = 0; i < brickWidth; i++) {
-            ctx.drawImage(this.spritesheet, 322, 256, 127, 31, this.x + i * (this.divisor)-this.game.camera.x, this.y-this.game.camera.y, this.divisor, this.height);
+            if(this.game.camera.level === levelOne){
+                ctx.drawImage(this.spritesheet, 322, 256, 127, 31, this.x + i * (this.divisor)-this.game.camera.x, this.y-this.game.camera.y, this.divisor, this.height);
+            }
+            else if (this.level === levelTwo){
+                ctx.drawImage(this.spritesheet, 689, 624, 110, 110, this.x + i * (this.divisor)-this.game.camera.x, this.y-this.game.camera.y, this.divisor, this.height);
+
+            }
+            else if(this.game.camera.level === levelThree){
+                ctx.drawImage(this.spritesheet, 120, 216, 71, 23, this.x + i * (this.divisor)-this.game.camera.x, this.y-this.game.camera.y, this.divisor, this.height);
+
+            }
         }
 
         if(debug){

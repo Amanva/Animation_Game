@@ -16,12 +16,15 @@ class SceneManager {
         this.specDamage = 50;
         this.level = null;
         this.initialSpawn = false;
-        this.loadLevel(levelThree, this.title);
+        this.loadLevel(levelOne, this.title);
         this.myCursor = new Cursor(this.game);
         this.gameOver = false;
+        this.checkpoint = false;
         this.timer = 0;
         this.credit = false;
         this.clicks = 0;
+        this.tempX = 0;
+        this.tempY = 0;
 
     };
 
@@ -55,13 +58,14 @@ class SceneManager {
         this.game.mage.level3Ready = false;
         this.x = 0;
         this.y = 0;
-        this.mage.x = 7080;
-        this.mage.y = 507;
+        this.mage.x = 3303;
+        this.mage.y = -200;
+        this.game.addEntity(new Flag(this.game, 7610, -423));
         this.healthPotion = 0;
         this.manaPotion = 0;
         this.fireBoss = new fireBoss(this.game, 9600, 300);
         this.game.addEntity(this.fireBoss);
-        this.game.addEntityToBegin(new Item(this.game, 500, 300, 0));
+        // this.game.addEntityToBegin(new Item(this.game, 500, 300, 0));
         // this.game.addEntityToBegin(new Portal(this.game, 500, 430, levelThree));
         //mobs
         //chainbot
@@ -83,24 +87,23 @@ class SceneManager {
         this.game.addEntity(new Slime(this.game, 4000, 500));
         // this.game.addEntity(new Slime(this.game, 400, 400));
         
+
         if(level.ground){   
             for (var i = 0; i < level.ground.length; i++) {
                 let ground = level.ground[i];
                 this.game.addEntity(new Ground(this.game, ground.x, ground.y, ground.width, ground.height, ground.div));
             }
-
-            if(level.Monster){
-                for (var i = 0; i < level.Monster.length; i++) {
-                    let monster = level.Monster[i];
-                    this.game.addEntity(new Monster(this.game, monster.x, monster.y));
-                }
+        }
+        if(level.platforms){
+            for (var i = 0; i < level.platforms.length; i++) {
+                let platform = level.platforms[i];
+                this.game.addEntity(new Platform(this.game, platform.x, platform.y, platform.width, platform.height, platform.divisorPlatforms));
             }
-
-            if(level.ground){
-                for (var i = 0; i < level.ground.length; i++) {
-                    let ground = level.ground[i];
-                    this.game.addEntity(new Ground(this.game, ground.x, ground.y, ground.width, ground.height, ground.div, level));
-                }
+        }
+        if(level.movingPlatforms){
+            for (var i = 0; i < level.movingPlatforms.length; i++) {
+                let wall = level.movingPlatforms[i];
+                this.game.addEntity(new movingPlatforms(this.game, wall.x, wall.y, wall.width, wall.height, wall.divisorPlatforms, wall.direction, wall.distance));
             }
         }
         if(level.smallPlatforms){
@@ -122,31 +125,18 @@ class SceneManager {
                 this.game.addEntity(new Wall(this.game, wall.x, wall.y, wall.width, wall.height, wall.div));
             }
         }
-            if(level.smallPlatforms){
-                for (var i = 0; i < level.smallPlatforms.length; i++) {
-                    let tiles = level.smallPlatforms[i];
-                    this.game.addEntity(new smallPlatforms(this.game, tiles.x, tiles.y, tiles.width, tiles.height, tiles.div));
-                }
+        if(level.tiles){
+            for (var i = 0; i < level.tiles.length; i++) {
+                let tiles = level.tiles[i];
+                this.game.addEntity(new Tiles(this.game, tiles.x, tiles.y, tiles.width, tiles.height, tiles.div));
             }
-            if(level.wall){
-                for (var i = 0; i < level.wall.length; i++) {
-                    let wall = level.wall[i];
-                    this.game.addEntity(new Wall(this.game, wall.x, wall.y, wall.width, wall.height, wall.div));
-                }
+        }
+        if(level.gate){
+            for (var i = 0; i < level.gate.length; i++) {
+                let gate = level.gate[i];
+                this.game.addEntity(new Gate(this.game, gate.x, gate.y, gate.wallX, gate.wallY, gate.wallWidth, gate.wallHeight, gate.div));
             }
-            if(level.tiles){
-                for (var i = 0; i < level.tiles.length; i++) {
-                    let tiles = level.tiles[i];
-                    this.game.addEntity(new Tiles(this.game, tiles.x, tiles.y, tiles.width, tiles.height, tiles.div));
-                }
-            }
-            if(level.gate){
-                for (var i = 0; i < level.gate.length; i++) {
-                    let gate = level.gate[i];
-                    this.game.addEntity(new Gate(this.game, gate.x, gate.y, gate.wallX, gate.wallY, gate.wallWidth, gate.wallHeight, gate.div));
-                }
-
-            }
+        }
                     
             // this.mage = new Mage(this.game, 662, 488);
             // this.game.addEntity(this.mage);
@@ -155,21 +145,27 @@ class SceneManager {
         this.game.addEntity(new Sign(this.game, 2700, 70, 6, 40, 1, "How do I go through?"));
         this.game.addEntity(new Sign(this.game, 302, -288, 10, 40, 1, "What does this do?"));
         this.game.addEntity(new Sign(this.game, 7300, 670, 43, 40, 1, "Up I must go"));
-        this.game.addEntity(new BackGround(this.game, 0, 0, 1800, 800, this.level));
-
-        
+        this.game.addEntity(new BackGround(this.game, 0, 0, 1800, 800, this.level));       
     }
         else if(this.level === levelTwo) {
             this.x = 0;
             this.y = 0;
-            this.game.addEntity(new Cave(this.game, 11030, 363, 1031, 439));
+            this.mage.x = 50;
+            this.mage.y = 400;
+            this.game.mage.level2Ready = true;
+            // this.game.addEntity(new Cave(this.game, 11030, 363, 1031, 439));
             //  this.game.addEntity(new SeaMonster(this.game, 690, 250));
-
-            // this.game.addEntity(new Slime(this.game, 690, 250));
-
-            // this.game.addEntity(new Squid(this.game, 690, 250));
-
-            this.game.addEntity(new WaterBoss(this.game, 1580, 400));
+            this.game.addEntity(new Slime(this.game, 980, 50));
+            this.game.addEntity(new Slime(this.game, 1750, 50));
+            this.game.addEntity(new Slime(this.game, 6843, 438));
+            this.game.addEntity(new Slime(this.game, 6943, 438));
+            this.game.addEntity(new Snake(this.game, 2923, 273));
+            this.game.addEntity(new Snake(this.game, 4615, 507));
+            this.game.addEntity(new SeaMonster(this.game, 1864, -68));
+            this.game.addEntity(new SeaMonster(this.game, 8664, 266));
+            this.game.addEntity(new SeaMonster(this.game, 4452.625, 127));
+            this.game.addEntity(new Flag(this.game, 9228, 700));
+            this.game.addEntity(new WaterBoss(this.game, 10680, 550));
             
             if(level.ChainBot){
                 for (var i = 0; i < level.ChainBot.length; i++) {
@@ -210,7 +206,7 @@ class SceneManager {
             if(level.movingPlatforms){
                 for (var i = 0; i < level.movingPlatforms.length; i++) {
                     let wall = level.movingPlatforms[i];
-                    this.game.addEntity(new movingPlatforms(this.game, wall.x, wall.y, wall.width, wall.height, wall.divisorPlatforms, wall.direction, wall.distance));
+                    this.game.addEntity(new movingPlatforms(this.game, wall.x, wall.y, wall.width, wall.height, wall.divisorPlatforms, wall.direction, wall.distance, level));
                 }
             }
             if(level.verticalWall){
@@ -219,26 +215,18 @@ class SceneManager {
                     this.game.addEntity(new verticalWall(this.game, tiles.x, tiles.y, tiles.width, tiles.height, tiles.div));
                 }
             }
-            if(level.smallPlatforms){
-                for (var i = 0; i < level.smallPlatforms.length; i++) {
-                    let tiles = level.smallPlatforms[i];
-                    this.game.addEntity(new smallPlatforms(this.game, tiles.x, tiles.y, tiles.width, tiles.height, tiles.div));
-                }
-            }
+            
             if(level.wall){
                 for (var i = 0; i < level.wall.length; i++) {
                     let wall = level.wall[i];
                     this.game.addEntity(new Wall(this.game, wall.x, wall.y, wall.width, wall.height, wall.div));
                 }
             }
-            if(level.tiles){
-                for (var i = 0; i < level.tiles.length; i++) {
-                    let tiles = level.tiles[i];
-                    this.game.addEntity(new Tiles(this.game, tiles.x, tiles.y, tiles.width, tiles.height, tiles.div));
-                }
-            }
             
-            
+            this.game.addEntity(new Cannon(this.game, 460, 250));
+            this.game.addEntity(new Cannon(this.game, 5270, 250));
+            this.game.addEntity(new Cannon(this.game, 9980, 250));
+            this.game.addEntity(new Sign(this.game, 100, 670, 55, 35, 2, "Num2-Water  special"));
             this.game.addEntity(new BackGround(this.game, 0, 0, 1800, 800, this.level));
 
 
@@ -253,11 +241,15 @@ class SceneManager {
         this.x = 0;
         this.y = 0;
         this.jumpItem = true;
+        this.game.mage.level2Ready = true;
         this.game.mage.level3Ready = true;
-        this.mage.x = 6100;
-        this.mage.y = -600;
+        this.mage.x = 50;
+        this.mage.y = 400;
+        // this.mage.x = 50;
+        // this.mage.y = 400;
         this.earthBoss = new EarthBoss(this.game, 7500, 607);
         this.game.addEntity(this.earthBoss);
+        this.game.addEntity(new Flag(this.game, 6300, 700));
         if(level.boar){
             for (var i = 0; i < level.boar.length; i++) {
                 let boar = level.boar[i];
@@ -276,7 +268,6 @@ class SceneManager {
                 this.game.addEntity(new earthSlime(this.game, slimeEarth.x, slimeEarth.y));
             }
         }
-        this.game.addEntity(new Item(this.game, 400, 400, 1));
         // this.game.addEntity(new Boar(this.game, 400, 500));
         // this.game.addEntity(new earthSlime(this.game, 5400, 500));
         // this.game.addEntity(new mudGuard(this.game, 2400,400,1));
@@ -339,14 +330,14 @@ class SceneManager {
             }
         }
       
-        this.game.addEntity(new Sign(this.game, 100, 670, 75, 45, 10, "Welcome to Earth Biome"));
+        this.game.addEntity(new Sign(this.game, 100, 670, 55, 35, 2, "Num3-Earth  special"));
 
         this.game.addEntity(new Sign(this.game, 2920, -387, 11, 30, 3, "Defeat the monsters near the other shrine and come back"));
-        this.game.addEntity(new Sign(this.game, 1000, 330, 60, 45, 10, "Carefull!!"));
+        this.game.addEntity(new Sign(this.game, 1000, 330, 60, 45, 10, "Carefull!"));
 
-        this.game.addEntity(new Sign(this.game, 6500, 670, 80, 45, 9, "The Minatour awaits you!!"));
-        this.game.addEntity(new Sign(this.game, 6600, 670, 60, 50, 5, "Your gonna need this potion"));
-        this.game.addEntity(new Potion(this.game, 6700, 670, 0));
+        this.game.addEntity(new Sign(this.game, 6500, 670, 43, 35, 3, "The Minatour  awaits you!"));
+        this.game.addEntity(new Sign(this.game, 6700, 670, 55, 30, 4, "Your gonna  need this  potion"));
+        this.game.addEntity(new Potion(this.game, 6800, 670, 0));
 
         this.game.addEntity(new BackGround(this.game, 0, 0, 1800, 800, this.level));
         
@@ -387,12 +378,25 @@ class SceneManager {
         // this.lastMage.curMana = this.lastMana;
         // this.mage = this.lastMage;
         if(this.mageDead){
+            // console.log(this.check.savePlayer())
+            if(this.checkpoint){
+                this.mage = new Mage(this.game, 50,400);
+                this.mage.x = this.tempX;
+                this.mage.y = this.tempY;
+                this.healthPotion = 2;
+                this.mageDead = false;
+                this.checkpoint = false;
+                this.game.addEntityToBegin(this.mage);
+                console.log(this.mage.x, this.mage.y)
+            }
+            else{
             this.mage = new Mage(this.game, 50,400);
             this.mageDead = false;
             this.game.addEntityToBegin(this.mage);
+            }
         }
         if (level.music && !this.title) {
-            console.log("playing");
+            // console.log("playing");
             assetMangager.pauseBackgroundMusic();
             assetMangager.playAsset(level.music);
         }
@@ -412,11 +416,10 @@ class SceneManager {
     potionDrop(x, y){
         const ran = randomInt(11); 
         const typeRan = randomInt(2);
-        if(ran >= 8){
+        if(ran >= 7){
             this.game.addEntityToBegin(new Potion(this.game, x, y, typeRan));
         }
     }
-
     
 
     
@@ -429,9 +432,11 @@ class SceneManager {
             if(this.game.click && (this.game.click.y > 224) && (this.game.click.y < 312) && (this.game.click.x > 733) && (this.game.click.x < 1056)){
                 // this.loadLevel(levelOne, false);
                 this.game.click = false;
-                let cutText = [["Long ago existed humans and a temple of mages."],["But then the forces of darkness invaded and destroyed the temple."]]
-                // let cutText = [["The world is in ruin, you are the only one that can stop the darkness."], ["Go forth The Last Magus and defeat the evil"]];
-                this.CutSceneIntro1 = new CutScene(this.game, cutText, 0, 0, "red",0,0);
+                // let cutText = [["Long ago existed humans and a temple of mages."],["But then the forces of darkness invaded and destroyed the temple."]]
+                // // let cutText = [["The world is in ruin, you are the only one that can stop the darkness."], ["Go forth The Last Magus and defeat the evil"]];
+                // this.CutSceneIntro1 = new CutScene(this.game, cutText, 0, 0, "red",0,0);
+                let cutText = [["Fighting to protect his world"], ["from being consumed"]]
+                this.CutSceneIntro1 = new CutScene2(this.game, cutText, 0, 0, "red",0,0);
                 this.game.addEntity(this.CutSceneIntro1);
                 this.title = false;
             }
@@ -469,7 +474,7 @@ class SceneManager {
                 this.game.click = false;
                 // console.log("go in");
                 this.initialCutSceen = false;
-                this.loadLevel(levelTwo, false)
+                this.loadLevel(levelOne, false)
             }
         }
         if(this.credit){
@@ -524,7 +529,9 @@ class SceneManager {
         // background level 1
         ctx.drawImage(assetMangager.getAsset(levelOne.background), 0, 0, 450, 400);
         // placeholder level 2
-        ctx.drawImage(assetMangager.getAsset(levelOne.background), 0, 400, 450, 400);
+        ctx.drawImage(assetMangager.getAsset(levelTwo.background1), 0, 400, 450, 400);
+        ctx.drawImage(assetMangager.getAsset(levelTwo.background2), 0, 400, 450, 400);
+        ctx.drawImage(assetMangager.getAsset(levelTwo.background3), 0, 400, 450, 400);
         // background level 3
         ctx.drawImage(assetMangager.getAsset(levelThree.background1), 1350, 0, 450, 400);
         ctx.drawImage(assetMangager.getAsset(levelThree.background2), 1350, 0, 450, 400);
@@ -570,13 +577,16 @@ class SceneManager {
         // background level 1
         ctx.drawImage(assetMangager.getAsset(levelOne.background), 0, 0, 450, 400);
         // placeholder level 2
-        ctx.drawImage(assetMangager.getAsset(levelOne.background), 0, 400, 450, 400);
+        ctx.drawImage(assetMangager.getAsset(levelTwo.background1), 0, 400, 450, 400);
+        ctx.drawImage(assetMangager.getAsset(levelTwo.background2), 0, 400, 450, 400);
+        ctx.drawImage(assetMangager.getAsset(levelTwo.background3), 0, 400, 450, 400);
         // background level 3
         ctx.drawImage(assetMangager.getAsset(levelThree.background1), 1350, 0, 450, 400);
         ctx.drawImage(assetMangager.getAsset(levelThree.background2), 1350, 0, 450, 400);
         ctx.drawImage(assetMangager.getAsset(levelThree.background3), 1350, 0, 450, 400);
         // placeholder level 4
         ctx.drawImage(assetMangager.getAsset(levelOne.background), 1350, 400, 450, 400);
+
         ctx.fillStyle = 'Black';
         ctx.fillRect(450, 0, 900, 800);
         ctx.font = '60px "Press Start 2P"';

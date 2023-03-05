@@ -4,11 +4,11 @@ class WaterBoss{
         Object.assign(this, { game, x, y });
         this.velocity = { x: 0, y: 0 };
         this.game.waterBoss = this;
-        this.spritesheetLeft = assetMangager.getAsset("./sprites/waterLevel/hydra_left.png");
-        // this.spritesheetRight = assetMangager.getAsset("./sprites/waterLevel/hydra_right.png");
+        // this.spritesheetLeft = assetMangager.getAsset("./sprites/waterLevel/hydra_left.png");
+        this.spritesheetLeft = assetMangager.getAsset("./sprites/waterLevel/pirate.png");
         this.velocity = { x: 0, y: 0 };
-        this.hp = 400;
-        this.maxHP = 400;
+        this.hp = 350;
+        this.maxHP = 350;
         this.enemHealthBar = new HealthBar(this.game, this);
         this.fallAcc = 300;
         this.state = 0;
@@ -27,14 +27,24 @@ class WaterBoss{
             
         }
 //(spritesheet, xStart, yStart, width, height, frameCount, frameDuration, framePaddingX, framePaddingY, reverse, loop, verticalSprite)
-        // Left run/idle
-        this.animations[0] = new Animator(this.spritesheetLeft, 5, 262, 126, 131, 12, 0.15, 0, 0, true, true, false);
-        // left dead
-        this.animations[1] = new Animator(this.spritesheetLeft, 5, 131, 126, 131, 12, 0.10, 0, 0, true, false, false);
-        // vawe attack
-        this.animations[2] = new Animator(this.spritesheetLeft, 619, 393, 126, 131, 7, 0.15, 0, 0, true, true, false);
-        // squid attack
-        this.animations[3] = new Animator(this.spritesheetLeft, 619, 524, 126, 131, 7, 0.15, 0, 0, true, true, false);
+
+// Left run/idle
+this.animations[0] = new Animator(this.spritesheetLeft, 94, 0, 31, 15, 4, 0.2, 0, 0, true, true, false);
+// left dead
+this.animations[1] = new Animator(this.spritesheetLeft, 0, 15, 31, 15, 6, 0.15, 0, 0, true, true, false);
+//squid attack
+this.animations[2] = new Animator(this.spritesheetLeft, 32, 45, 31, 15, 6, 0.15, 0, 0, true, true, false);
+// sword attack
+this.animations[3] = new Animator(this.spritesheetLeft, 32, 30, 31, 15, 6, 0.1, 0, 0, true, true, false);
+
+        // // Left run/idle
+        // this.animations[0] = new Animator(this.spritesheetLeft, 5, 262, 126, 131, 12, 0.15, 0, 0, true, true, false);
+        // // left dead
+        // this.animations[1] = new Animator(this.spritesheetLeft, 5, 131, 126, 131, 12, 0.10, 0, 0, true, false, false);
+        // // vawe attack
+        // this.animations[2] = new Animator(this.spritesheetLeft, 619, 393, 126, 131, 7, 0.15, 0, 0, true, true, false);
+        // // squid attack
+        // this.animations[3] = new Animator(this.spritesheetLeft, 619, 524, 126, 131, 7, 0.15, 0, 0, true, true, false);
         // // left wave attack
         // this.animations[3] = new Animator(this.spritesheetLeft, 0, 0, 104, 155, 14, 0.20, 0, 0, true, true, false);
         // // hit
@@ -46,7 +56,7 @@ class WaterBoss{
 
     updateBB() {
         this.lastBB = this.BB;
-        this.BB = new BoundingBox(this.x+40, this.y+70, 180, 172);
+        this.BB = new BoundingBox(this.x+30, this.y+10, 70, 60);
     };
 
     update() {
@@ -73,16 +83,11 @@ class WaterBoss{
             if (entity.BB && that.BB.collide(entity.BB)) {
                 if (entity instanceof Projectile  && that.hp > 0){
                     entity.removeFromWorld = true;
-                    that.hp -= 200;
                     
                 } else if (that.hp <= 0) {
                     that.state = 1; // death
                     that.velocity.x = 0;
                     that.dead = true;
-                    if(that.animations[1].isAlmostDone(TICK)){
-                        that.removeFromWorld = true;
-                        
-                    }
                                             
                 }
                 //landing
@@ -92,17 +97,16 @@ class WaterBoss{
                                  && (that.lastBB.bottom >= entity.BB.top)){
                   
                         that.velocity.y = 0;
-                        that.y = entity.BB.top - that.BB.height-70;
+                        that.y = entity.BB.top - that.BB.height-10;
                         // that.updateBB();
                     } 
                 
                 } 
                 
-                
             } 
 
             // Decide to approach the mage
-            if (entity instanceof Mage && Math.round(that.BB.bottom) === Math.round(entity.BB.bottom)) { // if both are on same surfase
+            if (entity instanceof Mage && Math.floor(that.BB.bottom) === Math.floor(entity.BB.bottom)) { // if both are on same surfase
                 if (LOWER_BOUND <= Math.abs(that.BB.distance(entity.BB)) 
                         && Math.abs(that.BB.distance(entity.BB)) <= UPPER_BOUND) { //Mage is close and on the floor, then vawe attack
                     if (that.BB && that.BB.distance(entity.BB) < 0) { // Mage is on the Right side
@@ -159,19 +163,19 @@ class WaterBoss{
                 that.velocity.x = 0;
                 if (that.animations[2].isAlmostDone(TICK)){ //IF animation is done and attack_timing is done then shoot
                     that.attackCoolDown = 0;
-                    that.game.addEntityToBegin(new Wave(that.game, that.x, that.y));
+                    that.game.addEntityToBegin(new Wave(that.game, that.x-100, that.y-5));
                     that.animations[2].elapsedTime = 0;
                 
-                } 
+                }
 
             } else if (!that.animations[3].isAnimationDone()){ //wait until animation is finished here.
                 that.state = 3;
                 that.velocity.x = 0;
                 if (that.animations[3].isAlmostDone(TICK)){ //IF animation is done and attack_timing is done then shoot
                     that.attackCoolDown = 0;
-                    that.game.addEntityToBegin(new Squid(that.game, that.x-20, that.y-100));
+                    that.game.addEntityToBegin(new Squid(that.game, that.x-50, that.y-5));
                     that.animations[3].elapsedTime = 0;
-                    console.log('Im here');
+                    // console.log('Im here');
                 }
             }
 
@@ -184,31 +188,36 @@ class WaterBoss{
             }
             
         }); //end of forEach
-
+        if(this.animations[1].isAlmostDone(TICK)){
+            // console.log("print");
+            this.game.addEntityToBegin(new Item(this.game, this.x, this.y-30, 1));
+            this.game.addEntityToBegin(new Portal(this.game, 10464, 130, levelThree));
+            this.removeFromWorld = true; 
+        }
        
           
     };//end update() 
-
+    loseHealth(damageRecieved){
+        this.hp -= damageRecieved;
+    
+    };
     draw(ctx) {
         this.enemHealthBar.draw(ctx);
-        this.animations[this.state].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, 2.2);
-        // this.animations[1].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x+600, this.y-this.game.camera.y, 1);
-        // this.animations[2].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x+900, this.y-this.game.camera.y, 1);
+        this.animations[this.state].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, 5);
            
-              
         if(debug){
             //draw the boundingBox
             ctx.strokeStyle = 'Red';
             ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y-this.game.camera.y, this.BB.width , this.BB.height);
             // TEST draw text to canvas
-            ctx.font = "20px Arial";
-            ctx.fillStyle = "white";
-            ctx.fillText("fr0: " + this.animations[0].currentFrame(), this.x, this.y);
-            ctx.fillText("fr1: " + this.animations[1].currentFrame(), this.x+60, this.y);
-            ctx.fillText("fr2: " + this.animations[2].currentFrame(), this.x+120, this.y);
-            ctx.fillText("fr2: " + this.animations[2].isAnimationDone(), this.x+120, this.y+25);
-            ctx.fillText("fr0: " + this.animations[0].isAnimationDone(), this.x, this.y+25);
-            ctx.fillText("game.clockTick: " + this.attackCoolDown, 660, 90);
+            // ctx.font = "20px Arial";
+            // ctx.fillStyle = "white";
+            // ctx.fillText("fr0: " + this.animations[0].currentFrame(), this.x, this.y);
+            // ctx.fillText("fr1: " + this.animations[1].currentFrame(), this.x+60, this.y);
+            // ctx.fillText("fr2: " + this.animations[2].currentFrame(), this.x+120, this.y);
+            // ctx.fillText("fr2: " + this.animations[2].isAnimationDone(), this.x+120, this.y+25);
+            // ctx.fillText("fr0: " + this.animations[0].isAnimationDone(), this.x, this.y+25);
+            // // ctx.fillText("game.clockTick: " + this.attackCoolDown, 660, 90);
 
         }
                          
@@ -217,7 +226,7 @@ class WaterBoss{
 };
 
 
-//********************                                 Vawe object forthe vawe attack                   *******************************        
+//********************                                 Wave object forthe vawe attack    (SWORD FOR PIRATE)               *******************************        
 
 
 class Wave {
@@ -225,21 +234,24 @@ class Wave {
         Object.assign(this, { game, x, y });
         this.velocity = { x: 0, y: 0 };
         this.game.wave = this;
-        this.spritesheetLeft = assetMangager.getAsset("./sprites/waterLevel/hydra_left.png");
+        this.spritesheetLeft = assetMangager.getAsset("./sprites/waterLevel/pirate.png");
         this.velocity = { x: 0, y: 0 };
         this.animations = [];
         this.speed = 500;
+        this.hit = false;
+        this.playerHit = false;
         this.dead = false;
-        this.animations.push(new Animator(this.spritesheetLeft, 0, 0, 104, 155, 14, 0.20, 0, 0, true, false, false));
+        this.animations.push(new Animator(this.spritesheetLeft, 0, 45, 31, 15, 1, 0.3, 0, 0, true, true, false));
         this.initailX = this.x;
 
-        this.shot = {x: this.game.mouse.x + this.game.camera.x, y: this.game.mouse.y + this.game.camera.y};
-        this.velocity.x = -600;
+        // this.shot = {x: this.game.mouse.x + this.game.camera.x, y: this.game.mouse.y + this.game.camera.y};
+        this.velocity.x = -900;
+        // this.velocity.x = 0;
         this.updateBB();
     };
     updateBB() {
         this.lastBB = this.BB;
-        this.BB = new BoundingBox(this.x, this.y, 104, 155);
+        this.BB = new BoundingBox(this.x+15, this.y+50, 50, 15);
     };
     update(){
         const TICK = this.game.clockTick;
@@ -257,7 +269,7 @@ class Wave {
                 }
                 if(entity instanceof Mage){
                     that.removeFromWorld = true;
-                    entity.removeHealth(10);
+                    that.hit = true;
 
                 }
 
@@ -270,19 +282,23 @@ class Wave {
                 }
             }
         });
+        if(this.hit && !this.playerHit){
+            this.game.mage.removeHealth(25);
+            this.playerHit = true;
+        }
     };
 
     draw(ctx){
         // this.animations[0].drawAngle(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, 2, this.angle);
-        this.animations[0].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, 1.5);
+        this.animations[0].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, 5);
         if(debug){
             ctx.strokeStyle = 'Red';
             ctx.strokeRect(this.BB.x-this.game.camera.x, this.BB.y-this.game.camera.y, this.BB.width, this.BB.height);
 
 
-            ctx.font = "20px Arial";
-            ctx.fillStyle = "white";
-            ctx.fillText("vawe x : " + this.initailX, 500, 350);
+            // ctx.font = "20px Arial";
+            // ctx.fillStyle = "white";
+            // ctx.fillText("vawe x : " + this.initailX, 500, 350);
             // ctx.fillText("camera srtart-x : " + this.START_X, 500, 390);
             }
     };
@@ -347,24 +363,21 @@ class Squid {
         this.x += this.velocity.x * TICK;
         this.y += this.velocity.y * TICK;
         this.updateBB();
+        var that = this;
 
-        // this.game.entities.forEach(function (entity) {
-        //     if (entity instanceof Projectile && this.BB.collide(entity.BB)){
-        //         entity.removeFromWorld = true;
-        //         this.dead = true;
-        //         this.state = 1;
-        //     } 
-        // });
+        that.game.entities.forEach(function (entity) {
+            if (entity instanceof Projectile && that.BB.collide(entity.BB)){
+                entity.removeFromWorld = true;
+                that.dead = true;
+                that.state = 1;
+            } 
+        });
         
         
-        // if(this.dead) {
-        //     // this.state = 1;
-        //     // this.velocity.x = 0;
-        //     // this.velocity.y = 0;
-        //     // if (this.animations[1][this.facing].isAlmostDone(TICK)){
-        //         this.removeFromWorld = true;
+        if(this.dead) {
+                this.removeFromWorld = true;
                 
-        //     }
+            }
 
         if (this.animations[2][this.facing].isAlmostDone(TICK)){
             this.state =0;
@@ -387,7 +400,7 @@ class Squid {
         const RUN = 350;
         this.updateBB();
         let that = this;
-        this.game.entities.forEach(function (entity) {   
+        this.game.entities.forEach(function (entity) {
             if(!that.dead){     
             if (entity instanceof Mage) {
                 let middleMage = { x: entity.BB.left + entity.BB.width / 2, y: entity.BB.top + entity.BB.height / 2 };
@@ -416,7 +429,15 @@ class Squid {
 
                         } else if(yDis < 0) { //Mage is above
                             that.velocity.y = -RUN;
+                        
+                        } else if( Math.round(yDis) === 0 && xDis < 0){
+                            that.velocity.x = -RUN;
+
+                        }else if( Math.round(yDis) === 0 && xDis > 0){
+                            that.velocity.x = RUN;
                         }
+
+                        
                     }
 
                 } else if (!mageDetected) {
