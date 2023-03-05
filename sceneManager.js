@@ -16,7 +16,7 @@ class SceneManager {
         this.specDamage = 50;
         this.level = null;
         this.initialSpawn = false;
-        this.loadLevel(levelTwo, this.title);
+        this.loadLevel(levelOne, this.title);
         this.myCursor = new Cursor(this.game);
         this.gameOver = false;
         this.checkpoint = false;
@@ -49,8 +49,6 @@ class SceneManager {
             this.mage = new Mage(this.game, 50,400);
             this.game.addEntity(this.mage);
             this.initialSpawn = true;
-        }else{
-            this.mage = new Mage(this.game, 50,400);
         }
         
         if(this.level === levelOne){
@@ -151,10 +149,10 @@ class SceneManager {
         this.game.addEntity(new BackGround(this.game, 0, 0, 1800, 800, this.level));       
     }
         else if(this.level === levelTwo) {
-            this.x = 0;
-            this.y = 0;
             this.mage.x = 50;
             this.mage.y = 400;
+            this.x = 0;
+            this.y = 0;
             this.game.mage.level2Ready = true;
             // this.game.addEntity(new Cave(this.game, 11030, 363, 1031, 439));
             //  this.game.addEntity(new SeaMonster(this.game, 690, 250));
@@ -386,24 +384,33 @@ class SceneManager {
             // console.log(this.check.savePlayer())
             // console.log("gggg");
             if(this.checkpoint){
+                this.mage = new Mage(this.game, 50,400);
                 this.mage.x = this.tempX;
                 this.mage.y = this.tempY;
                 // this.mage.curMana = 100;
                 this.healthPotion = 2;
-                // if(this.level === levelTwo){
-                //     this.game.mage.level2Ready = true;
-                // }
-                // else if(this.level === levelThree){
-                //     this.game.mage.level2Ready = true;
-                //     this.game.mage.level3Ready = true;
-                // }
+                if(this.level === levelTwo){
+                    this.game.mage.level2Ready = true;
+                }
+                else if(this.level === levelThree){
+                    this.game.mage.level2Ready = true;
+                    this.game.mage.level3Ready = true;
+                }
                 this.mageDead = false;
                 this.checkpoint = false;
                 this.game.addEntityToBegin(this.mage);
                 // console.log(this.mage.x, this.mage.y)
             }
             else{
+                this.mage = new Mage(this.game, 50,400);
             // this.mage = new Mage(this.game, 50,400);
+            if(this.level === levelTwo){
+                this.game.mage.level2Ready = true;
+            }
+            else if(this.level === levelThree){
+                this.game.mage.level2Ready = true;
+                this.game.mage.level3Ready = true;
+            }
             this.mageDead = false;
             this.game.addEntityToBegin(this.mage);
             }

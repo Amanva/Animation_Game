@@ -272,7 +272,7 @@ class fireBoss{
             
                             if(that.AttackBB.collide(entity.BB) && that.state === 2 && that.animations[that.state][that.facing].currentFrame() >= 10 && that.animations[that.state][that.facing].currentFrame() <= 12 && !that.hit){
                                     that.hit = true;
-                                    entity.removeHealth(100);
+                                    entity.removeHealth(20);
                                     that.updateBB();
                             }
                                   

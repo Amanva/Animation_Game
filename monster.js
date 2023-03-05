@@ -199,12 +199,12 @@ for(var l = 0; l <= 3; l++){
                                 that.updateBB(); 
                     }
                     if (((entity instanceof movingPlatforms)) && (that.lastBB.left >= entity.BB.right) && (that.lastBB.top < entity.BB.bottom-5)){               
-                        that.x = entity.rightBB.right - that.xBBOffset;
+                        that.x = entity.rightBB.right - that.lastBB.width;
                         that.velocity.x = 0; 
                         that.updateBB(); 
                     }
                     if (((entity instanceof movingPlatforms)) && (that.lastBB.right <= entity.BB.left) && (that.lastBB.top < entity.BB.bottom-5)){               
-                        that.x = entity.leftBB.left - PARAMS.PLAYERWIDTH-that.xBBOffset;
+                        that.x = entity.leftBB.left - that.lastBB.width;
                         that.velocity.x = 0; 
                         that.updateBB(); 
                     }
