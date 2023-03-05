@@ -462,6 +462,10 @@ var levelThree = {
         {x:4000, y:-700},
         {x:2500, y:100},
 
+    ],
+
+    triggerMusic: [
+        {x:6190,y:450},
     ]
     
 };

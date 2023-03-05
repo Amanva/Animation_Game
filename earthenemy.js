@@ -3,8 +3,8 @@ class Boar{
     constructor(game, x, y){
      Object.assign(this, { game, x, y });
      this.velocity = { x: 0, y: 0 };
-     this.hp = 10;
-     this.maxHP = 10;
+     this.hp = 100;
+     this.maxHP = 100;
      this.healthBar = new HealthBar(this.game, this);
      this.fallAcc = 200;        
      this.scale = 2;
@@ -463,9 +463,9 @@ class earthSlime{
         this.BB;
         this.lastMageDetection;
         this.dead = false;
-        this.hp = 50;
+        this.hp = 30;
         this.healthbar = new HealthBar(this.game, this);
-        this.maxHP = 50;
+        this.maxHP = 30;
         this.hit = false;
         this.attackCoolDown = 0;
     };
@@ -575,7 +575,7 @@ class earthSlime{
             if (entity.BB && that.BB.collide(entity.BB)) {
                 if (that.velocity.y >= 0) { 
                     if ((entity instanceof Ground || (entity instanceof Platform) ) && (that.lastBB.bottom >= entity.BB.top) ){
-                        that.y = entity.BB.top-105;
+                        that.y = entity.BB.top-107;
                         that.velocity.y = 0;
                         that.updateBB();
                         }
@@ -603,13 +603,13 @@ class earthSlime{
         this.lastMageDetection =  this.MageDetection;
         this.MageDetection = new BoundingBox(this.x-300,this.y,700,110);
         if(this.state === 0){
-            this.BB = new BoundingBox(this.x+30,this.y+50,50,55);
+            this.BB = new BoundingBox(this.x+30,this.y+50,50,60);
         }
         else if(this.state === 1){
-            this.BB = new BoundingBox(this.x+25,this.y+30,60,75);
+            this.BB = new BoundingBox(this.x+25,this.y+30,60,80);
         }
         else if(this.state === 2){
-            this.BB = new BoundingBox(this.x+25,this.y+30,60,75);
+            this.BB = new BoundingBox(this.x+25,this.y+30,60,80);
         }
     }
 

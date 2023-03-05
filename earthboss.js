@@ -11,9 +11,9 @@ class EarthBoss {
         this.facing = 0; //0=left, 1 = right
         this.state = 1; // 0 = idle, 1 = walking , 2 = dash, 3 = slash, 4 = stab, 5 = spin
         this.dead = false;
-        this.hp = 150;
+        this.hp = 200;
         this.healthbar = new HealthBar(this.game, this);
-        this.maxHP = 150;
+        this.maxHP = 200;
         this.hit = false;
         this.attackCoolDown = 0;
         this.attackFrameCD = 0;

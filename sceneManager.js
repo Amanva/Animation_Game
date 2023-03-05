@@ -254,7 +254,7 @@ class SceneManager {
         this.y = 0;
         this.jumpItem = true;
         this.game.mage.level3Ready = true;
-        this.mage.x = 6200;
+        this.mage.x = 6100;
         this.mage.y = -600;
         this.earthBoss = new EarthBoss(this.game, 7500, 607);
         this.game.addEntity(this.earthBoss);
@@ -330,6 +330,12 @@ class SceneManager {
             for (var i = 0; i < level.trigger.length; i++) {
                 let triggers = level.trigger[i];
                 this.game.addEntity(new trigger(this.game, triggers.x, triggers.y, triggers.wallX, triggers.wallY, triggers.wallWidth,triggers.wallHeight, triggers.div));
+            }
+        }
+        if(level.triggerMusic){
+            for (var i = 0; i < level.triggerMusic.length; i++) {
+                let triggers = level.triggerMusic[i];
+                this.game.addEntity(new triggerMusic(this.game, triggers.x, triggers.y));
             }
         }
       

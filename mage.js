@@ -191,6 +191,8 @@ class Mage {
                 }
             }
             if(this.specialAttack1){
+                assetMangager.playAsset("./sounds/sfx/fire.mp3");
+
                 this.state = this.states.skullAttack;
                 this.velocity.x = 0;
                 if(this.animations[this.states.skullAttack][this.facing].isAlmostDone(TICK)){
@@ -209,6 +211,7 @@ class Mage {
                 } 
             }
              if(this.specialAttack3){
+                assetMangager.playAsset("./sounds/sfx/earth.mp3");
                 this.state = this.states.skullAttack;
                 this.velocity.x = 0;
                 if(this.animations[this.states.skullAttack][this.facing].isAlmostDone(TICK)){

@@ -81,6 +81,9 @@ assetMangager.queueDownload("./sounds/sfx/playerhit.mp3");
 assetMangager.queueDownload("./sounds/sfx/minAttack.mp3");
 assetMangager.queueDownload("./sounds/sfx/minRage.mp3");
 assetMangager.queueDownload("./sounds/sfx/drink.mp3");
+assetMangager.queueDownload("./sounds/sfx/bossFight.mp3");
+assetMangager.queueDownload("./sounds/sfx/fire.mp3");
+assetMangager.queueDownload("./sounds/sfx/earth.mp3");
 
 assetMangager.queueDownload("./sounds/sfx/zombiehit.wav");
 
