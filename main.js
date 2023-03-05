@@ -81,12 +81,12 @@ assetMangager.queueDownload("./sprites/save.png");
 assetMangager.queueDownload("./sprites/waterLevel/cannonBall.png");
 assetMangager.queueDownload("./sprites/waterLevel/cannon.png"); 
 // sounds
+assetMangager.queueDownload("./sounds/sfx/bossFight.mp3");
 assetMangager.queueDownload("./sounds/music/background.wav");
 assetMangager.queueDownload("./sounds/sfx/playerhit.mp3");
 assetMangager.queueDownload("./sounds/sfx/minAttack.mp3");
 assetMangager.queueDownload("./sounds/sfx/minRage.mp3");
 assetMangager.queueDownload("./sounds/sfx/drink.mp3");
-assetMangager.queueDownload("./sounds/sfx/bossFight.mp3");
 assetMangager.queueDownload("./sounds/sfx/fire.mp3");
 assetMangager.queueDownload("./sounds/sfx/earth.mp3");
 
@@ -111,6 +111,7 @@ assetMangager.queueDownload("./sounds/metal_hit_woosh.wav");
 
 assetMangager.downloadAll(() => {
 assetMangager.autoRepeat("./sounds/music/background.wav");
+assetMangager.autoRepeat("./sounds/sfx/bossFight.mp3");
 var canvas = document.getElementById('gameWorld');
 var ctx = canvas.getContext('2d');
 ctx.imageSmoothingEnabled = false;

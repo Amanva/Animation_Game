@@ -20,8 +20,8 @@ class triggerMusic{
             if (entity instanceof Mage){
                 
                 if(entity.BB.collide(that.BB) && !that.collision){
+                    assetMangager.pauseBackgroundMusic("./sounds/music/background.wav");
                     assetMangager.playAsset("./sounds/sfx/bossFight.mp3");
-
                 }
                 
 

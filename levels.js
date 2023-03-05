@@ -172,6 +172,8 @@ var levelOne = {
 };
 
 var levelTwo = {
+    music: "./sounds/music/background.wav",
+
     background1: "./sprites/Background layers/water/sand.png",
     background2: "./sprites/Background layers/water/far.png",
     background3: "./sprites/Background layers/water/foregound-merged.png",
@@ -238,6 +240,7 @@ var levelTwo = {
 };
 
 var levelThree = {
+    music: "./sounds/music/background.wav",
     background1: "./sprites/Background layers/Background1.png",
     background2: "./sprites/Background layers/Background2.png",
     background3: "./sprites/Background layers/Background3.png",
