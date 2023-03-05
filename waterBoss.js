@@ -7,8 +7,8 @@ class WaterBoss{
         // this.spritesheetLeft = assetMangager.getAsset("./sprites/waterLevel/hydra_left.png");
         this.spritesheetLeft = assetMangager.getAsset("./sprites/waterLevel/pirate.png");
         this.velocity = { x: 0, y: 0 };
-        this.hp = 400;
-        this.maxHP = 400;
+        this.hp = 350;
+        this.maxHP = 350;
         this.enemHealthBar = new HealthBar(this.game, this);
         this.fallAcc = 300;
         this.state = 0;
@@ -83,17 +83,11 @@ this.animations[3] = new Animator(this.spritesheetLeft, 32, 30, 31, 15, 6, 0.1, 
             if (entity.BB && that.BB.collide(entity.BB)) {
                 if (entity instanceof Projectile  && that.hp > 0){
                     entity.removeFromWorld = true;
-                    that.hp -= 200;
                     
                 } else if (that.hp <= 0) {
                     that.state = 1; // death
                     that.velocity.x = 0;
-                    // that.dead = true;
-                    if(that.animations[1].isAlmostDone(TICK)){
-                        that.game.addEntityToBegin(new Item(that.game, 400, 400, 1));
-                        that.removeFromWorld = true;
-                        
-                    }
+                    that.dead = true;
                                             
                 }
                 //landing
@@ -194,11 +188,19 @@ this.animations[3] = new Animator(this.spritesheetLeft, 32, 30, 31, 15, 6, 0.1, 
             }
             
         }); //end of forEach
-
+        if(this.animations[1].isAlmostDone(TICK)){
+            // console.log("print");
+            this.game.addEntityToBegin(new Item(this.game, this.x, this.y-30, 1));
+            this.game.addEntityToBegin(new Portal(this.game, 10464, 130, levelThree));
+            this.removeFromWorld = true; 
+        }
        
           
     };//end update() 
-
+    loseHealth(damageRecieved){
+        this.hp -= damageRecieved;
+    
+    };
     draw(ctx) {
         this.enemHealthBar.draw(ctx);
         this.animations[this.state].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, 5);
@@ -236,6 +238,8 @@ class Wave {
         this.velocity = { x: 0, y: 0 };
         this.animations = [];
         this.speed = 500;
+        this.hit = false;
+        this.playerHit = false;
         this.dead = false;
         this.animations.push(new Animator(this.spritesheetLeft, 0, 45, 31, 15, 1, 0.3, 0, 0, true, true, false));
         this.initailX = this.x;
@@ -265,7 +269,7 @@ class Wave {
                 }
                 if(entity instanceof Mage){
                     that.removeFromWorld = true;
-                    entity.removeHealth(100);
+                    that.hit = true;
 
                 }
 
@@ -278,6 +282,10 @@ class Wave {
                 }
             }
         });
+        if(this.hit && !this.playerHit){
+            this.game.mage.removeHealth(25);
+            this.playerHit = true;
+        }
     };
 
     draw(ctx){
@@ -288,9 +296,9 @@ class Wave {
             ctx.strokeRect(this.BB.x-this.game.camera.x, this.BB.y-this.game.camera.y, this.BB.width, this.BB.height);
 
 
-            ctx.font = "20px Arial";
-            ctx.fillStyle = "white";
-            ctx.fillText("vawe x : " + this.initailX, 500, 350);
+            // ctx.font = "20px Arial";
+            // ctx.fillStyle = "white";
+            // ctx.fillText("vawe x : " + this.initailX, 500, 350);
             // ctx.fillText("camera srtart-x : " + this.START_X, 500, 390);
             }
     };

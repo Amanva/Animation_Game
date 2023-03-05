@@ -58,7 +58,7 @@ assetMangager.queueDownload("./sprites/enemies/chain_bot_death.png");
 // assetMangager.queueDownload("./sprites/enemies/slime.png")
 assetMangager.queueDownload("./sprites/Lava64.png");
 assetMangager.queueDownload("./sprites/Background.png");
-assetMangager.queueDownload("./sprites/monsterLeft.png");
+assetMangager.queueDownload("./sprites/monsterRight.png");
 assetMangager.queueDownload("./sprites/monster-Riight-Attack.png");
 assetMangager.queueDownload("./sprites/monster-Left-Fly.png");
 assetMangager.queueDownload("./sprites/monster-idle.png");
@@ -93,6 +93,7 @@ assetMangager.queueDownload("./sprites/waterLevel/pirate.png");
 assetMangager.queueDownload("./sprites/waterLevel/squid.png");
 assetMangager.queueDownload("./sprites/waterLevel/squidRight.png");
 assetMangager.queueDownload("./sprites/waterLevel/cave.png");
+assetMangager.queueDownload("./sprites/enemies/slime_blue.png");
 
 //sounds
 assetMangager.queueDownload("./sounds/blood_splash.wav");

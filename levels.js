@@ -198,7 +198,7 @@ var levelTwo = {
         {x:5700 ,y:500, width: 220, height:64, divisorPlatforms:110}, 
         {x:6200 ,y:500, width: 110, height:64, divisorPlatforms:110}, 
 
-        {x:9000, y:450, width: 110, height:64, divisorPlatforms:110},
+        {x:9000, y:500, width: 110, height:64, divisorPlatforms:110},
         {x:9200, y:250, width: 660, height:64, divisorPlatforms:110},
         {x:10000, y:450, width: 1100, height:64, divisorPlatforms:110},
         
@@ -215,9 +215,9 @@ var levelTwo = {
 
     ChainBot: [
    
-        {x:850, y:50},
-        {x:2400, y:50},
-        {x:3900, y:300},
+        // {x:850, y:50},
+        // {x:2400, y:50},
+        {x:4069, y:117},
         {x:5700, y:50},
         {x:8500, y:450},
         {x:9200, y:50},

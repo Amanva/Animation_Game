@@ -493,7 +493,12 @@ class Slime{
         Object.assign(this, { game, x, y });
         this.velocity = { x: 0, y: 0 };
 
-        this.spritesheet = assetMangager.getAsset("./sprites/enemies/slime.png");
+        if (this.level === levelTwo){
+            this.spritesheet = assetMangager.getAsset("./sprites/enemies/slime_blue.png"); 
+        } else {
+            this.spritesheet = assetMangager.getAsset("./sprites/enemies/slime.png");
+
+        }
         this.state = 1;
         this.facing = 0;
         this.animations = [];
@@ -501,9 +506,9 @@ class Slime{
         this.updateBB();
         this.lastMageDetection;
         this.dead = false;
-        this.hp = 50;
+        this.hp = 30;
         this.healthbar = new HealthBar(this.game, this);
-        this.maxHP = 50;
+        this.maxHP = 30;
         this.hit = false;
         this.attackCoolDown =0;
 

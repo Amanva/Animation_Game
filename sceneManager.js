@@ -16,7 +16,7 @@ class SceneManager {
         this.specDamage = 50;
         this.level = null;
         this.initialSpawn = false;
-        this.loadLevel(levelTwo, this.title);
+        this.loadLevel(levelOne, this.title);
         this.myCursor = new Cursor(this.game);
         this.gameOver = false;
         this.checkpoint = false;
@@ -58,14 +58,14 @@ class SceneManager {
         this.game.mage.level3Ready = false;
         this.x = 0;
         this.y = 0;
-        this.mage.x = 7000;
-        this.mage.y = 400;
+        this.mage.x = 3303;
+        this.mage.y = -200;
         this.game.addEntity(new Flag(this.game, 7610, -423));
         this.healthPotion = 0;
         this.manaPotion = 0;
         this.fireBoss = new fireBoss(this.game, 9600, 300);
         this.game.addEntity(this.fireBoss);
-        this.game.addEntityToBegin(new Item(this.game, 500, 300, 0));
+        // this.game.addEntityToBegin(new Item(this.game, 500, 300, 0));
         // this.game.addEntityToBegin(new Portal(this.game, 500, 430, levelThree));
         //mobs
         //chainbot
@@ -150,16 +150,20 @@ class SceneManager {
         else if(this.level === levelTwo) {
             this.x = 0;
             this.y = 0;
-            this.mage.x = 7000;
+            this.mage.x = 50;
             this.mage.y = 400;
             this.game.mage.level2Ready = true;
             // this.game.addEntity(new Cave(this.game, 11030, 363, 1031, 439));
             //  this.game.addEntity(new SeaMonster(this.game, 690, 250));
-
             this.game.addEntity(new Slime(this.game, 980, 50));
             this.game.addEntity(new Slime(this.game, 1750, 50));
-            // this.game.addEntity(new Snake(this.game, 400, 400));
-            // this.game.addEntity(new Squid(this.game, 690, 250));
+            this.game.addEntity(new Slime(this.game, 6843, 438));
+            this.game.addEntity(new Slime(this.game, 6943, 438));
+            this.game.addEntity(new Snake(this.game, 2923, 273));
+            this.game.addEntity(new Snake(this.game, 4615, 507));
+            this.game.addEntity(new SeaMonster(this.game, 1864, -68));
+            this.game.addEntity(new SeaMonster(this.game, 8664, 266));
+            this.game.addEntity(new SeaMonster(this.game, 4452.625, 127));
             this.game.addEntity(new Flag(this.game, 9228, 700));
             this.game.addEntity(new WaterBoss(this.game, 10680, 550));
             
@@ -239,7 +243,7 @@ class SceneManager {
         this.jumpItem = true;
         this.game.mage.level2Ready = true;
         this.game.mage.level3Ready = true;
-        this.mage.x = 6200;
+        this.mage.x = 50;
         this.mage.y = 400;
         // this.mage.x = 50;
         // this.mage.y = 400;
@@ -369,7 +373,7 @@ class SceneManager {
             }
         }
         if (level.music && !this.title) {
-            console.log("playing");
+            // console.log("playing");
             assetMangager.pauseBackgroundMusic();
             assetMangager.playAsset(level.music);
         }
@@ -389,7 +393,7 @@ class SceneManager {
     potionDrop(x, y){
         const ran = randomInt(11); 
         const typeRan = randomInt(2);
-        if(ran >= 8){
+        if(ran >= 7){
             this.game.addEntityToBegin(new Potion(this.game, x, y, typeRan));
         }
     }

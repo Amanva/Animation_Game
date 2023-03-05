@@ -5,6 +5,8 @@ class Bomb {
         this.velocity = { x: 0, y: 0 };
         this.state = 0;
         this.dead = false;
+        this.hit = false;
+        this.playerHit = false;
         this.fallAcc = -170;
         this.spritesheet = assetMangager.getAsset("./sprites/waterLevel/bomb.png");
         this.updateBB();
@@ -65,8 +67,7 @@ class Bomb {
             } else if (entity instanceof Mage && ((entity.BB && that.explodeBB.collide(entity.BB)))) { //Kill the Mage
                 that.state = 1; 
                 that.dead = true;
-                entity.dead = true;
-                entity.removeHealth(100);
+                that.hit = true;
                 console.log("Mage hit");
                 
             }
@@ -81,7 +82,10 @@ class Bomb {
 
         }); //end of forEach
         
-    
+    if(this.hit && !this.playerHit){
+        this.playerHit = true;
+        this.game.mage.removeHealth(30);
+    }
     }; //end update
 
     draw(ctx) {

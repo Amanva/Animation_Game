@@ -414,10 +414,10 @@ class Mage {
             if(this.y >= 700){
                 this.dead = true;
             }
-             if(this.velocity.x < 0){
+             if(this.velocity.x < 0 && !this.dead){
                 this.facing = 1;
             }
-            if(this.velocity.x > 0){
+            if(this.velocity.x > 0 && !this.dead){
                 this.facing = 0;
             }
             if(this.x < -40){
@@ -452,7 +452,7 @@ class Mage {
     }
     getMana(){
         if (this.curMana < this.maxMana) {
-        this.curMana += 5;
+        this.curMana += 10;
         }
     }
     deadPlayer(TICK, DE_ACC){

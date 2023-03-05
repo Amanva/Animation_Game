@@ -105,9 +105,9 @@ class Cannon{
             ctx.strokeStyle = 'Red';
             ctx.strokeRect(this.BB.x - this.game.camera.x, this.BB.y-this.game.camera.y, this.BB.width , this.BB.height);
             // TEST draw text to canvas
-            ctx.font = "20px Arial";
-            ctx.fillStyle = "white";
-            ctx.fillText("attackCoolDown: " + this.attackCoolDown, this.x, this.y+220);
+            // ctx.font = "20px Arial";
+            // ctx.fillStyle = "white";
+            // ctx.fillText("attackCoolDown: " + this.attackCoolDown, this.x, this.y+220);
 
         }
                          

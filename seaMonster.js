@@ -99,10 +99,19 @@ class SeaMonster{
             this.state = 3; // death
             this.velocity.x = 0;
             this.dead = true;
-            this.removeFromWorld = true;                      
+            // this.removeFromWorld = true;                      
         }
      this.PlatformCollision();
      this.mageCollide(TICK);
+    }
+    else{
+        this.velocity.x = 0;
+        this.velocity.y = 0;;
+        if(this.animations[3].isAlmostDone(TICK)){
+        this.game.mage.getMana();
+        this.game.camera.potionDrop(this.BB.x+this.BB.width/2, this.BB.y);
+        this.removeFromWorld = true;
+               }
     }
 //     else{
 //         let frame = this.animations[3][this.facing].currentFrame();
@@ -178,7 +187,7 @@ class SeaMonster{
                 if (that.velocity.y > 0) { 
                     if (((entity instanceof Ground) || (entity instanceof Platform) || (entity instanceof Wall) || (entity instanceof Tiles || (entity instanceof smallPlatforms))) && (that.lastBB.bottom <= entity.BB.top)){
                         that.velocity.y = 0;
-                        that.y = entity.BB.top - that.BB.height -60;
+                        that.y = entity.BB.top - that.BB.height -30;
                         that.updateBB();
                     }
                     if ((entity instanceof movingPlatforms) && (that.lastBB.bottom < entity.BB.top+6)){
@@ -190,17 +199,17 @@ class SeaMonster{
                     if(that.velocity.y < 0){
                         if ((entity instanceof Ground || entity instanceof Wall || entity instanceof Platform || entity instanceof movingPlatforms || (entity instanceof Tiles) || entity instanceof smallPlatforms) && (that.lastBB.top >= entity.BB.bottom)){
                             that.velocity.y = 0;
-                            that.y = entity.BB.bottom-60;
+                            that.y = entity.BB.bottom-30;
                             that.updateBB();
                         }
                     }
                     if (((entity instanceof Wall) || (entity instanceof Ground) || (entity instanceof Platform) || (entity instanceof smallPlatforms)) && that.BB.collide(entity.leftBB) && (that.lastBB.top < entity.BB.bottom-5)){
-                                that.x = entity.leftBB.left - that.BB.width-65;
+                                that.x = entity.leftBB.left - that.BB.width-55;
                                 that.velocity.x = 0;
                                 that.updateBB();
                     }
                     if (((entity instanceof Wall) || (entity instanceof Ground) || (entity instanceof Platform) || (entity instanceof Tiles) || (entity instanceof smallPlatforms)) && that.BB.collide(entity.rightBB) && (that.lastBB.top < entity.BB.bottom-5)){               
-                                that.x = entity.rightBB.right-65;
+                                that.x = entity.rightBB.right-55;
                                 that.velocity.x = 0; 
                                 that.updateBB(); 
                     }
