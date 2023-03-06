@@ -380,7 +380,8 @@ class Mage {
                         }
                     }
                     if (((entity instanceof Wall) || (entity instanceof Ground) || (entity instanceof Platform) || (entity instanceof smallPlatforms) || (entity instanceof verticalWall)) && that.BB.collide(entity.leftBB) && (that.lastBB.top < entity.BB.bottom-5)){
-                                that.x = entity.leftBB.left - PARAMS.PLAYERWIDTH-that.xBBOffset;
+                            console.log("Collision");    
+                            that.x = entity.leftBB.left - PARAMS.PLAYERWIDTH-that.xBBOffset;
                                 that.velocity.x = 0;
                                 that.updateBB();
                     }

@@ -8,15 +8,15 @@ class SceneManager {
         this.jumpItem = false;
         this.elapsedTime = 0;
         this.mageDead = false;
-        this.title = true;
-        this.initialCutSceen = true;
+        this.title = false;
+        this.initialCutSceen = false;
         this.animations = [];
         this.loadAnimations();
         this.damage = 10;
         this.specDamage = 50;
         this.level = null;
         this.initialSpawn = false;
-        this.loadLevel(levelTwo, this.title);
+        this.loadLevel(levelThree, this.title);
         this.myCursor = new Cursor(this.game);
         this.gameOver = false;
         this.checkpoint = false;
@@ -25,7 +25,6 @@ class SceneManager {
         this.clicks = 0;
         this.tempX = 0;
         this.tempY = 0;
-
     };
 
     clearEntities() {
@@ -118,7 +117,7 @@ class SceneManager {
                 this.game.addEntity(new verticalWall(this.game, tiles.x, tiles.y, tiles.width, tiles.height, tiles.div));
             }
         }
-        
+            
         if(level.wall){
             for (var i = 0; i < level.wall.length; i++) {
                 let wall = level.wall[i];
