@@ -470,7 +470,13 @@ var levelFour = {
     background4: "./sprites/Background layers/sky/4.png",
     
     platforms: [
-        {x:100, y:500, width: 47*3, height:15*3, divisorPlatforms:47*3},
+        {x:50, y:700, width: 47*3, height:15*3, divisorPlatforms:47*3},
+        {x:450, y:500, width: 47*3, height:15*3, divisorPlatforms:47*3},
+        {x:850, y:300, width: 47*3, height:15*3, divisorPlatforms:47*3},
+        {x:1250, y:100, width: 47*3, height:15*3, divisorPlatforms:47*3},
+        {x:1650, y:-100, width: 47*3, height:15*3, divisorPlatforms:47*3},
+        {x:2050, y:-300, width: 47*3, height:15*3, divisorPlatforms:47*3},
+        {x:2191, y:-300, width: 47*90, height:15*3, divisorPlatforms:47*3},
     ]
 
 };

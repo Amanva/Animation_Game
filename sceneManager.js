@@ -8,15 +8,15 @@ class SceneManager {
         this.jumpItem = false;
         this.elapsedTime = 0;
         this.mageDead = false;
-        this.title = true;
-        this.initialCutSceen = true;
+        this.title = false;
+        this.initialCutSceen = false;
         this.animations = [];
         this.loadAnimations();
         this.damage = 10;
         this.specDamage = 50;
         this.level = null;
         this.initialSpawn = false;
-        this.loadLevel(levelOne, this.title);
+        this.loadLevel(levelFour, this.title);
         this.myCursor = new Cursor(this.game);
         this.gameOver = false;
         this.checkpoint = false;
@@ -59,7 +59,7 @@ class SceneManager {
         this.game.mage.level3Ready = false;
         this.x = 0;
         this.y = 0;
-        this.mage.x = 50;
+        this.mage.x = 9000;
         this.mage.y = 400;
         this.game.addEntity(new Flag(this.game, 7610, -423));
         this.healthPotion = 0;
@@ -150,7 +150,7 @@ class SceneManager {
         this.game.addEntity(new BackGround(this.game, 0, 0, 1800, 800, this.level));       
     }
         else if(this.level === levelTwo) {
-            this.mage.x = 50;
+            this.mage.x = 10000;
             this.mage.y = 400;
             this.x = 0;
             this.y = 0;
@@ -351,8 +351,9 @@ class SceneManager {
         this.y = 0;
         // this.jumpItem = true;
         // this.game.mage.level3Ready = true;
-        // this.mage.x = 6200;
-        // this.mage.y = -600;
+        this.mage.x = 2250;
+        this.mage.y = -600;
+        this.game.addEntity(new Finalboss(this.game, 2680, -743));
         if(level.platforms){
             for (var i = 0; i < level.platforms.length; i++) {
                 let platform = level.platforms[i];
@@ -437,7 +438,7 @@ class SceneManager {
     potionDrop(x, y){
         const ran = randomInt(11); 
         const typeRan = randomInt(2);
-        if(ran >= 7){
+        if(ran >= 0){
             this.game.addEntityToBegin(new Potion(this.game, x, y, typeRan));
         }
     }
@@ -453,11 +454,14 @@ class SceneManager {
             if(this.game.click && (this.game.click.y > 224) && (this.game.click.y < 312) && (this.game.click.x > 733) && (this.game.click.x < 1056)){
                 // this.loadLevel(levelOne, false);
                 this.game.click = false;
-                let cutText = [["Long ago existed humans and a temple of mages."],["But then the forces of darkness invaded and destroyed the temple."]]
-                this.CutSceneIntro1 = new CutScene(this.game, cutText, 0, 0, "red",0,0);
-                // let cutText = [["Drops"]]
-                // this.CutSceneIntro1 = new CutScene2(this.game, cutText, 0, 0, "red",0,0);
+                // let cutText = [["Long ago existed humans and a temple of mages."],["But then the forces of darkness invaded and destroyed the temple."]]
+                // this.CutSceneIntro1 = new CutScene(this.game, cutText, 0, 0, "red",0,0);
+                // this.mage = new Mage(this.game, 50,400);
+                // this.game.addEntity(this.mage);
+                let cutText = [["Your journey awaits"]]
+                this.CutSceneIntro1 = new CutScene2(this.game, cutText, 0, 0, "red",0,0);
                 this.game.addEntity(this.CutSceneIntro1);
+
                 this.title = false;
             }
             else if(this.game.click && (this.game.click.y > 324) && (this.game.click.y < 412) && (this.game.click.x > 733) && (this.game.click.x < 1056)){
@@ -494,7 +498,7 @@ class SceneManager {
                 this.game.click = false;
                 // console.log("go in");
                 this.initialCutSceen = false;
-                this.loadLevel(levelOne, false)
+                this.loadLevel(levelTwo, false)
             }
         }
         if(this.credit){
