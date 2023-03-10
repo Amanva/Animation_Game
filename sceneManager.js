@@ -16,9 +16,10 @@ class SceneManager {
         this.specDamage = 50;
         this.level = null;
         this.initialSpawn = false;
-        this.loadLevel(levelFour, this.title);
+        this.loadLevel(levelThree, this.title);
         this.myCursor = new Cursor(this.game);
         this.gameOver = false;
+        this.playWinGame = false;
         this.checkpoint = false;
         this.timer = 0;
         this.credit = false;
@@ -242,7 +243,7 @@ class SceneManager {
     else if(this.level === levelThree){
         this.x = 0;
         this.y = 0;
-        this.mage.x = 50;
+        this.mage.x = 6500;
         this.mage.y = 400;
         this.jumpItem = true;
         this.game.mage.level2Ready = true;
@@ -655,10 +656,8 @@ class SceneManager {
         }
         else if(!this.title && !this.initialCutSceen){
         ctx.font = "50px Arial";
-        if(this.level === levelThree){
-        if(this.earthBoss.dead){
+        if((this.level === levelThree) && this.playWinGame){
            this.winGame(ctx);
-        }
         }
         this.heartMana.draw(ctx);
         ctx.font = '15px "Press Start 2P"';
