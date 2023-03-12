@@ -93,25 +93,25 @@ class SeaMonster{
     this.y += this.velocity.y * TICK;
     this.updateBB();
 
-    if (this.hp <= 0) {
-        this.state = 3; // death
-        // this.velocity.x = 0;
-        this.dead = true;
-        // this.removeFromWorld = true;                      
-    }
+
     if(!this.dead){
+        if (this.hp <= 0) {
+            this.state = 3; // death
+            this.velocity.x = 0;
+            this.dead = true;
+            // this.removeFromWorld = true;                      
+        }
      this.PlatformCollision();
      this.mageCollide(TICK);
     }
     else{
-        // console.log(this.state);
         this.velocity.x = 0;
         this.velocity.y = 0;;
         if(this.animations[3][this.facing].isAlmostDone(TICK)){
         this.game.mage.getMana();
         this.game.camera.potionDrop(this.BB.x+this.BB.width/2, this.BB.y);
         this.removeFromWorld = true;
-        }
+               }
     }
 //     else{
 //         let frame = this.animations[3][this.facing].currentFrame();

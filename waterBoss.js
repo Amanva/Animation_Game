@@ -7,8 +7,8 @@ class WaterBoss{
         // this.spritesheetLeft = assetMangager.getAsset("./sprites/waterLevel/hydra_left.png");
         this.spritesheetLeft = assetMangager.getAsset("./sprites/waterLevel/pirate.png");
         this.velocity = { x: 0, y: 0 };
-        this.hp = 10;
-        this.maxHP = 10; // 350
+        this.hp = 350;
+        this.maxHP = 350;
         this.enemHealthBar = new HealthBar(this.game, this);
         this.fallAcc = 300;
         this.state = 0;
@@ -189,7 +189,7 @@ this.animations[3] = new Animator(this.spritesheetLeft, 32, 30, 31, 15, 6, 0.1, 
             
         }); //end of forEach
         if(this.animations[1].isAlmostDone(TICK)){
-            console.log("print");
+            // console.log("print");
             this.game.addEntityToBegin(new Item(this.game, this.x, this.y-30, 1));
             this.game.addEntityToBegin(new Portal(this.game, 10464, 130, levelThree));
             this.removeFromWorld = true; 

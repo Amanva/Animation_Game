@@ -19,7 +19,6 @@ class SceneManager {
         this.loadLevel(levelThree, this.title);
         this.myCursor = new Cursor(this.game);
         this.gameOver = false;
-        this.playWinGame = false;
         this.checkpoint = false;
         this.timer = 0;
         this.credit = false;
@@ -50,7 +49,6 @@ class SceneManager {
             this.game.addEntity(this.mage);
             this.initialSpawn = true;
         }
-        
         if(this.level === levelOne){
             // this.lastMage = new Mage(this.game, 50,300);
         // this.damage = 10;
@@ -59,7 +57,7 @@ class SceneManager {
         this.game.mage.level3Ready = false;
         this.x = 0;
         this.y = 0;
-        this.mage.x = 9000;
+        this.mage.x = 50;
         this.mage.y = 400;
         this.game.addEntity(new Flag(this.game, 7610, -423));
         this.healthPotion = 0;
@@ -144,16 +142,15 @@ class SceneManager {
             this.mage.velocity = { x: 0, y: 0 };
         this.game.addEntity(new Sign(this.game, 700, 670, 15, 45, 10, "Controls: A-left, D-right, click-Basic attack, Num1-special attack, E-health potion, Q-mana potion"));
         this.game.addEntity(new Sign(this.game, 2700, 70, 6, 40, 1, "How do I go through?"));
-        this.game.addEntity(new Sign(this.game, 3092, -170, 50, 40, 1, "Tricky Jump"));
         this.game.addEntity(new Sign(this.game, 302, -288, 10, 40, 1, "What does this do?"));
         this.game.addEntity(new Sign(this.game, 7300, 670, 43, 40, 1, "Up I must go"));
         this.game.addEntity(new BackGround(this.game, 0, 0, 1800, 800, this.level));       
     }
         else if(this.level === levelTwo) {
-            this.mage.x = 10000;
-            this.mage.y = 400;
             this.x = 0;
             this.y = 0;
+            this.mage.x = 50;
+            this.mage.y = 400;
             this.game.mage.level2Ready = true;
             // this.game.addEntity(new Cave(this.game, 11030, 363, 1031, 439));
             //  this.game.addEntity(new SeaMonster(this.game, 690, 250));
@@ -242,17 +239,16 @@ class SceneManager {
     else if(this.level === levelThree){
         this.x = 0;
         this.y = 0;
-        this.mage.x = 6500;
-        this.mage.y = 400;
         this.jumpItem = true;
         this.game.mage.level2Ready = true;
         this.game.mage.level3Ready = true;
+        this.mage.x = 50;
+        this.mage.y = 400;
         // this.mage.x = 50;
         // this.mage.y = 400;
-        this.game.addEntity(new Flag(this.game, 6300, 700));
-        // this.game.addEntity(new Flag(this.game, 3000, 700));
         this.earthBoss = new EarthBoss(this.game, 7500, 607);
         this.game.addEntity(this.earthBoss);
+        this.game.addEntity(new Flag(this.game, 6300, 700));
         if(level.boar){
             for (var i = 0; i < level.boar.length; i++) {
                 let boar = level.boar[i];
@@ -341,8 +337,7 @@ class SceneManager {
         this.game.addEntity(new Sign(this.game, 6500, 670, 43, 35, 3, "The Minatour  awaits you!"));
         this.game.addEntity(new Sign(this.game, 6700, 670, 48, 30, 4, "You're gonna  need this  potion"));
         this.game.addEntity(new Potion(this.game, 6800, 670, 0));
-        // this.x = 0;
-        // this.y = 0;
+
         this.game.addEntity(new BackGround(this.game, 0, 0, 1800, 800, this.level));
         
     }
@@ -351,9 +346,8 @@ class SceneManager {
         this.y = 0;
         // this.jumpItem = true;
         // this.game.mage.level3Ready = true;
-        this.mage.x = 2250;
-        this.mage.y = -600;
-        this.game.addEntity(new Finalboss(this.game, 2680, -743));
+        // this.mage.x = 6200;
+        // this.mage.y = -600;
         if(level.platforms){
             for (var i = 0; i < level.platforms.length; i++) {
                 let platform = level.platforms[i];
@@ -384,35 +378,18 @@ class SceneManager {
         // this.mage = this.lastMage;
         if(this.mageDead){
             // console.log(this.check.savePlayer())
-            // console.log("gggg");
             if(this.checkpoint){
                 this.mage = new Mage(this.game, 50,400);
                 this.mage.x = this.tempX;
                 this.mage.y = this.tempY;
-                // this.mage.curMana = 100;
                 this.healthPotion = 2;
-                if(this.level === levelTwo){
-                    this.game.mage.level2Ready = true;
-                }
-                else if(this.level === levelThree){
-                    this.game.mage.level2Ready = true;
-                    this.game.mage.level3Ready = true;
-                }
                 this.mageDead = false;
                 this.checkpoint = false;
                 this.game.addEntityToBegin(this.mage);
-                // console.log(this.mage.x, this.mage.y)
+                console.log(this.mage.x, this.mage.y)
             }
             else{
-                this.mage = new Mage(this.game, 50,400);
-            // this.mage = new Mage(this.game, 50,400);
-            if(this.level === levelTwo){
-                this.game.mage.level2Ready = true;
-            }
-            else if(this.level === levelThree){
-                this.game.mage.level2Ready = true;
-                this.game.mage.level3Ready = true;
-            }
+            this.mage = new Mage(this.game, 50,400);
             this.mageDead = false;
             this.game.addEntityToBegin(this.mage);
             }
@@ -438,7 +415,7 @@ class SceneManager {
     potionDrop(x, y){
         const ran = randomInt(11); 
         const typeRan = randomInt(2);
-        if(ran >= 0){
+        if(ran >= 7){
             this.game.addEntityToBegin(new Potion(this.game, x, y, typeRan));
         }
     }
@@ -454,14 +431,12 @@ class SceneManager {
             if(this.game.click && (this.game.click.y > 224) && (this.game.click.y < 312) && (this.game.click.x > 733) && (this.game.click.x < 1056)){
                 // this.loadLevel(levelOne, false);
                 this.game.click = false;
-                // let cutText = [["Long ago existed humans and a temple of mages."],["But then the forces of darkness invaded and destroyed the temple."]]
-                // this.CutSceneIntro1 = new CutScene(this.game, cutText, 0, 0, "red",0,0);
-                // this.mage = new Mage(this.game, 50,400);
-                // this.game.addEntity(this.mage);
-                let cutText = [["Your journey awaits"]]
-                this.CutSceneIntro1 = new CutScene2(this.game, cutText, 0, 0, "red",0,0);
+                let cutText = [["Long ago existed humans and a temple of mages."],["But then the forces of darkness invaded and destroyed the temple."]]
+                // // let cutText = [["The world is in ruin, you are the only one that can stop the darkness."], ["Go forth The Last Magus and defeat the evil"]];
+                this.CutSceneIntro1 = new CutScene(this.game, cutText, 0, 0, "red",0,0);
+                // let cutText = [["Fighting to protect his world"], ["from being consumed"]]
+                // this.CutSceneIntro1 = new CutScene2(this.game, cutText, 0, 0, "red",0,0);
                 this.game.addEntity(this.CutSceneIntro1);
-
                 this.title = false;
             }
             else if(this.game.click && (this.game.click.y > 324) && (this.game.click.y < 412) && (this.game.click.x > 733) && (this.game.click.x < 1056)){
@@ -498,7 +473,7 @@ class SceneManager {
                 this.game.click = false;
                 // console.log("go in");
                 this.initialCutSceen = false;
-                this.loadLevel(levelTwo, false)
+                this.loadLevel(levelOne, false)
             }
         }
         if(this.credit){
@@ -516,7 +491,6 @@ class SceneManager {
             //     console.log("GAME OVER");
                 
             // }
-            // console.log(this.game.mage.level2Ready);
         this.heartMana.update();
         let midpoint = PARAMS.CANVAS_WIDTH/2 - PARAMS.PLAYERWIDTH / 2;
         if ((this.mage.x > midpoint) && (this.mage.x + midpoint <= 11000)) this.x = this.mage.x - midpoint;
@@ -655,8 +629,10 @@ class SceneManager {
         }
         else if(!this.title && !this.initialCutSceen){
         ctx.font = "50px Arial";
-        if((this.level === levelThree) && this.playWinGame){
+        if(this.level === levelThree){
+        if(this.earthBoss.dead){
            this.winGame(ctx);
+        }
         }
         this.heartMana.draw(ctx);
         ctx.font = '15px "Press Start 2P"';

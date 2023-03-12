@@ -30,7 +30,7 @@ var levelOne = {
         {x:900, y:200, width: 256, height:64, divisorPlatforms:256},
         // {x:1500, y:400, width: 256, height:64, divisorPlatforms:256},
         {x:2000, y:400, width: 1024, height:64, divisorPlatforms:256},
-        {x:2001, y:150, width: 768, height:64, divisorPlatforms:256},
+        {x:2000, y:150, width: 768, height:64, divisorPlatforms:256},
 
         //second area L1
         {x:3600 ,y:500, width: 256, height:64, divisorPlatforms:256},
@@ -470,13 +470,7 @@ var levelFour = {
     background4: "./sprites/Background layers/sky/4.png",
     
     platforms: [
-        {x:50, y:700, width: 47*3, height:15*3, divisorPlatforms:47*3},
-        {x:450, y:500, width: 47*3, height:15*3, divisorPlatforms:47*3},
-        {x:850, y:300, width: 47*3, height:15*3, divisorPlatforms:47*3},
-        {x:1250, y:100, width: 47*3, height:15*3, divisorPlatforms:47*3},
-        {x:1650, y:-100, width: 47*3, height:15*3, divisorPlatforms:47*3},
-        {x:2050, y:-300, width: 47*3, height:15*3, divisorPlatforms:47*3},
-        {x:2191, y:-300, width: 47*90, height:15*3, divisorPlatforms:47*3},
+        {x:100, y:500, width: 47*3, height:15*3, divisorPlatforms:47*3},
     ]
 
 };
