@@ -621,14 +621,9 @@ class SceneManager {
     };
 
     draw(ctx) {
-        if(!this.game.activeCanvas && !this.title && !this.initialCutSceen){
-            ctx.save();
-            ctx.font = '60px "Press Start 2P"';
-            ctx.fillStyle = "Black";
-            ctx.fillText("Paused!",PARAMS.CANVAS_WIDTH/2-180,PARAMS.CANVAS_HEIGHT/2);
-            ctx.fillText("Paused!",PARAMS.CANVAS_WIDTH/2-177,PARAMS.CANVAS_HEIGHT/2+3);
-            ctx.restore();
-        }       
+        // if(this.game.inCanvas){
+        //     this.myCursor.draw(ctx); 
+        // }       
         if(this.title){
             this.makeTitle(ctx);
         }

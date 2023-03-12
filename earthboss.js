@@ -243,9 +243,10 @@ class EarthBoss {
             console.log(this.velocity.y);
             if (this.animations[6][this.facing].isAlmostDone(TICK)) {
                 this.game.addEntityToBegin(new Item(this.game, this.x + 300, this.y + 100, 0));
-                this.removeFromWorld = true;     
+                this.removeFromWorld = true;
+                
             }
-        } 
+        }
 
 
     };
