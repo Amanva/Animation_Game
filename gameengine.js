@@ -22,7 +22,7 @@ class GameEngine {
         this.click = null;
         this.mouse = null;
         this.wheel = null;
-        this.inCanvas = true;
+        this.activeCanvas = true;
         this.keys = {};
         // Options and the Details
         this.options = options || {
@@ -179,17 +179,12 @@ class GameEngine {
         }, false);
         
         function isFocused() {
-            const elem = document.getElementById("gameWorld");
-    
-            if (elem === document.activeElement) {
-                //console.log("focused gained")
-                that.inCanvas = true;
+            if (document.getElementById("gameWorld") === document.activeElement) {
+                that.activeCanvas = true;
             }
             else {
-                //console.log("focused lost")
-                that.inCanvas = false;
+                that.activeCanvas = false;
             }
-            // console.log(that.inCanvas);
         }
         setInterval(isFocused, 300);
     };
@@ -217,6 +212,10 @@ class GameEngine {
     };
 
     update() {
+        if(!this.activeCanvas){
+            this.gamePaused();
+        }
+        else{
         let entitiesCount = this.entities.length;
 
         for (let i = 0; i < entitiesCount; i++) {
@@ -232,8 +231,16 @@ class GameEngine {
                 this.entities.splice(i, 1);
             }
         }
+    }
+
     };
 
+    gamePaused(){
+        this.up = false;
+        this.down = false;
+        this.left = false;
+        this.right = false;
+    }
 
     loop() {
         this.clockTick = this.timer.tick();
