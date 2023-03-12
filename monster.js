@@ -176,7 +176,7 @@ for(var l = 0; l <= 3; l++){
                         that.updateBB();
                     }
                     if ((entity instanceof movingPlatforms) && (that.lastBB.bottom < entity.BB.top+6)){
-                        that.y = entity.BB.top - that.BB.height;
+                        that.y = entity.BB.top - that.BB.height-60;
                         that.velocity.y = 0;
                         that.updateBB();
                     }
@@ -188,23 +188,23 @@ for(var l = 0; l <= 3; l++){
                             that.updateBB();
                         }
                     }
-                    if (((entity instanceof Wall) || (entity instanceof Ground) || (entity instanceof Platform) || (entity instanceof smallPlatforms)) && that.BB.collide(entity.leftBB) && (that.lastBB.top < entity.BB.bottom-5)){
+                    if (((entity instanceof Wall) || (entity instanceof Ground) || (entity instanceof Platform) || (entity instanceof smallPlatforms) || (entity instanceof verticalWall)) && that.BB.collide(entity.leftBB) && (that.lastBB.top < entity.BB.bottom-5)){
                                 that.x = entity.leftBB.left - that.BB.width-65;
                                 that.velocity.x = 0;
                                 that.updateBB();
                     }
-                    if (((entity instanceof Wall) || (entity instanceof Ground) || (entity instanceof Platform) || (entity instanceof Tiles) || (entity instanceof smallPlatforms)) && that.BB.collide(entity.rightBB) && (that.lastBB.top < entity.BB.bottom-5)){               
+                    if (((entity instanceof Wall) || (entity instanceof Ground) || (entity instanceof Platform) || (entity instanceof Tiles) || (entity instanceof smallPlatforms) || (entity instanceof verticalWall)) && that.BB.collide(entity.rightBB) && (that.lastBB.top < entity.BB.bottom-5)){               
                                 that.x = entity.rightBB.right-65;
                                 that.velocity.x = 0; 
                                 that.updateBB(); 
                     }
                     if (((entity instanceof movingPlatforms)) && (that.lastBB.left >= entity.BB.right) && (that.lastBB.top < entity.BB.bottom-5)){               
-                        that.x = entity.rightBB.right - that.xBBOffset;
+                        that.x = entity.rightBB.right - that.lastBB.width;
                         that.velocity.x = 0; 
                         that.updateBB(); 
                     }
                     if (((entity instanceof movingPlatforms)) && (that.lastBB.right <= entity.BB.left) && (that.lastBB.top < entity.BB.bottom-5)){               
-                        that.x = entity.leftBB.left - PARAMS.PLAYERWIDTH-that.xBBOffset;
+                        that.x = entity.leftBB.left - that.lastBB.width;
                         that.velocity.x = 0; 
                         that.updateBB(); 
                     }

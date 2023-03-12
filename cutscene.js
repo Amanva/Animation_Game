@@ -50,7 +50,7 @@ class CutScene {
 class CutScene2 {
   constructor(game, textArray, x, y, color, offsetX, offsetY) {
       Object.assign(this, { game, textArray, x, y, color, offsetX, offsetY });
-      this.font = '40px "Press Start 2P"'; // Font size and type
+      this.font = '60px "Press Start 2P"'; // Font size and type
   this.padding = 10; // Padding around text
   this.boxWidth = 400; // Width of text box
   this.boxHeight = 100; // Height of text box
