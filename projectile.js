@@ -49,7 +49,7 @@ class Projectile{
     };
     getDmg() {
         let dmg = this.game.camera.damage;
-        console.log(dmg);
+        // console.log(dmg);
         assetMangager.playAsset("./sounds/sfx/playerhit.mp3");
         return dmg;
     }
@@ -113,7 +113,6 @@ class FireBall{
                     that.game.addEntityToBegin(new DamageText(that.game, that.getSpecDmg(), entity.BB.x+(entity.BB.width/2), entity.BB.y, "red"));
                     }
                     that.removeFromWorld = true;
-                    console.log("HIT2");
                 }
 
             }
@@ -189,7 +188,6 @@ class Earth{
                     that.game.addEntityToBegin(new DamageText(that.game, that.getSpecDmg(), entity.BB.x+(entity.BB.width/2), entity.BB.y, "red"));
                     }
                     that.removeFromWorld = true;
-                    console.log("HIT2");
                 }
             }
             
@@ -282,7 +280,6 @@ class WaterTornado{
                     that.game.addEntityToBegin(new DamageText(that.game, that.getSpecDmg(), entity.BB.x+(entity.BB.width/2), entity.BB.y, "red"));
                     }
                     that.removeFromWorld = true;
-                    console.log("HIT2");
                 }
             }
             

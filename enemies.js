@@ -165,7 +165,7 @@ class ChainBot {
                             that.updateBB();
                         }
                         if ((entity instanceof movingPlatforms) && (that.lastBB.bottom < entity.BB.top+6)){
-                            that.y = entity.BB.top - that.BB.height;
+                            that.y = entity.BB.top - that.BB.height-20;
                             that.velocity.y = 0;
                             that.updateBB();
                         }
@@ -178,12 +178,12 @@ class ChainBot {
                             }
                         }
                         if (((entity instanceof Wall) || (entity instanceof Ground) || (entity instanceof Platform) || (entity instanceof smallPlatforms)) && that.BB.collide(entity.leftBB) && (that.lastBB.top < entity.BB.bottom-5)){
-                                    that.x = entity.leftBB.left - that.BB.width-65;
+                                    that.x = entity.leftBB.left - that.BB.width-140;
                                     that.velocity.x = 0;
                                     that.updateBB();
                         }
                         if (((entity instanceof Wall) || (entity instanceof Ground) || (entity instanceof Platform) || (entity instanceof Tiles) || (entity instanceof smallPlatforms)) && that.BB.collide(entity.rightBB) && (that.lastBB.top < entity.BB.bottom-5)){               
-                                    that.x = entity.rightBB.right-65;
+                                    that.x = entity.rightBB.right-140;
                                     that.velocity.x = 0; 
                                     that.updateBB(); 
                         }

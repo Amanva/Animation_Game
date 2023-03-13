@@ -58,7 +58,7 @@ var levelOne = {
 
         {x:7600 ,y:700, width: 63 , height:17, div: 63},
         {x:7450 ,y:700, width: 63 , height:17, div: 63},
-        {x:7300 ,y:-300, width: 63 , height:17, div: 63},
+        {x:7200 ,y:-300, width: 63 , height:17, div: 63},
         {x:7450 ,y:200, width: 63 , height:17, div: 63},
         {x:7400 ,y:-250, width: 63 , height:17, div: 63},    
         {x:7600 ,y:-380, width: 63 , height:17, div: 63},    

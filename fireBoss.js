@@ -14,9 +14,9 @@ class fireBoss{
         this.facing = 0; //0=left, 1 = right
         this.state = 1; // 0 = idle, 1 = walking , 2 = attacking, 3 = hit, 4 = death, 5 = spawn, 6 = jump, 7 = fire attack, 8 = magic attack
         this.dead = false;
-        this.hp = 10;
+        this.hp = 250;
         this.healthbar = new HealthBar(this.game, this);
-        this.maxHP = 10; // 250
+        this.maxHP = 250; // 250
         this.hit = false;
         this.attackCoolDown = 0;
         this.attackFrameCD = 0;
@@ -616,14 +616,46 @@ class Slime{
             }
             
             if (entity.BB && that.BB.collide(entity.BB)) {
-                if (that.velocity.y >= 0) { 
-                    if ((entity instanceof Ground) && (that.lastBB.bottom >= entity.BB.top) ){
-                        that.y = entity.BB.top-105;
+                if (that.velocity.y > 0) { 
+                    if (((entity instanceof Ground) || (entity instanceof Platform) || (entity instanceof Wall) || (entity instanceof Tiles || (entity instanceof smallPlatforms))) && (that.lastBB.bottom <= entity.BB.top)){
+                        that.velocity.y = 0;
+                        that.y = entity.BB.top - 105;
+                        that.updateBB();
+                    }
+                    if ((entity instanceof movingPlatforms) && (that.lastBB.bottom < entity.BB.top+6)){
+                        that.y = entity.BB.top - 105
                         that.velocity.y = 0;
                         that.updateBB();
+                    }
+                    } 
+                    if(that.velocity.y < 0){
+                        if ((entity instanceof Ground || entity instanceof Wall || entity instanceof Platform || entity instanceof movingPlatforms || (entity instanceof Tiles) || entity instanceof smallPlatforms) && (that.lastBB.top >= entity.BB.bottom)){
+                            that.velocity.y = 0;
+                            that.y = entity.BB.bottom-60;
+                            that.updateBB();
                         }
                     }
-            }
+                    if (((entity instanceof Wall) || (entity instanceof Ground) || (entity instanceof Platform) || (entity instanceof smallPlatforms)) && that.BB.collide(entity.leftBB) && (that.lastBB.top < entity.BB.bottom-5)){
+                                that.x = entity.leftBB.left - that.BB.width-25;
+                                that.velocity.x = 0;
+                                that.updateBB();
+                    }
+                    if (((entity instanceof Wall) || (entity instanceof Ground) || (entity instanceof Platform) || (entity instanceof Tiles) || (entity instanceof smallPlatforms)) && that.BB.collide(entity.rightBB) && (that.lastBB.top < entity.BB.bottom-5)){               
+                                that.x = entity.rightBB.right-25;
+                                that.velocity.x = 0; 
+                                that.updateBB(); 
+                    }
+                    if (((entity instanceof movingPlatforms)) && (that.lastBB.left >= entity.BB.right) && (that.lastBB.top < entity.BB.bottom-5)){               
+                        that.x = entity.rightBB.right - that.xBBOffset;
+                        that.velocity.x = 0; 
+                        that.updateBB(); 
+                    }
+                    if (((entity instanceof movingPlatforms)) && (that.lastBB.right <= entity.BB.left) && (that.lastBB.top < entity.BB.bottom-5)){               
+                        that.x = entity.leftBB.left - PARAMS.PLAYERWIDTH-that.xBBOffset;
+                        that.velocity.x = 0; 
+                        that.updateBB(); 
+                    }
+                }
         });
         if(this.hp <= 0){
             this.velocity.x = 0;

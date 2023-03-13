@@ -117,7 +117,7 @@ class Mage {
         this.velocity.y += this.fallAcc * TICK;
         if(this.dead){
             this.deadPlayer(TICK, DE_ACC);
-            console.log(this.facing);
+            // console.log(this.facing);
             if(this.animations[this.states.death][this.facing].isAlmostDone(TICK)){
                 this.game.camera.mageDead = true;
                 this.removeFromWorld = true;
@@ -380,7 +380,7 @@ class Mage {
                         }
                     }
                     if (((entity instanceof Wall) || (entity instanceof Ground) || (entity instanceof Platform) || (entity instanceof smallPlatforms) || (entity instanceof verticalWall)) && that.BB.collide(entity.leftBB) && (that.lastBB.top < entity.BB.bottom-5)){
-                            console.log("Collision");    
+                            // console.log("Collision");    
                             that.x = entity.leftBB.left - PARAMS.PLAYERWIDTH-that.xBBOffset;
                                 that.velocity.x = 0;
                                 that.updateBB();

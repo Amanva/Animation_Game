@@ -102,7 +102,6 @@ for(var l = 0; l <= 3; l++){
         this.velocity.x = 0;
         this.velocity.y = 0;
         let frame = this.animations[3][this.facing].currentFrame();
-        console.log(frame);
        if(frame >= 3){
         this.game.mage.getMana();
         this.game.camera.potionDrop(this.BB.x+this.BB.width/2, this.BB.y);
@@ -216,7 +215,6 @@ loseHealth(damageRecieved){
 
 };
  draw(ctx) {
-    console.log(this.facing)
     if(this.hp >= 0){
     this.healthBar.draw(ctx);
     }

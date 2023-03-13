@@ -23,14 +23,17 @@ class Portal {
         this.updateBB();
         var that = this;
         that.game.entities.forEach(function (entity) {
-            if ((entity instanceof Mage)  && entity.BB && that.BB.collide(entity.BB) && !that.game.camera.earthBoss.removeFromWorld) {
-                // that.game.camera.checkpoint = false;
-                that.game.camera.loadLevel(that.level, false);
-                // this.game.startInput();
-            }
-            else if((entity instanceof Mage)  && entity.BB && that.BB.collide(entity.BB) && that.game.camera.earthBoss.removeFromWorld){
+            if((entity instanceof Mage)  && entity.BB && that.BB.collide(entity.BB) && that.game.camera.earthBossDead){
                     that.game.camera.playWinGame = true;
+                    
                 }
+            else if ((entity instanceof Mage)  && entity.BB && that.BB.collide(entity.BB) && !that.game.camera.earthBossDead) {
+                    // that.game.camera.checkpoint = false;
+                    that.game.camera.checkpoint = false;
+                    that.game.camera.loadLevel(that.level, false);
+                    // this.game.startInput();
+                }
+            
         
            
         }); //end of forEach

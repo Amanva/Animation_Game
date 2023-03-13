@@ -8,15 +8,15 @@ class SceneManager {
         this.jumpItem = false;
         this.elapsedTime = 0;
         this.mageDead = false;
-        this.title = false;
-        this.initialCutSceen = false;
+        this.title = true;
+        this.initialCutSceen = true;
         this.animations = [];
         this.loadAnimations();
         this.damage = 10;
         this.specDamage = 50;
         this.level = null;
         this.initialSpawn = false;
-        this.loadLevel(levelThree, this.title);
+        this.loadLevel(levelOne, this.title);
         this.myCursor = new Cursor(this.game);
         this.gameOver = false;
         this.playWinGame = false;
@@ -26,6 +26,7 @@ class SceneManager {
         this.clicks = 0;
         this.tempX = 0;
         this.tempY = 0;
+        this.earthBossDead = false;
     };
 
     clearEntities() {
@@ -59,7 +60,7 @@ class SceneManager {
         this.game.mage.level3Ready = false;
         this.x = 0;
         this.y = 0;
-        this.mage.x = 9000;
+        this.mage.x = 50;
         this.mage.y = 400;
         this.game.addEntity(new Flag(this.game, 7610, -423));
         this.healthPotion = 0;
@@ -150,7 +151,7 @@ class SceneManager {
         this.game.addEntity(new BackGround(this.game, 0, 0, 1800, 800, this.level));       
     }
         else if(this.level === levelTwo) {
-            this.mage.x = 10000;
+            this.mage.x = 50;
             this.mage.y = 400;
             this.x = 0;
             this.y = 0;
@@ -242,7 +243,7 @@ class SceneManager {
     else if(this.level === levelThree){
         this.x = 0;
         this.y = 0;
-        this.mage.x = 6500;
+        this.mage.x = 50;
         this.mage.y = 400;
         this.jumpItem = true;
         this.game.mage.level2Ready = true;
@@ -351,7 +352,7 @@ class SceneManager {
         this.y = 0;
         // this.jumpItem = true;
         // this.game.mage.level3Ready = true;
-        this.mage.x = 2250;
+        this.mage.x = 50;
         this.mage.y = -600;
         this.game.addEntity(new Finalboss(this.game, 2680, -743));
         if(level.platforms){
@@ -438,7 +439,7 @@ class SceneManager {
     potionDrop(x, y){
         const ran = randomInt(11); 
         const typeRan = randomInt(2);
-        if(ran >= 0){
+        if(ran >= 7){
             this.game.addEntityToBegin(new Potion(this.game, x, y, typeRan));
         }
     }
@@ -454,12 +455,12 @@ class SceneManager {
             if(this.game.click && (this.game.click.y > 224) && (this.game.click.y < 312) && (this.game.click.x > 733) && (this.game.click.x < 1056)){
                 // this.loadLevel(levelOne, false);
                 this.game.click = false;
-                // let cutText = [["Long ago existed humans and a temple of mages."],["But then the forces of darkness invaded and destroyed the temple."]]
-                // this.CutSceneIntro1 = new CutScene(this.game, cutText, 0, 0, "red",0,0);
+                let cutText = [["Long ago existed humans and a temple of mages."],["But then the forces of darkness invaded and destroyed the temple."]]
+                this.CutSceneIntro1 = new CutScene(this.game, cutText, 0, 0, "red",0,0);
                 // this.mage = new Mage(this.game, 50,400);
                 // this.game.addEntity(this.mage);
-                let cutText = [["Your journey awaits"]]
-                this.CutSceneIntro1 = new CutScene2(this.game, cutText, 0, 0, "red",0,0);
+                // let cutText = [["Your journey awaits"]]
+                // this.CutSceneIntro1 = new CutScene2(this.game, cutText, 0, 0, "red",0,0);
                 this.game.addEntity(this.CutSceneIntro1);
 
                 this.title = false;
@@ -498,7 +499,7 @@ class SceneManager {
                 this.game.click = false;
                 // console.log("go in");
                 this.initialCutSceen = false;
-                this.loadLevel(levelTwo, false)
+                this.loadLevel(levelOne, false)
             }
         }
         if(this.credit){
@@ -650,6 +651,14 @@ class SceneManager {
         // if(this.game.inCanvas){
         //     this.myCursor.draw(ctx); 
         // }       
+        if(!this.game.activeCanvas && !this.title && !this.initialCutSceen){
+            ctx.save();
+            ctx.font = '60px "Press Start 2P"';
+            ctx.fillStyle = "Black";
+            ctx.fillText("Paused!",PARAMS.CANVAS_WIDTH/2-180,PARAMS.CANVAS_HEIGHT/2);
+            ctx.fillText("Paused!",PARAMS.CANVAS_WIDTH/2-177,PARAMS.CANVAS_HEIGHT/2+3);
+            ctx.restore();
+        }
         if(this.title){
             this.makeTitle(ctx);
         }

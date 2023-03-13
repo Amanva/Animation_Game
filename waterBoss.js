@@ -7,8 +7,8 @@ class WaterBoss{
         // this.spritesheetLeft = assetMangager.getAsset("./sprites/waterLevel/hydra_left.png");
         this.spritesheetLeft = assetMangager.getAsset("./sprites/waterLevel/pirate.png");
         this.velocity = { x: 0, y: 0 };
-        this.hp = 10;
-        this.maxHP = 10; // 350
+        this.hp = 350;
+        this.maxHP = 350; // 350
         this.enemHealthBar = new HealthBar(this.game, this);
         this.fallAcc = 300;
         this.state = 0;

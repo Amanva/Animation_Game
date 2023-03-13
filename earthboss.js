@@ -11,9 +11,9 @@ class EarthBoss {
         this.facing = 0; //0=left, 1 = right
         this.state = 1; // 0 = idle, 1 = walking , 2 = dash, 3 = slash, 4 = stab, 5 = spin
         this.dead = false;
-        this.hp = 10;
+        this.hp = 250;
         this.healthbar = new HealthBar(this.game, this);
-        this.maxHP = 10;
+        this.maxHP = 250;
         this.hit = false;
         this.attackCoolDown = 0;
         this.attackFrameCD = 0;
@@ -240,12 +240,13 @@ class EarthBoss {
             this.velocity.y = 0;
             this.dead = true;
             this.state = 6;
+        
             // console.log(this.velocity.y);
             if (this.animations[6][this.facing].isAlmostDone(TICK)) {
                 this.game.addEntityToBegin(new Portal(this.game, 8500, 430, levelThree));
                 this.game.addEntityToBegin(new Item(this.game, this.x + 300, this.y + 100, 0));
                 this.removeFromWorld = true;
-                
+                this.game.camera.earthBossDead = true;
             }
         }
 
@@ -259,7 +260,7 @@ class EarthBoss {
         this.lastJumpBB = this.JumpBB;
 
         this.JumpBB = new BoundingBox(this.x + 160, this.y + 280, 130, 20)
-        this.MageDetection = new BoundingBox(this.x - 500, this.y - 400, 2000, 900);
+        this.MageDetection = new BoundingBox(this.x - 850, this.y - 400, 2400, 900);
         this.AttackDetectionBB = new BoundingBox(this.x+30 , this.y + 90, 390, 220);
         this.BB = new BoundingBox(this.x + 150, this.y + 90, 150, 225);
         if (this.facing === 0) {
