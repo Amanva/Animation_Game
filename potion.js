@@ -1,18 +1,20 @@
 class Potion{
     constructor(game, x, y, type) {
         Object.assign(this, { game, x, y, type});
-        this.spritesheet = assetMangager.getAsset("./sprites/potion.png");
+        // this.spritesheet = assetMangager.getAsset("./sprites/potion.png");
+        
         this.animations = [];
         this.type;
         // this.textSize = '15px "Press Start 2P"';
         this.velocity = {x: 0, y: 0};
-        this.animations.push(new Animator(this.spritesheet, 0, 0, 16, 16, 1, 0.1, 0, 0, false, true, false));
-        this.animations.push(new Animator(this.spritesheet, 0, 16, 16, 16, 1, 0.1, 0, 0, false, true, false));
+        // this.animations.push(new Animator(this.spritesheet, 0, 0, 16, 16, 1, 0.1, 0, 0, false, true, false));
+        this.animations.push(new Animator(assetMangager.getAsset("./sprites/healthPotion.png"), 0, 0, 26, 31, 1, 0.1, 0, 0, false, true, false));
+        this.animations.push(new Animator(assetMangager.getAsset("./sprites/manaPotion.png"), 0, 0, 26, 31, 1, 0.1, 0, 0, false, true, false));
         this.updateBB();
     };
     updateBB() {
         this.lastBB = this.BB;
-        this.BB = new BoundingBox(this.x, this.y, 30, 30); 
+        this.BB = new BoundingBox(this.x+10, this.y, 34, 46); 
     };
     update(){
         const TICK = this.game.clockTick;
@@ -59,10 +61,10 @@ class Potion{
         // this.animations[1].drawFrame(this.game.clockTick, ctx, 5, 130, PARAMS.SCALE);
     // }
         if(this.type == 0){
-            this.animations[0].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, 2);
+            this.animations[0].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, 1.5);
         }
         else if(this.type == 1){
-            this.animations[1].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, 2);
+            this.animations[1].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, 1.5);
         }
     if(debug){
         ctx.strokeStyle = 'Red';

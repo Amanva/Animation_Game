@@ -8,7 +8,7 @@ class Item {
         // damage
         this.animations.push(new Animator(this.spritesheet,  14, 17, 35, 50, 1, 1, 0, 0, false, true, false));
         // double jump
-        this.animations.push(new Animator(this.iconSheet,  0, 289, 16, 16, 1, 1, 0, 0, false, true, false));
+        this.animations.push(new Animator(this.iconSheet,  14, 17, 35, 50, 1, 1, 0, 0, false, true, false));
         this.updateBB();
     }
 
@@ -18,7 +18,7 @@ class Item {
             this.BB = new BoundingBox(this.x, this.y, 35,40);
         }
         else if(this.type === 1){
-            this.BB = new BoundingBox(this.x, this.y,48,48);
+            this.BB = new BoundingBox(this.x, this.y,35,40);
         } 
     };
 
@@ -68,8 +68,8 @@ class Item {
         else if(this.type === 1){
         ctx.fillStyle = "white"; 
         ctx.font = '8px "Press Start 2P"';
-        ctx.fillText("double jump", this.x-this.game.camera.x-20, this.y-this.game.camera.y-10);
-            this.animations[1].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, 3); 
+        ctx.fillText("double jump", this.x-this.game.camera.x-30, this.y-this.game.camera.y-10);
+            this.animations[1].drawFrame(this.game.clockTick, ctx, this.x-this.game.camera.x, this.y-this.game.camera.y, 1); 
         }
         if (debug) {
             ctx.strokeStyle = 'red';

@@ -55,6 +55,7 @@ class SceneManager {
         if(this.level === levelOne){
             // this.lastMage = new Mage(this.game, 50,300);
         // this.damage = 10;
+        // this.game.addEntity(new Item(this.game, 400,400, 1));
         this.jumpItem = false;
         this.game.mage.level2Ready = false;
         this.game.mage.level3Ready = false;
@@ -544,9 +545,9 @@ class SceneManager {
         this.animations[0][0] = new Animator(assetMangager.getAsset("./sprites/mageRight.png"), 1491, 284, 80, 105, 1, 0.05, 0,0, false, true, false);
         this.animations[0][1] = new Animator(assetMangager.getAsset("./sprites/mageRight.png"), 1491, 284, 80, 105, 1, 0.05, 0,0, false, true, false);
         // health potion
-        this.animations[1][0] = new Animator(assetMangager.getAsset("./sprites/potion.png"), 0, 0, 16, 16, 1, 0.1, 0, 0, false, true, false);
+        this.animations[1][0] = new Animator(assetMangager.getAsset("./sprites/healthPotion.png"), 0, 0, 26, 31, 1, 0.1, 0, 0, false, true, false);
         // mana potion
-        this.animations[2][0] = new Animator(assetMangager.getAsset("./sprites/potion.png"), 0, 16, 16, 16, 1, 0.1, 0, 0, false, true, false);
+        this.animations[2][0] = new Animator(assetMangager.getAsset("./sprites/manaPotion.png"), 0, 0, 26, 31, 1, 0.1, 0, 0, false, true, false);
         // background level 1
         // this.animations[3][0] = new Animator(, 0, 16, 16, 16, 1, 0.1, 0, 0, false, true, false);
         this.animations[0][1].flipped = true;
@@ -671,9 +672,9 @@ class SceneManager {
         ctx.font = '15px "Press Start 2P"';
         ctx.fillStyle = "White";
         ctx.fillText("X "+ this.game.camera.healthPotion, 50, 110);
-        this.animations[1][0].drawFrame(this.game.clockTick, ctx, 5, 80, PARAMS.SCALE);
+        this.animations[1][0].drawFrame(this.game.clockTick, ctx, 5, 80, 1.5);
         ctx.fillText("X "+ this.game.camera.manaPotion, 50, 160);
-        this.animations[2][0].drawFrame(this.game.clockTick, ctx, 5, 130, PARAMS.SCALE);
+        this.animations[2][0].drawFrame(this.game.clockTick, ctx, 5, 130, 1.5);
         if(debug){
             let xV = "xP=" + Math.floor(this.game.mage.x);
             let yV = "yP=" + Math.floor(this.game.mage.y);

@@ -59,6 +59,8 @@ assetMangager.queueDownload("./sprites/enemies/chain_bot_attack_right.png");
 assetMangager.queueDownload("./sprites/enemies/chain_bot_attack_left.png");
 assetMangager.queueDownload("./sprites/enemies/chain_bot_hit.png");
 assetMangager.queueDownload("./sprites/enemies/chain_bot_death.png");
+assetMangager.queueDownload("./sprites/manaPotion.png");
+assetMangager.queueDownload("./sprites/healthPotion.png");
 assetMangager.queueDownload("./sprites/arms.png");
 // assetMangager.queueDownload("./sprites/enemies/slime.png")
 assetMangager.queueDownload("./sprites/airLevel/air.png");
