@@ -1,6 +1,6 @@
 /*
 chain bot enemy animation
-Uladzimir Hanevich
+Aman Vahora, Arashpreet Pandher, Uladzimir Hanevich, Mustfa
 TCSS491 winter 2023
 */
 class ChainBot {
