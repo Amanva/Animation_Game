@@ -4,7 +4,9 @@ Aman Vahora, Arashpreet Pandher, Uladzimir Hanevich, Kemeria Mustfa
 TCSS491 winter 2023
 */
 class ChainBot {
-    
+    /**
+    * This code is for initializing and declaring all the variables for this chainBot object.
+    */
     constructor(game, x, y){
         Object.assign(this, { game, x, y });
         this.game.chainBot = this;
