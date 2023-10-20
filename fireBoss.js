@@ -1,3 +1,8 @@
+/*
+chain bot enemy animation
+Aman Vahora, Arashpreet Pandher, Uladzimir Hanevich, Kemeria Mustfa
+TCSS491 winter 2023
+*/
 class fireBoss{
 
     constructor(game){
