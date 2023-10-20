@@ -1,10 +1,10 @@
 /*
 chain bot enemy animation
-Aman Vahora, Arashpreet Pandher, Uladzimir Hanevich, Mustfa
+Aman Vahora, Arashpreet Pandher, Uladzimir Hanevich, Kemeria Mustfa
 TCSS491 winter 2023
 */
 class ChainBot {
-
+    
     constructor(game, x, y){
         Object.assign(this, { game, x, y });
         this.game.chainBot = this;
